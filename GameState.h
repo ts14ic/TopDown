@@ -35,4 +35,15 @@ public:
     virtual ~GameState() {}
 };
 
+class StateIntro : public GameState {
+public:
+    StateIntro();
+    
+    virtual void handle_events();
+    virtual void handle_logic();
+    virtual void handle_render();
+private:
+    Texture _background;
+};
+
 #endif // GAMESTATE_H_INCLUDED
