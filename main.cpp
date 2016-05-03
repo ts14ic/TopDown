@@ -3,10 +3,16 @@
 #include "StopWatch.h"
 #include <SDL_timer.h>
 
+void load_media() {
+    textures("player_pistol").load("gfx/Player/pistol.png");
+}
+
 int main(int, char*[]) {
     if(!init_sdl()) {
         return -1;
     }
+    
+    load_media();
     
     currentStateID() = GState::intro;
     currentState().reset(new StateIntro);
