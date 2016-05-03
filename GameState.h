@@ -2,6 +2,7 @@
 #define GAMESTATE_H_INCLUDED
 
 #include "Texture.h"
+#include "GameObject.h"
 #include <memory>
 
 /* forward declarations begin */
@@ -57,6 +58,8 @@ private:
     Texture _texBackground;
     int const _levelWidth  = 800;
     int const _levelHeight = 600;
+    
+    Player _pl;
 };
 
 #endif // GAMESTATE_H_INCLUDED
