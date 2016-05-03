@@ -46,4 +46,17 @@ private:
     Texture _background;
 };
 
+class StateMoon : public GameState {
+public:
+    StateMoon();
+
+    virtual void handle_events();
+    virtual void handle_logic();
+    virtual void handle_render();
+private:
+    Texture _texBackground;
+    int const _levelWidth  = 800;
+    int const _levelHeight = 600;
+};
+
 #endif // GAMESTATE_H_INCLUDED

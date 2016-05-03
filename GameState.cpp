@@ -38,7 +38,11 @@ void change_state() {
         
         switch(nextStateID()) {
             case GState::intro:
-            // currentState().reset(new StateIntro());
+            currentState().reset(new StateIntro());
+            break;
+            
+            case GState::moon:
+            currentState().reset(new StateMoon());
             break;
             
             default:;

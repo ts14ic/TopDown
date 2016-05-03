@@ -18,6 +18,10 @@ void StateIntro::handle_events() {
                 case SDLK_q:
                 prepare_state(GState::exit);
                 break;
+                
+                case SDLK_RETURN:
+                case SDLK_ESCAPE:
+                prepare_state(GState::moon);
                 break;
             }
             break;
