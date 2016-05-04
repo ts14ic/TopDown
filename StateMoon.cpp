@@ -27,6 +27,10 @@ void StateMoon::handle_events() {
 
 void StateMoon::handle_logic() {
     _pl.handle_logic();
+    
+    for(auto& b : bullets()) {
+        b.handle_logic();
+    }
 }
 
 void StateMoon::handle_render() {
@@ -35,6 +39,10 @@ void StateMoon::handle_render() {
     _texBackground.render(0, 0);
     
     _pl.handle_render();
+    
+    for(auto& b : bullets()) {
+        b.handle_render();
+    }
     
     SDL_RenderPresent(renderer());
 }

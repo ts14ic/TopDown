@@ -13,3 +13,7 @@ void StopWatch::start() {
 unsigned StopWatch::get_ticks() const {
     return SDL_GetTicks() - _startedAt;
 }
+
+bool StopWatch::passed(unsigned ticks) const {
+    return get_ticks() >= ticks;
+}

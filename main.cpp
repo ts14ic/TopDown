@@ -5,6 +5,7 @@
 
 void load_media() {
     textures("player_pistol").load("gfx/Player/pistol.png");
+    textures("bullet").load("gfx/bullet.png");
 }
 
 int main(int, char*[]) {

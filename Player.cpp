@@ -7,6 +7,7 @@
 Player::Player(int x, int y)
 : _x(x), _y(y)
 {
+    _weapons[WEAPON_PISTOL].reset(new Pistol());
 }
 
 float Player::x() const { return _x; }
@@ -41,6 +42,10 @@ void Player::handle_events() {
             _state |= MOVES_RIGHT;
             break;
             
+            case SDLK_SPACE:
+            _state |= SHOOTS;
+            break;
+            
             default:;
         }
         break;
@@ -61,6 +66,10 @@ void Player::handle_events() {
             
             case SDLK_d:
             _state ^= MOVES_RIGHT;
+            break;
+            
+            case SDLK_SPACE:
+            _state ^= SHOOTS;
             break;
             
             default:;
@@ -91,6 +100,10 @@ void Player::handle_logic() {
     }
     if(_state & MOVES_RIGHT) {
         _x = _x + _speed;
+    }
+    
+    if(_state & SHOOTS) {
+        _weapons[_currentWeap]->shoot(*this);
     }
 }
 
