@@ -29,6 +29,8 @@ void Bullet::y(float y) { _y = y; };
 void Bullet::angle(float a) { _angle = a; }
 void Bullet::speed(float s) { _speed = s; }
 
+Circle Bullet::circle() const { return Circle(_x, _y, 2); }
+
 std::string Bullet::texName() const { return "bullet"; }
 
 void Bullet::handle_logic() {

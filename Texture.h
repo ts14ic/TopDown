@@ -35,9 +35,9 @@ public:
     void render(SDL_Point const& pos, SDL_Rect const& clip) const;
 
 private:
-    SDL_Texture* _tex;
-    int _w;
-    int _h;
+    SDL_Texture* _tex = nullptr;
+    int _w = 0;
+    int _h = 0;
 };
 
 Texture& textures(std::string const& name);

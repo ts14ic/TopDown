@@ -7,6 +7,8 @@
 Player::Player(int x, int y)
 : _x(x), _y(y)
 {
+    _hp = Player::defaultHp();
+    
     _weapons[WEAPON_PISTOL].reset(new Pistol());
 }
 
@@ -20,7 +22,23 @@ void Player::y(float y) { _y = y; }
 void Player::angle(float a) { _angle = a; }
 void Player::speed(float s) { _speed = s; }
 
+Circle Player::circle() const { return Circle(_x, _y, 30); }
+
 std::string Player::texName() const { return _tex; }
+
+int Player::hp() const { return _hp; }
+int Player::defaultHp() const { return 100; }
+int Player::dmg() const { return 0; }
+bool Player::dead() const {
+    return _hp <= 0;
+}
+
+void Player::damage(int v) {
+    if(v > 0 && _dmgCd.passed(500)) {
+        _hp -= v;
+        _dmgCd.start();
+    }
+}
 
 void Player::handle_events() {
     switch(gameEvent().type) {
@@ -109,4 +127,5 @@ void Player::handle_logic() {
 
 void Player::handle_render() {
     default_render();
+    default_render_health(SDL_Color{0, 0x77, 0, 0xFF});
 }

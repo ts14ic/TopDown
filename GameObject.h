@@ -7,6 +7,10 @@
 #include <vector>
 #include <memory>
 
+/* forward declarations begin */
+struct SDL_Color;
+/* forward declarations end */
+
 class Object {
 public:
     virtual float x() const = 0;
@@ -18,6 +22,12 @@ public:
     virtual void y(float v) = 0;
     virtual void angle(float a) = 0;
     virtual void speed(float s) = 0;
+    
+    virtual Circle circle() const = 0;
+    
+    bool collides(Object const& other) {
+        return ::collides(circle(), other.circle());
+    }
     
     virtual std::string texName() const = 0;
 
@@ -35,6 +45,19 @@ protected:
     }
 };
 
+class Damageable : public virtual Object {
+public:
+    virtual int hp() const = 0;
+    virtual int defaultHp() const = 0;
+
+    virtual int dmg() const = 0;
+    virtual void damage(int v) = 0;
+    
+    virtual bool dead() const = 0;
+protected:
+    void default_render_health(SDL_Color const& c) const;
+};
+
 class Weapon;
 
 class Bullet : public Object {
@@ -50,6 +73,8 @@ public:
     void y(float y);
     void angle(float a);
     void speed(float s);
+    
+    Circle circle() const;
     
     std::string texName() const;
     
@@ -99,7 +124,7 @@ private:
     StopWatch _cd;
 };
 
-class Player : public Object {
+class Player : public virtual Object, public Damageable {
 public:
     Player(int x, int y);
 
@@ -113,7 +138,15 @@ public:
     void angle(float a);
     void speed(float s);
     
+    Circle circle() const;
+    
     std::string texName() const;
+    
+    int hp() const;
+    int defaultHp() const;
+    int dmg() const;
+    bool dead() const;
+    void damage(int v);
     
     void handle_events();
     void handle_logic();
@@ -124,6 +157,9 @@ private:
     
     std::unique_ptr<Weapon> _weapons[WEAPON_TOTAL];
     int _currentWeap = WEAPON_PISTOL;
+    int _hp;
+    
+    StopWatch _dmgCd;
     
     enum {
         IDLE        = 0x0,

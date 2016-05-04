@@ -6,7 +6,6 @@
 #include <unordered_map>
 
 Texture::Texture()
-: _tex{nullptr}, _w{}, _h{}
 {}
 
 Texture::Texture(char const* path) {
@@ -28,7 +27,7 @@ void Texture::load(char const* path) {
     }
     
     SDL_Log("Loaded texture: %s.\n", path);
-    SDL_DestroyTexture(_tex);
+    if(_tex) SDL_DestroyTexture(_tex);
     _tex = newTex;
     _w = buf->w;
     _h = buf->h;
