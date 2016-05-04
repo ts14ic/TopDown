@@ -1,5 +1,6 @@
 #include "GameState.h"
 #include "sdlwrap.h"
+#include "Sound.h"
 #include <SDL_events.h>
 #include <SDL_render.h>
 
@@ -35,6 +36,8 @@ void StateMoon::handle_logic() {
 
 void StateMoon::handle_render() {
     SDL_RenderClear(renderer());
+
+    music("weather").play();
     
     _texBackground.render(0, 0);
     

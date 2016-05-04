@@ -1,6 +1,7 @@
 #include "sdlwrap.h"
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 int& screenWidth() {
     static int ret = 800;
@@ -54,6 +55,11 @@ bool init_sdl() {
     int IMG_flags = IMG_INIT_JPG | IMG_INIT_PNG;
     if(IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {
         SDL_Log("Failed IMG_Init. %s.\n", IMG_GetError());
+        return false;
+    }
+    
+    if(0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
+        SDL_Log("Failed Mix_OpenAudio. %s.\n", Mix_GetError());
         return false;
     }
     

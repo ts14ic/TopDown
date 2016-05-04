@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Sound.h"
 
 Pistol::Pistol()
 {
@@ -15,5 +16,7 @@ void Pistol::shoot(Object const& sender) {
         Bullet b(sender, *this);
         bullets().push_back(b);
         _cd.start();
+        
+        sounds("pistol_shot").play();
     }
 }

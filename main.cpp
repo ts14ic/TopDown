@@ -1,11 +1,16 @@
 #include "sdlwrap.h"
 #include "GameState.h"
 #include "StopWatch.h"
+#include "Sound.h"
 #include <SDL_timer.h>
 
 void load_media() {
     textures("player_pistol").load("gfx/Player/pistol.png");
     textures("bullet").load("gfx/bullet.png");
+    
+    sounds("pistol_shot").load("sfx/pistol_shot.mp3");
+    
+    music("weather").load("sfx/weather.mp3");
 }
 
 int main(int, char*[]) {
