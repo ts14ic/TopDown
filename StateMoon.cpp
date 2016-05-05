@@ -34,6 +34,14 @@ void StateMoon::handle_events() {
     }
 }
 
+void StateMoon::restrict_pos(Object& o) {
+    if(o.x() < 0) o.x(0);
+    else if(o.x() > _levelWidth) o.x(_levelWidth);
+    
+    if(o.y() < 0) o.y(0);
+    else if(o.y() > _levelHeight) o.y(_levelHeight);
+}
+
 void StateMoon::handle_logic() {
     if(_mobSpawner.passed(500) && (zombies().size() + werewolves().size() < 7)) {
         if(zombies().size() < 7) {
@@ -121,9 +129,7 @@ void StateMoon::handle_logic() {
         return w.dead();
     }), werewolves().end());
     
-    for(auto& b : bullets()) {
-        b.handle_logic();
-    }
+    restrict_pos(_pl);
     if(_pl.dead()) prepare_state(GState::intro);
 }
 

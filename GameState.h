@@ -54,6 +54,8 @@ public:
     virtual void handle_events();
     virtual void handle_logic();
     virtual void handle_render();
+    
+    void restrict_pos(Object&);
 private:
     Texture _texBackground;
     int const _levelWidth  = 800;
