@@ -179,7 +179,7 @@ public:
     void handle_logic();
     void handle_render();
 private:
-    float _x, _y, _speed = 2.f;
+    float _x, _y, _speed;
     float _angle = 0.0f;
     
     std::unique_ptr<Weapon> _weapons[WEAPON_TOTAL];

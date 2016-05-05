@@ -149,6 +149,13 @@ void Player::handle_logic() {
     SDL_GetMouseState(&mx, &my);
     _angle = to_deg(get_angle(_x, _y, mx, my));
     
+    if(_dmgCd.passed(500)) {
+        _speed = 2.3f;
+    }
+    else {
+        _speed = 1.0f;
+    }
+    
     if(_state & MOVES_DOWN) {
         _y = _y + _speed;
     }

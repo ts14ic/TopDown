@@ -83,7 +83,7 @@ void Zombie::handle_render() {
     default_render_health(SDL_Color{0, 0x77, 0, 0xFF});
     
     if(_state == ATTACKING) {
-        if(_frame == 0) {
+        if(_frame == 5) {
             sounds("zombie_attack").play();
         }
         
