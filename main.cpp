@@ -6,6 +6,11 @@
 
 void load_media() {
     textures("player_pistol").load("gfx/Player/pistol.png");
+    sounds("pistol_shot").load("sfx/pistol_shot.mp3");
+    
+    textures("player_shotgun").load("gfx/Player/shotgun.png");
+    sounds("shotgun_shot").load("sfx/shotgun_shot.mp3");
+    
     textures("bullet").load("gfx/bullet.png");
     
     textures("zombie").    load("gfx/Zombie/idle.png");
@@ -24,9 +29,6 @@ void load_media() {
     textures("zombie_death6").load("gfx/Zombie/Death/7.png");    
     textures("zombie_death7").load("gfx/Zombie/Death/8.png");  
     sounds("zombie_attack").load("sfx/zombie_attack.mp3");
-    
-    sounds("pistol_shot").load("sfx/pistol_shot.mp3");
-    
     
     music("weather").load("sfx/weather.mp3");
 }

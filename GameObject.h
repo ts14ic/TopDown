@@ -94,7 +94,7 @@ enum EWeapon {
     WEAPON_PISTOL,
     WEAPON_SHOTGUN,
     WEAPON_UZI,
-    WEAPON_LAST = WEAPON_PISTOL,
+    WEAPON_LAST = WEAPON_SHOTGUN,
     WEAPON_TOTAL
 };
 
@@ -105,6 +105,8 @@ public:
     virtual int   dmg() const = 0;
     virtual float speed() const = 0;
     virtual float spread() const = 0;
+    virtual bool  reloading() const = 0;
+    virtual void  reload() = 0;
 protected:
     int _ammo;
     int _speed;
@@ -120,8 +122,33 @@ public:
     float speed()  const;
     int   length() const;
     float spread() const;
+    bool  reloading() const;
+    void  reload();
 private:
     StopWatch _cd;
+    StopWatch _reload;
+    
+    bool _reloading = false;
+    int _magAmmo = 7;
+};
+
+class Shotgun : public Weapon {
+public:
+    Shotgun();
+    
+    void shoot(Object const& shooter);
+    int   dmg()    const;
+    float speed()  const;
+    int   length() const;
+    float spread() const;
+    bool  reloading() const;
+    void  reload();
+private:
+    StopWatch _cd;
+    StopWatch _reload;
+    
+    bool _reloading = false;
+    int _magAmmo = 2;
 };
 
 class Player : public virtual Object, public Damageable {
@@ -170,8 +197,6 @@ private:
         SHOOTS      = 0x10
     };
     int _state = IDLE;
-    
-    std::string _tex = "player_pistol";
 };
 
 class Zombie : public Damageable{

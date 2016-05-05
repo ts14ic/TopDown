@@ -10,6 +10,9 @@ Player::Player(int x, int y)
     _hp = Player::defaultHp();
     
     _weapons[WEAPON_PISTOL].reset(new Pistol());
+    _weapons[WEAPON_SHOTGUN].reset(new Shotgun());
+    
+    _dmgCd.start();
 }
 
 float Player::x() const { return _x; }
@@ -24,7 +27,17 @@ void Player::speed(float s) { _speed = s; }
 
 Circle Player::circle() const { return Circle(_x, _y, 30); }
 
-std::string Player::texName() const { return _tex; }
+std::string Player::texName() const {
+    std::string name = "player";
+    
+    switch(_currentWeap) {
+        case WEAPON_SHOTGUN:
+        return name += "_shotgun";
+        
+        default:
+        return name += "_pistol";
+    }
+}
 
 int Player::hp() const { return _hp; }
 int Player::defaultHp() const { return 100; }
@@ -42,6 +55,27 @@ void Player::damage(int v) {
 
 void Player::handle_events() {
     switch(gameEvent().type) {
+        case SDL_MOUSEWHEEL:
+        if(gameEvent().wheel.y < 0) {
+            if(_currentWeap < WEAPON_LAST) ++_currentWeap;
+        }
+        else {
+            if(_currentWeap > WEAPON_PISTOL) --_currentWeap;
+        }
+        break;
+        
+        case SDL_MOUSEBUTTONDOWN:
+        if(gameEvent().button.button == SDL_BUTTON_LEFT) {
+            _state |= SHOOTS;
+        }
+        break;
+        
+        case SDL_MOUSEBUTTONUP:
+        if(gameEvent().button.button == SDL_BUTTON_LEFT) {
+            _state ^= SHOOTS;
+        }
+        break;
+        
         case SDL_KEYDOWN:
         switch(gameEvent().key.keysym.sym) {
             case SDLK_w:
@@ -70,6 +104,14 @@ void Player::handle_events() {
         
         case SDL_KEYUP:
         switch(gameEvent().key.keysym.sym) {
+            case SDLK_1:
+            _currentWeap = WEAPON_PISTOL;
+            break;
+            
+            case SDLK_2:
+            _currentWeap = WEAPON_SHOTGUN;
+            break;
+            
             case SDLK_w:
             _state ^= MOVES_UP;
             break;
@@ -120,6 +162,7 @@ void Player::handle_logic() {
         _x = _x + _speed;
     }
     
+    _weapons[_currentWeap]->reload();
     if(_state & SHOOTS) {
         _weapons[_currentWeap]->shoot(*this);
     }
