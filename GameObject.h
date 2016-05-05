@@ -92,9 +92,10 @@ std::vector<Bullet>& bullets();
 
 enum EWeapon {
     WEAPON_PISTOL,
+    WEAPON_FIRST = WEAPON_PISTOL,
     WEAPON_SHOTGUN,
     WEAPON_UZI,
-    WEAPON_LAST = WEAPON_SHOTGUN,
+    WEAPON_LAST = WEAPON_UZI,
     WEAPON_TOTAL
 };
 
@@ -149,6 +150,25 @@ private:
     
     bool _reloading = false;
     int _magAmmo = 2;
+};
+
+class Uzi : public Weapon {
+public:
+    Uzi();
+    
+    void shoot(Object const& shooter);
+    int   dmg()    const;
+    float speed()  const;
+    int   length() const;
+    float spread() const;
+    bool  reloading() const;
+    void  reload();
+private:
+    StopWatch _cd;
+    StopWatch _reload;
+    
+    bool _reloading = false;
+    int _magAmmo = 25;
 };
 
 class Player : public virtual Object, public Damageable {

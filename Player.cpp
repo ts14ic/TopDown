@@ -11,6 +11,7 @@ Player::Player(int x, int y)
     
     _weapons[WEAPON_PISTOL].reset(new Pistol());
     _weapons[WEAPON_SHOTGUN].reset(new Shotgun());
+    _weapons[WEAPON_UZI].reset(new Uzi());
     
     _dmgCd.start();
 }
@@ -33,6 +34,9 @@ std::string Player::texName() const {
     switch(_currentWeap) {
         case WEAPON_SHOTGUN:
         return name += "_shotgun";
+        
+        case WEAPON_UZI:
+        return name += "_uzi";
         
         default:
         return name += "_pistol";
@@ -60,7 +64,7 @@ void Player::handle_events() {
             if(_currentWeap < WEAPON_LAST) ++_currentWeap;
         }
         else {
-            if(_currentWeap > WEAPON_PISTOL) --_currentWeap;
+            if(_currentWeap > WEAPON_FIRST) --_currentWeap;
         }
         break;
         
