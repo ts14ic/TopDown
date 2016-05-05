@@ -249,4 +249,57 @@ private:
 
 std::vector<Zombie>& zombies();
 
+class Werewolf : public Damageable {
+public:
+    Werewolf(float x, float y);
+
+    // Object legacy
+    float x() const;
+    float y() const;
+    void x(float x);
+    void y(float y);
+    
+    float angle() const;
+    float speed() const;
+    void angle(float a);
+    void speed(float s);
+    
+    Circle circle() const;
+    
+    std::string texName() const;
+    
+    // Damageable legacy
+    int        hp() const;
+    int defaultHp() const;
+    int       dmg() const;
+    void damage(int d);
+    
+    bool dead() const;
+    
+    // StateMoon interface
+    void set_target(float x, float y, bool ignore = false);
+    void teleport();
+    void handle_logic();
+    void handle_render();
+private:
+    float _x, _y, _speed = 2.5f;
+    float _angle = 0.f;
+    int _hp;
+    
+    int _frame = 0;
+    StopWatch _timer;
+    StopWatch _teleportCd;
+    
+    enum {
+        IDLE        = 0x0,
+        MOVING      = 0x1,
+        ATTACKING   = 0x2,
+        TELEPORTING = 0x4,
+        DYING       = 0x8
+    };
+    int _state = IDLE;
+};
+
+std::vector<Werewolf>& werewolves();
+
 #endif

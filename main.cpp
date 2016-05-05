@@ -30,6 +30,26 @@ void load_media() {
     textures("zombie_death7").load("gfx/Zombie/Death/8.png");  
     sounds("zombie_attack").load("sfx/zombie_attack.mp3");
     
+    textures("wolf_move0").load("gfx/Werewolf/Alive/1.png");
+    textures("wolf_move1").load("gfx/Werewolf/Alive/2.png");
+    textures("wolf_move2").load("gfx/Werewolf/Alive/3.png");
+    textures("wolf_move3").load("gfx/Werewolf/Alive/4.png");
+    textures("wolf_move4").load("gfx/Werewolf/Alive/5.png");
+    textures("wolf_move5").load("gfx/Werewolf/Alive/6.png");
+    textures("wolf_attack0").load("gfx/Werewolf/Attack/1.png");
+    textures("wolf_attack1").load("gfx/Werewolf/Attack/2.png");
+    textures("wolf_attack2").load("gfx/Werewolf/Attack/3.png");
+    textures("wolf_attack3").load("gfx/Werewolf/Attack/4.png");
+    textures("wolf_attack4").load("gfx/Werewolf/Attack/5.png");
+    textures("wolf_attack5").load("gfx/Werewolf/Attack/6.png");
+    textures("wolf_attack6").load("gfx/Werewolf/Attack/7.png");
+    textures("wolf_attack7").load("gfx/Werewolf/Attack/8.png");
+    textures("wolf_teleport0").load("gfx/Werewolf/Teleportation/1.png");
+    textures("wolf_teleport1").load("gfx/Werewolf/Teleportation/2.png");
+    textures("wolf_teleport2").load("gfx/Werewolf/Teleportation/3.png");
+    sounds("wolf_attack").  load("sfx/wolf_attack.mp3");
+    sounds("wolf_teleport").load("sfx/wolf_teleport.mp3");
+    
     music("weather").load("sfx/weather.mp3");
 }
 
