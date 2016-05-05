@@ -174,4 +174,54 @@ private:
     std::string _tex = "player_pistol";
 };
 
+class Zombie : public Damageable{
+public:
+    Zombie(int x, int y);
+
+    // Object legacy
+    float x() const;
+    float y() const;
+    void x(float x);
+    void y(float y);
+    
+    float angle() const;
+    float speed() const;
+    void angle(float a);
+    void speed(float s);
+    
+    Circle circle() const;
+    
+    std::string texName() const;
+    
+    // Damageable legacy
+    int        hp() const;
+    int defaultHp() const;
+    bool     dead() const;
+    int    dmg() const;
+    void damage(int d);
+    
+    // StateMoon interface
+    void set_target(float x, float y, bool ignore = false);
+    void handle_logic();
+    void handle_render();
+private:
+    float _x, _y;
+    float _angle;
+    float _speed = 1.7f;
+    
+    int _hp, _frame = 0;
+    
+    StopWatch _timer;
+    
+    enum {
+        IDLE      = 0x0,
+        MOVING    = 0x1,
+        ATTACKING = 0x2,
+        DYING     = 0x4
+    };
+    int _state = IDLE;
+};
+
+std::vector<Zombie>& zombies();
+
 #endif

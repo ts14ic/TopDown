@@ -60,6 +60,7 @@ private:
     int const _levelHeight = 600;
     
     Player _pl;
+    StopWatch _mobSpawner;
 };
 
 #endif // GAMESTATE_H_INCLUDED
