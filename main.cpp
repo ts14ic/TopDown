@@ -23,8 +23,10 @@ void load_media() {
     textures("zombie_death5").load("gfx/Zombie/Death/6.png");    
     textures("zombie_death6").load("gfx/Zombie/Death/7.png");    
     textures("zombie_death7").load("gfx/Zombie/Death/8.png");  
+    sounds("zombie_attack").load("sfx/zombie_attack.mp3");
     
     sounds("pistol_shot").load("sfx/pistol_shot.mp3");
+    
     
     music("weather").load("sfx/weather.mp3");
 }
