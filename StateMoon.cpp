@@ -133,6 +133,22 @@ void StateMoon::handle_logic() {
     if(_pl.dead()) prepare_state(GState::intro);
 }
 
+static void render_crosshair(Player const& pl) {
+    int mx, my;
+    SDL_GetMouseState(&mx, &my);
+    mx -= textures("crosshair").w() / 2;
+    my -= textures("crosshair").h() / 2;
+    static float angle = 0.f;
+    angle += 5.f;
+    if(angle > 360.f) angle = 5.f;
+    if(pl.reloading()) {
+        textures("reload").render(mx, my, angle);
+    }
+    else {
+        textures("crosshair").render(mx, my, angle);
+    }
+}
+
 void StateMoon::handle_render() {
     SDL_RenderClear(renderer());
 
@@ -150,6 +166,8 @@ void StateMoon::handle_render() {
     for(auto& b : bullets()) {
         b.handle_render();
     }
+    
+    render_crosshair(_pl);
     
     SDL_RenderPresent(renderer());
 }

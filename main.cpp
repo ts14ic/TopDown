@@ -15,6 +15,9 @@ void load_media() {
     sounds("uzi_shot1").load("sfx/uzi_shot1.mp3");
     sounds("uzi_shot2").load("sfx/uzi_shot2.mp3");
     
+    textures("crosshair").     load("gfx/crosshair.png");
+    textures("reload").        load("gfx/reload.png");
+    
     textures("bullet").load("gfx/bullet.png");
     
     textures("zombie").    load("gfx/Zombie/idle.png");

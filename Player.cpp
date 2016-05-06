@@ -57,6 +57,10 @@ void Player::damage(int v) {
     }
 }
 
+bool Player::reloading() const {
+    return _weapons[_currentWeap]->reloading();
+}
+
 void Player::handle_events() {
     switch(gameEvent().type) {
         case SDL_MOUSEWHEEL:
@@ -114,6 +118,10 @@ void Player::handle_events() {
             
             case SDLK_2:
             _currentWeap = WEAPON_SHOTGUN;
+            break;
+            
+            case SDLK_3:
+            _currentWeap = WEAPON_UZI;
             break;
             
             case SDLK_w:

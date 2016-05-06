@@ -63,6 +63,8 @@ bool init_sdl() {
         return false;
     }
     
+    SDL_ShowCursor(SDL_DISABLE);
+    
     SDL_SetRenderDrawColor(renderer(), 0x10, 0x10, 0x10, 0xff);
     SDL_RenderClear(renderer());
     SDL_RenderPresent(renderer());

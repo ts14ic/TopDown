@@ -195,6 +195,8 @@ public:
     bool dead() const;
     void damage(int v);
     
+    bool reloading() const;
+    
     void handle_events();
     void handle_logic();
     void handle_render();
