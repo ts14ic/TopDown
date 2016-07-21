@@ -9,9 +9,9 @@ Player::Player(int x, int y)
 {
     _hp = Player::defaultHp();
     
-    _weapons[WEAPON_PISTOL].reset(new Pistol());
-    _weapons[WEAPON_SHOTGUN].reset(new Shotgun());
-    _weapons[WEAPON_UZI].reset(new Uzi());
+    _weapons[WEAPON_PISTOL]  = std::make_unique<Pistol>();
+    _weapons[WEAPON_SHOTGUN] = std::make_unique<Shotgun>();
+    _weapons[WEAPON_UZI]     = std::make_unique<Uzi>();
     
     _dmgCd.start();
 }

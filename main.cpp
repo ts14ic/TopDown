@@ -68,7 +68,7 @@ int main(int, char*[]) {
     load_media();
     
     currentStateID() = GState::intro;
-    currentState().reset(new StateIntro);
+    currentState()   = std::make_unique<StateIntro>();
     
     StopWatch fpsCapper;
     while(currentStateID() != GState::exit) {

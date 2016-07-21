@@ -38,11 +38,11 @@ void change_state() {
         
         switch(nextStateID()) {
             case GState::intro:
-            currentState().reset(new StateIntro());
+            currentState() = std::make_unique<StateIntro>();
             break;
             
             case GState::moon:
-            currentState().reset(new StateMoon());
+            currentState() = std::make_unique<StateMoon>();
             break;
             
             default:;
