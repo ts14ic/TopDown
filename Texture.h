@@ -1,5 +1,4 @@
-#ifndef TEXTURE_H_INCLUDED
-#define TEXTURE_H_INCLUDED
+#pragma once
 
 #include <string>
 #include <memory>
@@ -54,5 +53,3 @@ private:
 };
 
 Texture& textures(std::string const& name);
-
-#endif // TEXTURE_H_INCLUDED

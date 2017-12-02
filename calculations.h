@@ -1,5 +1,4 @@
-#ifndef CALCULATIONS_H_INCLDUDED
-#define CALCULATIONS_H_INCLDUDED
+#pragma once
 
 /* forward declarations begin */
 struct SDL_Point;
@@ -37,5 +36,3 @@ bool collides(SDL_Rect const& a, SDL_Rect const& b);
 bool collides(Circle const& a, SDL_Rect const& b);
 bool collides(SDL_Rect const& a, Circle const& b);
 bool collides(Circle const& a, Circle const& b);
-
-#endif // CALCULATIONS_H_INCLDUDED

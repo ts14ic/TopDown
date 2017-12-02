@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SDL_video.h>
-#include <memory>
 #include <SDL_system.h>
+#include <memory>
 
 class RenderBase {
 public:

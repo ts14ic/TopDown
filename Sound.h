@@ -1,5 +1,4 @@
-#ifndef SOUND_H_INCLUDED
-#define SOUND_H_INCLUDED
+#pragma once
 
 #include <string>
 
@@ -14,7 +13,8 @@ struct _Mix_Music;
 class Sound {
 public:
     Sound();
-    Sound(char const* path);
+
+    explicit Sound(char const* path);
     ~Sound();
     
     Sound(Sound const&) = delete;
@@ -32,7 +32,8 @@ Sound& sounds(std::string const& name);
 class Music {
 public:
     Music();
-    Music(char const* path);
+
+    explicit Music(char const* path);
     ~Music();
     
     Music(Music const&) = delete;
@@ -45,5 +46,3 @@ private:
 };
 
 Music& music(std::string const& name);
-
-#endif

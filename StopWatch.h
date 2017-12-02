@@ -1,5 +1,4 @@
-#ifndef STOPWATCH_H_INCLUDED
-#define STOPWATCH_H_INCLUDED
+#pragma once
 
 class StopWatch {
 public:
@@ -11,5 +10,3 @@ public:
 private:
     unsigned _startedAt;
 };
-
-#endif // STOPWATCH_H_INCLUDED

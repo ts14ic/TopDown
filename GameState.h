@@ -1,5 +1,4 @@
-#ifndef GAMESTATE_H_INCLUDED
-#define GAMESTATE_H_INCLUDED
+#pragma once
 
 #include "Texture.h"
 #include "GameObject.h"
@@ -29,7 +28,7 @@ public:
 
 class StateIntro : public GameState {
 public:
-    StateIntro(RenderBase& engine);
+    explicit StateIntro(RenderBase& engine);
 
     virtual void handle_events(Engine& engine);
 
@@ -43,7 +42,7 @@ private:
 
 class StateMoon : public GameState {
 public:
-    StateMoon(RenderBase& engine);
+    explicit StateMoon(RenderBase& engine);
 
     virtual void handle_events(Engine& engine);
 
@@ -61,5 +60,3 @@ private:
     Player _pl;
     StopWatch _mobSpawner;
 };
-
-#endif // GAMESTATE_H_INCLUDED
