@@ -4,8 +4,9 @@
 #pragma once
 
 #include "../StopWatch.h"
-#include "../GameObject.h"
+#include "../object/GameObject.h"
 #include "../engine/Engine.h"
+#include "../object/Player.h"
 
 class StateMoon : public GameState {
 public:
@@ -17,7 +18,7 @@ public:
 
     void handle_render(Engine& engine) override;
 
-    void restrict_pos(Object&);
+    void restrict_pos(GameObject&);
 
 private:
     Texture _texBackground;

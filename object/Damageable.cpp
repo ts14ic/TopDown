@@ -1,5 +1,7 @@
-#include "GameObject.h"
-#include "engine/RenderSystem.h"
+//
+// Created by ts14ic on 12/3/17.
+//
+#include "Damageable.h"
 
 void Damageable::default_render_health(RenderSystem& engine, SDL_Color const& c) const {
     if(hp() > 0) {
@@ -11,8 +13,4 @@ void Damageable::default_render_health(RenderSystem& engine, SDL_Color const& c)
         SDL_SetRenderDrawColor(engine.getRenderer(), c.r, c.g, c.b, c.a);
         SDL_RenderFillRect(engine.getRenderer(), &healthRect);
     }
-}
-
-bool objectsCollide(Object& a, Object& b) {
-    return ::collides(a.circle(), b.circle());
 }

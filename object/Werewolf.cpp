@@ -1,6 +1,5 @@
-#include "GameObject.h"
-#include "engine/RenderSystem.h"
-#include "Sound.h"
+#include "Werewolf.h"
+#include "../Sound.h"
 
 using std::vector;
 
@@ -12,7 +11,7 @@ Werewolf::Werewolf(float x, float y)
     _teleportCd.start();
 }
 
-// Object legacy
+// GameObject legacy
 float Werewolf::x() const { return _x; }
 
 float Werewolf::y() const { return _y; }

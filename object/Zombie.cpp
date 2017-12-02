@@ -1,6 +1,5 @@
-#include "GameObject.h"
-#include "Sound.h"
-#include <SDL_render.h>
+#include "Zombie.h"
+#include "../Sound.h"
 
 using std::vector;
 

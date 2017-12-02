@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Texture.h"
-#include "../GameObject.h"
+#include "../object/GameObject.h"
 #include <memory>
 
 // forward declarations begin

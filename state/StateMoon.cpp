@@ -4,6 +4,9 @@
 #include "../engine/RenderSystem.h"
 #include "../engine/Engine.h"
 #include "StateMoon.h"
+#include "../object/Zombie.h"
+#include "../object/Werewolf.h"
+#include "../object/Bullet.h"
 #include <algorithm>
 #include <ctime>
 
@@ -34,7 +37,7 @@ void StateMoon::handle_events(Engine& engine) {
     }
 }
 
-void StateMoon::restrict_pos(Object& o) {
+void StateMoon::restrict_pos(GameObject& o) {
     if(o.x() < 0) o.x(0);
     else if(o.x() > _levelWidth) o.x(_levelWidth);
 
