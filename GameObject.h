@@ -32,10 +32,6 @@ public:
 
     virtual Circle circle() const = 0;
 
-    bool collides(Object const& other) {
-        return ::collides(circle(), other.circle());
-    }
-
     virtual std::string texName() const = 0;
 
 protected:
@@ -51,6 +47,10 @@ protected:
         tex.render(engine, tx, ty, angle());
     }
 };
+
+bool objectsCollide(Object& a, Object& b) {
+    return ::collides(a.circle(), b.circle());
+}
 
 class Damageable : public virtual Object {
 public:

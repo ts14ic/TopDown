@@ -82,13 +82,13 @@ void StateMoon::handle_logic() {
         }
 
         for(auto& z : zombies()) {
-            if(b.collides(z) && z.hp() > 0) {
+            if(objectsCollide(b, z) && z.hp() > 0) {
                 z.damage(b.dmg());
                 return true;
             }
         }
         for(auto& w : werewolves()) {
-            if(b.collides(w) && w.hp() > 0) {
+            if(objectsCollide(b, w) && w.hp() > 0) {
                 w.damage(b.dmg());
                 return true;
             }
@@ -105,7 +105,7 @@ void StateMoon::handle_logic() {
         z.set_target(_pl.x(), _pl.y());
         z.handle_logic();
 
-        if(z.collides(_pl)) {
+        if(objectsCollide(z, _pl)) {
             _pl.damage(z.dmg());
         }
 
@@ -116,7 +116,7 @@ void StateMoon::handle_logic() {
         w.set_target(_pl.x(), _pl.y());
         w.handle_logic();
 
-        if(w.collides(_pl)) {
+        if(objectsCollide(w, _pl)) {
             _pl.damage(w.dmg());
         }
 
