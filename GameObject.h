@@ -71,25 +71,25 @@ class Bullet : public Object {
 public:
     Bullet(Object const& origin, Weapon const& weap);
 
-    float x() const;
+    float x() const override;
 
-    float y() const;
+    float y() const override;
 
-    float angle() const;
+    float angle() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    void x(float x);
+    void x(float x) override;
 
-    void y(float y);
+    void y(float y) override;
 
-    void angle(float a);
+    void angle(float a) override;
 
-    void speed(float s);
+    void speed(float s) override;
 
-    Circle circle() const;
+    Circle circle() const override;
 
-    std::string texName() const;
+    std::string texName() const override;
 
     int dmg() const;
 
@@ -128,30 +128,25 @@ public:
     virtual bool reloading() const = 0;
 
     virtual void reload() = 0;
-
-protected:
-    int _ammo;
-    int _speed;
-    int _dmg;
 };
 
 class Pistol : public Weapon {
 public:
     Pistol();
 
-    void shoot(Object const& shooter);
+    void shoot(Object const& shooter) override;
 
-    int dmg() const;
+    int dmg() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    int length() const;
+    int length() const override;
 
-    float spread() const;
+    float spread() const override;
 
-    bool reloading() const;
+    bool reloading() const override;
 
-    void reload();
+    void reload() override;
 
 private:
     StopWatch _cd;
@@ -165,19 +160,19 @@ class Shotgun : public Weapon {
 public:
     Shotgun();
 
-    void shoot(Object const& shooter);
+    void shoot(Object const& shooter) override;
 
-    int dmg() const;
+    int dmg() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    int length() const;
+    int length() const override;
 
-    float spread() const;
+    float spread() const override;
 
-    bool reloading() const;
+    bool reloading() const override;
 
-    void reload();
+    void reload() override;
 
 private:
     StopWatch _cd;
@@ -191,19 +186,19 @@ class Uzi : public Weapon {
 public:
     Uzi();
 
-    void shoot(Object const& shooter);
+    void shoot(Object const& shooter) override;
 
-    int dmg() const;
+    int dmg() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    int length() const;
+    int length() const override;
 
-    float spread() const;
+    float spread() const override;
 
-    bool reloading() const;
+    bool reloading() const override;
 
-    void reload();
+    void reload() override;
 
 private:
     StopWatch _cd;
@@ -217,35 +212,35 @@ class Player : public virtual Object, public Damageable {
 public:
     Player(int x, int y);
 
-    float x() const;
+    float x() const override;
 
-    float y() const;
+    float y() const override;
 
-    float angle() const;
+    float angle() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    void x(float x);
+    void x(float x) override;
 
-    void y(float y);
+    void y(float y) override;
 
-    void angle(float a);
+    void angle(float a) override;
 
-    void speed(float s);
+    void speed(float s) override;
 
-    Circle circle() const;
+    Circle circle() const override;
 
-    std::string texName() const;
+    std::string texName() const override;
 
-    int hp() const;
+    int hp() const override;
 
-    int defaultHp() const;
+    int defaultHp() const override;
 
-    int dmg() const;
+    int dmg() const override;
 
-    bool dead() const;
+    bool dead() const override;
 
-    void damage(int v);
+    void damage(int v) override;
 
     bool reloading() const;
 
@@ -281,36 +276,36 @@ public:
     Zombie(int x, int y);
 
     // Object legacy
-    float x() const;
+    float x() const override;
 
-    float y() const;
+    float y() const override;
 
-    void x(float x);
+    void x(float x) override;
 
-    void y(float y);
+    void y(float y) override;
 
-    float angle() const;
+    float angle() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    void angle(float a);
+    void angle(float a) override;
 
-    void speed(float s);
+    void speed(float s) override;
 
-    Circle circle() const;
+    Circle circle() const override;
 
-    std::string texName() const;
+    std::string texName() const override;
 
     // Damageable legacy
-    int hp() const;
+    int hp() const override;
 
-    int defaultHp() const;
+    int defaultHp() const override;
 
-    bool dead() const;
+    bool dead() const override;
 
-    int dmg() const;
+    int dmg() const override;
 
-    void damage(int d);
+    void damage(int d) override;
 
     // StateMoon interface
     void set_target(float x, float y, bool ignore = false);
@@ -344,36 +339,36 @@ public:
     Werewolf(float x, float y);
 
     // Object legacy
-    float x() const;
+    float x() const override;
 
-    float y() const;
+    float y() const override;
 
-    void x(float x);
+    void x(float x) override;
 
-    void y(float y);
+    void y(float y) override;
 
-    float angle() const;
+    float angle() const override;
 
-    float speed() const;
+    float speed() const override;
 
-    void angle(float a);
+    void angle(float a) override;
 
-    void speed(float s);
+    void speed(float s) override;
 
-    Circle circle() const;
+    Circle circle() const override;
 
-    std::string texName() const;
+    std::string texName() const override;
 
     // Damageable legacy
-    int hp() const;
+    int hp() const override;
 
-    int defaultHp() const;
+    int defaultHp() const override;
 
-    int dmg() const;
+    int dmg() const override;
 
-    void damage(int d);
+    void damage(int d) override;
 
-    bool dead() const;
+    bool dead() const override;
 
     // StateMoon interface
     void set_target(float x, float y, bool ignore = false);
