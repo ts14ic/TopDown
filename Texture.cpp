@@ -1,21 +1,21 @@
 #include "Texture.h"
-#include "sdlwrap.h"
+#include "EngineBase.h"
 #include <SDL_image.h>
 #include <unordered_map>
 
 struct FailedToLoadTextureException : std::runtime_error {
-    explicit FailedToLoadTextureException(const char *message) : runtime_error(message) {}
+    explicit FailedToLoadTextureException(const char* message) : runtime_error(message) {}
 };
 
 Texture::Texture() = default;
 
-Texture::Texture(char const *path) {
-    load(path);
+Texture::Texture(EngineBase& engine, char const* path) {
+    load(engine, path);
 }
 
-void Texture::load(char const *path) {
+void Texture::load(EngineBase& engine, char const* path) {
     struct SDLSurfaceDeleter {
-        void operator()(SDL_Surface *surf) {
+        void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
         }
     };
@@ -25,7 +25,7 @@ void Texture::load(char const *path) {
         throw FailedToLoadTextureException{IMG_GetError()};
     }
 
-    SDL_Texture *newTex = SDL_CreateTextureFromSurface(renderer(), buf.get());
+    SDL_Texture* newTex = SDL_CreateTextureFromSurface(engine.getRenderer(), buf.get());
     if(!newTex) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
@@ -36,53 +36,53 @@ void Texture::load(char const *path) {
     mHeight = buf->h;
 }
 
-void Texture::render(int x, int y) const {
+void Texture::render(EngineBase& engine, int x, int y) const {
     if(mTex) {
         SDL_Rect destRect = {x, y, mWidth, mHeight};
-        SDL_RenderCopy(renderer(), mTex.get(), nullptr, &destRect);
+        SDL_RenderCopy(engine.getRenderer(), mTex.get(), nullptr, &destRect);
     }
 }
 
-void Texture::render(int x, int y, float angle) const {
+void Texture::render(EngineBase& engine, int x, int y, float angle) const {
     if(mTex) {
         SDL_Rect destRect = {x, y, mWidth, mHeight};
-        SDL_RenderCopyEx(renderer(), mTex.get(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(engine.getRenderer(), mTex.get(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
-void Texture::render(int x, int y, float angle, int w, int h) const {
+void Texture::render(EngineBase& engine, int x, int y, float angle, int w, int h) const {
     if(mTex) {
         SDL_Rect dstRect = {x, y, w, h};
         SDL_Rect srcRect = {0, 0, w, h};
-        SDL_RenderCopyEx(renderer(), mTex.get(), &srcRect, &dstRect, angle, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(engine.getRenderer(), mTex.get(), &srcRect, &dstRect, angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
-void Texture::render(SDL_Point const &pos) const {
-    render(pos.x, pos.y);
+void Texture::render(EngineBase& engine, SDL_Point const& pos) const {
+    render(engine, pos.x, pos.y);
 }
 
-void Texture::render(SDL_Point const &pos, float angle) const {
-    render(pos.x, pos.y, angle);
+void Texture::render(EngineBase& engine, SDL_Point const& pos, float angle) const {
+    render(engine, pos.x, pos.y, angle);
 }
 
-void Texture::render(SDL_Point const &pos, float angle, SDL_Rect const &clip) const {
-    render(pos.x, pos.y, angle, clip.w, clip.h);
+void Texture::render(EngineBase& engine, SDL_Point const& pos, float angle, SDL_Rect const& clip) const {
+    render(engine, pos.x, pos.y, angle, clip.w, clip.h);
 }
 
-void Texture::render(SDL_Point const &pos, SDL_Rect const &clip) const {
+void Texture::render(EngineBase& engine, SDL_Point const& pos, SDL_Rect const& clip) const {
     if(mTex) {
         SDL_Rect dstRect = {pos.x, pos.y, clip.w, clip.h};
         SDL_Rect srcRect = {clip.x, clip.y, clip.w, clip.h};
-        SDL_RenderCopy(renderer(), mTex.get(), &srcRect, &dstRect);
+        SDL_RenderCopy(engine.getRenderer(), mTex.get(), &srcRect, &dstRect);
     }
 }
 
-Texture &textures(std::string const &name) {
+Texture& textures(std::string const& name) {
     static std::unordered_map<std::string, Texture> ret;
     return ret[name];
 }
 
-void Texture::SDLTextureDeleter::operator()(SDL_Texture *p) {
+void Texture::SDLTextureDeleter::operator()(SDL_Texture* p) {
     SDL_DestroyTexture(p);
 }

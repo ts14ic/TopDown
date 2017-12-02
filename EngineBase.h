@@ -13,7 +13,7 @@ public:
     ~EngineBase();
 
     struct SDLDeleter {
-        void operator()(SDL_Window *p) {
+        void operator()(SDL_Window* p) {
             SDL_DestroyWindow(p);
         }
 
@@ -22,8 +22,19 @@ public:
         }
     };
 
+    SDL_Renderer* getRenderer();
+
+    void load_media();
+
+    class FailedSDLInitException : std::runtime_error {
+    public:
+        explicit FailedSDLInitException(const char* message) : runtime_error(message) {}
+    };
+
 private:
     void init();
+
+    void load_texture(const char* name, const char* filename);
 
 private:
     int mScreenWidth = 0;
