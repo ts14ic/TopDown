@@ -13,9 +13,5 @@ int& screenWidth();
 int& screenHeight();
 
 SDL_Renderer*& renderer();
-SDL_Window*& window();
-
-bool init_sdl();
-void close_sdl();
 
 #endif // SDLWRAP_H_INCLUDED
