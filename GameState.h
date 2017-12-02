@@ -23,18 +23,18 @@ public:
 
     virtual void handle_render(RenderBase& engine) = 0;
 
-    virtual ~GameState() {}
+    virtual ~GameState() = default;
 };
 
 class StateIntro : public GameState {
 public:
     explicit StateIntro(RenderBase& engine);
 
-    virtual void handle_events(Engine& engine);
+    void handle_events(Engine& engine) override;
 
-    virtual void handle_logic(Engine& engine);
+    void handle_logic(Engine& engine) override;
 
-    virtual void handle_render(RenderBase& engine);
+    void handle_render(RenderBase& engine) override;
 
 private:
     Texture _background;
@@ -44,11 +44,11 @@ class StateMoon : public GameState {
 public:
     explicit StateMoon(RenderBase& engine);
 
-    virtual void handle_events(Engine& engine);
+    void handle_events(Engine& engine) override;
 
-    virtual void handle_logic(Engine& engine);
+    void handle_logic(Engine& engine) override;
 
-    virtual void handle_render(RenderBase& engine);
+    void handle_render(RenderBase& engine) override;
 
     void restrict_pos(Object&);
 
