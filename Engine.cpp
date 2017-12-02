@@ -5,7 +5,9 @@
 #include <SDL_timer.h>
 #include "Engine.h"
 
-const int MS_PER_FRAME = 16;
+constexpr int MS_ONE_SECOND = 1000;
+constexpr int FRAMES_PER_SECOND = 60;
+constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 void Engine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(mRenderBase);
