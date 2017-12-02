@@ -46,8 +46,7 @@ void EngineBase::init() {
         throw FailedSDLInitException{SDL_GetError()};
     }
 
-    // FIXME Renderer should not be global
-    renderer() = mRenderer.get();
+    renderer() = mRenderer.get(); // FIXME Renderer should not be global
 
     int IMG_flags = IMG_INIT_JPG | IMG_INIT_PNG;
     if (IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {

@@ -64,7 +64,7 @@ void load_media() {
 int main(int, char*[]) {
     EngineBase engine;
     load_media();
-    
+
     currentStateID() = GState::intro;
     currentState()   = std::make_unique<StateIntro>();
 
