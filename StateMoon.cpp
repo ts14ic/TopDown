@@ -1,12 +1,13 @@
 #include "GameState.h"
 #include "sdlwrap.h"
 #include "Sound.h"
-#include "EngineBase.h"
+#include "RenderBase.h"
+#include "Engine.h"
 #include <SDL_events.h>
 #include <algorithm>
 #include <ctime>
 
-StateMoon::StateMoon(EngineBase& engine)
+StateMoon::StateMoon(RenderBase& engine)
         : _texBackground(engine, "gfx/test_bg.png"),
           _pl(screenWidth() / 2, screenHeight() / 2) {
     std::srand(std::time(nullptr));
@@ -16,14 +17,14 @@ StateMoon::StateMoon(EngineBase& engine)
     _mobSpawner.start();
 }
 
-void StateMoon::handle_events() {
+void StateMoon::handle_events(Engine& engine) {
     while(SDL_PollEvent(&gameEvent())) {
 
         _pl.handle_events();
 
         switch(gameEvent().type) {
             case SDL_QUIT:
-                prepare_state(GState::exit);
+                engine.requestStateChange(GState::exit);
                 break;
 
             default:;
@@ -39,7 +40,7 @@ void StateMoon::restrict_pos(Object& o) {
     else if(o.y() > _levelHeight) o.y(_levelHeight);
 }
 
-void StateMoon::handle_logic() {
+void StateMoon::handle_logic(Engine& engine) {
     if(_mobSpawner.passed(500) && (zombies().size() + werewolves().size() < 7)) {
         if(zombies().size() < 7) {
             int border = std::rand() % 2;
@@ -124,10 +125,10 @@ void StateMoon::handle_logic() {
     }), werewolves().end());
 
     restrict_pos(_pl);
-    if(_pl.dead()) prepare_state(GState::intro);
+    if(_pl.dead()) engine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(EngineBase& engine, Player const& pl) {
+static void render_crosshair(RenderBase& engine, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     mx -= textures("crosshair").w() / 2;
@@ -142,7 +143,7 @@ static void render_crosshair(EngineBase& engine, Player const& pl) {
     }
 }
 
-void StateMoon::handle_render(EngineBase& engine) {
+void StateMoon::handle_render(RenderBase& engine) {
     SDL_RenderClear(engine.getRenderer());
 
     music("weather").play();

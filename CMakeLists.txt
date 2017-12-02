@@ -25,7 +25,8 @@ set(SOURCE_FILES
         Sound.cpp Sound.h
         StopWatch.cpp StopWatch.h
         Texture.cpp Texture.h
-        EngineBase.cpp EngineBase.h)
+        RenderBase.cpp RenderBase.h
+        Engine.cpp Engine.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES})

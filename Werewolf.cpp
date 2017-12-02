@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "EngineBase.h"
+#include "RenderBase.h"
 #include "Sound.h"
 #include "sdlwrap.h"
 
@@ -115,7 +115,7 @@ void Werewolf::teleport() {
     }
 }
 
-void Werewolf::handle_render(EngineBase& engine) {
+void Werewolf::handle_render(RenderBase& engine) {
     default_render(engine);
 
     if(_hp > 0) {

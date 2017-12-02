@@ -1,5 +1,4 @@
-#ifndef GAMEOBJECT_H_INCLUDED
-#define GAMEOBJECT_H_INCLUDED
+#pragma once
 
 #include "Texture.h"
 #include "calculations.h"
@@ -40,7 +39,7 @@ protected:
         y(y() + speed() * dsin(angle()));
     }
 
-    void default_render(EngineBase& engine) {
+    void default_render(RenderBase& engine) {
         Texture& tex = textures(texName());
         auto tx = static_cast<int>(x() - tex.w() / 2);
         auto ty = static_cast<int>(y() - tex.h() / 2);
@@ -48,9 +47,7 @@ protected:
     }
 };
 
-bool objectsCollide(Object& a, Object& b) {
-    return ::collides(a.circle(), b.circle());
-}
+bool objectsCollide(Object& a, Object& b);
 
 class Damageable : public virtual Object {
 public:
@@ -65,7 +62,7 @@ public:
     virtual bool dead() const = 0;
 
 protected:
-    void default_render_health(EngineBase& engine, SDL_Color const& c) const;
+    void default_render_health(RenderBase& engine, SDL_Color const& c) const;
 };
 
 class Weapon;
@@ -98,7 +95,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(EngineBase& engine);
+    void handle_render(RenderBase& engine);
 
 private:
     int _dmg;
@@ -256,7 +253,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(EngineBase& engine);
+    void handle_render(RenderBase& engine);
 
 private:
     float _x, _y, _speed;
@@ -320,7 +317,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(EngineBase& engine);
+    void handle_render(RenderBase& engine);
 
 private:
     float _x, _y;
@@ -385,7 +382,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(EngineBase& engine);
+    void handle_render(RenderBase& engine);
 
 private:
     float _x, _y, _speed = 2.5f;
@@ -407,5 +404,3 @@ private:
 };
 
 std::vector<Werewolf>& werewolves();
-
-#endif

@@ -4,13 +4,13 @@
 #include <memory>
 #include <SDL_system.h>
 
-class EngineBase {
+class RenderBase {
 public:
-    EngineBase();
+    RenderBase();
 
-    EngineBase(int screenWidth, int screenHeight);
+    RenderBase(int screenWidth, int screenHeight);
 
-    ~EngineBase();
+    ~RenderBase();
 
     struct SDLDeleter {
         void operator()(SDL_Window* p) {

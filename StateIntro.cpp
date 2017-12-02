@@ -1,28 +1,31 @@
 #include "GameState.h"
 #include "sdlwrap.h"
-#include "EngineBase.h"
+#include "Engine.h"
 #include <SDL_events.h>
 
-StateIntro::StateIntro(EngineBase& engine)
+StateIntro::StateIntro(RenderBase& engine)
         : _background(engine, "gfx/intro_bg.png") {}
 
-void StateIntro::handle_events() {
+void StateIntro::handle_events(Engine& engine) {
     while(SDL_PollEvent(&gameEvent())) {
         switch(gameEvent().type) {
             case SDL_QUIT: {
-                prepare_state(GState::exit);
+                engine.requestStateChange(GState::exit);
                 break;
             }
 
             case SDL_KEYDOWN: {
                 switch(gameEvent().key.keysym.sym) {
                     case SDLK_q:
-                        prepare_state(GState::exit);
+                        engine.requestStateChange(GState::exit);
                         break;
 
                     case SDLK_RETURN:
                     case SDLK_ESCAPE:
-                        prepare_state(GState::moon);
+                        engine.requestStateChange(GState::moon);
+                        break;
+
+                    default:
                         break;
                 }
                 break;
@@ -33,9 +36,9 @@ void StateIntro::handle_events() {
     }
 }
 
-void StateIntro::handle_logic() {}
+void StateIntro::handle_logic(Engine& engine) {}
 
-void StateIntro::handle_render(EngineBase& engine) {
+void StateIntro::handle_render(RenderBase& engine) {
     _background.render(engine, 0, 0);
 
     SDL_RenderPresent(engine.getRenderer());

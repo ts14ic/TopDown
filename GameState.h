@@ -10,48 +10,32 @@ union SDL_Event;
 
 class GameState;
 
+class Engine;
+
 /* forward declarations end */
 
 SDL_Event& gameEvent();
 
-std::unique_ptr<GameState>& currentState();
-
-enum class GState {
-    null,
-    intro,
-    moon,
-    score,
-    exit
-};
-
-GState& currentStateID();
-
-GState& nextStateID();
-
-void prepare_state(GState stateID);
-
-void change_state(EngineBase& engine);
-
 class GameState {
 public:
-    virtual void handle_events() = 0;
+    virtual void handle_events(Engine& engine) = 0;
 
-    virtual void handle_logic()  = 0;
+    virtual void handle_logic(Engine& engine)  = 0;
 
-    virtual void handle_render(EngineBase& engine) = 0;
+    virtual void handle_render(RenderBase& engine) = 0;
 
     virtual ~GameState() {}
 };
 
 class StateIntro : public GameState {
 public:
-    StateIntro(EngineBase& engine);
+    StateIntro(RenderBase& engine);
 
-    virtual void handle_events();
+    virtual void handle_events(Engine& engine);
 
-    virtual void handle_logic();
+    virtual void handle_logic(Engine& engine);
 
-    virtual void handle_render(EngineBase& engine);
+    virtual void handle_render(RenderBase& engine);
 
 private:
     Texture _background;
@@ -59,13 +43,13 @@ private:
 
 class StateMoon : public GameState {
 public:
-    StateMoon(EngineBase& engine);
+    StateMoon(RenderBase& engine);
 
-    virtual void handle_events();
+    virtual void handle_events(Engine& engine);
 
-    virtual void handle_logic();
+    virtual void handle_logic(Engine& engine);
 
-    virtual void handle_render(EngineBase& engine);
+    virtual void handle_render(RenderBase& engine);
 
     void restrict_pos(Object&);
 

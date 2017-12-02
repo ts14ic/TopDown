@@ -1,8 +1,8 @@
 #include "GameObject.h"
 #include "sdlwrap.h"
-#include "EngineBase.h"
+#include "RenderBase.h"
 
-void Damageable::default_render_health(EngineBase& engine, SDL_Color const& c) const {
+void Damageable::default_render_health(RenderBase& engine, SDL_Color const& c) const {
     if(hp() > 0) {
         SDL_Rect healthRect{};
         healthRect.w = static_cast<int>(50.f * hp() / defaultHp());
@@ -12,4 +12,8 @@ void Damageable::default_render_health(EngineBase& engine, SDL_Color const& c) c
         SDL_SetRenderDrawColor(engine.getRenderer(), c.r, c.g, c.b, c.a);
         SDL_RenderFillRect(engine.getRenderer(), &healthRect);
     }
+}
+
+bool objectsCollide(Object& a, Object& b) {
+    return ::collides(a.circle(), b.circle());
 }
