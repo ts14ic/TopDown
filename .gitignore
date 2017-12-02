@@ -1,4 +1,4 @@
-.gitignore
+.idea
 Debug/**
 Release/**
 TopDown.mk
