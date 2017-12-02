@@ -185,7 +185,7 @@ void Player::handle_logic() {
     }
 }
 
-void Player::handle_render(RenderBase& engine) {
+void Player::handle_render(RenderSystem& engine) {
     default_render(engine);
     default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
 }

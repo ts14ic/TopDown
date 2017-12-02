@@ -39,6 +39,6 @@ void Bullet::handle_logic() {
     default_move();
 }
 
-void Bullet::handle_render(RenderBase& engine) {
+void Bullet::handle_render(RenderSystem& engine) {
     default_render(engine);
 }

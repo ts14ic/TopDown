@@ -1,14 +1,14 @@
 #include "GameState.h"
 #include "../sdlwrap.h"
 #include "../Sound.h"
-#include "../engine/RenderBase.h"
+#include "../engine/RenderSystem.h"
 #include "../engine/Engine.h"
 #include "StateMoon.h"
 #include <SDL_events.h>
 #include <algorithm>
 #include <ctime>
 
-StateMoon::StateMoon(RenderBase& engine)
+StateMoon::StateMoon(RenderSystem& engine)
         : _texBackground(engine, "assets/gfx/test_bg.png"),
           _pl(screenWidth() / 2, screenHeight() / 2) {
     std::srand(std::time(nullptr));
@@ -129,7 +129,7 @@ void StateMoon::handle_logic(Engine& engine) {
     if(_pl.dead()) engine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(RenderBase& engine, Player const& pl) {
+static void render_crosshair(RenderSystem& engine, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     mx -= textures("crosshair").w() / 2;
@@ -144,7 +144,7 @@ static void render_crosshair(RenderBase& engine, Player const& pl) {
     }
 }
 
-void StateMoon::handle_render(RenderBase& engine) {
+void StateMoon::handle_render(RenderSystem& engine) {
     SDL_RenderClear(engine.getRenderer());
 
     music("weather").play();

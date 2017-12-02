@@ -39,7 +39,7 @@ protected:
         y(y() + speed() * dsin(angle()));
     }
 
-    void default_render(RenderBase& engine) {
+    void default_render(RenderSystem& engine) {
         Texture& tex = textures(texName());
         auto tx = static_cast<int>(x() - tex.w() / 2);
         auto ty = static_cast<int>(y() - tex.h() / 2);
@@ -62,7 +62,7 @@ public:
     virtual bool dead() const = 0;
 
 protected:
-    void default_render_health(RenderBase& engine, SDL_Color const& c) const;
+    void default_render_health(RenderSystem& engine, SDL_Color const& c) const;
 };
 
 class Weapon;
@@ -95,7 +95,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderBase& engine);
+    void handle_render(RenderSystem& engine);
 
 private:
     int _dmg;
@@ -248,7 +248,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderBase& engine);
+    void handle_render(RenderSystem& engine);
 
 private:
     float _x, _y, _speed;
@@ -312,7 +312,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderBase& engine);
+    void handle_render(RenderSystem& engine);
 
 private:
     float _x, _y;
@@ -377,7 +377,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderBase& engine);
+    void handle_render(RenderSystem& engine);
 
 private:
     float _x, _y, _speed = 2.5f;

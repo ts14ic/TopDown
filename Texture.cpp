@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "engine/RenderBase.h"
+#include "engine/RenderSystem.h"
 #include <SDL_image.h>
 #include <unordered_map>
 
@@ -9,11 +9,11 @@ struct FailedToLoadTextureException : std::runtime_error {
 
 Texture::Texture() = default;
 
-Texture::Texture(RenderBase& engine, char const* path) {
+Texture::Texture(RenderSystem& engine, char const* path) {
     load(engine, path);
 }
 
-void Texture::load(RenderBase& engine, char const* path) {
+void Texture::load(RenderSystem& engine, char const* path) {
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -36,21 +36,21 @@ void Texture::load(RenderBase& engine, char const* path) {
     mHeight = buf->h;
 }
 
-void Texture::render(RenderBase& engine, int x, int y) const {
+void Texture::render(RenderSystem& engine, int x, int y) const {
     if(mTex) {
         SDL_Rect destRect = {x, y, mWidth, mHeight};
         SDL_RenderCopy(engine.getRenderer(), mTex.get(), nullptr, &destRect);
     }
 }
 
-void Texture::render(RenderBase& engine, int x, int y, float angle) const {
+void Texture::render(RenderSystem& engine, int x, int y, float angle) const {
     if(mTex) {
         SDL_Rect destRect = {x, y, mWidth, mHeight};
         SDL_RenderCopyEx(engine.getRenderer(), mTex.get(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
-void Texture::render(RenderBase& engine, int x, int y, float angle, int w, int h) const {
+void Texture::render(RenderSystem& engine, int x, int y, float angle, int w, int h) const {
     if(mTex) {
         SDL_Rect dstRect = {x, y, w, h};
         SDL_Rect srcRect = {0, 0, w, h};
@@ -58,19 +58,19 @@ void Texture::render(RenderBase& engine, int x, int y, float angle, int w, int h
     }
 }
 
-void Texture::render(RenderBase& engine, SDL_Point const& pos) const {
+void Texture::render(RenderSystem& engine, SDL_Point const& pos) const {
     render(engine, pos.x, pos.y);
 }
 
-void Texture::render(RenderBase& engine, SDL_Point const& pos, float angle) const {
+void Texture::render(RenderSystem& engine, SDL_Point const& pos, float angle) const {
     render(engine, pos.x, pos.y, angle);
 }
 
-void Texture::render(RenderBase& engine, SDL_Point const& pos, float angle, SDL_Rect const& clip) const {
+void Texture::render(RenderSystem& engine, SDL_Point const& pos, float angle, SDL_Rect const& clip) const {
     render(engine, pos.x, pos.y, angle, clip.w, clip.h);
 }
 
-void Texture::render(RenderBase& engine, SDL_Point const& pos, SDL_Rect const& clip) const {
+void Texture::render(RenderSystem& engine, SDL_Point const& pos, SDL_Rect const& clip) const {
     if(mTex) {
         SDL_Rect dstRect = {pos.x, pos.y, clip.w, clip.h};
         SDL_Rect srcRect = {clip.x, clip.y, clip.w, clip.h};

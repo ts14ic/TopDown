@@ -5,19 +5,19 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <iostream>
-#include "RenderBase.h"
+#include "RenderSystem.h"
 #include "../Texture.h"
 #include "../Sound.h"
 
-RenderBase::RenderBase(int screenWidth, int screenHeight)
+RenderSystem::RenderSystem(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
     init();
     load_media();
 }
 
-RenderBase::RenderBase() : RenderBase(800, 600) {}
+RenderSystem::RenderSystem() : RenderSystem(800, 600) {}
 
-void RenderBase::init() {
+void RenderSystem::init() {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSDLInitException{SDL_GetError()};
@@ -59,19 +59,19 @@ void RenderBase::init() {
     SDL_RenderPresent(mRenderer.get());
 }
 
-RenderBase::~RenderBase() {
+RenderSystem::~RenderSystem() {
     SDL_Quit();
 }
 
-SDL_Renderer* RenderBase::getRenderer() {
+SDL_Renderer* RenderSystem::getRenderer() {
     return mRenderer.get();
 }
 
-void RenderBase::load_texture(const char* name, const char* filename) {
+void RenderSystem::load_texture(const char* name, const char* filename) {
     textures(name).load(*this, filename);
 }
 
-void RenderBase::load_media() {
+void RenderSystem::load_media() {
     load_texture("player_pistol", "assets/gfx/Player/pistol.png");
     load_texture("player_shotgun", "assets/gfx/Player/shotgun.png");
     load_texture("player_uzi", "assets/gfx/Player/uzi.png");

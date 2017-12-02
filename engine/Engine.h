@@ -3,8 +3,9 @@
 //
 #pragma once
 
-#include "RenderBase.h"
+#include "RenderSystem.h"
 #include "../state/GameState.h"
+#include "InputSystem.h"
 
 enum class GState {
     null,
@@ -29,5 +30,6 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
-    RenderBase mRenderBase;
+    RenderSystem mRenderBase;
+    InputSystem mInputSystem;
 };

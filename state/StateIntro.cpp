@@ -3,7 +3,7 @@
 #include "StateIntro.h"
 #include <SDL_events.h>
 
-StateIntro::StateIntro(RenderBase& engine)
+StateIntro::StateIntro(RenderSystem& engine)
         : _background(engine, "assets/gfx/intro_bg.png") {}
 
 void StateIntro::handle_events(Engine& engine) {
@@ -38,7 +38,7 @@ void StateIntro::handle_events(Engine& engine) {
 
 void StateIntro::handle_logic(Engine& engine) {}
 
-void StateIntro::handle_render(RenderBase& engine) {
+void StateIntro::handle_render(RenderSystem& engine) {
     _background.render(engine, 0, 0);
 
     SDL_RenderPresent(engine.getRenderer());

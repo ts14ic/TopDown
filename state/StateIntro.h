@@ -8,13 +8,13 @@
 
 class StateIntro : public GameState {
 public:
-    explicit StateIntro(RenderBase& engine);
+    explicit StateIntro(RenderSystem& engine);
 
     void handle_events(Engine& engine) override;
 
     void handle_logic(Engine& engine) override;
 
-    void handle_render(RenderBase& engine) override;
+    void handle_render(RenderSystem& engine) override;
 
 private:
     Texture _background;

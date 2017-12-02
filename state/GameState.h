@@ -18,7 +18,7 @@ public:
 
     virtual void handle_logic(Engine& engine)  = 0;
 
-    virtual void handle_render(RenderBase& engine) = 0;
+    virtual void handle_render(RenderSystem& engine) = 0;
 
     virtual ~GameState() = default;
 };
