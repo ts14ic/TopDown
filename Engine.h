@@ -4,7 +4,7 @@
 #pragma once
 
 #include "RenderBase.h"
-#include "GameState.h"
+#include "state/GameState.h"
 
 enum class GState {
     null,

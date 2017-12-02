@@ -13,20 +13,20 @@ set(SOURCE_FILES
         main.cpp
         Bullet.cpp
         Player.cpp
-        StateIntro.cpp
-        StateMoon.cpp
+        state/StateIntro.cpp
+        state/StateMoon.cpp
         Weapon.cpp
         Werewolf.cpp
         Zombie.cpp
         calculations.cpp calculations.h
         GameObject.cpp GameObject.h
-        GameState.cpp GameState.h
+        state/GameState.cpp state/GameState.h
         sdlwrap.cpp sdlwrap.h
         Sound.cpp Sound.h
         StopWatch.cpp StopWatch.h
         Texture.cpp Texture.h
         RenderBase.cpp RenderBase.h
-        Engine.cpp Engine.h)
+        Engine.cpp Engine.h state/StateIntro.h state/StateMoon.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES})

@@ -1,14 +1,15 @@
 #include "GameState.h"
-#include "sdlwrap.h"
-#include "Sound.h"
-#include "RenderBase.h"
-#include "Engine.h"
+#include "../sdlwrap.h"
+#include "../Sound.h"
+#include "../RenderBase.h"
+#include "../Engine.h"
+#include "StateMoon.h"
 #include <SDL_events.h>
 #include <algorithm>
 #include <ctime>
 
 StateMoon::StateMoon(RenderBase& engine)
-        : _texBackground(engine, "gfx/test_bg.png"),
+        : _texBackground(engine, "assets/gfx/test_bg.png"),
           _pl(screenWidth() / 2, screenHeight() / 2) {
     std::srand(std::time(nullptr));
 

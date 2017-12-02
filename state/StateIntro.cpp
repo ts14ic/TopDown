@@ -1,10 +1,11 @@
 #include "GameState.h"
-#include "sdlwrap.h"
-#include "Engine.h"
+#include "../sdlwrap.h"
+#include "../Engine.h"
+#include "StateIntro.h"
 #include <SDL_events.h>
 
 StateIntro::StateIntro(RenderBase& engine)
-        : _background(engine, "gfx/intro_bg.png") {}
+        : _background(engine, "assets/gfx/intro_bg.png") {}
 
 void StateIntro::handle_events(Engine& engine) {
     while(SDL_PollEvent(&gameEvent())) {

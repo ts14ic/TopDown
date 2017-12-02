@@ -12,16 +12,6 @@ public:
 
     ~RenderBase();
 
-    struct SDLDeleter {
-        void operator()(SDL_Window* p) {
-            SDL_DestroyWindow(p);
-        }
-
-        void operator()(SDL_Renderer* p) {
-            SDL_DestroyRenderer(p);
-        }
-    };
-
     SDL_Renderer* getRenderer();
 
     void load_media();
@@ -37,6 +27,16 @@ private:
     void load_texture(const char* name, const char* filename);
 
 private:
+    struct SDLDeleter {
+        void operator()(SDL_Window* p) {
+            SDL_DestroyWindow(p);
+        }
+
+        void operator()(SDL_Renderer* p) {
+            SDL_DestroyRenderer(p);
+        }
+    };
+
     int mScreenWidth = 0;
     int mScreenHeight = 0;
     std::unique_ptr<SDL_Window, SDLDeleter> mWindow;

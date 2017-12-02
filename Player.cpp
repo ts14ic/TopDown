@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "GameState.h"
+#include "state/GameState.h"
 #include <SDL_events.h>
 
 Player::Player(int x, int y)
