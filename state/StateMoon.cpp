@@ -4,12 +4,11 @@
 #include "../engine/RenderSystem.h"
 #include "../engine/Engine.h"
 #include "StateMoon.h"
-#include <SDL_events.h>
 #include <algorithm>
 #include <ctime>
 
-StateMoon::StateMoon(RenderSystem& engine)
-        : _texBackground(engine, "assets/gfx/test_bg.png"),
+StateMoon::StateMoon(Engine& engine)
+        : _texBackground(engine.getRenderSystem(), "assets/gfx/test_bg.png"),
           _pl(screenWidth() / 2, screenHeight() / 2) {
     std::srand(std::time(nullptr));
 
@@ -19,11 +18,13 @@ StateMoon::StateMoon(RenderSystem& engine)
 }
 
 void StateMoon::handle_events(Engine& engine) {
-    while(SDL_PollEvent(&gameEvent())) {
+    auto& input = engine.getInputSystem();
 
-        _pl.handle_events();
+    while(SDL_PollEvent(&input.getInputEvent())) {
 
-        switch(gameEvent().type) {
+        _pl.handle_events(input);
+
+        switch(input.getInputEvent().type) {
             case SDL_QUIT:
                 engine.requestStateChange(GState::exit);
                 break;
@@ -144,25 +145,27 @@ static void render_crosshair(RenderSystem& engine, Player const& pl) {
     }
 }
 
-void StateMoon::handle_render(RenderSystem& engine) {
-    SDL_RenderClear(engine.getRenderer());
+void StateMoon::handle_render(Engine& engine) {
+    auto& render = engine.getRenderSystem();
+
+    SDL_RenderClear(render.getRenderer());
 
     music("weather").play();
 
-    _texBackground.render(engine, 0, 0);
+    _texBackground.render(render, 0, 0);
 
-    _pl.handle_render(engine);
+    _pl.handle_render(render);
     for(auto& z : zombies()) {
-        z.handle_render(engine);
+        z.handle_render(render);
     }
     for(auto& w : werewolves()) {
-        w.handle_render(engine);
+        w.handle_render(render);
     }
     for(auto& b : bullets()) {
-        b.handle_render(engine);
+        b.handle_render(render);
     }
 
-    render_crosshair(engine, _pl);
+    render_crosshair(render, _pl);
 
-    SDL_RenderPresent(engine.getRenderer());
+    SDL_RenderPresent(render.getRenderer());
 }

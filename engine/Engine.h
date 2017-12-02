@@ -21,6 +21,10 @@ public:
 
     void requestStateChange(GState stateId);
 
+    InputSystem& getInputSystem();
+
+    RenderSystem& getRenderSystem();
+
 private:
     void changeState();
 
@@ -30,6 +34,6 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
-    RenderSystem mRenderBase;
+    RenderSystem mRenderSystem;
     InputSystem mInputSystem;
 };

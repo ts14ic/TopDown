@@ -9,13 +9,13 @@
 
 class StateMoon : public GameState {
 public:
-    explicit StateMoon(RenderSystem& engine);
+    explicit StateMoon(Engine& engine);
 
     void handle_events(Engine& engine) override;
 
     void handle_logic(Engine& engine) override;
 
-    void handle_render(RenderSystem& engine) override;
+    void handle_render(Engine& engine) override;
 
     void restrict_pos(Object&);
 

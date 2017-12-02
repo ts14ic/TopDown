@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "calculations.h"
 #include "StopWatch.h"
+#include "engine/InputSystem.h"
 #include <vector>
 #include <memory>
 
@@ -244,7 +245,7 @@ public:
 
     bool reloading() const;
 
-    void handle_events();
+    void handle_events(InputSystem& input);
 
     void handle_logic();
 

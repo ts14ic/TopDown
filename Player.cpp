@@ -1,6 +1,4 @@
 #include "GameObject.h"
-#include "state/GameState.h"
-#include <SDL_events.h>
 
 Player::Player(int x, int y)
 : _x(x), _y(y)
@@ -59,10 +57,10 @@ bool Player::reloading() const {
     return _weapons[_currentWeap]->reloading();
 }
 
-void Player::handle_events() {
-    switch(gameEvent().type) {
+void Player::handle_events(InputSystem& input) {
+    switch(input.getInputEvent().type) {
         case SDL_MOUSEWHEEL:
-        if(gameEvent().wheel.y < 0) {
+            if(input.getInputEvent().wheel.y < 0) {
             if(_currentWeap < WEAPON_LAST) ++_currentWeap;
         }
         else {
@@ -71,19 +69,19 @@ void Player::handle_events() {
         break;
         
         case SDL_MOUSEBUTTONDOWN:
-        if(gameEvent().button.button == SDL_BUTTON_LEFT) {
+            if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
             _state |= SHOOTS;
         }
         break;
         
         case SDL_MOUSEBUTTONUP:
-        if(gameEvent().button.button == SDL_BUTTON_LEFT) {
+            if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
             _state ^= SHOOTS;
         }
         break;
         
         case SDL_KEYDOWN:
-        switch(gameEvent().key.keysym.sym) {
+            switch(input.getInputEvent().key.keysym.sym) {
             case SDLK_w:
             _state |= MOVES_UP;
             break;
@@ -109,7 +107,7 @@ void Player::handle_events() {
         break;
         
         case SDL_KEYUP:
-        switch(gameEvent().key.keysym.sym) {
+            switch(input.getInputEvent().key.keysym.sym) {
             case SDLK_1:
             _currentWeap = WEAPON_PISTOL;
             break;
@@ -147,7 +145,7 @@ void Player::handle_events() {
         break;
         
         case SDL_MOUSEMOTION:
-        _angle = to_deg(get_angle(x(), y(), gameEvent().motion.x, gameEvent().motion.y));
+            _angle = to_deg(get_angle(x(), y(), input.getInputEvent().motion.x, input.getInputEvent().motion.y));
         break;
         
         default:;

@@ -12,7 +12,7 @@ constexpr int FRAMES_PER_SECOND = 60;
 constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 void Engine::runLoop() {
-    mCurrentState = std::make_unique<StateIntro>(mRenderBase);
+    mCurrentState = std::make_unique<StateIntro>(*this);
 
     while(mCurrentStateId != GState::exit) {
         mFpsWatch.start();
@@ -22,7 +22,7 @@ void Engine::runLoop() {
 
         changeState();
 
-        mCurrentState->handle_render(mRenderBase);
+        mCurrentState->handle_render(*this);
 
         if(mFpsWatch.get_ticks() < MS_PER_FRAME) {
             SDL_Delay(MS_PER_FRAME - mFpsWatch.get_ticks());
@@ -38,11 +38,11 @@ void Engine::changeState() {
 
         switch(mNextStateId) {
             case GState::intro:
-                mCurrentState = std::make_unique<StateIntro>(mRenderBase);
+                mCurrentState = std::make_unique<StateIntro>(*this);
                 break;
 
             case GState::moon:
-                mCurrentState = std::make_unique<StateMoon>(mRenderBase);
+                mCurrentState = std::make_unique<StateMoon>(*this);
                 break;
 
             default:;
@@ -57,4 +57,12 @@ void Engine::requestStateChange(GState stateId) {
     if(mNextStateId != GState::exit) {
         mNextStateId = stateId;
     }
+}
+
+InputSystem& Engine::getInputSystem() {
+    return mInputSystem;
+}
+
+RenderSystem& Engine::getRenderSystem() {
+    return mRenderSystem;
 }
