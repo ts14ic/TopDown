@@ -12,6 +12,4 @@ unsigned const minSpf = 1000/maxFps; // 16.6 milliseconds per frame
 int& screenWidth();
 int& screenHeight();
 
-SDL_Renderer*& renderer();
-
 #endif // SDLWRAP_H_INCLUDED

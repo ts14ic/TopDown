@@ -9,7 +9,7 @@ int main(int, char* []) {
     engine.load_media();
 
     currentStateID() = GState::intro;
-    currentState() = std::make_unique<StateIntro>();
+    currentState() = std::make_unique<StateIntro>(engine);
 
     StopWatch fpsCapper;
     while(currentStateID() != GState::exit) {
@@ -18,9 +18,9 @@ int main(int, char* []) {
         currentState()->handle_events();
         currentState()->handle_logic();
 
-        change_state();
+        change_state(engine);
 
-        currentState()->handle_render();
+        currentState()->handle_render(engine);
 
         if(fpsCapper.get_ticks() < minSpf) {
             SDL_Delay(minSpf - fpsCapper.get_ticks());

@@ -1,8 +1,6 @@
 #include "GameObject.h"
 #include "Sound.h"
-#include "sdlwrap.h"
 #include <SDL_render.h>
-#include <string>
 
 using std::vector;
 
@@ -78,9 +76,9 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render() {
-    default_render();
-    default_render_health(SDL_Color{0, 0x77, 0, 0xFF});
+void Zombie::handle_render(EngineBase& engine) {
+    default_render(engine);
+    default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
     
     if(_state == ATTACKING) {
         if(_frame == 5) {

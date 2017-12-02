@@ -30,7 +30,7 @@ void prepare_state(GState stateID) {
     }
 }
 
-void change_state() {
+void change_state(EngineBase& engine) {
     if(nextStateID() != GState::null) {
         if(nextStateID() != GState::exit) {
             currentState().reset(nullptr);
@@ -38,11 +38,11 @@ void change_state() {
         
         switch(nextStateID()) {
             case GState::intro:
-            currentState() = std::make_unique<StateIntro>();
+                currentState() = std::make_unique<StateIntro>(engine);
             break;
             
             case GState::moon:
-            currentState() = std::make_unique<StateMoon>();
+                currentState() = std::make_unique<StateMoon>(engine);
             break;
             
             default:;

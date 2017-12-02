@@ -7,7 +7,9 @@
 
 /* forward declarations begin */
 union SDL_Event;
+
 class GameState;
+
 /* forward declarations end */
 
 SDL_Event& gameEvent();
@@ -23,44 +25,55 @@ enum class GState {
 };
 
 GState& currentStateID();
+
 GState& nextStateID();
 
 void prepare_state(GState stateID);
-void change_state();
+
+void change_state(EngineBase& engine);
 
 class GameState {
 public:
     virtual void handle_events() = 0;
+
     virtual void handle_logic()  = 0;
-    virtual void handle_render() = 0;
+
+    virtual void handle_render(EngineBase& engine) = 0;
+
     virtual ~GameState() {}
 };
 
 class StateIntro : public GameState {
 public:
-    StateIntro();
-    
+    StateIntro(EngineBase& engine);
+
     virtual void handle_events();
+
     virtual void handle_logic();
-    virtual void handle_render();
+
+    virtual void handle_render(EngineBase& engine);
+
 private:
     Texture _background;
 };
 
 class StateMoon : public GameState {
 public:
-    StateMoon();
+    StateMoon(EngineBase& engine);
 
     virtual void handle_events();
+
     virtual void handle_logic();
-    virtual void handle_render();
-    
+
+    virtual void handle_render(EngineBase& engine);
+
     void restrict_pos(Object&);
+
 private:
     Texture _texBackground;
-    int const _levelWidth  = 800;
+    int const _levelWidth = 800;
     int const _levelHeight = 600;
-    
+
     Player _pl;
     StopWatch _mobSpawner;
 };

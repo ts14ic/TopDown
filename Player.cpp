@@ -1,8 +1,6 @@
 #include "GameObject.h"
 #include "GameState.h"
-#include "sdlwrap.h"
 #include <SDL_events.h>
-#include <SDL_render.h>
 
 Player::Player(int x, int y)
 : _x(x), _y(y)
@@ -187,7 +185,7 @@ void Player::handle_logic() {
     }
 }
 
-void Player::handle_render() {
-    default_render();
-    default_render_health(SDL_Color{0, 0x77, 0, 0xFF});
+void Player::handle_render(EngineBase& engine) {
+    default_render(engine);
+    default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
 }
