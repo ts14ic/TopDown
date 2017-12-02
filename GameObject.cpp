@@ -1,6 +1,5 @@
 #include "GameObject.h"
-#include "sdlwrap.h"
-#include "RenderBase.h"
+#include "engine/RenderBase.h"
 
 void Damageable::default_render_health(RenderBase& engine, SDL_Color const& c) const {
     if(hp() > 0) {

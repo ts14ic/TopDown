@@ -4,8 +4,8 @@
 
 #include <SDL_timer.h>
 #include "Engine.h"
-#include "state/StateIntro.h"
-#include "state/StateMoon.h"
+#include "../state/StateIntro.h"
+#include "../state/StateMoon.h"
 
 constexpr int MS_ONE_SECOND = 1000;
 constexpr int FRAMES_PER_SECOND = 60;

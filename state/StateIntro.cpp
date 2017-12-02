@@ -1,6 +1,5 @@
 #include "GameState.h"
-#include "../sdlwrap.h"
-#include "../Engine.h"
+#include "../engine/Engine.h"
 #include "StateIntro.h"
 #include <SDL_events.h>
 

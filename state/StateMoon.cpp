@@ -1,8 +1,8 @@
 #include "GameState.h"
 #include "../sdlwrap.h"
 #include "../Sound.h"
-#include "../RenderBase.h"
-#include "../Engine.h"
+#include "../engine/RenderBase.h"
+#include "../engine/Engine.h"
 #include "StateMoon.h"
 #include <SDL_events.h>
 #include <algorithm>

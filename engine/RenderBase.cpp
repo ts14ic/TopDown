@@ -6,9 +6,8 @@
 #include <SDL_mixer.h>
 #include <iostream>
 #include "RenderBase.h"
-#include "sdlwrap.h"
-#include "Texture.h"
-#include "Sound.h"
+#include "../Texture.h"
+#include "../Sound.h"
 
 RenderBase::RenderBase(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {

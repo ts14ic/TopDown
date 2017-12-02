@@ -1,7 +1,6 @@
 #include "GameObject.h"
-#include "RenderBase.h"
+#include "engine/RenderBase.h"
 #include "Sound.h"
-#include "sdlwrap.h"
 
 using std::vector;
 
