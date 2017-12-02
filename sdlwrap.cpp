@@ -24,7 +24,7 @@ SDL_Window*& window() {
 }
 
 bool init_sdl() {
-    int SDL_flags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
+    Uint32 SDL_flags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(SDL_flags)) {
         SDL_Log("Failed SDL_Init. %s.\n", SDL_GetError());
         return false;
