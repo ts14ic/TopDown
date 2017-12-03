@@ -9,23 +9,17 @@ Sound::Sound(char const* path) {
     load(path);
 }
 
-Sound::~Sound() {
-    if(_chunk) {
-        Mix_FreeChunk(_chunk);
-    }
-}
-
 void Sound::load(char const* path) {
-    _chunk = Mix_LoadWAV(path);
-    if(!_chunk) {
+    mSound.reset(Mix_LoadWAV(path));
+    if(!mSound) {
         throw FailedToLoadSoundException{Mix_GetError()};
     }
     SDL_Log("Sound loaded: %s.\n", path);
 }
 
 void Sound::play() const {
-    if(_chunk) {
-        Mix_PlayChannel(-1, _chunk, 0);
+    if(mSound) {
+        Mix_PlayChannel(-1, mSound.get(), 0);
     }
 }
 
@@ -35,3 +29,7 @@ Sound& sounds(std::string const& name) {
 }
 
 Sound::FailedToLoadSoundException::FailedToLoadSoundException(const char* message) : runtime_error(message) {}
+
+void Sound::MixDeleter::operator()(Mix_Chunk* p) {
+    Mix_FreeChunk(p);
+}

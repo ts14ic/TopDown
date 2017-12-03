@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <memory>
 
 /* forward declarations begin */
 struct Mix_Chunk;
@@ -13,8 +14,6 @@ public:
     Sound();
 
     explicit Sound(char const* path);
-
-    ~Sound();
 
     Sound(Sound const&) = delete;
 
@@ -29,7 +28,11 @@ public:
     };
 
 private:
-    Mix_Chunk* _chunk = nullptr;
+    struct MixDeleter {
+        void operator()(Mix_Chunk* p);
+    };
+
+    std::unique_ptr<Mix_Chunk, MixDeleter> mSound;
 };
 
 Sound& sounds(std::string const& name);
