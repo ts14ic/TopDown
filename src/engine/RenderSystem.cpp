@@ -2,7 +2,7 @@
 // Created by ts14ic on 12/2/17.
 //
 #include "RenderSystem.h"
-#include "../Texture.h"
+#include "../texture/Texture.h"
 #include "../sound/Sound.h"
 #include "../sound/Music.h"
 #include <SDL.h>

@@ -11,14 +11,14 @@ include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_MIXER_
 
 set(SOURCE_FILES
         src/main.cpp
-        src/StopWatch.cpp src/StopWatch.h
-        src/calculations.cpp src/calculations.h
+        src/timer/StopWatch.cpp src/timer/StopWatch.h
+        src/utils/calculations.cpp src/utils/calculations.h
         src/state/StateIntro.cpp src/state/StateIntro.h
         src/state/StateMoon.cpp src/state/StateMoon.h
         src/state/GameState.cpp src/state/GameState.h
         src/sound/Sound.cpp src/sound/Sound.h
         src/sound/Music.cpp src/sound/Music.h
-        src/Texture.cpp src/Texture.h
+        src/texture/Texture.cpp src/texture/Texture.h
         src/sdlwrap.cpp src/sdlwrap.h
         src/engine/RenderSystem.cpp src/engine/RenderSystem.h
         src/engine/Engine.cpp src/engine/Engine.h

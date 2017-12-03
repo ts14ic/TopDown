@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Texture.h"
-#include "../calculations.h"
+#include "../texture/Texture.h"
+#include "../utils/calculations.h"
 #include <vector>
 
 /* forward declarations begin */

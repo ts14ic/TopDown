@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../Texture.h"
+#include "../texture/Texture.h"
 #include "../engine/Engine.h"
 
 class StateIntro : public GameState {

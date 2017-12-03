@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../Texture.h"
+#include "../texture/Texture.h"
 #include "../engine/InputSystem.h"
 #include "../engine/RenderSystem.h"
 #include "GameObject.h"

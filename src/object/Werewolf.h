@@ -5,7 +5,7 @@
 
 #include <vector>
 #include "Damageable.h"
-#include "../StopWatch.h"
+#include "../timer/StopWatch.h"
 
 class Werewolf : public Damageable {
 public:

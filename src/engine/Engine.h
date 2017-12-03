@@ -6,7 +6,7 @@
 #include "RenderSystem.h"
 #include "../state/GameState.h"
 #include "InputSystem.h"
-#include "../StopWatch.h"
+#include "../timer/StopWatch.h"
 
 enum class GState {
     null,
