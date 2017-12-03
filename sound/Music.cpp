@@ -23,8 +23,7 @@ Music::Music(char const* path) {
 void Music::load(char const* path) {
     _mus = Mix_LoadMUS(path);
     if(!_mus) {
-        SDL_Log("Failed loading %s. %s.\n", path, Mix_GetError());
-        throw FailedToLoadMusicException{};
+        throw FailedToLoadMusicException{Mix_GetError()};
     }
     SDL_Log("Loaded music: %s.\n", path);
 }
@@ -39,3 +38,5 @@ Music& music(std::string const& name) {
     static std::unordered_map<std::string, Music> ret;
     return ret[name];
 }
+
+Music::FailedToLoadMusicException::FailedToLoadMusicException(const char* message) : runtime_error(message) {}

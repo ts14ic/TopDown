@@ -5,9 +5,6 @@
 
 #include <string>
 
-struct FailedToLoadMusicException {
-};
-
 /* forward declarations begin */
 struct _Mix_Music;
 
@@ -28,6 +25,10 @@ public:
     void load(char const* path);
 
     void play() const;
+
+    struct FailedToLoadMusicException : std::runtime_error {
+        explicit FailedToLoadMusicException(const char* message);
+    };
 
 private:
     _Mix_Music* _mus;
