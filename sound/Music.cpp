@@ -4,6 +4,7 @@
 
 #include <SDL_mixer.h>
 #include <SDL_log.h>
+#include <unordered_map>
 #include "Music.h"
 
 Music::Music()
