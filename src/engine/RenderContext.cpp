@@ -79,6 +79,7 @@ int RenderContext::getScreenWidth() {
     return mScreenWidth;
 }
 
+// todo move this method to Engine
 void RenderContext::load_media() {
     load_texture("player_pistol", "assets/gfx/Player/pistol.png");
     load_texture("player_shotgun", "assets/gfx/Player/shotgun.png");
@@ -128,4 +129,12 @@ void RenderContext::load_media() {
     sounds("wolf_teleport").load("assets/sfx/wolf_teleport.mp3");
 
     music("weather").load("assets/sfx/weather.mp3");
+}
+
+void RenderContext::SDLDeleter::operator()(SDL_Window* p) {
+    SDL_DestroyWindow(p);
+}
+
+void RenderContext::SDLDeleter::operator()(SDL_Renderer* p) {
+    SDL_DestroyRenderer(p);
 }

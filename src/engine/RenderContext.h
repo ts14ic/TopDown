@@ -32,14 +32,9 @@ private:
 
 private:
     struct SDLDeleter {
-        // todo move the implementations to the cpp
-        void operator()(SDL_Window* p) {
-            SDL_DestroyWindow(p);
-        }
+        void operator()(SDL_Window* p);
 
-        void operator()(SDL_Renderer* p) {
-            SDL_DestroyRenderer(p);
-        }
+        void operator()(SDL_Renderer* p);
     };
 
     int mScreenWidth;
