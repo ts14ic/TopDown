@@ -12,12 +12,13 @@
 StateMoon::StateMoon(Engine& engine)
         : _texBackground(engine.getRenderContext(), "assets/gfx/test_bg.png"),
           _pl(engine.getRenderContext().getScreenWidth() / 2, engine.getRenderContext().getScreenHeight() / 2) {
-    // todo Use a c++ random engine
-    std::srand(std::time(nullptr));
-
     zombies().clear();
     werewolves().clear();
     _mobSpawner.start();
+}
+
+int StateMoon::randomInt() {
+    return mRandomDistribution(mRandomEngine);
 }
 
 void StateMoon::handle_events(Engine& engine) {
@@ -48,27 +49,27 @@ void StateMoon::restrict_pos(GameObject& o) {
 void StateMoon::handle_logic(Engine& engine) {
     if(_mobSpawner.passed(500) && (zombies().size() + werewolves().size() < 7)) {
         if(zombies().size() < 7) {
-            int border = std::rand() % 2;
+            int border = randomInt() % 2;
             if(border == 0) {
-                int lx = std::rand() % _levelWidth;
-                int ly = std::rand() % 2 * _levelHeight;
+                int lx = randomInt() % _levelWidth;
+                int ly = randomInt() % 2 * _levelHeight;
                 zombies().emplace_back(lx, ly);
             } else {
-                int lx = std::rand() % 2 * _levelWidth;
-                int ly = std::rand() % _levelHeight;
+                int lx = randomInt() % 2 * _levelWidth;
+                int ly = randomInt() % _levelHeight;
                 zombies().emplace_back(lx, ly);
             }
         }
 
         if(werewolves().size() < 7) {
-            int border = std::rand() % 2;
+            int border = randomInt() % 2;
             if(border == 0) {
-                int lx = std::rand() % _levelWidth;
-                int ly = std::rand() % 2 * _levelHeight;
+                int lx = randomInt() % _levelWidth;
+                int ly = randomInt() % 2 * _levelHeight;
                 werewolves().emplace_back(lx, ly);
             } else {
-                int lx = std::rand() % 2 * _levelWidth;
-                int ly = std::rand() % _levelHeight;
+                int lx = randomInt() % 2 * _levelWidth;
+                int ly = randomInt() % _levelHeight;
                 werewolves().emplace_back(lx, ly);
             }
         }
