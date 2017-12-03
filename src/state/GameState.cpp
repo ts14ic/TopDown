@@ -1,4 +1,4 @@
-#include "GameState.h"
+
 #include <SDL_events.h>
 
 SDL_Event& gameEvent() {

@@ -10,29 +10,29 @@ find_package(SDL2_mixer REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIRS})
 
 set(SOURCE_FILES
-        main.cpp
-        StopWatch.cpp StopWatch.h
-        calculations.cpp calculations.h
-        state/StateIntro.cpp state/StateIntro.h
-        state/StateMoon.cpp state/StateMoon.h
-        state/GameState.cpp state/GameState.h
-        sound/Sound.cpp sound/Sound.h
-        sound/Music.cpp sound/Music.h
-        Texture.cpp Texture.h
-        sdlwrap.cpp sdlwrap.h
-        engine/RenderSystem.cpp engine/RenderSystem.h
-        engine/Engine.cpp engine/Engine.h
-        engine/InputSystem.cpp engine/InputSystem.h
-        object/GameObject.cpp object/GameObject.h
-        object/Damageable.h object/Damageable.cpp
-        object/Player.cpp object/Player.h
-        object/Werewolf.cpp object/Werewolf.h
-        object/Zombie.cpp object/Zombie.h
-        object/Weapon.h
-        object/Bullet.cpp object/Bullet.h
-        object/Pistol.cpp object/Pistol.h
-        object/Shotgun.cpp object/Shotgun.h
-        object/Uzi.cpp object/Uzi.h)
+        src/main.cpp
+        src/StopWatch.cpp src/StopWatch.h
+        src/calculations.cpp src/calculations.h
+        src/state/StateIntro.cpp src/state/StateIntro.h
+        src/state/StateMoon.cpp src/state/StateMoon.h
+        src/state/GameState.cpp src/state/GameState.h
+        src/sound/Sound.cpp src/sound/Sound.h
+        src/sound/Music.cpp src/sound/Music.h
+        src/Texture.cpp src/Texture.h
+        src/sdlwrap.cpp src/sdlwrap.h
+        src/engine/RenderSystem.cpp src/engine/RenderSystem.h
+        src/engine/Engine.cpp src/engine/Engine.h
+        src/engine/InputSystem.cpp src/engine/InputSystem.h
+        src/object/GameObject.cpp src/object/GameObject.h
+        src/object/Damageable.h src/object/Damageable.cpp
+        src/object/Player.cpp src/object/Player.h
+        src/object/Werewolf.cpp src/object/Werewolf.h
+        src/object/Zombie.cpp src/object/Zombie.h
+        src/object/Weapon.h
+        src/object/Bullet.cpp src/object/Bullet.h
+        src/object/Pistol.cpp src/object/Pistol.h
+        src/object/Shotgun.cpp src/object/Shotgun.h
+        src/object/Uzi.cpp src/object/Uzi.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES})
