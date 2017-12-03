@@ -3,7 +3,7 @@
 #include <SDL_log.h>
 #include <unordered_map>
 
-Sound::Sound() {}
+Sound::Sound() = default;
 
 Sound::Sound(char const* path) {
     load(path);

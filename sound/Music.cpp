@@ -7,8 +7,7 @@
 #include <unordered_map>
 #include "Music.h"
 
-Music::Music()
-        : mMusic{nullptr} {}
+Music::Music() = default;
 
 Music::Music(char const* path) {
     load(path);
