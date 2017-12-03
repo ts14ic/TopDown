@@ -1,13 +1,13 @@
 //
 // Created by ts14ic on 12/2/17.
 //
+#include "RenderSystem.h"
+#include "../Texture.h"
+#include "../sound/Sound.h"
+#include "../sound/Music.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <iostream>
-#include "RenderSystem.h"
-#include "../Texture.h"
-#include "../Sound.h"
 
 RenderSystem::RenderSystem(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {

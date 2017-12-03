@@ -1,5 +1,5 @@
 #include "Zombie.h"
-#include "../Sound.h"
+#include "../sound/Sound.h"
 
 using std::vector;
 

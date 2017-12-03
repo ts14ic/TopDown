@@ -1,12 +1,12 @@
 #include "GameState.h"
 #include "../sdlwrap.h"
-#include "../Sound.h"
 #include "../engine/RenderSystem.h"
 #include "../engine/Engine.h"
 #include "StateMoon.h"
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
+#include "../sound/Music.h"
 #include <algorithm>
 #include <ctime>
 
