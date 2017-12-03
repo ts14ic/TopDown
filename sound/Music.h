@@ -4,9 +4,10 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 /* forward declarations begin */
-struct _Mix_Music;
+typedef struct _Mix_Music Mix_Music;
 
 /* forward declarations end */
 
@@ -15,8 +16,6 @@ public:
     Music();
 
     explicit Music(char const* path);
-
-    ~Music();
 
     Music(Music const&) = delete;
 
@@ -31,7 +30,11 @@ public:
     };
 
 private:
-    _Mix_Music* _mus;
+    struct MixDeleter {
+        void operator()(Mix_Music* p);
+    };
+
+    std::unique_ptr<Mix_Music, MixDeleter> mMusic;
 };
 
 Music& music(std::string const& name);

@@ -8,29 +8,23 @@
 #include "Music.h"
 
 Music::Music()
-        : _mus{nullptr} {}
-
-Music::~Music() {
-    if(_mus) {
-        Mix_FreeMusic(_mus);
-    }
-}
+        : mMusic{nullptr} {}
 
 Music::Music(char const* path) {
     load(path);
 }
 
 void Music::load(char const* path) {
-    _mus = Mix_LoadMUS(path);
-    if(!_mus) {
+    mMusic.reset(Mix_LoadMUS(path));
+    if(!mMusic) {
         throw FailedToLoadMusicException{Mix_GetError()};
     }
     SDL_Log("Loaded music: %s.\n", path);
 }
 
 void Music::play() const {
-    if(_mus && Mix_PlayingMusic() == 0) {
-        Mix_PlayMusic(_mus, -1);
+    if(mMusic && Mix_PlayingMusic() == 0) {
+        Mix_PlayMusic(mMusic.get(), -1);
     }
 }
 
@@ -40,3 +34,7 @@ Music& music(std::string const& name) {
 }
 
 Music::FailedToLoadMusicException::FailedToLoadMusicException(const char* message) : runtime_error(message) {}
+
+void Music::MixDeleter::operator()(Mix_Music* p) {
+    Mix_FreeMusic(p);
+}
