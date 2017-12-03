@@ -1,11 +1,13 @@
 #pragma once
 
-#include "../texture/Texture.h"
 #include "../utils/calculations.h"
+#include <string>
 #include <vector>
 
 /* forward declarations begin */
 struct SDL_Color;
+
+class RenderContext;
 
 /* forward declarations end */
 
@@ -32,17 +34,9 @@ public:
     virtual std::string texName() const = 0;
 
 protected:
-    void default_move() {
-        x(x() + speed() * dcos(angle()));
-        y(y() + speed() * dsin(angle()));
-    }
+    void default_move();
 
-    void default_render(RenderContext& engine) {
-        Texture& tex = textures(texName());
-        auto tx = static_cast<int>(x() - tex.w() / 2);
-        auto ty = static_cast<int>(y() - tex.h() / 2);
-        tex.render(engine, tx, ty, angle());
-    }
+    void default_render(RenderContext& engine);
 };
 
 bool objectsCollide(GameObject& a, GameObject& b);
