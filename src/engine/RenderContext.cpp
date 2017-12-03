@@ -71,6 +71,14 @@ void RenderContext::load_texture(const char* name, const char* filename) {
     textures(name).load(*this, filename);
 }
 
+int RenderContext::getScreenHeight() {
+    return mScreenHeight;
+}
+
+int RenderContext::getScreenWidth() {
+    return mScreenWidth;
+}
+
 void RenderContext::load_media() {
     load_texture("player_pistol", "assets/gfx/Player/pistol.png");
     load_texture("player_shotgun", "assets/gfx/Player/shotgun.png");

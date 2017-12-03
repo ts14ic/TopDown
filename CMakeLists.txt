@@ -19,7 +19,6 @@ set(SOURCE_FILES
         src/sound/Sound.cpp src/sound/Sound.h
         src/sound/Music.cpp src/sound/Music.h
         src/texture/Texture.cpp src/texture/Texture.h
-        src/sdlwrap.cpp src/sdlwrap.h
         src/engine/RenderContext.cpp src/engine/RenderContext.h
         src/engine/Engine.cpp src/engine/Engine.h
         src/engine/InputContext.cpp src/engine/InputContext.h

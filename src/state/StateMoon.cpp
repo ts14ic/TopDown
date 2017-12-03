@@ -1,5 +1,4 @@
 #include "GameState.h"
-#include "../sdlwrap.h"
 #include "../engine/RenderContext.h"
 #include "../engine/Engine.h"
 #include "StateMoon.h"
@@ -11,8 +10,9 @@
 #include <ctime>
 
 StateMoon::StateMoon(Engine& engine)
-        : _texBackground(engine.getRenderSystem(), "assets/gfx/test_bg.png"),
-          _pl(screenWidth() / 2, screenHeight() / 2) {
+        : _texBackground(engine.getRenderContext(), "assets/gfx/test_bg.png"),
+          _pl(engine.getRenderContext().getScreenWidth() / 2, engine.getRenderContext().getScreenHeight() / 2) {
+    // todo Use a c++ random engine
     std::srand(std::time(nullptr));
 
     zombies().clear();
@@ -21,7 +21,7 @@ StateMoon::StateMoon(Engine& engine)
 }
 
 void StateMoon::handle_events(Engine& engine) {
-    auto& input = engine.getInputSystem();
+    auto& input = engine.getInputContext();
 
     while(SDL_PollEvent(&input.getInputEvent())) {
 
@@ -78,12 +78,15 @@ void StateMoon::handle_logic(Engine& engine) {
 
     _pl.handle_logic();
 
+    int screenWidth = engine.getRenderContext().getScreenWidth();
+    int screenHeight = engine.getRenderContext().getScreenHeight();
+
     // process bullet moving and collisions
-    auto removeFrom = std::remove_if(bullets().begin(), bullets().end(), [](Bullet& b) {
+    auto removeFrom = std::remove_if(bullets().begin(), bullets().end(), [screenWidth, screenHeight](Bullet& b) {
         b.handle_logic();
 
-        if((b.x() > screenWidth()) || (b.x() < 0) ||
-           (b.y() > screenHeight()) || (b.y() < 0)) {
+        if((b.x() > screenWidth) || (b.x() < 0) ||
+           (b.y() > screenHeight) || (b.y() < 0)) {
             return true;
         }
 
@@ -149,7 +152,7 @@ static void render_crosshair(RenderContext& engine, Player const& pl) {
 }
 
 void StateMoon::handle_render(Engine& engine) {
-    auto& render = engine.getRenderSystem();
+    auto& render = engine.getRenderContext();
 
     SDL_RenderClear(render.getRenderer());
 

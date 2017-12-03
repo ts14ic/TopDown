@@ -16,6 +16,10 @@ public:
 
     void load_media();
 
+    int getScreenWidth();
+
+    int getScreenHeight();
+
     class FailedSDLInitException : std::runtime_error {
     public:
         explicit FailedSDLInitException(const char* message) : runtime_error(message) {}
@@ -28,6 +32,7 @@ private:
 
 private:
     struct SDLDeleter {
+        // todo move the implementations to the cpp
         void operator()(SDL_Window* p) {
             SDL_DestroyWindow(p);
         }
@@ -37,8 +42,8 @@ private:
         }
     };
 
-    int mScreenWidth = 0;
-    int mScreenHeight = 0;
+    int mScreenWidth;
+    int mScreenHeight;
     std::unique_ptr<SDL_Window, SDLDeleter> mWindow;
     std::unique_ptr<SDL_Renderer, SDLDeleter> mRenderer;
 };

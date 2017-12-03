@@ -3,10 +3,10 @@
 #include "StateIntro.h"
 
 StateIntro::StateIntro(Engine& engine)
-        : _background(engine.getRenderSystem(), "assets/gfx/intro_bg.png") {}
+        : _background(engine.getRenderContext(), "assets/gfx/intro_bg.png") {}
 
 void StateIntro::handle_events(Engine& engine) {
-    auto& input = engine.getInputSystem();
+    auto& input = engine.getInputContext();
 
     while(SDL_PollEvent(&input.getInputEvent())) {
         switch(input.getInputEvent().type) {
@@ -40,7 +40,7 @@ void StateIntro::handle_events(Engine& engine) {
 void StateIntro::handle_logic(Engine& engine) {}
 
 void StateIntro::handle_render(Engine& engine) {
-    _background.render(engine.getRenderSystem(), 0, 0);
+    _background.render(engine.getRenderContext(), 0, 0);
 
-    SDL_RenderPresent(engine.getRenderSystem().getRenderer());
+    SDL_RenderPresent(engine.getRenderContext().getRenderer());
 }

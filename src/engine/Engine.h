@@ -22,9 +22,9 @@ public:
 
     void requestStateChange(GState stateId);
 
-    InputContext& getInputSystem();
+    InputContext& getInputContext();
 
-    RenderContext& getRenderSystem();
+    RenderContext& getRenderContext();
 
 private:
     void changeState();
