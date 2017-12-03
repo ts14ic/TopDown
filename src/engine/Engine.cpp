@@ -59,10 +59,10 @@ void Engine::requestStateChange(GState stateId) {
     }
 }
 
-InputSystem& Engine::getInputSystem() {
+InputContext& Engine::getInputSystem() {
     return mInputSystem;
 }
 
-RenderSystem& Engine::getRenderSystem() {
+RenderContext& Engine::getRenderSystem() {
     return mRenderSystem;
 }

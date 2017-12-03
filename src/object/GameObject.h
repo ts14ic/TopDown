@@ -37,7 +37,7 @@ protected:
         y(y() + speed() * dsin(angle()));
     }
 
-    void default_render(RenderSystem& engine) {
+    void default_render(RenderContext& engine) {
         Texture& tex = textures(texName());
         auto tx = static_cast<int>(x() - tex.w() / 2);
         auto ty = static_cast<int>(y() - tex.h() / 2);

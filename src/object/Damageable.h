@@ -4,8 +4,8 @@
 #pragma once
 
 #include "../texture/Texture.h"
-#include "../engine/InputSystem.h"
-#include "../engine/RenderSystem.h"
+#include "../engine/InputContext.h"
+#include "../engine/RenderContext.h"
 #include "GameObject.h"
 
 class Damageable : public virtual GameObject {
@@ -21,5 +21,5 @@ public:
     virtual bool dead() const = 0;
 
 protected:
-    void default_render_health(RenderSystem& engine, SDL_Color const& c) const;
+    void default_render_health(RenderContext& engine, SDL_Color const& c) const;
 };

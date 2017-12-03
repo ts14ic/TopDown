@@ -3,7 +3,7 @@
 //
 #include "Damageable.h"
 
-void Damageable::default_render_health(RenderSystem& engine, SDL_Color const& c) const {
+void Damageable::default_render_health(RenderContext& engine, SDL_Color const& c) const {
     if(hp() > 0) {
         SDL_Rect healthRect{};
         healthRect.w = static_cast<int>(50.f * hp() / defaultHp());

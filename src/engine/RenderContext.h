@@ -4,13 +4,13 @@
 #include <SDL_system.h>
 #include <memory>
 
-class RenderSystem {
+class RenderContext {
 public:
-    RenderSystem();
+    RenderContext();
 
-    RenderSystem(int screenWidth, int screenHeight);
+    RenderContext(int screenWidth, int screenHeight);
 
-    ~RenderSystem();
+    ~RenderContext();
 
     SDL_Renderer* getRenderer();
 

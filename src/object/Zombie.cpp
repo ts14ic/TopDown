@@ -75,7 +75,7 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(RenderSystem& engine) {
+void Zombie::handle_render(RenderContext& engine) {
     default_render(engine);
     default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
     

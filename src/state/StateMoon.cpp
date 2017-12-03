@@ -1,6 +1,6 @@
 #include "GameState.h"
 #include "../sdlwrap.h"
-#include "../engine/RenderSystem.h"
+#include "../engine/RenderContext.h"
 #include "../engine/Engine.h"
 #include "StateMoon.h"
 #include "../object/Zombie.h"
@@ -133,7 +133,7 @@ void StateMoon::handle_logic(Engine& engine) {
     if(_pl.dead()) engine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(RenderSystem& engine, Player const& pl) {
+static void render_crosshair(RenderContext& engine, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     mx -= textures("crosshair").w() / 2;

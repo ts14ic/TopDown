@@ -113,7 +113,7 @@ void Werewolf::teleport() {
     }
 }
 
-void Werewolf::handle_render(RenderSystem& engine) {
+void Werewolf::handle_render(RenderContext& engine) {
     default_render(engine);
 
     if(_hp > 0) {

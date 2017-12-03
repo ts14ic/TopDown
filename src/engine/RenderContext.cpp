@@ -1,7 +1,7 @@
 //
 // Created by ts14ic on 12/2/17.
 //
-#include "RenderSystem.h"
+#include "RenderContext.h"
 #include "../texture/Texture.h"
 #include "../sound/Sound.h"
 #include "../sound/Music.h"
@@ -9,15 +9,15 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
-RenderSystem::RenderSystem(int screenWidth, int screenHeight)
+RenderContext::RenderContext(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
     init();
     load_media();
 }
 
-RenderSystem::RenderSystem() : RenderSystem(800, 600) {}
+RenderContext::RenderContext() : RenderContext(800, 600) {}
 
-void RenderSystem::init() {
+void RenderContext::init() {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSDLInitException{SDL_GetError()};
@@ -59,19 +59,19 @@ void RenderSystem::init() {
     SDL_RenderPresent(mRenderer.get());
 }
 
-RenderSystem::~RenderSystem() {
+RenderContext::~RenderContext() {
     SDL_Quit();
 }
 
-SDL_Renderer* RenderSystem::getRenderer() {
+SDL_Renderer* RenderContext::getRenderer() {
     return mRenderer.get();
 }
 
-void RenderSystem::load_texture(const char* name, const char* filename) {
+void RenderContext::load_texture(const char* name, const char* filename) {
     textures(name).load(*this, filename);
 }
 
-void RenderSystem::load_media() {
+void RenderContext::load_media() {
     load_texture("player_pistol", "assets/gfx/Player/pistol.png");
     load_texture("player_shotgun", "assets/gfx/Player/shotgun.png");
     load_texture("player_uzi", "assets/gfx/Player/uzi.png");

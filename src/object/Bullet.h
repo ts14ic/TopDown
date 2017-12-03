@@ -36,7 +36,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderSystem& engine);
+    void handle_render(RenderContext& engine);
 
 private:
     int _dmg;

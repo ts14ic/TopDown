@@ -20,9 +20,9 @@ set(SOURCE_FILES
         src/sound/Music.cpp src/sound/Music.h
         src/texture/Texture.cpp src/texture/Texture.h
         src/sdlwrap.cpp src/sdlwrap.h
-        src/engine/RenderSystem.cpp src/engine/RenderSystem.h
+        src/engine/RenderContext.cpp src/engine/RenderContext.h
         src/engine/Engine.cpp src/engine/Engine.h
-        src/engine/InputSystem.cpp src/engine/InputSystem.h
+        src/engine/InputContext.cpp src/engine/InputContext.h
         src/object/GameObject.cpp src/object/GameObject.h
         src/object/Damageable.h src/object/Damageable.cpp
         src/object/Player.cpp src/object/Player.h

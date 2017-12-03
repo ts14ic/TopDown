@@ -5,7 +5,7 @@
 
 #include <vector>
 #include "../timer/StopWatch.h"
-#include "../engine/RenderSystem.h"
+#include "../engine/RenderContext.h"
 #include "Damageable.h"
 
 class Zombie : public Damageable {
@@ -49,7 +49,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderSystem& engine);
+    void handle_render(RenderContext& engine);
 
 private:
     float _x, _y;

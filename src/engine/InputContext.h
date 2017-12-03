@@ -5,7 +5,7 @@
 
 #include <SDL_events.h>
 
-class InputSystem {
+class InputContext {
 public:
     SDL_Event& getInputEvent();
 private:

@@ -69,7 +69,7 @@ bool Player::reloading() const {
     return _weapons[_currentWeap]->reloading();
 }
 
-void Player::handle_events(InputSystem& input) {
+void Player::handle_events(InputContext& input) {
     switch(input.getInputEvent().type) {
         case SDL_MOUSEWHEEL:
             if(input.getInputEvent().wheel.y < 0) {
@@ -193,7 +193,7 @@ void Player::handle_logic() {
     }
 }
 
-void Player::handle_render(RenderSystem& engine) {
+void Player::handle_render(RenderContext& engine) {
     default_render(engine);
     default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
 }

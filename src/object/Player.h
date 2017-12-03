@@ -43,11 +43,11 @@ public:
 
     bool reloading() const;
 
-    void handle_events(InputSystem& input);
+    void handle_events(InputContext& input);
 
     void handle_logic();
 
-    void handle_render(RenderSystem& engine);
+    void handle_render(RenderContext& engine);
 
 private:
     float _x, _y, _speed;

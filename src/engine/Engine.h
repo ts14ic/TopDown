@@ -3,9 +3,9 @@
 //
 #pragma once
 
-#include "RenderSystem.h"
+#include "RenderContext.h"
 #include "../state/GameState.h"
-#include "InputSystem.h"
+#include "InputContext.h"
 #include "../timer/StopWatch.h"
 
 enum class GState {
@@ -22,9 +22,9 @@ public:
 
     void requestStateChange(GState stateId);
 
-    InputSystem& getInputSystem();
+    InputContext& getInputSystem();
 
-    RenderSystem& getRenderSystem();
+    RenderContext& getRenderSystem();
 
 private:
     void changeState();
@@ -35,6 +35,6 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
-    RenderSystem mRenderSystem;
-    InputSystem mInputSystem;
+    RenderContext mRenderSystem;
+    InputContext mInputSystem;
 };
