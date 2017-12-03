@@ -30,7 +30,7 @@ void Texture::load(RenderContext& engine, char const* path) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 
-    SDL_Log("Loaded texture: %s.\n", path);
+    SDL_Log("Texture loaded: %s.\n", path);
     mTex.reset(newTex);
     mWidth = buf->w;
     mHeight = buf->h;

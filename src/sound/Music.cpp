@@ -18,7 +18,7 @@ void Music::load(char const* path) {
     if(!mMusic) {
         throw FailedToLoadMusicException{Mix_GetError()};
     }
-    SDL_Log("Loaded music: %s.\n", path);
+    SDL_Log("Music loaded: %s.\n", path);
 }
 
 void Music::play() const {
