@@ -36,5 +36,3 @@ private:
 
     std::unique_ptr<Mix_Music, MixDeleter> mMusic;
 };
-
-Music& music(std::string const& name);

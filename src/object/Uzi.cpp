@@ -2,7 +2,6 @@
 // Created by ts14ic on 12/3/17.
 //
 #include "Uzi.h"
-#include "../sound/Sound.h"
 #include "Bullet.h"
 
 Uzi::Uzi() {
@@ -26,7 +25,7 @@ void Uzi::reload() {
     }
 }
 
-void Uzi::shoot(GameObject const& sender) {
+void Uzi::shoot(Assets& assets, GameObject const& sender) {
     static int sound = 1;
 
     if(_cd.passed(100) && _magAmmo > 0) {
@@ -34,10 +33,10 @@ void Uzi::shoot(GameObject const& sender) {
         bullets().push_back(b);
 
         if(sound == 1) {
-            sounds("uzi_shot1").play();
+            assets.sound("uzi_shot1").play();
             sound = 2;
         } else {
-            sounds("uzi_shot2").play();
+            assets.sound("uzi_shot2").play();
             sound = 1;
         }
 

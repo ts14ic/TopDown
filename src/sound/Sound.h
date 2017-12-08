@@ -34,5 +34,3 @@ private:
 
     std::unique_ptr<Mix_Chunk, MixDeleter> mSound;
 };
-
-Sound& sounds(std::string const& name);

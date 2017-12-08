@@ -2,7 +2,6 @@
 // Created by ts14ic on 12/3/17.
 //
 #include "Shotgun.h"
-#include "../sound/Sound.h"
 #include "Bullet.h"
 
 Shotgun::Shotgun() {
@@ -31,13 +30,13 @@ void Shotgun::reload() {
     }
 }
 
-void Shotgun::shoot(GameObject const& sender) {
+void Shotgun::shoot(Assets& assets, GameObject const& sender) {
     if(_cd.passed(200) && _magAmmo > 0) {
         for(int i = 0; i < 8; ++i) {
             Bullet b(sender, *this);
             bullets().push_back(b);
         }
-        sounds("shotgun_shot").play();
+        assets.sound("shotgun_shot").play();
 
         --_magAmmo;
         if(_magAmmo < 1) {

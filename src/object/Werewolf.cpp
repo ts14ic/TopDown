@@ -1,5 +1,4 @@
 #include "Werewolf.h"
-#include "../sound/Sound.h"
 
 using std::vector;
 
@@ -113,8 +112,8 @@ void Werewolf::teleport() {
     }
 }
 
-void Werewolf::handle_render(RenderContext& engine) {
-    default_render(engine);
+void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
+    default_render(assets, engine);
 
     if(_hp > 0) {
         SDL_Rect healthRect{};
@@ -128,7 +127,7 @@ void Werewolf::handle_render(RenderContext& engine) {
 
     if(_state == ATTACKING) {
         if(_frame == 3 || _frame == 7) {
-            sounds("wolf_attack").play();
+            assets.sound("wolf_attack").play();
         }
 
         if(_timer.passed(100)) {
@@ -144,7 +143,7 @@ void Werewolf::handle_render(RenderContext& engine) {
         }
     } else if(_state == TELEPORTING) {
         if(_timer.passed(100)) {
-            if(_frame == 2) sounds("wolf_teleport").play();
+            if(_frame == 2) assets.sound("wolf_teleport").play();
 
             ++_frame;
             if(_frame > 2) _frame = 0;

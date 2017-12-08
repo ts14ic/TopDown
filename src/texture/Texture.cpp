@@ -1,7 +1,6 @@
 #include "Texture.h"
 #include "../engine/RenderContext.h"
 #include <SDL_image.h>
-#include <unordered_map>
 
 struct FailedToLoadTextureException : std::runtime_error {
     explicit FailedToLoadTextureException(const char* message) : runtime_error(message) {}
@@ -76,11 +75,6 @@ void Texture::render(RenderContext& engine, SDL_Point const& pos, SDL_Rect const
         SDL_Rect srcRect = {clip.x, clip.y, clip.w, clip.h};
         SDL_RenderCopy(engine.getRenderer(), mTex.get(), &srcRect, &dstRect);
     }
-}
-
-Texture& textures(std::string const& name) {
-    static std::unordered_map<std::string, Texture> ret;
-    return ret[name];
 }
 
 void Texture::SDLTextureDeleter::operator()(SDL_Texture* p) {

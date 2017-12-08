@@ -1,7 +1,6 @@
 #include "Sound.h"
 #include <SDL_mixer.h>
 #include <SDL_log.h>
-#include <unordered_map>
 
 Sound::Sound() = default;
 
@@ -21,11 +20,6 @@ void Sound::play() const {
     if(mSound) {
         Mix_PlayChannel(-1, mSound.get(), 0);
     }
-}
-
-Sound& sounds(std::string const& name) {
-    static std::unordered_map<std::string, Sound> ret;
-    return ret[name];
 }
 
 Sound::FailedToLoadSoundException::FailedToLoadSoundException(const char* message) : runtime_error(message) {}

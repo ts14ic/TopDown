@@ -7,6 +7,7 @@
 #include "../state/GameState.h"
 #include "InputContext.h"
 #include "../timer/StopWatch.h"
+#include "../assets/Assets.h"
 
 enum class GState {
     null,
@@ -18,6 +19,8 @@ enum class GState {
 
 class Engine {
 public:
+    Engine();
+
     void runLoop();
 
     void requestStateChange(GState stateId);
@@ -26,15 +29,18 @@ public:
 
     RenderContext& getRenderContext();
 
+    Assets& getAssets();
+
 private:
     void changeState();
 
 private:
-    GState mCurrentStateId;
-    GState mNextStateId;
+    GState mCurrentStateId = GState::null;
+    GState mNextStateId = GState::null;
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
+    Assets mAssets;
     RenderContext mRenderSystem;
     InputContext mInputSystem;
 };

@@ -45,9 +45,9 @@ public:
 
     void handle_events(InputContext& input);
 
-    void handle_logic();
+    void handle_logic(Assets& assets);
 
-    void handle_render(RenderContext& engine);
+    void handle_render(Assets& assets, RenderContext& renderContext);
 
 private:
     float _x, _y, _speed;

@@ -27,11 +27,6 @@ void Music::play() const {
     }
 }
 
-Music& music(std::string const& name) {
-    static std::unordered_map<std::string, Music> ret;
-    return ret[name];
-}
-
 Music::FailedToLoadMusicException::FailedToLoadMusicException(const char* message) : runtime_error(message) {}
 
 void Music::MixDeleter::operator()(Mix_Music* p) {

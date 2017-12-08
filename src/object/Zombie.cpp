@@ -1,5 +1,4 @@
 #include "Zombie.h"
-#include "../sound/Sound.h"
 
 using std::vector;
 
@@ -75,13 +74,13 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(RenderContext& engine) {
-    default_render(engine);
-    default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
+void Zombie::handle_render(Assets& assets, RenderContext& renderContext) {
+    default_render(assets, renderContext);
+    default_render_health(renderContext, SDL_Color{0, 0x77, 0, 0xFF});
     
     if(_state == ATTACKING) {
         if(_frame == 5) {
-            sounds("zombie_attack").play();
+            assets.sound("zombie_attack").play();
         }
         
         if(_timer.passed(100)) {

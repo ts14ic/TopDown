@@ -5,7 +5,6 @@
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
-#include "../sound/Music.h"
 #include <algorithm>
 #include <ctime>
 
@@ -77,7 +76,7 @@ void StateMoon::handle_logic(Engine& engine) {
         _mobSpawner.start();
     }
 
-    _pl.handle_logic();
+    _pl.handle_logic(engine.getAssets());
 
     int screenWidth = engine.getRenderContext().getScreenWidth();
     int screenHeight = engine.getRenderContext().getScreenHeight();
@@ -137,18 +136,18 @@ void StateMoon::handle_logic(Engine& engine) {
     if(_pl.dead()) engine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(RenderContext& engine, Player const& pl) {
+static void render_crosshair(Assets& assets, RenderContext& renderContext, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
-    mx -= textures("crosshair").w() / 2;
-    my -= textures("crosshair").h() / 2;
+    mx -= assets.texture("crosshair").w() / 2;
+    my -= assets.texture("crosshair").h() / 2;
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;
     if(pl.reloading()) {
-        textures("reload").render(engine, mx, my, angle);
+        assets.texture("reload").render(renderContext, mx, my, angle);
     } else {
-        textures("crosshair").render(engine, mx, my, angle);
+        assets.texture("crosshair").render(renderContext, mx, my, angle);
     }
 }
 
@@ -157,22 +156,22 @@ void StateMoon::handle_render(Engine& engine) {
 
     SDL_RenderClear(render.getRenderer());
 
-    music("weather").play();
+    engine.getAssets().music("weather").play();
 
     _texBackground.render(render, 0, 0);
 
-    _pl.handle_render(render);
+    _pl.handle_render(engine.getAssets(), render);
     for(auto& z : zombies()) {
-        z.handle_render(render);
+        z.handle_render(engine.getAssets(), render);
     }
     for(auto& w : werewolves()) {
-        w.handle_render(render);
+        w.handle_render(engine.getAssets(), render);
     }
     for(auto& b : bullets()) {
-        b.handle_render(render);
+        b.handle_render(engine.getAssets(), render);
     }
 
-    render_crosshair(render, _pl);
+    render_crosshair(engine.getAssets(), render, _pl);
 
     SDL_RenderPresent(render.getRenderer());
 }

@@ -3,18 +3,17 @@
 #include <SDL_video.h>
 #include <SDL_system.h>
 #include <memory>
+#include "../assets/Assets.h"
 
 class RenderContext {
 public:
-    RenderContext();
-
-    RenderContext(int screenWidth, int screenHeight);
+    RenderContext(Assets& assets, int screenWidth, int screenHeight);
 
     ~RenderContext();
 
     SDL_Renderer* getRenderer();
 
-    void load_media();
+    void load_media(Assets& assets);
 
     int getScreenWidth();
 
@@ -28,7 +27,7 @@ public:
 private:
     void init();
 
-    void load_texture(const char* name, const char* filename);
+    void load_texture(Assets& assets, const char* name, const char* filename);
 
 private:
     struct SDLDeleter {

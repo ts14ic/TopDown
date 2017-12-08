@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../utils/calculations.h"
+#include "../assets/Assets.h"
 #include <string>
 #include <vector>
 
@@ -36,7 +37,7 @@ public:
 protected:
     void default_move();
 
-    void default_render(RenderContext& engine);
+    void default_render(Assets& assets, RenderContext& engine);
 };
 
 bool objectsCollide(GameObject& a, GameObject& b);

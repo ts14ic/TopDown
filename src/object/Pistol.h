@@ -11,7 +11,7 @@ class Pistol : public Weapon {
 public:
     Pistol();
 
-    void shoot(GameObject const& shooter) override;
+    void shoot(Assets& assets, GameObject const& shooter) override;
 
     int dmg() const override;
 

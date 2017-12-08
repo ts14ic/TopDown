@@ -51,5 +51,3 @@ private:
     int mWidth = 0;
     int mHeight = 0;
 };
-
-Texture& textures(std::string const& name);

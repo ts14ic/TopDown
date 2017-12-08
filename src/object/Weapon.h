@@ -16,7 +16,7 @@ enum EWeapon {
 
 class Weapon {
 public:
-    virtual void shoot(GameObject const& shooter) = 0;
+    virtual void shoot(Assets& assets, GameObject const& shooter) = 0;
 
     virtual int length() const = 0;
 

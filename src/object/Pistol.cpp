@@ -2,7 +2,6 @@
 // Created by ts14ic on 12/3/17.
 //
 #include "Pistol.h"
-#include "../sound/Sound.h"
 #include "Bullet.h"
 
 Pistol::Pistol() {
@@ -26,12 +25,12 @@ void Pistol::reload() {
     }
 }
 
-void Pistol::shoot(GameObject const& sender) {
+void Pistol::shoot(Assets& assets, GameObject const& sender) {
     if(_cd.passed(350) && _magAmmo > 0) {
         Bullet b(sender, *this);
         bullets().push_back(b);
 
-        sounds("pistol_shot").play();
+        assets.sound("pistol_shot").play();
 
         --_magAmmo;
         if(_magAmmo < 1) {

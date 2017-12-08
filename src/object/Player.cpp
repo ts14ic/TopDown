@@ -163,7 +163,7 @@ void Player::handle_events(InputContext& input) {
     }
 }
 
-void Player::handle_logic() {
+void Player::handle_logic(Assets& assets) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     _angle = to_deg(get_angle(_x, _y, mx, my));
@@ -189,11 +189,11 @@ void Player::handle_logic() {
 
     _weapons[_currentWeap]->reload();
     if(_state & SHOOTS) {
-        _weapons[_currentWeap]->shoot(*this);
+        _weapons[_currentWeap]->shoot(assets, *this);
     }
 }
 
-void Player::handle_render(RenderContext& engine) {
-    default_render(engine);
-    default_render_health(engine, SDL_Color{0, 0x77, 0, 0xFF});
+void Player::handle_render(Assets& assets, RenderContext& renderContext) {
+    default_render(assets, renderContext);
+    default_render_health(renderContext, SDL_Color{0, 0x77, 0, 0xFF});
 }

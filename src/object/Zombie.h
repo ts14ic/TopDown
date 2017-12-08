@@ -49,7 +49,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(RenderContext& engine);
+    void handle_render(Assets& assets, RenderContext& renderContext);
 
 private:
     float _x, _y;
