@@ -15,6 +15,10 @@ public:
 
     void load_media(Assets& assets);
 
+    void render(Texture const& texture, int x, int y);
+
+    void render(Texture const& texture, int x, int y, float angle);
+
     int getScreenWidth();
 
     int getScreenHeight();

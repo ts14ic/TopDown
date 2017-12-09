@@ -126,6 +126,20 @@ void RenderContext::load_media(Assets& assets) {
     assets.music("weather").load("assets/sfx/weather.mp3");
 }
 
+void RenderContext::render(const Texture& texture, int x, int y) {
+    if(texture.isLoaded()) {
+        SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
+        SDL_RenderCopy(mRenderer.get(), texture.getWrapped(), nullptr, &destRect);
+    }
+}
+
+void RenderContext::render(Texture const& texture, int x, int y, float angle) {
+    if(texture.isLoaded()) {
+        SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
+        SDL_RenderCopyEx(mRenderer.get(), texture.getWrapped(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
+    }
+}
+
 void RenderContext::SDLDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
 }

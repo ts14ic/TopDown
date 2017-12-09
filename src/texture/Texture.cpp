@@ -49,6 +49,15 @@ void Texture::render(RenderContext& engine, int x, int y, float angle) const {
     }
 }
 
+bool Texture::isLoaded() const {
+    return mTex != nullptr;
+
+}
+
+SDL_Texture* Texture::getWrapped() const {
+    return mTex.get();
+}
+
 void Texture::SDLTextureDeleter::operator()(SDL_Texture* p) {
     SDL_DestroyTexture(p);
 }

@@ -30,9 +30,13 @@ public:
 
     void load(RenderContext& engine, char const* path);
 
+    bool isLoaded() const;
+
     int getWidth() const { return mWidth; }
 
     int getHeight() const { return mHeight; }
+
+    SDL_Texture* getWrapped() const;
 
     void render(RenderContext& engine, int x, int y) const;
 
