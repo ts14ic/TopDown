@@ -38,15 +38,13 @@ public:
 
     SDL_Texture* getWrapped() const;
 
-    void render(RenderContext& engine, int x, int y) const;
-
-    void render(RenderContext& engine, int x, int y, float angle) const;
-
+private:
     struct SDLTextureDeleter {
         void operator()(SDL_Texture* p);
     };
 
 private:
+
     std::unique_ptr<SDL_Texture, SDLTextureDeleter> mTex;
     int mWidth = 0;
     int mHeight = 0;

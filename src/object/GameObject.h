@@ -37,7 +37,7 @@ public:
 protected:
     void default_move();
 
-    void default_render(Assets& assets, RenderContext& engine);
+    void default_render(Assets& assets, RenderContext& renderContext);
 };
 
 bool objectsCollide(GameObject& a, GameObject& b);

@@ -40,7 +40,7 @@ void StateIntro::handle_events(Engine& engine) {
 void StateIntro::handle_logic(Engine& engine) {}
 
 void StateIntro::handle_render(Engine& engine) {
-    _background.render(engine.getRenderContext(), 0, 0);
+    engine.getRenderContext().render(_background, 0, 0);
 
     SDL_RenderPresent(engine.getRenderContext().getRenderer());
 }

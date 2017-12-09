@@ -35,20 +35,6 @@ void Texture::load(RenderContext& engine, char const* path) {
     mHeight = buf->h;
 }
 
-void Texture::render(RenderContext& engine, int x, int y) const {
-    if(mTex) {
-        SDL_Rect destRect = {x, y, mWidth, mHeight};
-        SDL_RenderCopy(engine.getRenderer(), mTex.get(), nullptr, &destRect);
-    }
-}
-
-void Texture::render(RenderContext& engine, int x, int y, float angle) const {
-    if(mTex) {
-        SDL_Rect destRect = {x, y, mWidth, mHeight};
-        SDL_RenderCopyEx(engine.getRenderer(), mTex.get(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
-    }
-}
-
 bool Texture::isLoaded() const {
     return mTex != nullptr;
 

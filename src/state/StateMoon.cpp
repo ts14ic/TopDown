@@ -144,11 +144,7 @@ static void render_crosshair(Assets& assets, RenderContext& renderContext, Playe
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;
-    if(pl.reloading()) {
-        assets.texture("reload").render(renderContext, mx, my, angle);
-    } else {
-        assets.texture("crosshair").render(renderContext, mx, my, angle);
-    }
+    renderContext.render(assets.texture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
 }
 
 void StateMoon::handle_render(Engine& engine) {
@@ -158,7 +154,7 @@ void StateMoon::handle_render(Engine& engine) {
 
     engine.getAssets().music("weather").play();
 
-    _texBackground.render(render, 0, 0);
+    engine.getRenderContext().render(_texBackground, 0, 0);
 
     _pl.handle_render(engine.getAssets(), render);
     for(auto& z : zombies()) {
