@@ -12,6 +12,11 @@ class RenderContext;
 
 /* forward declarations end */
 
+/* TODO separate responsibilities
+ * current responsibilities:
+ * 1. loading
+ * 2. rendering
+ */
 class Texture {
 public:
     Texture();
@@ -31,16 +36,6 @@ public:
     void render(RenderContext& engine, int x, int y) const;
 
     void render(RenderContext& engine, int x, int y, float angle) const;
-
-    void render(RenderContext& engine, int x, int y, float angle, int w, int h) const;
-
-    void render(RenderContext& engine, SDL_Point const& pos) const;
-
-    void render(RenderContext& engine, SDL_Point const& pos, float angle) const;
-
-    void render(RenderContext& engine, SDL_Point const& pos, float angle, SDL_Rect const& clip) const;
-
-    void render(RenderContext& engine, SDL_Point const& pos, SDL_Rect const& clip) const;
 
     struct SDLTextureDeleter {
         void operator()(SDL_Texture* p);

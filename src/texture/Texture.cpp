@@ -49,34 +49,6 @@ void Texture::render(RenderContext& engine, int x, int y, float angle) const {
     }
 }
 
-void Texture::render(RenderContext& engine, int x, int y, float angle, int w, int h) const {
-    if(mTex) {
-        SDL_Rect dstRect = {x, y, w, h};
-        SDL_Rect srcRect = {0, 0, w, h};
-        SDL_RenderCopyEx(engine.getRenderer(), mTex.get(), &srcRect, &dstRect, angle, nullptr, SDL_FLIP_NONE);
-    }
-}
-
-void Texture::render(RenderContext& engine, SDL_Point const& pos) const {
-    render(engine, pos.x, pos.y);
-}
-
-void Texture::render(RenderContext& engine, SDL_Point const& pos, float angle) const {
-    render(engine, pos.x, pos.y, angle);
-}
-
-void Texture::render(RenderContext& engine, SDL_Point const& pos, float angle, SDL_Rect const& clip) const {
-    render(engine, pos.x, pos.y, angle, clip.w, clip.h);
-}
-
-void Texture::render(RenderContext& engine, SDL_Point const& pos, SDL_Rect const& clip) const {
-    if(mTex) {
-        SDL_Rect dstRect = {pos.x, pos.y, clip.w, clip.h};
-        SDL_Rect srcRect = {clip.x, clip.y, clip.w, clip.h};
-        SDL_RenderCopy(engine.getRenderer(), mTex.get(), &srcRect, &dstRect);
-    }
-}
-
 void Texture::SDLTextureDeleter::operator()(SDL_Texture* p) {
     SDL_DestroyTexture(p);
 }
