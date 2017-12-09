@@ -139,8 +139,8 @@ void StateMoon::handle_logic(Engine& engine) {
 static void render_crosshair(Assets& assets, RenderContext& renderContext, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
-    mx -= assets.texture("crosshair").w() / 2;
-    my -= assets.texture("crosshair").h() / 2;
+    mx -= assets.texture("crosshair").getWidth() / 2;
+    my -= assets.texture("crosshair").getHeight() / 2;
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;

@@ -11,7 +11,7 @@ void GameObject::default_move() {
 
 void GameObject::default_render(Assets& assets, RenderContext& engine) {
     Texture& tex = assets.texture(texName());
-    auto tx = static_cast<int>(x() - tex.w() / 2);
-    auto ty = static_cast<int>(y() - tex.h() / 2);
+    auto tx = static_cast<int>(x() - tex.getWidth() / 2);
+    auto ty = static_cast<int>(y() - tex.getHeight() / 2);
     tex.render(engine, tx, ty, angle());
 }

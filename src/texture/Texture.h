@@ -15,7 +15,8 @@ class RenderContext;
 /* TODO separate responsibilities
  * current responsibilities:
  * 1. loading
- * 2. rendering
+ * 2. texture info
+ * 3. rendering
  */
 class Texture {
 public:
@@ -29,9 +30,9 @@ public:
 
     void load(RenderContext& engine, char const* path);
 
-    int w() const { return mWidth; }
+    int getWidth() const { return mWidth; }
 
-    int h() const { return mHeight; }
+    int getHeight() const { return mHeight; }
 
     void render(RenderContext& engine, int x, int y) const;
 
