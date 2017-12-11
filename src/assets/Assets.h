@@ -4,10 +4,10 @@
 
 #pragma once
 
+#include <unordered_map>
 #include "../texture/Texture.h"
 #include "../sound/Music.h"
 #include "../sound/Sound.h"
-#include <unordered_map>
 
 class Assets {
 public:

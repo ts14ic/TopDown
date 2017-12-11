@@ -3,19 +3,12 @@
 //
 #pragma once
 
+#include "GState.h"
 #include "RenderContext.h"
-#include "../state/GameState.h"
 #include "InputContext.h"
-#include "../timer/StopWatch.h"
 #include "../assets/Assets.h"
-
-enum class GState {
-    null,
-    intro,
-    moon,
-    score,
-    exit
-};
+#include "../state/GameState.h"
+#include "../timer/StopWatch.h"
 
 class Engine {
 public:
