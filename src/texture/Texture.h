@@ -38,6 +38,10 @@ public:
 
     SDL_Texture* getWrapped() const;
 
+    struct FailedToLoadTextureException : public std::runtime_error {
+        explicit FailedToLoadTextureException(const char* message);
+    };
+
 private:
     struct SDLTextureDeleter {
         void operator()(SDL_Texture* p);
