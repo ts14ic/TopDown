@@ -7,6 +7,7 @@
 #include "../timer/StopWatch.h"
 #include "Weapon.h"
 #include <memory>
+#include <bitset>
 
 class InputContext;
 
@@ -70,13 +71,13 @@ private:
 
     StopWatch _dmgCd;
 
-    enum {
-        IDLE = 0x0,
-        MOVES_UP = 0x1,
-        MOVES_DOWN = 0x2,
-        MOVES_LEFT = 0x4,
-        MOVES_RIGHT = 0x8,
-        SHOOTS = 0x10
+    enum InputState {
+        UP_PRESSED,
+        DOWN_PRESSED,
+        LEFT_PRESSED,
+        RIGHT_PRESSED,
+        TRIGGER_PRESSED,
+        LENGTH
     };
-    int _state = IDLE;
+    std::bitset<LENGTH> mInputState;
 };

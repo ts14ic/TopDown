@@ -62,7 +62,7 @@ void Player::angle(float a) { _angle = a; }
 
 void Player::speed(float s) { _speed = s; }
 
-Circle Player::circle() const { return Circle(_x, _y, 30); }
+Circle Player::circle() const { return {_x, _y, 30}; }
 
 std::string Player::texName() const {
     std::ostringstream ostringstream;
@@ -103,37 +103,46 @@ void Player::handle_events(InputContext& input) {
 
         case SDL_MOUSEBUTTONDOWN:
             if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
-                _state |= SHOOTS;
+                mInputState[TRIGGER_PRESSED] = true;
             }
             break;
 
         case SDL_MOUSEBUTTONUP:
             if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
-                _state ^= SHOOTS;
+                mInputState[TRIGGER_PRESSED] = false;
             }
             break;
 
         case SDL_KEYDOWN:
             switch(input.getInputEvent().key.keysym.sym) {
-                case SDLK_w:
-                    _state |= MOVES_UP;
+                case SDLK_UP:
+                case SDLK_w: {
+                    mInputState[UP_PRESSED] = true;
                     break;
+                }
 
-                case SDLK_s:
-                    _state |= MOVES_DOWN;
+                case SDLK_DOWN:
+                case SDLK_s: {
+                    mInputState[DOWN_PRESSED] = true;
                     break;
+                }
 
-                case SDLK_a:
-                    _state |= MOVES_LEFT;
+                case SDLK_LEFT:
+                case SDLK_a: {
+                    mInputState[LEFT_PRESSED] = true;
                     break;
+                }
 
-                case SDLK_d:
-                    _state |= MOVES_RIGHT;
+                case SDLK_RIGHT:
+                case SDLK_d: {
+                    mInputState[RIGHT_PRESSED] = true;
                     break;
+                }
 
-                case SDLK_SPACE:
-                    _state |= SHOOTS;
+                case SDLK_SPACE: {
+                    mInputState[TRIGGER_PRESSED] = true;
                     break;
+                }
 
                 default:;
             }
@@ -153,25 +162,34 @@ void Player::handle_events(InputContext& input) {
                     mSelectedWeaponIdx = 2;
                     break;
 
-                case SDLK_w:
-                    _state ^= MOVES_UP;
+                case SDLK_UP:
+                case SDLK_w: {
+                    mInputState[UP_PRESSED] = false;
                     break;
+                }
 
-                case SDLK_s:
-                    _state ^= MOVES_DOWN;
+                case SDLK_DOWN:
+                case SDLK_s: {
+                    mInputState[DOWN_PRESSED] = false;
                     break;
+                }
 
-                case SDLK_a:
-                    _state ^= MOVES_LEFT;
+                case SDLK_LEFT:
+                case SDLK_a: {
+                    mInputState[LEFT_PRESSED] = false;
                     break;
+                }
 
-                case SDLK_d:
-                    _state ^= MOVES_RIGHT;
+                case SDLK_RIGHT:
+                case SDLK_d: {
+                    mInputState[RIGHT_PRESSED] = false;
                     break;
+                }
 
-                case SDLK_SPACE:
-                    _state ^= SHOOTS;
+                case SDLK_SPACE: {
+                    mInputState[TRIGGER_PRESSED] = false;
                     break;
+                }
 
                 default:;
             }
@@ -196,21 +214,21 @@ void Player::handle_logic(Assets& assets) {
         _speed = 1.0f;
     }
 
-    if(_state & MOVES_DOWN) {
+    if(mInputState[DOWN_PRESSED]) {
         _y = _y + _speed;
     }
-    if(_state & MOVES_UP) {
+    if(mInputState[UP_PRESSED]) {
         _y = _y - _speed;
     }
-    if(_state & MOVES_LEFT) {
+    if(mInputState[LEFT_PRESSED]) {
         _x = _x - _speed;
     }
-    if(_state & MOVES_RIGHT) {
+    if(mInputState[RIGHT_PRESSED]) {
         _x = _x + _speed;
     }
 
     mWeapons[mSelectedWeaponIdx].tryReload();
-    if(_state & SHOOTS) {
+    if(mInputState[TRIGGER_PRESSED]) {
         mWeapons[mSelectedWeaponIdx].pullTrigger(assets, *this);
     }
 }
