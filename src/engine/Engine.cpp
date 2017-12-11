@@ -17,7 +17,7 @@ void Engine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(*this);
 
     while(mCurrentStateId != GState::exit) {
-        mFpsWatch.start();
+        mFpsWatch.restart();
 
         mCurrentState->handle_events(*this);
         mCurrentState->handle_logic(*this);
@@ -26,8 +26,8 @@ void Engine::runLoop() {
 
         mCurrentState->handle_render(*this);
 
-        if(mFpsWatch.get_ticks() < MS_PER_FRAME) {
-            SDL_Delay(MS_PER_FRAME - mFpsWatch.get_ticks());
+        if(mFpsWatch.getTicks() < MS_PER_FRAME) {
+            SDL_Delay(MS_PER_FRAME - mFpsWatch.getTicks());
         }
     }
 }

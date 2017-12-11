@@ -14,7 +14,7 @@ StateMoon::StateMoon(Engine& engine)
           mRandomEngine{std::random_device{}()} {
     zombies().clear();
     werewolves().clear();
-    _mobSpawner.start();
+    _mobSpawner.restart();
 }
 
 int StateMoon::randomInt() {
@@ -47,7 +47,7 @@ void StateMoon::restrict_pos(GameObject& o) {
 }
 
 void StateMoon::handle_logic(Engine& engine) {
-    if(_mobSpawner.passed(500) && (zombies().size() + werewolves().size() < 7)) {
+    if(_mobSpawner.ticksHavePassed(500) && (zombies().size() + werewolves().size() < 7)) {
         if(zombies().size() < 7) {
             int border = randomInt() % 2;
             if(border == 0) {
@@ -74,7 +74,7 @@ void StateMoon::handle_logic(Engine& engine) {
             }
         }
 
-        _mobSpawner.start();
+        _mobSpawner.restart();
     }
 
     _pl.handle_logic(engine.getAssets());

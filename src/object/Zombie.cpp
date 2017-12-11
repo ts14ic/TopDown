@@ -85,15 +85,15 @@ void Zombie::handle_render(Assets& assets, RenderContext& renderContext) {
             assets.sound("zombie_attack").play();
         }
 
-        if(_timer.passed(100)) {
+        if(_timer.ticksHavePassed(100)) {
             ++_frame;
             if(_frame >= 6) _frame = 0;
-            _timer.start();
+            _timer.restart();
         }
     } else if(_state == DYING) {
-        if(_frame < 7 && _timer.passed(500)) {
+        if(_frame < 7 && _timer.ticksHavePassed(500)) {
             ++_frame;
-            _timer.start();
+            _timer.restart();
         }
     }
 }

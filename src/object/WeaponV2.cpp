@@ -18,11 +18,11 @@ WeaponV2::WeaponV2(const WeaponBuilder& builder)
           mFireSounds{builder.getFireSounds()},
           mFireCooldown(builder.getFireCooldown()),
           mReloadCooldown(builder.getReloadCooldown()) {
-    mFireCooldownTimer.start();
+    mFireCooldownTimer.restart();
 }
 
 void WeaponV2::startReloading() {
-    mReloadCooldownTimer.start();
+    mReloadCooldownTimer.restart();
     mIsReloading = true;
 }
 
@@ -45,7 +45,7 @@ void WeaponV2::spawnBullets(GameObject const& shooter) {
 }
 
 void WeaponV2::shoot(Assets& assets, GameObject const& shooter) {
-    if(mFireCooldownTimer.passed(mFireCooldown) && mCurrentAmmo > 0) {
+    if(mFireCooldownTimer.ticksHavePassed(mFireCooldown) && mCurrentAmmo > 0) {
         spawnBullets(shooter);
 
         playFireSound(assets);
@@ -55,7 +55,7 @@ void WeaponV2::shoot(Assets& assets, GameObject const& shooter) {
             startReloading();
         }
 
-        mFireCooldownTimer.start();
+        mFireCooldownTimer.restart();
     }
 }
 
@@ -80,15 +80,15 @@ bool WeaponV2::reloading() const {
 }
 
 void WeaponV2::reload() {
-    if(mIsReloading && mReloadCooldownTimer.passed(mReloadCooldown)) {
+    if(mIsReloading && mReloadCooldownTimer.ticksHavePassed(mReloadCooldown)) {
         mCurrentAmmo = mMaxAmmo;
         mIsReloading = false;
     }
     // todo add support for shotgun's interrupted reload
-//    if(mIsReloading && mReloadCooldownTimer.passed(1000)) {
+//    if(mIsReloading && mReloadCooldownTimer.ticksHavePassed(1000)) {
 //        if(mCurrentAmmo == 0) {
 //            mCurrentAmmo++;
-//            mReloadCooldownTimer.start();
+//            mReloadCooldownTimer.restart();
 //        } else {
 //            mCurrentAmmo++;
 //            mIsReloading = false;

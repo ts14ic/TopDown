@@ -6,15 +6,14 @@ StopWatch::StopWatch()
 {
 }
 
-void StopWatch::start() {
+void StopWatch::restart() {
     _startedAt = SDL_GetTicks();
 }
 
-// todo rename to getTicks
-unsigned StopWatch::get_ticks() const {
+unsigned StopWatch::getTicks() const {
     return SDL_GetTicks() - _startedAt;
 }
 
-bool StopWatch::passed(unsigned ticks) const {
-    return get_ticks() >= ticks;
+bool StopWatch::ticksHavePassed(unsigned ticks) const {
+    return getTicks() >= ticks;
 }

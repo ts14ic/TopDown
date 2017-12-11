@@ -43,7 +43,7 @@ Player::Player(int x, int y)
                                                               .fireSounds({"uzi_shot1", "uzi_shot2"})
                                                               .build());
 
-    _dmgCd.start();
+    _dmgCd.restart();
 }
 
 float Player::x() const { return _x; }
@@ -90,9 +90,9 @@ bool Player::dead() const {
 }
 
 void Player::damage(int v) {
-    if(v > 0 && _dmgCd.passed(500)) {
+    if(v > 0 && _dmgCd.ticksHavePassed(500)) {
         _hp -= v;
-        _dmgCd.start();
+        _dmgCd.restart();
     }
 }
 
@@ -199,7 +199,7 @@ void Player::handle_logic(Assets& assets) {
     SDL_GetMouseState(&mx, &my);
     _angle = to_deg(get_angle(_x, _y, mx, my));
 
-    if(_dmgCd.passed(500)) {
+    if(_dmgCd.ticksHavePassed(500)) {
         _speed = 2.3f;
     } else {
         _speed = 1.0f;

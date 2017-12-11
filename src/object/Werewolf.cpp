@@ -11,8 +11,8 @@ Werewolf::Werewolf(float x, float y)
         : _x{x}, _y{y} {
     _hp = Werewolf::defaultHp();
 
-    _timer.start();
-    _teleportCd.start();
+    _timer.restart();
+    _teleportCd.restart();
 }
 
 // GameObject legacy
@@ -74,7 +74,7 @@ void Werewolf::set_target(float x, float y, bool ignore) {
     if(ignore || _state == DYING) return;
 
     if(_state == TELEPORTING) {
-        if(!_teleportCd.passed(500)) return;
+        if(!_teleportCd.ticksHavePassed(500)) return;
     }
 
     _angle = to_deg(get_angle(_x, _y, x, y));
@@ -97,8 +97,8 @@ void Werewolf::handle_logic() {
     if(_state == MOVING) {
         default_move();
     } else if(_state == ATTACKING) {
-        if(_timer.passed(600)) {
-            _timer.start();
+        if(_timer.ticksHavePassed(600)) {
+            _timer.restart();
             _state = MOVING;
             _frame = 0;
         }
@@ -108,12 +108,12 @@ void Werewolf::handle_logic() {
 void Werewolf::teleport() {
     if(_state == DYING) return;
 
-    if(_state != TELEPORTING && _teleportCd.passed(1000)) {
+    if(_state != TELEPORTING && _teleportCd.ticksHavePassed(1000)) {
         _x += std::rand() % 300 - 150;
         _y += std::rand() % 300 - 150;
         _state = TELEPORTING;
         _frame = 0;
-        _teleportCd.start();
+        _teleportCd.restart();
     }
 }
 
@@ -135,29 +135,29 @@ void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
             assets.sound("wolf_attack").play();
         }
 
-        if(_timer.passed(100)) {
+        if(_timer.ticksHavePassed(100)) {
             ++_frame;
             if(_frame >= 8) _frame = 0;
-            _timer.start();
+            _timer.restart();
         }
     } else if(_state == MOVING) {
-        if(_timer.passed(100)) {
+        if(_timer.ticksHavePassed(100)) {
             ++_frame;
             if(_frame >= 6) _frame = 0;
-            _timer.start();
+            _timer.restart();
         }
     } else if(_state == TELEPORTING) {
-        if(_timer.passed(100)) {
+        if(_timer.ticksHavePassed(100)) {
             if(_frame == 2) assets.sound("wolf_teleport").play();
 
             ++_frame;
             if(_frame > 2) _frame = 0;
-            _timer.start();
+            _timer.restart();
         }
     } else if(_state == DYING) {
-        if(_frame < 2 && _timer.passed(500)) {
+        if(_frame < 2 && _timer.ticksHavePassed(500)) {
             ++_frame;
-            _timer.start();
+            _timer.restart();
         }
     }
 }

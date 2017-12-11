@@ -4,9 +4,11 @@ class StopWatch {
 public:
     StopWatch();
 
-    void start();
-    unsigned get_ticks() const;
-    bool passed(unsigned ticks) const;
+    void restart();
+
+    unsigned getTicks() const;
+
+    bool ticksHavePassed(unsigned ticks) const;
 private:
     unsigned _startedAt;
 };
