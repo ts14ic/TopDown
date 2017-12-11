@@ -12,25 +12,27 @@ class Bullet : public GameObject {
 public:
     Bullet(GameObject const& origin, Weapon const& weap);
 
-    float x() const override;
+    float getX() const override;
 
-    float y() const override;
+    float getY() const override;
 
-    float angle() const override;
+    float getAngle() const override;
 
-    float speed() const override;
+    float getSpeed() const override;
 
-    void x(float x) override;
+    void setX(float x) override;
 
-    void y(float y) override;
+    void setY(float y) override;
 
-    void angle(float a) override;
+    void setPos(float x, float y) override;
 
-    void speed(float s) override;
+    void setAngle(float a) override;
 
-    Circle circle() const override;
+    void setSpeed(float s) override;
 
-    std::string texName() const override;
+    Circle getCircle() const override;
+
+    std::string getTexName() const override;
 
     int dmg() const;
 

@@ -5,8 +5,11 @@
 #include "../engine/InputContext.h"
 #include "WeaponBuilder.h"
 
+Player::Player()
+        : Player(0, 0) {}
+
 Player::Player(int x, int y)
-        : _x(x), _y(y) {
+        : mX(x), mY(y) {
     _hp = Player::defaultHp();
 
     mWeapons.emplace_back(WeaponBuilder{"pistol"}
@@ -46,25 +49,30 @@ Player::Player(int x, int y)
     _dmgCd.restart();
 }
 
-float Player::x() const { return _x; }
+void Player::setPos(float x, float y) {
+    mX = x;
+    mY = y;
+}
 
-float Player::y() const { return _y; }
+float Player::getX() const { return mX; }
 
-float Player::angle() const { return _angle; }
+float Player::getY() const { return mY; }
 
-float Player::speed() const { return _speed; }
+float Player::getAngle() const { return _angle; }
 
-void Player::x(float x) { _x = x; }
+float Player::getSpeed() const { return _speed; }
 
-void Player::y(float y) { _y = y; }
+void Player::setX(float x) { mX = x; }
 
-void Player::angle(float a) { _angle = a; }
+void Player::setY(float y) { mY = y; }
 
-void Player::speed(float s) { _speed = s; }
+void Player::setAngle(float a) { _angle = a; }
 
-Circle Player::circle() const { return {_x, _y, 30}; }
+void Player::setSpeed(float s) { _speed = s; }
 
-std::string Player::texName() const {
+Circle Player::getCircle() const { return {mX, mY, 30}; }
+
+std::string Player::getTexName() const {
     std::ostringstream ostringstream;
     ostringstream << "player_" << mWeapons[mSelectedWeaponIdx].getName();
     return ostringstream.str();
@@ -196,7 +204,8 @@ void Player::handle_events(InputContext& input) {
             break;
 
         case SDL_MOUSEMOTION:
-            _angle = toCartesian(getAngle(x(), y(), input.getInputEvent().motion.x, input.getInputEvent().motion.y));
+            _angle = toCartesian(
+                    ::getAngle(getX(), getY(), input.getInputEvent().motion.x, input.getInputEvent().motion.y));
             break;
 
         default:;
@@ -206,7 +215,7 @@ void Player::handle_events(InputContext& input) {
 void Player::handle_logic(Assets& assets) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
-    _angle = toCartesian(getAngle(_x, _y, mx, my));
+    _angle = toCartesian(::getAngle(mX, mY, mx, my));
 
     if(_dmgCd.ticksHavePassed(500)) {
         _speed = 2.3f;
@@ -215,16 +224,16 @@ void Player::handle_logic(Assets& assets) {
     }
 
     if(mInputState.test(DOWN_PRESSED)) {
-        _y = _y + _speed;
+        mY = mY + _speed;
     }
     if(mInputState.test(UP_PRESSED)) {
-        _y = _y - _speed;
+        mY = mY - _speed;
     }
     if(mInputState.test(LEFT_PRESSED)) {
-        _x = _x - _speed;
+        mX = mX - _speed;
     }
     if(mInputState.test(RIGHT_PRESSED)) {
-        _x = _x + _speed;
+        mX = mX + _speed;
     }
 
     mWeapons[mSelectedWeaponIdx].tryReload();

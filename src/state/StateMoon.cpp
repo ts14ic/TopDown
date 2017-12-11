@@ -10,11 +10,12 @@
 
 StateMoon::StateMoon(Engine& engine)
         : _texBackground(engine.getRenderContext(), "assets/gfx/test_bg.png"),
-          _pl(engine.getRenderContext().getScreenWidth() / 2, engine.getRenderContext().getScreenHeight() / 2),
           mRandomEngine{std::random_device{}()} {
     zombies().clear();
     werewolves().clear();
     _mobSpawner.restart();
+
+    mPlayer.setPos(engine.getRenderContext().getScreenWidth() / 2, engine.getRenderContext().getScreenHeight() / 2);
 }
 
 int StateMoon::randomInt() {
@@ -26,7 +27,7 @@ void StateMoon::handle_events(Engine& engine) {
 
     while(SDL_PollEvent(&input.getInputEvent())) {
 
-        _pl.handle_events(input);
+        mPlayer.handle_events(input);
 
         switch(input.getInputEvent().type) {
             case SDL_QUIT:
@@ -39,11 +40,11 @@ void StateMoon::handle_events(Engine& engine) {
 }
 
 void StateMoon::restrict_pos(GameObject& o) {
-    if(o.x() < 0) o.x(0);
-    else if(o.x() > _levelWidth) o.x(_levelWidth);
+    if(o.getX() < 0) o.setX(0);
+    else if(o.getX() > _levelWidth) o.setX(_levelWidth);
 
-    if(o.y() < 0) o.y(0);
-    else if(o.y() > _levelHeight) o.y(_levelHeight);
+    if(o.getY() < 0) o.setY(0);
+    else if(o.getY() > _levelHeight) o.setY(_levelHeight);
 }
 
 void StateMoon::handle_logic(Engine& engine) {
@@ -77,7 +78,7 @@ void StateMoon::handle_logic(Engine& engine) {
         _mobSpawner.restart();
     }
 
-    _pl.handle_logic(engine.getAssets());
+    mPlayer.handle_logic(engine.getAssets());
 
     int screenWidth = engine.getRenderContext().getScreenWidth();
     int screenHeight = engine.getRenderContext().getScreenHeight();
@@ -86,8 +87,8 @@ void StateMoon::handle_logic(Engine& engine) {
     auto removeFrom = std::remove_if(bullets().begin(), bullets().end(), [screenWidth, screenHeight](Bullet& b) {
         b.handle_logic();
 
-        if((b.x() > screenWidth) || (b.x() < 0) ||
-                (b.y() > screenHeight) || (b.y() < 0)) {
+        if((b.getX() > screenWidth) || (b.getX() < 0) ||
+           (b.getY() > screenHeight) || (b.getY() < 0)) {
             return true;
         }
 
@@ -102,7 +103,7 @@ void StateMoon::handle_logic(Engine& engine) {
                 w.damage(b.dmg());
                 return true;
             }
-            if(getDistance(b.x(), b.y(), w.x(), w.y()) < 50) {
+            if(getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
                 w.teleport();
             }
         }
@@ -112,29 +113,29 @@ void StateMoon::handle_logic(Engine& engine) {
     bullets().erase(removeFrom, bullets().end());
 
     zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this](Zombie& z) {
-        z.set_target(_pl.x(), _pl.y());
+        z.set_target(mPlayer.getX(), mPlayer.getY());
         z.handle_logic();
 
-        if(objectsCollide(z, _pl)) {
-            _pl.damage(z.dmg());
+        if(objectsCollide(z, mPlayer)) {
+            mPlayer.damage(z.dmg());
         }
 
         return z.dead();
     }), zombies().end());
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this](Werewolf& w) {
-        w.set_target(_pl.x(), _pl.y());
+        w.set_target(mPlayer.getX(), mPlayer.getY());
         w.handle_logic();
 
-        if(objectsCollide(w, _pl)) {
-            _pl.damage(w.dmg());
+        if(objectsCollide(w, mPlayer)) {
+            mPlayer.damage(w.dmg());
         }
 
         return w.dead();
     }), werewolves().end());
 
-    restrict_pos(_pl);
-    if(_pl.dead()) engine.requestStateChange(GState::intro);
+    restrict_pos(mPlayer);
+    if(mPlayer.dead()) engine.requestStateChange(GState::intro);
 }
 
 static void render_crosshair(Assets& assets, RenderContext& renderContext, Player const& pl) {
@@ -157,7 +158,7 @@ void StateMoon::handle_render(Engine& engine) {
 
     engine.getRenderContext().render(_texBackground, 0, 0);
 
-    _pl.handle_render(engine.getAssets(), render);
+    mPlayer.handle_render(engine.getAssets(), render);
     for(auto& z : zombies()) {
         z.handle_render(engine.getAssets(), render);
     }
@@ -168,7 +169,7 @@ void StateMoon::handle_render(Engine& engine) {
         b.handle_render(engine.getAssets(), render);
     }
 
-    render_crosshair(engine.getAssets(), render, _pl);
+    render_crosshair(engine.getAssets(), render, mPlayer);
 
     SDL_RenderPresent(render.getRenderer());
 }

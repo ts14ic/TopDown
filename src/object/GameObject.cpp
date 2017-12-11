@@ -5,17 +5,17 @@
 #include "../math/math.h"
 
 bool objectsCollide(GameObject& a, GameObject& b) {
-    return circlesCollide(a.circle(), b.circle());
+    return circlesCollide(a.getCircle(), b.getCircle());
 }
 
 void GameObject::default_move() {
-    x(x() + speed() * cartesianCos(angle()));
-    y(y() + speed() * cartesianSin(angle()));
+    setX(getX() + getSpeed() * cartesianCos(getAngle()));
+    setY(getY() + getSpeed() * cartesianSin(getAngle()));
 }
 
 void GameObject::default_render(Assets& assets, RenderContext& renderContext) {
-    Texture& tex = assets.texture(texName());
-    auto tx = static_cast<int>(x() - tex.getWidth() / 2);
-    auto ty = static_cast<int>(y() - tex.getHeight() / 2);
-    renderContext.render(tex, tx, ty, angle());
+    Texture& tex = assets.texture(getTexName());
+    auto tx = static_cast<int>(getX() - tex.getWidth() / 2);
+    auto ty = static_cast<int>(getY() - tex.getHeight() / 2);
+    renderContext.render(tex, tx, ty, getAngle());
 }

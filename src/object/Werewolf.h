@@ -12,25 +12,27 @@ public:
     Werewolf(float x, float y);
 
     // GameObject legacy
-    float x() const override;
+    float getX() const override;
 
-    float y() const override;
+    float getY() const override;
 
-    void x(float x) override;
+    void setX(float x) override;
 
-    void y(float y) override;
+    void setY(float y) override;
 
-    float angle() const override;
+    void setPos(float x, float y) override;
 
-    float speed() const override;
+    float getAngle() const override;
 
-    void angle(float a) override;
+    float getSpeed() const override;
 
-    void speed(float s) override;
+    void setAngle(float a) override;
 
-    Circle circle() const override;
+    void setSpeed(float s) override;
 
-    std::string texName() const override;
+    Circle getCircle() const override;
+
+    std::string getTexName() const override;
 
     // Damageable legacy
     int hp() const override;

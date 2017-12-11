@@ -12,23 +12,29 @@ Zombie::Zombie(int x, int y)
     _hp = Zombie::defaultHp();
 }
 
-float Zombie::x() const { return _x; }
-float Zombie::y() const { return _y; }
-void  Zombie::x(float x) { _x = x; }
-void  Zombie::y(float y) { _y = y; }
+float Zombie::getX() const { return _x; }
 
-float Zombie::angle() const { return _angle; }
-float Zombie::speed() const { return _speed; }
-void  Zombie::angle(float a) { _angle = a; }
-void  Zombie::speed(float s) { _speed = s; }
+float Zombie::getY() const { return _y; }
 
-Circle Zombie::circle() const { return {_x, _y, 25}; }
+void Zombie::setX(float x) { _x = x; }
+
+void Zombie::setY(float y) { _y = y; }
+
+float Zombie::getAngle() const { return _angle; }
+
+float Zombie::getSpeed() const { return _speed; }
+
+void Zombie::setAngle(float a) { _angle = a; }
+
+void Zombie::setSpeed(float s) { _speed = s; }
+
+Circle Zombie::getCircle() const { return {_x, _y, 25}; }
 
 int Zombie::hp() const { return _hp; }
 int Zombie::defaultHp() const { return 50; }
 int Zombie::dmg() const { if(_state == ATTACKING && _frame == 5) return 15; else return 0; }
 
-std::string Zombie::texName() const {
+std::string Zombie::getTexName() const {
     std::string name = "zombie";
 
     if(_state == ATTACKING) {
@@ -54,10 +60,10 @@ void Zombie::damage(int d) {
 void Zombie::set_target(float x, float y, bool ignore) {
     if(ignore || _state == DYING) return;
 
-    _angle = toCartesian(getAngle(_x, _y, x, y));
+    _angle = toCartesian(::getAngle(_x, _y, x, y));
 
     auto dist = getDistance(_x, _y, x, y);
-    if(dist > circle().getRadius() * 1.7f) {
+    if(dist > getCircle().getRadius() * 1.7f) {
         if(_state != MOVING) {
             _state = MOVING;
             _frame = 0;
@@ -100,6 +106,11 @@ void Zombie::handle_render(Assets& assets, RenderContext& renderContext) {
 
 bool Zombie::dead() const {
     return _state == DYING && _frame == 7;
+}
+
+void Zombie::setPos(float x, float y) {
+    setX(x);
+    setY(y);
 }
 
 vector<Zombie>& zombies() {

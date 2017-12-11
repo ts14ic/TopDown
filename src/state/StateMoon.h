@@ -37,6 +37,6 @@ private:
     int const _levelWidth = 800;
     int const _levelHeight = 600;
 
-    Player _pl;
+    Player mPlayer;
     StopWatch _mobSpawner;
 };

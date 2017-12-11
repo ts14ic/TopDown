@@ -11,35 +11,35 @@ vector<Bullet>& bullets() {
 }
 
 Bullet::Bullet(GameObject const& shooter, Weapon const& weap) {
-    _angle = shooter.angle() + rand_float(weap.getProjectileSpread());
-    _x = shooter.x() + cartesianCos(_angle) * weap.getLength();
-    _y = shooter.y() + cartesianSin(_angle) * weap.getLength();
+    _angle = shooter.getAngle() + rand_float(weap.getProjectileSpread());
+    _x = shooter.getX() + cartesianCos(_angle) * weap.getLength();
+    _y = shooter.getY() + cartesianSin(_angle) * weap.getLength();
 
     _dmg = weap.getProjectileDamage();
     _speed = weap.getProjectileSpeed();
 }
 
-float Bullet::x() const { return _x; }
+float Bullet::getX() const { return _x; }
 
-float Bullet::y() const { return _y; };
+float Bullet::getY() const { return _y; };
 
-float Bullet::angle() const { return _angle; }
+float Bullet::getAngle() const { return _angle; }
 
-float Bullet::speed() const { return _speed; }
+float Bullet::getSpeed() const { return _speed; }
 
-void Bullet::x(float x) { _x = x; }
+void Bullet::setX(float x) { _x = x; }
 
-void Bullet::y(float y) { _y = y; };
+void Bullet::setY(float y) { _y = y; };
 
-void Bullet::angle(float a) { _angle = a; }
+void Bullet::setAngle(float a) { _angle = a; }
 
-void Bullet::speed(float s) { _speed = s; }
+void Bullet::setSpeed(float s) { _speed = s; }
 
 int Bullet::dmg() const { return _dmg; }
 
-Circle Bullet::circle() const { return {_x, _y, 2}; }
+Circle Bullet::getCircle() const { return {_x, _y, 2}; }
 
-std::string Bullet::texName() const { return "bullet"; }
+std::string Bullet::getTexName() const { return "bullet"; }
 
 void Bullet::handle_logic() {
     default_move();
@@ -47,4 +47,9 @@ void Bullet::handle_logic() {
 
 void Bullet::handle_render(Assets& assets, RenderContext& renderContext) {
     default_render(assets, renderContext);
+}
+
+void Bullet::setPos(float x, float y) {
+    setX(x);
+    setY(y);
 }

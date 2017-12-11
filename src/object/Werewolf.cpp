@@ -16,23 +16,23 @@ Werewolf::Werewolf(float x, float y)
 }
 
 // GameObject legacy
-float Werewolf::x() const { return _x; }
+float Werewolf::getX() const { return _x; }
 
-float Werewolf::y() const { return _y; }
+float Werewolf::getY() const { return _y; }
 
-void Werewolf::x(float x) { _x = x; }
+void Werewolf::setX(float x) { _x = x; }
 
-void Werewolf::y(float y) { _y = y; }
+void Werewolf::setY(float y) { _y = y; }
 
-float Werewolf::angle() const { return _angle; }
+float Werewolf::getAngle() const { return _angle; }
 
-float Werewolf::speed() const { return _speed; }
+float Werewolf::getSpeed() const { return _speed; }
 
-void Werewolf::angle(float a) { _angle = a; }
+void Werewolf::setAngle(float a) { _angle = a; }
 
-void Werewolf::speed(float s) { _speed = s; }
+void Werewolf::setSpeed(float s) { _speed = s; }
 
-Circle Werewolf::circle() const { return {_x, _y, 25}; }
+Circle Werewolf::getCircle() const { return {_x, _y, 25}; }
 
 int Werewolf::hp() const { return _hp; }
 
@@ -40,7 +40,7 @@ int Werewolf::defaultHp() const { return 30; }
 
 int Werewolf::dmg() const { if(_state == ATTACKING && (_frame == 3 || _frame == 7)) return 10; else return 0; }
 
-std::string Werewolf::texName() const {
+std::string Werewolf::getTexName() const {
     std::string name = "wolf";
 
     if(_state == ATTACKING) {
@@ -77,10 +77,10 @@ void Werewolf::set_target(float x, float y, bool ignore) {
         if(!_teleportCd.ticksHavePassed(500)) return;
     }
 
-    _angle = toCartesian(getAngle(_x, _y, x, y));
+    _angle = toCartesian(::getAngle(_x, _y, x, y));
 
     auto dist = getDistance(_x, _y, x, y);
-    if(dist > circle().getRadius() * 1.7f) {
+    if(dist > getCircle().getRadius() * 1.7f) {
         if(_state != MOVING) {
             _state = MOVING;
             _frame = 0;
@@ -125,7 +125,7 @@ void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
         healthRect.w = 1.66f * _hp; // 50 px of _hp/30 ratio
         healthRect.h = 5;
         healthRect.x = _x - healthRect.w / 2;
-        healthRect.y = _y - circle().getRadius();
+        healthRect.y = _y - getCircle().getRadius();
         SDL_SetRenderDrawColor(engine.getRenderer(), 0x55, 0, 0x33, 0xFF);
         SDL_RenderFillRect(engine.getRenderer(), &healthRect);
     }
@@ -164,6 +164,11 @@ void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
 
 bool Werewolf::dead() const {
     return _state == DYING && _frame == 2;
+}
+
+void Werewolf::setPos(float x, float y) {
+    setX(x);
+    setY(y);
 }
 
 vector<Werewolf>& werewolves() {

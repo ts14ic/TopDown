@@ -14,27 +14,31 @@ class InputContext;
 
 class Player : public virtual GameObject, public Damageable {
 public:
+    Player();
+
     Player(int x, int y);
 
-    float x() const override;
+    float getX() const override;
 
-    float y() const override;
+    float getY() const override;
 
-    float angle() const override;
+    float getAngle() const override;
 
-    float speed() const override;
+    float getSpeed() const override;
 
-    void x(float x) override;
+    void setPos(float x, float y) override;
 
-    void y(float y) override;
+    void setX(float x) override;
 
-    void angle(float a) override;
+    void setY(float y) override;
 
-    void speed(float s) override;
+    void setAngle(float a) override;
 
-    Circle circle() const override;
+    void setSpeed(float s) override;
 
-    std::string texName() const override;
+    Circle getCircle() const override;
+
+    std::string getTexName() const override;
 
     int hp() const override;
 
@@ -62,7 +66,7 @@ private:
     void selectWeapon(int idx);
 
 private:
-    float _x = 0, _y = 0, _speed = 0;
+    float mX = 0, mY = 0, _speed = 0;
     float _angle = 0.0f;
 
     std::vector<Weapon> mWeapons;
