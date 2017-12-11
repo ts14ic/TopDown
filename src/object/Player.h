@@ -3,10 +3,10 @@
 //
 #pragma once
 
-#include <memory>
-#include "../timer/StopWatch.h"
 #include "Damageable.h"
+#include "../timer/StopWatch.h"
 #include "Weapon.h"
+#include <memory>
 
 class InputContext;
 
@@ -57,6 +57,7 @@ private:
     float _x, _y, _speed;
     float _angle = 0.0f;
 
+    // TODO flatten the weapon hierarchy
     std::unique_ptr<Weapon> _weapons[WEAPON_TOTAL];
     int _currentWeap = WEAPON_PISTOL;
     int _hp;
