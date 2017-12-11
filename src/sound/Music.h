@@ -25,7 +25,7 @@ public:
 
     void play() const;
 
-    struct FailedToLoadMusicException : std::runtime_error {
+    struct FailedToLoadMusicException : public std::runtime_error {
         explicit FailedToLoadMusicException(const char* message);
     };
 

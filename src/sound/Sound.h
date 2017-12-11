@@ -23,7 +23,7 @@ public:
 
     void play() const;
 
-    struct FailedToLoadSoundException : std::runtime_error {
+    struct FailedToLoadSoundException : public std::runtime_error {
         explicit FailedToLoadSoundException(const char* message);
     };
 

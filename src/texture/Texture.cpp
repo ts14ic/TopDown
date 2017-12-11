@@ -2,7 +2,7 @@
 #include "../engine/RenderContext.h"
 #include <SDL_image.h>
 
-struct FailedToLoadTextureException : std::runtime_error {
+struct FailedToLoadTextureException : public std::runtime_error {
     explicit FailedToLoadTextureException(const char* message) : runtime_error(message) {}
 };
 

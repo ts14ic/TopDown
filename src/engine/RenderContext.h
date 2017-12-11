@@ -27,7 +27,7 @@ public:
 
     int getScreenHeight();
 
-    class FailedSDLInitException : std::runtime_error {
+    class FailedSDLInitException : public std::runtime_error {
     public:
         explicit FailedSDLInitException(const char* message) : runtime_error(message) {}
     };
