@@ -15,6 +15,8 @@ class WeaponBuilder;
 
 class WeaponV2 : public Weapon {
 public:
+    explicit WeaponV2(const WeaponBuilder& builder);
+
     void shoot(Assets& assets, GameObject const& shooter) override;
 
     int length() const override;
@@ -30,9 +32,6 @@ public:
     void reload() override;
 
 private:
-    friend class WeaponBuilder;
-
-    explicit WeaponV2(const WeaponBuilder& builder);
 
     void startReloading();
 
