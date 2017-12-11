@@ -3,6 +3,7 @@
 //
 
 #include "Circle.h"
+#include "calculations.h"
 
 Circle::Circle() = default;
 
@@ -30,4 +31,8 @@ int Circle::getRadius() const {
 
 void Circle::setRadius(int r) {
     Circle::mRadius = r;
+}
+
+bool circlesCollide(Circle const& a, Circle const& b) {
+    return getDistance(a.getX(), a.getY(), b.getX(), b.getY()) < (a.getRadius() + b.getRadius());
 }

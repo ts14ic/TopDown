@@ -52,4 +52,3 @@ R getAngle(A ax, A ay, B bx, B by) {
 
 float rand_float(float range);
 
-bool circlesCollide(Circle const& a, Circle const& b);

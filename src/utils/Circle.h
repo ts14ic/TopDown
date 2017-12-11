@@ -4,7 +4,6 @@
 
 #pragma once
 
-
 class Circle {
 public:
     Circle();
@@ -28,3 +27,5 @@ private:
     int mY;
     int mRadius;
 };
+
+bool circlesCollide(Circle const& a, Circle const& b);
