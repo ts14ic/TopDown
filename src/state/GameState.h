@@ -1,12 +1,8 @@
 #pragma once
 
-#include "../texture/Texture.h"
-#include "../object/GameObject.h"
 #include <memory>
 
-// forward declarations begin
 class Engine;
-// forward declarations end
 
 class GameState {
 public:
@@ -18,4 +14,3 @@ public:
 
     virtual ~GameState() = default;
 };
-

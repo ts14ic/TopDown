@@ -4,10 +4,7 @@
 #include <stdexcept>
 #include <memory>
 
-/* forward declarations begin */
 struct Mix_Chunk;
-
-/* forward declarations end */
 
 class Sound {
 public:

@@ -6,10 +6,7 @@
 #include <string>
 #include <memory>
 
-/* forward declarations begin */
 typedef struct _Mix_Music Mix_Music;
-
-/* forward declarations end */
 
 class Music {
 public:
