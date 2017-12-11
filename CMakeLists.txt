@@ -35,7 +35,7 @@ set(SOURCE_FILES
         src/object/Bullet.cpp src/object/Bullet.h
         src/assets/Assets.cpp src/assets/Assets.h
         src/engine/GState.h
-        src/utils/Circle.cpp src/utils/Circle.h src/object/WeaponV2.cpp src/object/WeaponV2.h)
+        src/utils/Circle.cpp src/utils/Circle.h src/object/WeaponV2.cpp src/object/WeaponV2.h src/object/WeaponBuilder.cpp src/object/WeaponBuilder.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

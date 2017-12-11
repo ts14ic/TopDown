@@ -57,7 +57,7 @@ private:
     float _x, _y, _speed;
     float _angle = 0.0f;
 
-    // TODO flatten the weapon hierarchy
+    // todo make the weapon inventory dynamic
     std::unique_ptr<Weapon> mWeapons[WEAPON_TOTAL];
     int _currentWeap = WEAPON_PISTOL;
     int _hp;

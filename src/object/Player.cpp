@@ -3,17 +3,45 @@
 #include "../utils/calculations.h"
 #include "../engine/InputContext.h"
 #include "WeaponV2.h"
+#include "WeaponBuilder.h"
 
 Player::Player(int x, int y)
         : _x(x), _y(y) {
     _hp = Player::defaultHp();
 
-    mWeapons[WEAPON_PISTOL] = std::make_unique<WeaponV2>(7, 1, 10, 15, 12, 350, 1000, 2,
-                                                         std::vector<std::string>{"pistol_shot"});
-    mWeapons[WEAPON_SHOTGUN] = std::make_unique<WeaponV2>(2, 8, 45, 7, 8, 200, 1000, 20,
-                                                          std::vector<std::string>{"shotgun_shot"});
-    mWeapons[WEAPON_UZI] = std::make_unique<WeaponV2>(25, 1, 25, 10, 12, 100, 3000, 5,
-                                                      std::vector<std::string>{"uzi_shot1", "uzi_shot2"});
+    mWeapons[WEAPON_PISTOL] = std::make_unique<WeaponV2>(WeaponBuilder{}
+                                                                 .maxAmmo(7)
+                                                                 .projectilesPerShot(1)
+                                                                 .length(10)
+                                                                 .projectileDamage(15)
+                                                                 .projectileSpeed(12)
+                                                                 .fireCooldown(350)
+                                                                 .reloadCooldown(1000)
+                                                                 .projectileSpread(2)
+                                                                 .fireSounds({"pistol_shot"})
+                                                                 .build());
+    mWeapons[WEAPON_SHOTGUN] = std::make_unique<WeaponV2>(WeaponBuilder{}
+                                                                  .maxAmmo(2)
+                                                                  .projectilesPerShot(8)
+                                                                  .length(45)
+                                                                  .projectileDamage(7)
+                                                                  .projectileSpeed(8)
+                                                                  .fireCooldown(200)
+                                                                  .reloadCooldown(1000)
+                                                                  .projectileSpread(20)
+                                                                  .fireSounds({"shotgun_shot"})
+                                                                  .build());
+    mWeapons[WEAPON_UZI] = std::make_unique<WeaponV2>(WeaponBuilder{}
+                                                              .maxAmmo(25)
+                                                              .projectilesPerShot(1)
+                                                              .length(25)
+                                                              .projectileDamage(10)
+                                                              .projectileSpeed(12)
+                                                              .fireCooldown(100)
+                                                              .reloadCooldown(3000)
+                                                              .projectileSpread(5)
+                                                              .fireSounds({"uzi_shot1", "uzi_shot2"})
+                                                              .build());
 
     _dmgCd.start();
 }

@@ -9,14 +9,12 @@
 #include <vector>
 #include <string>
 
-// todo add a WeaponBuilder
+class WeaponBuilder;
+
 // todo add a WeaponFactory
 
 class WeaponV2 : public Weapon {
 public:
-    WeaponV2(int maxAmmo, int projectilesPerShot, int length, int damage, float projectileSpeed, int mFireCooldown,
-             int mReloadCooldown, float spread, std::vector<std::string> fireSounds);
-
     void shoot(Assets& assets, GameObject const& shooter) override;
 
     int length() const override;
@@ -32,6 +30,10 @@ public:
     void reload() override;
 
 private:
+    friend class WeaponBuilder;
+
+    explicit WeaponV2(const WeaponBuilder& builder);
+
     void startReloading();
 
     void playFireSound(Assets& assets);

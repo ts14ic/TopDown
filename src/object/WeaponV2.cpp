@@ -3,23 +3,21 @@
 //
 
 #include "WeaponV2.h"
-
-#include <utility>
-#include <iostream>
+#include "WeaponBuilder.h"
 #include "Bullet.h"
 #include "../assets/Assets.h"
 
-WeaponV2::WeaponV2(int maxAmmo, int projectilesPerShot, int length, int damage, float projectileSpeed,
-                   int mFireCooldown,
-                   int mReloadCooldown, float spread, std::vector<std::string> fireSounds)
-        : mMaxAmmo{maxAmmo},
-          mCurrentAmmo{maxAmmo},
-          mProjectilesPerShot{projectilesPerShot},
-          mLength{length},
-          mDamage{damage},
-          mProjectileSpeed{projectileSpeed},
-          mSpread{spread},
-          mFireSounds{std::move(fireSounds)}, mFireCooldown(mFireCooldown), mReloadCooldown(mReloadCooldown) {
+WeaponV2::WeaponV2(const WeaponBuilder& builder)
+        : mMaxAmmo{builder.getMaxAmmo()},
+          mCurrentAmmo{builder.getMaxAmmo()},
+          mProjectilesPerShot{builder.getProjectilesPerShot()},
+          mLength{builder.getLength()},
+          mDamage{builder.getProjectileDamage()},
+          mProjectileSpeed{builder.getProjectileSpeed()},
+          mSpread{builder.getProjectileSpread()},
+          mFireSounds{builder.getFireSounds()},
+          mFireCooldown(builder.getFireCooldown()),
+          mReloadCooldown(builder.getReloadCooldown()) {
     mFireCooldownTimer.start();
 }
 
