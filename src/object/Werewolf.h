@@ -3,9 +3,9 @@
 //
 #pragma once
 
-#include <vector>
 #include "Damageable.h"
 #include "../timer/StopWatch.h"
+#include <vector>
 
 class Werewolf : public Damageable {
 public:

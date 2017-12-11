@@ -3,10 +3,11 @@
 //
 #pragma once
 
-#include <vector>
-#include "../timer/StopWatch.h"
-#include "../engine/RenderContext.h"
 #include "Damageable.h"
+#include "../timer/StopWatch.h"
+#include <vector>
+
+class RenderContext;
 
 class Zombie : public Damageable {
 public:

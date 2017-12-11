@@ -4,7 +4,6 @@
 #pragma once
 
 class GameObject;
-
 class Assets;
 
 enum EWeapon {
