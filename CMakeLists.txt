@@ -33,12 +33,9 @@ set(SOURCE_FILES
         src/object/Zombie.cpp src/object/Zombie.h
         src/object/Weapon.h src/object/Weapon.cpp
         src/object/Bullet.cpp src/object/Bullet.h
-        src/object/Pistol.cpp src/object/Pistol.h
-        src/object/Shotgun.cpp src/object/Shotgun.h
-        src/object/Uzi.cpp src/object/Uzi.h
         src/assets/Assets.cpp src/assets/Assets.h
         src/engine/GState.h
-        src/utils/Circle.cpp src/utils/Circle.h)
+        src/utils/Circle.cpp src/utils/Circle.h src/object/WeaponV2.cpp src/object/WeaponV2.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

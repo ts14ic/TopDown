@@ -58,7 +58,7 @@ private:
     float _angle = 0.0f;
 
     // TODO flatten the weapon hierarchy
-    std::unique_ptr<Weapon> _weapons[WEAPON_TOTAL];
+    std::unique_ptr<Weapon> mWeapons[WEAPON_TOTAL];
     int _currentWeap = WEAPON_PISTOL;
     int _hp;
 

@@ -2,17 +2,18 @@
 #include "../utils/Circle.h"
 #include "../utils/calculations.h"
 #include "../engine/InputContext.h"
-#include "Pistol.h"
-#include "Shotgun.h"
-#include "Uzi.h"
+#include "WeaponV2.h"
 
 Player::Player(int x, int y)
         : _x(x), _y(y) {
     _hp = Player::defaultHp();
 
-    _weapons[WEAPON_PISTOL] = std::make_unique<Pistol>();
-    _weapons[WEAPON_SHOTGUN] = std::make_unique<Shotgun>();
-    _weapons[WEAPON_UZI] = std::make_unique<Uzi>();
+    mWeapons[WEAPON_PISTOL] = std::make_unique<WeaponV2>(7, 1, 10, 15, 12, 350, 1000, 2,
+                                                         std::vector<std::string>{"pistol_shot"});
+    mWeapons[WEAPON_SHOTGUN] = std::make_unique<WeaponV2>(2, 8, 45, 7, 8, 200, 1000, 20,
+                                                          std::vector<std::string>{"shotgun_shot"});
+    mWeapons[WEAPON_UZI] = std::make_unique<WeaponV2>(25, 1, 25, 10, 12, 100, 3000, 5,
+                                                      std::vector<std::string>{"uzi_shot1", "uzi_shot2"});
 
     _dmgCd.start();
 }
@@ -68,7 +69,7 @@ void Player::damage(int v) {
 }
 
 bool Player::reloading() const {
-    return _weapons[_currentWeap]->reloading();
+    return mWeapons[_currentWeap]->reloading();
 }
 
 void Player::handle_events(InputContext& input) {
@@ -189,9 +190,9 @@ void Player::handle_logic(Assets& assets) {
         _x = _x + _speed;
     }
 
-    _weapons[_currentWeap]->reload();
+    mWeapons[_currentWeap]->reload();
     if(_state & SHOOTS) {
-        _weapons[_currentWeap]->shoot(assets, *this);
+        mWeapons[_currentWeap]->shoot(assets, *this);
     }
 }
 

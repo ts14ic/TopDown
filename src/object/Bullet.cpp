@@ -16,7 +16,7 @@ Bullet::Bullet(GameObject const& shooter, Weapon const& weap) {
     _y = shooter.y() + dsin(_angle) * weap.length();
 
     _dmg = weap.dmg();
-    _speed = weap.speed();
+    _speed = weap.getProjectileSpeed();
 }
 
 float Bullet::x() const { return _x; }

@@ -10,6 +10,7 @@ void StopWatch::start() {
     _startedAt = SDL_GetTicks();
 }
 
+// todo rename to getTicks
 unsigned StopWatch::get_ticks() const {
     return SDL_GetTicks() - _startedAt;
 }

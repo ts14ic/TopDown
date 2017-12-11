@@ -6,6 +6,7 @@
 class GameObject;
 class Assets;
 
+// todo rename UZI to SMG
 enum EWeapon {
     WEAPON_PISTOL,
     WEAPON_FIRST = WEAPON_PISTOL,
@@ -23,7 +24,7 @@ public:
 
     virtual int dmg() const = 0;
 
-    virtual float speed() const = 0;
+    virtual float getProjectileSpeed() const = 0;
 
     virtual float spread() const = 0;
 
