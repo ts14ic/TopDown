@@ -1,4 +1,5 @@
 #include "Werewolf.h"
+#include <SDL_render.h>
 
 using std::vector;
 

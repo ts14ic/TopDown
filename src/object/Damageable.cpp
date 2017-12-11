@@ -1,6 +1,8 @@
 //
 // Created by ts14ic on 12/3/17.
 //
+#include <SDL_video.h>
+#include <SDL_render.h>
 #include "Damageable.h"
 
 void Damageable::default_render_health(RenderContext& engine, SDL_Color const& c) const {

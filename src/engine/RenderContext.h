@@ -1,9 +1,12 @@
 #pragma once
 
-#include <SDL_video.h>
-#include <SDL_system.h>
 #include <memory>
 #include "../assets/Assets.h"
+
+// forward declarations begin
+struct SDL_Renderer;
+struct SDL_Window;
+// forward declarations end
 
 class RenderContext {
 public:

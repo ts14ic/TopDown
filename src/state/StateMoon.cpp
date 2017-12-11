@@ -1,3 +1,5 @@
+#include <SDL_video.h>
+#include <SDL_render.h>
 #include "GameState.h"
 #include "../engine/RenderContext.h"
 #include "../engine/Engine.h"
@@ -86,7 +88,7 @@ void StateMoon::handle_logic(Engine& engine) {
         b.handle_logic();
 
         if((b.x() > screenWidth) || (b.x() < 0) ||
-           (b.y() > screenHeight) || (b.y() < 0)) {
+                (b.y() > screenHeight) || (b.y() < 0)) {
             return true;
         }
 

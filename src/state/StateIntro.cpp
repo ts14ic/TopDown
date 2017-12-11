@@ -1,3 +1,5 @@
+#include <SDL_video.h>
+#include <SDL_render.h>
 #include "GameState.h"
 #include "../engine/Engine.h"
 #include "StateIntro.h"
