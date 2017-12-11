@@ -3,9 +3,10 @@
 //
 #pragma once
 
-#include "../timer/StopWatch.h"
-#include "GameObject.h"
 #include "Weapon.h"
+#include "../timer/StopWatch.h"
+
+class GameObject;
 
 class Uzi : public Weapon {
 public:

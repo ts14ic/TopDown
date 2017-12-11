@@ -3,7 +3,9 @@
 //
 #pragma once
 
-#include "GameObject.h"
+class GameObject;
+
+class Assets;
 
 enum EWeapon {
     WEAPON_PISTOL,
