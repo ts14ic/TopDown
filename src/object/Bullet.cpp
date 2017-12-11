@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "../utils/Circle.h"
 #include "../utils/calculations.h"
 #include "Weapon.h"
 

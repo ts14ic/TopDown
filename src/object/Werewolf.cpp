@@ -1,6 +1,7 @@
 #include "Werewolf.h"
-#include "../engine/RenderContext.h"
+#include "../utils/Circle.h"
 #include "../utils/calculations.h"
+#include "../engine/RenderContext.h"
 #include "../assets/Assets.h"
 #include <SDL_render.h>
 
@@ -79,7 +80,7 @@ void Werewolf::set_target(float x, float y, bool ignore) {
     _angle = to_deg(get_angle(_x, _y, x, y));
 
     auto dist = get_distance(_x, _y, x, y);
-    if(dist > circle().r * 1.7f) {
+    if(dist > circle().getRadius() * 1.7f) {
         if(_state != MOVING) {
             _state = MOVING;
             _frame = 0;
@@ -124,7 +125,7 @@ void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
         healthRect.w = 1.66f * _hp; // 50 px of _hp/30 ratio
         healthRect.h = 5;
         healthRect.x = _x - healthRect.w / 2;
-        healthRect.y = _y - circle().r;
+        healthRect.y = _y - circle().getRadius();
         SDL_SetRenderDrawColor(engine.getRenderer(), 0x55, 0, 0x33, 0xFF);
         SDL_RenderFillRect(engine.getRenderer(), &healthRect);
     }

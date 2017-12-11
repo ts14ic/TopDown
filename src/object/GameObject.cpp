@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "../utils/Circle.h"
 #include "../assets/Assets.h"
 #include "../utils/calculations.h"
 #include "../engine/RenderContext.h"

@@ -1,6 +1,5 @@
 #include "calculations.h"
-#include <cstdlib>
-#include <cmath>
+#include "Circle.h"
 #include <SDL_rect.h>
 
 float pi() {
@@ -59,23 +58,23 @@ bool collides(SDL_Rect const& a, SDL_Rect const& b) {
 bool collides(Circle const& a, SDL_Rect const& b) {
     SDL_Point c;
 
-    if(a.x < b.x){
+    if(a.getX() < b.x) {
         c.x = b.x;
-    }else if(a.x > b.x + b.w){
+    } else if(a.getX() > b.x + b.w) {
         c.x = b.x + b.w;
     }else{
-        c.x = a.x;
+        c.x = a.getX();
     }
 
-    if(a.y < b.y){
+    if(a.getY() < b.y) {
         c.y = b.y;
-    }else if(a.y > b.y + b.w){
+    } else if(a.getY() > b.y + b.w) {
         c.y = b.y + b.w;
     }else{
-        c.y = a.y;
+        c.y = a.getY();
     }
 
-    return get_distance(a.x, a.y, c.x, c.y) < a.r;
+    return get_distance(a.getX(), a.getY(), c.x, c.y) < a.getRadius();
 }
 
 bool collides(SDL_Rect const& a, Circle const& b) {
@@ -83,5 +82,5 @@ bool collides(SDL_Rect const& a, Circle const& b) {
 }
 
 bool collides(Circle const& a, Circle const& b) {
-    return get_distance(a.x, a.y, b.x, b.y) < (a.r + b.r);
+    return get_distance(a.getX(), a.getY(), b.getX(), b.getY()) < (a.getRadius() + b.getRadius());
 }

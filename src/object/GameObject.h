@@ -4,7 +4,8 @@
 #include <vector>
 
 struct SDL_Color;
-struct Circle;
+
+class Circle;
 class Assets;
 class RenderContext;
 
