@@ -1,6 +1,7 @@
-#include "../engine/RenderContext.h"
-#include "../assets/Assets.h"
 #include "Werewolf.h"
+#include "../engine/RenderContext.h"
+#include "../utils/calculations.h"
+#include "../assets/Assets.h"
 #include <SDL_render.h>
 
 using std::vector;

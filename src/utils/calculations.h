@@ -5,10 +5,12 @@ struct SDL_Point;
 struct SDL_Rect;
 /* forward declarations end */
 
+// todo move this to own class
 struct Circle {
     Circle() = default;
+
     Circle(int x, int y, int r) : x(x), y(y), r(r) {}
-    
+
     int x, y;
     int r;
 };

@@ -1,12 +1,9 @@
-#include <SDL_video.h>
-#include <SDL_render.h>
-#include "GameState.h"
-#include "../engine/RenderContext.h"
-#include "../engine/Engine.h"
 #include "StateMoon.h"
+#include "../utils/calculations.h"
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
+#include <SDL_render.h>
 #include <algorithm>
 #include <ctime>
 

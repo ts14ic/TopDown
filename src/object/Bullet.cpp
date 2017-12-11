@@ -1,6 +1,6 @@
-#include "GameObject.h"
-#include "Weapon.h"
 #include "Bullet.h"
+#include "../utils/calculations.h"
+#include "Weapon.h"
 
 using std::vector;
 

@@ -2,10 +2,9 @@
 
 #include <string>
 #include <vector>
-#include "../utils/calculations.h"
 
 struct SDL_Color;
-
+struct Circle;
 class Assets;
 class RenderContext;
 

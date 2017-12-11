@@ -1,5 +1,6 @@
-#include "../assets/Assets.h"
 #include "GameObject.h"
+#include "../assets/Assets.h"
+#include "../utils/calculations.h"
 #include "../engine/RenderContext.h"
 
 bool objectsCollide(GameObject& a, GameObject& b) {

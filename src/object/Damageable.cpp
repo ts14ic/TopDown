@@ -1,10 +1,11 @@
 //
 // Created by ts14ic on 12/3/17.
 //
+#include "Damageable.h"
+#include "../utils/calculations.h"
+#include "../engine/RenderContext.h"
 #include <SDL_video.h>
 #include <SDL_render.h>
-#include "Damageable.h"
-#include "../engine/RenderContext.h"
 
 void Damageable::default_render_health(RenderContext& renderContext, SDL_Color const& c) const {
     if(hp() > 0) {
