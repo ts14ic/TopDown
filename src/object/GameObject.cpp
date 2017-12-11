@@ -1,3 +1,4 @@
+#include "../assets/Assets.h"
 #include "GameObject.h"
 #include "../engine/RenderContext.h"
 

@@ -1,5 +1,6 @@
-#include "SDL_pixels.h"
 #include "Zombie.h"
+#include "../assets/Assets.h"
+#include "SDL_pixels.h"
 
 using std::vector;
 

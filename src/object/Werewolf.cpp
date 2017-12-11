@@ -1,4 +1,5 @@
 #include "../engine/RenderContext.h"
+#include "../assets/Assets.h"
 #include "Werewolf.h"
 #include <SDL_render.h>
 

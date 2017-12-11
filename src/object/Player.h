@@ -3,6 +3,7 @@
 //
 #pragma once
 
+#include <memory>
 #include "../timer/StopWatch.h"
 #include "Damageable.h"
 #include "Weapon.h"

@@ -1,16 +1,13 @@
 #pragma once
 
-#include "../utils/calculations.h"
-#include "../assets/Assets.h"
 #include <string>
 #include <vector>
+#include "../utils/calculations.h"
 
-/* forward declarations begin */
 struct SDL_Color;
 
+class Assets;
 class RenderContext;
-
-/* forward declarations end */
 
 class GameObject {
 public:

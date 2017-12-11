@@ -2,6 +2,7 @@
 // Created by ts14ic on 12/3/17.
 //
 #include "Uzi.h"
+#include "../assets/Assets.h"
 #include "Bullet.h"
 
 Uzi::Uzi() {
