@@ -88,7 +88,7 @@ void Player::damage(int v) {
 }
 
 bool Player::reloading() const {
-    return mWeapons[mSelectedWeaponIdx].reloading();
+    return mWeapons[mSelectedWeaponIdx].isReloading();
 }
 
 void Player::handle_events(InputContext& input) {
@@ -209,9 +209,9 @@ void Player::handle_logic(Assets& assets) {
         _x = _x + _speed;
     }
 
-    mWeapons[mSelectedWeaponIdx].reload();
+    mWeapons[mSelectedWeaponIdx].tryReload();
     if(_state & SHOOTS) {
-        mWeapons[mSelectedWeaponIdx].shoot(assets, *this);
+        mWeapons[mSelectedWeaponIdx].pullTrigger(assets, *this);
     }
 }
 

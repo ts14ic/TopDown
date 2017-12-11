@@ -12,10 +12,10 @@ Weapon::Weapon(const WeaponBuilder& builder)
           mMaxAmmo{builder.getMaxAmmo()},
           mCurrentAmmo{builder.getMaxAmmo()},
           mProjectilesPerShot{builder.getProjectilesPerShot()},
-          mLength{builder.getLength()},
-          mDamage{builder.getProjectileDamage()},
+          mWeaponLength{builder.getLength()},
+          mProjectileDamage{builder.getProjectileDamage()},
           mProjectileSpeed{builder.getProjectileSpeed()},
-          mSpread{builder.getProjectileSpread()},
+          mProjectileSpread{builder.getProjectileSpread()},
           mFireSounds{builder.getFireSounds()},
           mFireCooldown(builder.getFireCooldown()),
           mReloadCooldown(builder.getReloadCooldown()) {
@@ -45,7 +45,7 @@ void Weapon::spawnBullets(GameObject const& shooter) {
     }
 }
 
-void Weapon::shoot(Assets& assets, GameObject const& shooter) {
+void Weapon::pullTrigger(Assets& assets, GameObject const& shooter) {
     if(mFireCooldownTimer.ticksHavePassed(mFireCooldown) && mCurrentAmmo > 0) {
         spawnBullets(shooter);
 
@@ -60,27 +60,27 @@ void Weapon::shoot(Assets& assets, GameObject const& shooter) {
     }
 }
 
-int Weapon::length() const {
-    return mLength;
+int Weapon::getLength() const {
+    return mWeaponLength;
 }
 
-int Weapon::dmg() const {
-    return mDamage;
+int Weapon::getProjectileDamage() const {
+    return mProjectileDamage;
 }
 
 float Weapon::getProjectileSpeed() const {
     return mProjectileSpeed;
 }
 
-float Weapon::spread() const {
-    return mSpread;
+float Weapon::getProjectileSpread() const {
+    return mProjectileSpread;
 }
 
-bool Weapon::reloading() const {
+bool Weapon::isReloading() const {
     return mIsReloading;
 }
 
-void Weapon::reload() {
+void Weapon::tryReload() {
     if(mIsReloading && mReloadCooldownTimer.ticksHavePassed(mReloadCooldown)) {
         mCurrentAmmo = mMaxAmmo;
         mIsReloading = false;

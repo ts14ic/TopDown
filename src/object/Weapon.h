@@ -8,31 +8,32 @@
 #include <string>
 
 class GameObject;
+
 class Assets;
+
 class WeaponBuilder;
 
 class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void shoot(Assets& assets, GameObject const& shooter);
+    void pullTrigger(Assets& assets, GameObject const& shooter);
 
-    int length() const;
+    void tryReload();
 
-    int dmg() const;
-
-    float getProjectileSpeed() const;
+    bool isReloading() const;
 
     std::string getName() const;
 
-    float spread() const;
+    int getLength() const;
 
-    bool reloading() const;
+    int getProjectileDamage() const;
 
-    void reload();
+    float getProjectileSpeed() const;
+
+    float getProjectileSpread() const;
 
 private:
-
     void startReloading();
 
     void playFireSound(Assets& assets);
@@ -52,11 +53,11 @@ private:
     int mCurrentAmmo;
     int mMaxAmmo;
     int mProjectilesPerShot;
-    int mLength;
-    int mDamage;
+    int mWeaponLength;
+    int mProjectileDamage;
     float mProjectileSpeed;
     unsigned int mFireCooldown;
     unsigned int mReloadCooldown;
-    float mSpread;
+    float mProjectileSpread;
     bool mIsReloading;
 };
