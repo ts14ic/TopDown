@@ -9,7 +9,8 @@
 
 StateMoon::StateMoon(Engine& engine)
         : _texBackground(engine.getRenderContext(), "assets/gfx/test_bg.png"),
-          _pl(engine.getRenderContext().getScreenWidth() / 2, engine.getRenderContext().getScreenHeight() / 2) {
+          _pl(engine.getRenderContext().getScreenWidth() / 2, engine.getRenderContext().getScreenHeight() / 2),
+          mRandomEngine{std::random_device{}()} {
     zombies().clear();
     werewolves().clear();
     _mobSpawner.start();
