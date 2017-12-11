@@ -30,4 +30,6 @@ public:
     virtual bool reloading() const = 0;
 
     virtual void reload() = 0;
+
+    virtual ~Weapon() = 0;
 };

@@ -31,7 +31,7 @@ set(SOURCE_FILES
         src/object/Player.cpp src/object/Player.h
         src/object/Werewolf.cpp src/object/Werewolf.h
         src/object/Zombie.cpp src/object/Zombie.h
-        src/object/Weapon.h
+        src/object/Weapon.h src/object/Weapon.cpp
         src/object/Bullet.cpp src/object/Bullet.h
         src/object/Pistol.cpp src/object/Pistol.h
         src/object/Shotgun.cpp src/object/Shotgun.h
