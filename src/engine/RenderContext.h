@@ -1,9 +1,11 @@
 #pragma once
 
 #include <memory>
-#include "../assets/Assets.h"
 
 // forward declarations begin
+class Assets;
+
+class Texture;
 struct SDL_Renderer;
 struct SDL_Window;
 // forward declarations end

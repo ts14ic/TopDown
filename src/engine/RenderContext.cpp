@@ -2,6 +2,7 @@
 // Created by ts14ic on 12/2/17.
 //
 #include "RenderContext.h"
+#include "../assets/Assets.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
