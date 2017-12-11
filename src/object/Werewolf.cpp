@@ -32,7 +32,7 @@ void Werewolf::angle(float a) { _angle = a; }
 
 void Werewolf::speed(float s) { _speed = s; }
 
-Circle Werewolf::circle() const { return Circle(_x, _y, 25); }
+Circle Werewolf::circle() const { return {_x, _y, 25}; }
 
 int Werewolf::hp() const { return _hp; }
 

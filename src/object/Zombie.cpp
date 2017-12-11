@@ -22,7 +22,7 @@ float Zombie::speed() const { return _speed; }
 void  Zombie::angle(float a) { _angle = a; }
 void  Zombie::speed(float s) { _speed = s; }
 
-Circle Zombie::circle() const { return Circle(_x, _y, 25); }
+Circle Zombie::circle() const { return {_x, _y, 25}; }
 
 int Zombie::hp() const { return _hp; }
 int Zombie::defaultHp() const { return 50; }

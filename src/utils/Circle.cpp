@@ -7,29 +7,30 @@
 
 Circle::Circle() = default;
 
-Circle::Circle(int x, int y, int r) : mX(x), mY(y), mRadius(r) {}
+Circle::Circle(float x, float y, float r)
+        : mX(x), mY(y), mRadius(r) {}
 
-int Circle::getX() const {
+float Circle::getX() const {
     return mX;
 }
 
-void Circle::setX(int x) {
+void Circle::setX(float x) {
     Circle::mX = x;
 }
 
-int Circle::getY() const {
+float Circle::getY() const {
     return mY;
 }
 
-void Circle::setY(int y) {
+void Circle::setY(float y) {
     Circle::mY = y;
 }
 
-int Circle::getRadius() const {
+float Circle::getRadius() const {
     return mRadius;
 }
 
-void Circle::setRadius(int r) {
+void Circle::setRadius(float r) {
     Circle::mRadius = r;
 }
 

@@ -8,24 +8,24 @@ class Circle {
 public:
     Circle();
 
-    Circle(int x, int y, int r);
+    Circle(float x, float y, float radius);
 
-    int getX() const;
+    float getX() const;
 
-    void setX(int x);
+    void setX(float x);
 
-    int getY() const;
+    float getY() const;
 
-    void setY(int y);
+    void setY(float y);
 
-    int getRadius() const;
+    float getRadius() const;
 
-    void setRadius(int r);
+    void setRadius(float radius);
 
 private:
-    int mX;
-    int mY;
-    int mRadius;
+    float mX;
+    float mY;
+    float mRadius;
 };
 
 bool circlesCollide(Circle const& a, Circle const& b);
