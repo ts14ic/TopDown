@@ -77,6 +77,7 @@ int RenderContext::getScreenWidth() {
 
 // todo move this method to Engine
 void RenderContext::load_media(Assets& assets) {
+    load_texture(assets, "player", "assets/gfx/Player/hands.png");
     load_texture(assets, "player_pistol", "assets/gfx/Player/pistol.png");
     load_texture(assets, "player_shotgun", "assets/gfx/Player/shotgun.png");
     load_texture(assets, "player_uzi", "assets/gfx/Player/uzi.png");

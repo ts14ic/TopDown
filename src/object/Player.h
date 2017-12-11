@@ -58,6 +58,8 @@ public:
 
     void handle_render(Assets& assets, RenderContext& renderContext);
 
+    void addWeapon(Weapon weapon);
+
 private:
     void selectNextWeapon();
 

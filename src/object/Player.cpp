@@ -1,9 +1,8 @@
-#include <sstream>
 #include "Player.h"
 #include "../shape/Circle.h"
 #include "../math/math.h"
 #include "../engine/InputContext.h"
-#include "WeaponBuilder.h"
+#include <sstream>
 
 Player::Player()
         : Player(0, 0) {}
@@ -11,40 +10,6 @@ Player::Player()
 Player::Player(int x, int y)
         : mX(x), mY(y) {
     _hp = Player::defaultHp();
-
-    mWeapons.emplace_back(WeaponBuilder{"pistol"}
-                                  .maxAmmo(7)
-                                  .projectilesPerShot(1)
-                                  .length(10)
-                                  .projectileDamage(15)
-                                  .projectileSpeed(12)
-                                  .fireCooldown(350)
-                                  .reloadCooldown(1000)
-                                  .projectileSpread(2)
-                                  .fireSounds({"pistol_shot"})
-                                  .build());
-    mWeapons.emplace_back(WeaponBuilder{"shotgun"}
-                                  .maxAmmo(2)
-                                  .projectilesPerShot(8)
-                                  .length(45)
-                                  .projectileDamage(7)
-                                  .projectileSpeed(8)
-                                  .fireCooldown(200)
-                                  .reloadCooldown(1000)
-                                  .projectileSpread(20)
-                                  .fireSounds({"shotgun_shot"})
-                                  .build());
-    mWeapons.emplace_back(WeaponBuilder{"uzi"}
-                                  .maxAmmo(25)
-                                  .projectilesPerShot(1)
-                                  .length(25)
-                                  .projectileDamage(10)
-                                  .projectileSpeed(12)
-                                  .fireCooldown(100)
-                                  .reloadCooldown(3000)
-                                  .projectileSpread(5)
-                                  .fireSounds({"uzi_shot1", "uzi_shot2"})
-                                  .build());
 
     _dmgCd.restart();
 }
@@ -73,9 +38,13 @@ void Player::setSpeed(float s) { _speed = s; }
 Circle Player::getCircle() const { return {mX, mY, 30}; }
 
 std::string Player::getTexName() const {
-    std::ostringstream ostringstream;
-    ostringstream << "player_" << mWeapons[mSelectedWeaponIdx].getName();
-    return ostringstream.str();
+    if(mWeapons.empty()) {
+        return "player";
+    } else {
+        std::ostringstream ostringstream;
+        ostringstream << "player_" << mWeapons[mSelectedWeaponIdx].getName();
+        return ostringstream.str();
+    }
 }
 
 int Player::hp() const { return _hp; }
@@ -96,7 +65,7 @@ void Player::damage(int v) {
 }
 
 bool Player::reloading() const {
-    return mWeapons[mSelectedWeaponIdx].isReloading();
+    return !mWeapons.empty() && mWeapons[mSelectedWeaponIdx].isReloading();
 }
 
 void Player::handle_events(InputContext& input) {
@@ -236,9 +205,12 @@ void Player::handle_logic(Assets& assets) {
         mX = mX + _speed;
     }
 
-    mWeapons[mSelectedWeaponIdx].tryReload();
-    if(mInputState.test(TRIGGER_PRESSED)) {
-        mWeapons[mSelectedWeaponIdx].pullTrigger(assets, *this);
+    if(!mWeapons.empty()) {
+        // todo don't try to reload on every frame
+        mWeapons[mSelectedWeaponIdx].tryReload();
+        if(mInputState.test(TRIGGER_PRESSED)) {
+            mWeapons[mSelectedWeaponIdx].pullTrigger(assets, *this);
+        }
     }
 }
 
@@ -262,4 +234,8 @@ void Player::selectWeapon(int idx) {
     } else if(mSelectedWeaponIdx > mWeapons.size() - 1) {
         mSelectedWeaponIdx = static_cast<int>(mWeapons.size() - 1);
     }
+}
+
+void Player::addWeapon(Weapon weapon) {
+    mWeapons.emplace_back(weapon);
 }
