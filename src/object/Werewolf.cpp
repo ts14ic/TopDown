@@ -1,3 +1,4 @@
+#include "../engine/RenderContext.h"
 #include "Werewolf.h"
 #include <SDL_render.h>
 

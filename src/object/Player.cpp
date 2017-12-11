@@ -1,3 +1,4 @@
+#include "../engine/InputContext.h"
 #include "Damageable.h"
 #include "Player.h"
 #include "Pistol.h"

@@ -7,6 +7,9 @@
 #include "Damageable.h"
 #include "Weapon.h"
 
+class InputContext;
+
+
 class Player : public virtual GameObject, public Damageable {
 public:
     Player(int x, int y);
