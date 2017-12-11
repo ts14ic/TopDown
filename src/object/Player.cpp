@@ -66,7 +66,7 @@ Circle Player::circle() const { return Circle(_x, _y, 30); }
 
 std::string Player::texName() const {
     std::ostringstream ostringstream;
-    ostringstream << "player_" << mWeapons[_currentWeap].getName();
+    ostringstream << "player_" << mWeapons[mSelectedWeaponIdx].getName();
     return ostringstream.str();
 }
 
@@ -88,7 +88,7 @@ void Player::damage(int v) {
 }
 
 bool Player::reloading() const {
-    return mWeapons[_currentWeap].reloading();
+    return mWeapons[mSelectedWeaponIdx].reloading();
 }
 
 void Player::handle_events(InputContext& input) {
@@ -142,15 +142,15 @@ void Player::handle_events(InputContext& input) {
         case SDL_KEYUP:
             switch(input.getInputEvent().key.keysym.sym) {
                 case SDLK_1:
-                    _currentWeap = 0;
+                    mSelectedWeaponIdx = 0;
                     break;
 
                 case SDLK_2:
-                    _currentWeap = 1;
+                    mSelectedWeaponIdx = 1;
                     break;
 
                 case SDLK_3:
-                    _currentWeap = 2;
+                    mSelectedWeaponIdx = 2;
                     break;
 
                 case SDLK_w:
@@ -209,9 +209,9 @@ void Player::handle_logic(Assets& assets) {
         _x = _x + _speed;
     }
 
-    mWeapons[_currentWeap].reload();
+    mWeapons[mSelectedWeaponIdx].reload();
     if(_state & SHOOTS) {
-        mWeapons[_currentWeap].shoot(assets, *this);
+        mWeapons[mSelectedWeaponIdx].shoot(assets, *this);
     }
 }
 
@@ -221,18 +221,18 @@ void Player::handle_render(Assets& assets, RenderContext& renderContext) {
 }
 
 void Player::selectNextWeapon() {
-    selectWeapon(_currentWeap + 1);
+    selectWeapon(mSelectedWeaponIdx + 1);
 }
 
 void Player::selectPreviousWeapon() {
-    selectWeapon(_currentWeap - 1);
+    selectWeapon(mSelectedWeaponIdx - 1);
 }
 
-void Player::selectWeapon(unsigned idx) {
-    _currentWeap = idx;
-    if(_currentWeap < 0) {
-        _currentWeap = 0;
-    } else if(_currentWeap > mWeapons.size() - 1) {
-        _currentWeap = static_cast<unsigned>(mWeapons.size() - 1);
+void Player::selectWeapon(int idx) {
+    mSelectedWeaponIdx = idx;
+    if(mSelectedWeaponIdx < 0) {
+        mSelectedWeaponIdx = static_cast<int>(0);
+    } else if(mSelectedWeaponIdx > mWeapons.size() - 1) {
+        mSelectedWeaponIdx = static_cast<unsigned>(mWeapons.size() - 1);
     }
 }
