@@ -103,13 +103,13 @@ void Player::handle_events(InputContext& input) {
 
         case SDL_MOUSEBUTTONDOWN:
             if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
-                mInputState[TRIGGER_PRESSED] = true;
+                mInputState.set(TRIGGER_PRESSED);
             }
             break;
 
         case SDL_MOUSEBUTTONUP:
             if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
-                mInputState[TRIGGER_PRESSED] = false;
+                mInputState.reset(TRIGGER_PRESSED);
             }
             break;
 
@@ -117,30 +117,30 @@ void Player::handle_events(InputContext& input) {
             switch(input.getInputEvent().key.keysym.sym) {
                 case SDLK_UP:
                 case SDLK_w: {
-                    mInputState[UP_PRESSED] = true;
+                    mInputState.set(UP_PRESSED);
                     break;
                 }
 
                 case SDLK_DOWN:
                 case SDLK_s: {
-                    mInputState[DOWN_PRESSED] = true;
+                    mInputState.set(DOWN_PRESSED);
                     break;
                 }
 
                 case SDLK_LEFT:
                 case SDLK_a: {
-                    mInputState[LEFT_PRESSED] = true;
+                    mInputState.set(LEFT_PRESSED);
                     break;
                 }
 
                 case SDLK_RIGHT:
                 case SDLK_d: {
-                    mInputState[RIGHT_PRESSED] = true;
+                    mInputState.set(RIGHT_PRESSED);
                     break;
                 }
 
                 case SDLK_SPACE: {
-                    mInputState[TRIGGER_PRESSED] = true;
+                    mInputState.set(TRIGGER_PRESSED);
                     break;
                 }
 
@@ -164,30 +164,30 @@ void Player::handle_events(InputContext& input) {
 
                 case SDLK_UP:
                 case SDLK_w: {
-                    mInputState[UP_PRESSED] = false;
+                    mInputState.reset(UP_PRESSED);
                     break;
                 }
 
                 case SDLK_DOWN:
                 case SDLK_s: {
-                    mInputState[DOWN_PRESSED] = false;
+                    mInputState.reset(DOWN_PRESSED);
                     break;
                 }
 
                 case SDLK_LEFT:
                 case SDLK_a: {
-                    mInputState[LEFT_PRESSED] = false;
+                    mInputState.reset(LEFT_PRESSED);
                     break;
                 }
 
                 case SDLK_RIGHT:
                 case SDLK_d: {
-                    mInputState[RIGHT_PRESSED] = false;
+                    mInputState.reset(RIGHT_PRESSED);
                     break;
                 }
 
                 case SDLK_SPACE: {
-                    mInputState[TRIGGER_PRESSED] = false;
+                    mInputState.reset(TRIGGER_PRESSED);
                     break;
                 }
 
@@ -214,21 +214,21 @@ void Player::handle_logic(Assets& assets) {
         _speed = 1.0f;
     }
 
-    if(mInputState[DOWN_PRESSED]) {
+    if(mInputState.test(DOWN_PRESSED)) {
         _y = _y + _speed;
     }
-    if(mInputState[UP_PRESSED]) {
+    if(mInputState.test(UP_PRESSED)) {
         _y = _y - _speed;
     }
-    if(mInputState[LEFT_PRESSED]) {
+    if(mInputState.test(LEFT_PRESSED)) {
         _x = _x - _speed;
     }
-    if(mInputState[RIGHT_PRESSED]) {
+    if(mInputState.test(RIGHT_PRESSED)) {
         _x = _x + _speed;
     }
 
     mWeapons[mSelectedWeaponIdx].tryReload();
-    if(mInputState[TRIGGER_PRESSED]) {
+    if(mInputState.test(TRIGGER_PRESSED)) {
         mWeapons[mSelectedWeaponIdx].pullTrigger(assets, *this);
     }
 }
