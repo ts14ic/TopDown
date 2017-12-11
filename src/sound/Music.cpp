@@ -2,10 +2,9 @@
 // Created by ts14ic on 12/3/17.
 //
 
+#include "Music.h"
 #include <SDL_mixer.h>
 #include <SDL_log.h>
-#include <unordered_map>
-#include "Music.h"
 
 Music::Music() = default;
 

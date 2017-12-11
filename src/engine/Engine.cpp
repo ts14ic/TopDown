@@ -2,10 +2,10 @@
 // Created by ts14ic on 12/2/17.
 //
 
-#include <SDL_timer.h>
 #include "Engine.h"
 #include "../state/StateIntro.h"
 #include "../state/StateMoon.h"
+#include <SDL_timer.h>
 
 constexpr int MS_ONE_SECOND = 1000;
 constexpr int FRAMES_PER_SECOND = 60;
