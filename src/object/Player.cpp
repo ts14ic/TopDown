@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Player.h"
 #include "../utils/Circle.h"
 #include "../utils/calculations.h"
@@ -8,7 +9,7 @@ Player::Player(int x, int y)
         : _x(x), _y(y) {
     _hp = Player::defaultHp();
 
-    mWeapons.emplace_back(WeaponBuilder{}
+    mWeapons.emplace_back(WeaponBuilder{"pistol"}
                                   .maxAmmo(7)
                                   .projectilesPerShot(1)
                                   .length(10)
@@ -19,7 +20,7 @@ Player::Player(int x, int y)
                                   .projectileSpread(2)
                                   .fireSounds({"pistol_shot"})
                                   .build());
-    mWeapons.emplace_back(WeaponBuilder{}
+    mWeapons.emplace_back(WeaponBuilder{"shotgun"}
                                   .maxAmmo(2)
                                   .projectilesPerShot(8)
                                   .length(45)
@@ -30,7 +31,7 @@ Player::Player(int x, int y)
                                   .projectileSpread(20)
                                   .fireSounds({"shotgun_shot"})
                                   .build());
-    mWeapons.emplace_back(WeaponBuilder{}
+    mWeapons.emplace_back(WeaponBuilder{"uzi"}
                                   .maxAmmo(25)
                                   .projectilesPerShot(1)
                                   .length(25)
@@ -64,18 +65,9 @@ void Player::speed(float s) { _speed = s; }
 Circle Player::circle() const { return Circle(_x, _y, 30); }
 
 std::string Player::texName() const {
-    std::string name = "player";
-
-    switch(_currentWeap) {
-        case WEAPON_SHOTGUN:
-            return name += "_shotgun";
-
-        case WEAPON_UZI:
-            return name += "_uzi";
-
-        default:
-            return name += "_pistol";
-    }
+    std::ostringstream ostringstream;
+    ostringstream << "player_" << mWeapons[_currentWeap].getName();
+    return ostringstream.str();
 }
 
 int Player::hp() const { return _hp; }
@@ -103,9 +95,9 @@ void Player::handle_events(InputContext& input) {
     switch(input.getInputEvent().type) {
         case SDL_MOUSEWHEEL:
             if(input.getInputEvent().wheel.y < 0) {
-                if(_currentWeap < mWeapons.size() - 1) ++_currentWeap;
+                selectNextWeapon();
             } else {
-                if(_currentWeap > 0) --_currentWeap;
+                selectPreviousWeapon();
             }
             break;
 
@@ -150,15 +142,15 @@ void Player::handle_events(InputContext& input) {
         case SDL_KEYUP:
             switch(input.getInputEvent().key.keysym.sym) {
                 case SDLK_1:
-                    _currentWeap = WEAPON_PISTOL;
+                    _currentWeap = 0;
                     break;
 
                 case SDLK_2:
-                    _currentWeap = WEAPON_SHOTGUN;
+                    _currentWeap = 1;
                     break;
 
                 case SDLK_3:
-                    _currentWeap = WEAPON_UZI;
+                    _currentWeap = 2;
                     break;
 
                 case SDLK_w:
@@ -226,4 +218,21 @@ void Player::handle_logic(Assets& assets) {
 void Player::handle_render(Assets& assets, RenderContext& renderContext) {
     default_render(assets, renderContext);
     default_render_health(renderContext, SDL_Color{0, 0x77, 0, 0xFF});
+}
+
+void Player::selectNextWeapon() {
+    selectWeapon(_currentWeap + 1);
+}
+
+void Player::selectPreviousWeapon() {
+    selectWeapon(_currentWeap - 1);
+}
+
+void Player::selectWeapon(unsigned idx) {
+    _currentWeap = idx;
+    if(_currentWeap < 0) {
+        _currentWeap = 0;
+    } else if(_currentWeap > mWeapons.size() - 1) {
+        _currentWeap = static_cast<unsigned>(mWeapons.size() - 1);
+    }
 }

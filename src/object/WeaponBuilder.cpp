@@ -5,6 +5,9 @@
 #include "WeaponBuilder.h"
 #include "Weapon.h"
 
+WeaponBuilder::WeaponBuilder(std::string name)
+        : mName{std::move(name)} {}
+
 WeaponBuilder& WeaponBuilder::maxAmmo(int maxAmmo) {
     mMaxAmmo = maxAmmo;
     return *this;
@@ -52,6 +55,10 @@ WeaponBuilder& WeaponBuilder::fireSounds(const std::vector<std::string>& fireSou
 
 Weapon WeaponBuilder::build() {
     return Weapon(*this);
+}
+
+std::string WeaponBuilder::getName() const {
+    return mName;
 }
 
 int WeaponBuilder::getMaxAmmo() const {

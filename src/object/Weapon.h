@@ -9,20 +9,7 @@
 
 class GameObject;
 class Assets;
-
 class WeaponBuilder;
-
-// todo rename UZI to SMG
-enum EWeapon {
-    WEAPON_PISTOL,
-    WEAPON_FIRST = WEAPON_PISTOL,
-    WEAPON_SHOTGUN,
-    WEAPON_UZI,
-    WEAPON_LAST = WEAPON_UZI,
-    WEAPON_TOTAL
-};
-
-// todo add a WeaponFactory
 
 class Weapon {
 public:
@@ -35,6 +22,8 @@ public:
     int dmg() const;
 
     float getProjectileSpeed() const;
+
+    std::string getName() const;
 
     float spread() const;
 
@@ -51,6 +40,8 @@ private:
     void spawnBullets(const GameObject& shooter);
 
 private:
+    std::string mName;
+
     // todo Move sound generation out of this class
     std::vector<std::string> mFireSounds;
     int mCurrentFireSound = 0;

@@ -11,6 +11,8 @@ class Weapon;
 
 class WeaponBuilder {
 public:
+    explicit WeaponBuilder(std::string name);
+
     WeaponBuilder& maxAmmo(int maxAmmo);
 
     WeaponBuilder& length(int length);
@@ -31,6 +33,8 @@ public:
 
     Weapon build();
 
+    std::string getName() const;
+
     int getMaxAmmo() const;
 
     int getLength() const;
@@ -50,6 +54,7 @@ public:
     const std::vector<std::string>& getFireSounds() const;
 
 private:
+    std::string mName;
     int mMaxAmmo = 0;
     int mLength = 0;
     unsigned mFireCooldown = 0;

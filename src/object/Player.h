@@ -54,13 +54,19 @@ public:
     void handle_render(Assets& assets, RenderContext& renderContext);
 
 private:
-    float _x, _y, _speed;
+    void selectNextWeapon();
+
+    void selectPreviousWeapon();
+
+    void selectWeapon(unsigned idx);
+
+private:
+    float _x = 0, _y = 0, _speed = 0;
     float _angle = 0.0f;
 
-    // todo make the weapon inventory dynamic
     std::vector<Weapon> mWeapons;
-    int _currentWeap = WEAPON_PISTOL;
-    int _hp;
+    unsigned _currentWeap = 0;
+    int _hp = 0;
 
     StopWatch _dmgCd;
 

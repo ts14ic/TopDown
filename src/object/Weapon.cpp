@@ -8,7 +8,8 @@
 #include "../assets/Assets.h"
 
 Weapon::Weapon(const WeaponBuilder& builder)
-        : mMaxAmmo{builder.getMaxAmmo()},
+        : mName{builder.getName()},
+          mMaxAmmo{builder.getMaxAmmo()},
           mCurrentAmmo{builder.getMaxAmmo()},
           mProjectilesPerShot{builder.getProjectilesPerShot()},
           mLength{builder.getLength()},
@@ -94,4 +95,8 @@ void Weapon::reload() {
 //            mIsReloading = false;
 //        }
 //    }
+}
+
+std::string Weapon::getName() const {
+    return mName;
 }
