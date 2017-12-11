@@ -1,5 +1,5 @@
 #include "StateMoon.h"
-#include "../utils/calculations.h"
+#include "../math/math.h"
 #include "../engine/Engine.h"
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"

@@ -1,8 +1,8 @@
 #include "GameObject.h"
-#include "../utils/Circle.h"
+#include "../shape/Circle.h"
 #include "../assets/Assets.h"
 #include "../engine/RenderContext.h"
-#include "../utils/calculations.h"
+#include "../math/math.h"
 
 bool objectsCollide(GameObject& a, GameObject& b) {
     return circlesCollide(a.circle(), b.circle());

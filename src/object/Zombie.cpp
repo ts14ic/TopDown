@@ -1,6 +1,6 @@
 #include "Zombie.h"
-#include "../utils/Circle.h"
-#include "../utils/calculations.h"
+#include "../shape/Circle.h"
+#include "../math/math.h"
 #include "../assets/Assets.h"
 #include <SDL_pixels.h>
 

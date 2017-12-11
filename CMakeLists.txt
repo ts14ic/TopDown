@@ -16,7 +16,7 @@ include_directories(${SDL2_INCLUDE_DIR}
 set(SOURCE_FILES
         src/main.cpp
         src/timer/StopWatch.cpp src/timer/StopWatch.h
-        src/utils/calculations.cpp src/utils/calculations.h
+        src/math/math.cpp src/math/math.h
         src/state/StateIntro.cpp src/state/StateIntro.h
         src/state/StateMoon.cpp src/state/StateMoon.h
         src/state/GameState.h
@@ -31,11 +31,12 @@ set(SOURCE_FILES
         src/object/Player.cpp src/object/Player.h
         src/object/Werewolf.cpp src/object/Werewolf.h
         src/object/Zombie.cpp src/object/Zombie.h
+        src/object/WeaponBuilder.cpp src/object/WeaponBuilder.h
         src/object/Weapon.h src/object/Weapon.cpp
         src/object/Bullet.cpp src/object/Bullet.h
         src/assets/Assets.cpp src/assets/Assets.h
         src/engine/GState.h
-        src/utils/Circle.cpp src/utils/Circle.h src/object/WeaponBuilder.cpp src/object/WeaponBuilder.h)
+        src/shape/Circle.cpp src/shape/Circle.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

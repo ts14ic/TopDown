@@ -2,8 +2,8 @@
 // Created by ts14ic on 12/3/17.
 //
 #include "Damageable.h"
-#include "../utils/Circle.h"
-#include "../utils/calculations.h"
+#include "../shape/Circle.h"
+#include "../math/math.h"
 #include "../engine/RenderContext.h"
 #include <SDL_video.h>
 #include <SDL_render.h>

@@ -1,6 +1,6 @@
 #include "Bullet.h"
-#include "../utils/Circle.h"
-#include "../utils/calculations.h"
+#include "../shape/Circle.h"
+#include "../math/math.h"
 #include "Weapon.h"
 
 using std::vector;

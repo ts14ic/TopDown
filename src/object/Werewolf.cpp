@@ -1,6 +1,6 @@
 #include "Werewolf.h"
-#include "../utils/Circle.h"
-#include "../utils/calculations.h"
+#include "../shape/Circle.h"
+#include "../math/math.h"
 #include "../engine/RenderContext.h"
 #include "../assets/Assets.h"
 #include <SDL_render.h>
