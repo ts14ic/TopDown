@@ -3,8 +3,10 @@
 //
 #pragma once
 
+#include "../state/GameState.h"
 #include "../texture/Texture.h"
-#include "../engine/Engine.h"
+
+class Engine;
 
 class StateIntro : public GameState {
 public:

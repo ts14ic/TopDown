@@ -3,6 +3,7 @@
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
+#include "../engine/Engine.h"
 #include <SDL_render.h>
 #include <algorithm>
 #include <ctime>

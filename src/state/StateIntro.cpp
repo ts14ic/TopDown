@@ -1,8 +1,6 @@
-#include <SDL_video.h>
-#include <SDL_render.h>
-#include "GameState.h"
-#include "../engine/Engine.h"
 #include "StateIntro.h"
+#include "../engine/Engine.h"
+#include <SDL_render.h>
 
 StateIntro::StateIntro(Engine& engine)
         : _background(engine.getRenderContext(), "assets/gfx/intro_bg.png") {}

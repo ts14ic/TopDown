@@ -3,11 +3,15 @@
 //
 #pragma once
 
-#include "../timer/StopWatch.h"
-#include "../object/GameObject.h"
-#include "../engine/Engine.h"
+#include "../state/GameState.h"
+#include "../texture/Texture.h"
 #include "../object/Player.h"
+#include "../timer/StopWatch.h"
 #include <random>
+
+class Engine;
+
+class GameObject;
 
 class StateMoon : public GameState {
 public:
