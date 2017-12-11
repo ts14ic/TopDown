@@ -251,6 +251,6 @@ void Player::selectWeapon(int idx) {
     if(mSelectedWeaponIdx < 0) {
         mSelectedWeaponIdx = static_cast<int>(0);
     } else if(mSelectedWeaponIdx > mWeapons.size() - 1) {
-        mSelectedWeaponIdx = static_cast<unsigned>(mWeapons.size() - 1);
+        mSelectedWeaponIdx = static_cast<int>(mWeapons.size() - 1);
     }
 }
