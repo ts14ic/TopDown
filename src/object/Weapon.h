@@ -3,8 +3,14 @@
 //
 #pragma once
 
+#include "../timer/StopWatch.h"
+#include <vector>
+#include <string>
+
 class GameObject;
 class Assets;
+
+class WeaponBuilder;
 
 // todo rename UZI to SMG
 enum EWeapon {
@@ -16,21 +22,50 @@ enum EWeapon {
     WEAPON_TOTAL
 };
 
+// todo add a WeaponFactory
+
 class Weapon {
 public:
-    virtual void shoot(Assets& assets, GameObject const& shooter) = 0;
+    explicit Weapon(const WeaponBuilder& builder);
 
-    virtual int length() const = 0;
+    void shoot(Assets& assets, GameObject const& shooter);
 
-    virtual int dmg() const = 0;
+    int length() const;
 
-    virtual float getProjectileSpeed() const = 0;
+    int dmg() const;
 
-    virtual float spread() const = 0;
+    float getProjectileSpeed() const;
 
-    virtual bool reloading() const = 0;
+    float spread() const;
 
-    virtual void reload() = 0;
+    bool reloading() const;
 
-    virtual ~Weapon() = 0;
+    void reload();
+
+private:
+
+    void startReloading();
+
+    void playFireSound(Assets& assets);
+
+    void spawnBullets(const GameObject& shooter);
+
+private:
+    // todo Move sound generation out of this class
+    std::vector<std::string> mFireSounds;
+    int mCurrentFireSound = 0;
+
+    StopWatch mFireCooldownTimer;
+    StopWatch mReloadCooldownTimer;
+
+    int mCurrentAmmo;
+    int mMaxAmmo;
+    int mProjectilesPerShot;
+    int mLength;
+    int mDamage;
+    float mProjectileSpeed;
+    unsigned int mFireCooldown;
+    unsigned int mReloadCooldown;
+    float mSpread;
+    bool mIsReloading;
 };

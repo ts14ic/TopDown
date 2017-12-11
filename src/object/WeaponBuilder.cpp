@@ -3,7 +3,7 @@
 //
 
 #include "WeaponBuilder.h"
-#include "WeaponV2.h"
+#include "Weapon.h"
 
 WeaponBuilder& WeaponBuilder::maxAmmo(int maxAmmo) {
     mMaxAmmo = maxAmmo;
@@ -50,8 +50,8 @@ WeaponBuilder& WeaponBuilder::fireSounds(const std::vector<std::string>& fireSou
     return *this;
 }
 
-WeaponV2 WeaponBuilder::build() {
-    return WeaponV2(*this);
+Weapon WeaponBuilder::build() {
+    return Weapon(*this);
 }
 
 int WeaponBuilder::getMaxAmmo() const {

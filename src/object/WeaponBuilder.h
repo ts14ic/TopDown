@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-class WeaponV2;
+class Weapon;
 
 class WeaponBuilder {
 public:
@@ -29,7 +29,7 @@ public:
 
     WeaponBuilder& fireSounds(const std::vector<std::string>& fireSounds);
 
-    WeaponV2 build();
+    Weapon build();
 
     int getMaxAmmo() const;
 

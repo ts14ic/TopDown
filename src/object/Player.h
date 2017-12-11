@@ -58,7 +58,7 @@ private:
     float _angle = 0.0f;
 
     // todo make the weapon inventory dynamic
-    std::unique_ptr<Weapon> mWeapons[WEAPON_TOTAL];
+    std::vector<Weapon> mWeapons;
     int _currentWeap = WEAPON_PISTOL;
     int _hp;
 
