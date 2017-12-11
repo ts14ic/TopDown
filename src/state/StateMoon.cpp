@@ -102,7 +102,7 @@ void StateMoon::handle_logic(Engine& engine) {
                 w.damage(b.dmg());
                 return true;
             }
-            if(get_distance(b.x(), b.y(), w.x(), w.y()) < 50) {
+            if(getDistance(b.x(), b.y(), w.x(), w.y()) < 50) {
                 w.teleport();
             }
         }

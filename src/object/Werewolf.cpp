@@ -77,9 +77,9 @@ void Werewolf::set_target(float x, float y, bool ignore) {
         if(!_teleportCd.ticksHavePassed(500)) return;
     }
 
-    _angle = to_deg(get_angle(_x, _y, x, y));
+    _angle = toCartesian(getAngle(_x, _y, x, y));
 
-    auto dist = get_distance(_x, _y, x, y);
+    auto dist = getDistance(_x, _y, x, y);
     if(dist > circle().getRadius() * 1.7f) {
         if(_state != MOVING) {
             _state = MOVING;

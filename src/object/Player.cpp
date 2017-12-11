@@ -196,7 +196,7 @@ void Player::handle_events(InputContext& input) {
             break;
 
         case SDL_MOUSEMOTION:
-            _angle = to_deg(get_angle(x(), y(), input.getInputEvent().motion.x, input.getInputEvent().motion.y));
+            _angle = toCartesian(getAngle(x(), y(), input.getInputEvent().motion.x, input.getInputEvent().motion.y));
             break;
 
         default:;
@@ -206,7 +206,7 @@ void Player::handle_events(InputContext& input) {
 void Player::handle_logic(Assets& assets) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
-    _angle = to_deg(get_angle(_x, _y, mx, my));
+    _angle = toCartesian(getAngle(_x, _y, mx, my));
 
     if(_dmgCd.ticksHavePassed(500)) {
         _speed = 2.3f;

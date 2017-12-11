@@ -12,8 +12,8 @@ vector<Bullet>& bullets() {
 
 Bullet::Bullet(GameObject const& shooter, Weapon const& weap) {
     _angle = shooter.angle() + rand_float(weap.getProjectileSpread());
-    _x = shooter.x() + dcos(_angle) * weap.getLength();
-    _y = shooter.y() + dsin(_angle) * weap.getLength();
+    _x = shooter.x() + cartesianCos(_angle) * weap.getLength();
+    _y = shooter.y() + cartesianSin(_angle) * weap.getLength();
 
     _dmg = weap.getProjectileDamage();
     _speed = weap.getProjectileSpeed();

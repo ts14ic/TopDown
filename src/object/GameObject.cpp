@@ -5,12 +5,12 @@
 #include "../engine/RenderContext.h"
 
 bool objectsCollide(GameObject& a, GameObject& b) {
-    return ::collides(a.circle(), b.circle());
+    return circlesCollide(a.circle(), b.circle());
 }
 
 void GameObject::default_move() {
-    x(x() + speed() * dcos(angle()));
-    y(y() + speed() * dsin(angle()));
+    x(x() + speed() * cartesianCos(angle()));
+    y(y() + speed() * cartesianSin(angle()));
 }
 
 void GameObject::default_render(Assets& assets, RenderContext& renderContext) {

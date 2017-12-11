@@ -6,25 +6,50 @@ struct SDL_Rect;
 class Circle;
 
 // trigonometry
-float pi();
+constexpr float PI = 3.14159265359f;
+constexpr float PI_OVER_180 = PI / 180.f;
+constexpr float PI_UNDER_180 = 180.f / PI;
 
-float to_rad(float angle);
-float to_deg(float angle);
+namespace detail {
+    double cartesianCos(double x);
 
-float rcos(float x);
-float rsin(float x);
-float dcos(float x);
-float dsin(float x);
+    double cartesianSin(double x);
+
+    double getAngle(double ax, double ay, double bx, double by);
+
+    double getDistance(double ax, double ay, double bx, double by);
+}
+
+template<class R = float, class A>
+R toRadians(A angle) {
+    return static_cast<R>(angle * PI_OVER_180);
+}
+
+template<class R = float, class A>
+R toCartesian(A angle) {
+    return static_cast<R>(angle * PI_UNDER_180);
+}
+
+template<class R = float, class A>
+R cartesianCos(A angle) {
+    return static_cast<R>(detail::cartesianCos(angle));
+}
+
+template<class R = float, class A>
+R cartesianSin(A angle) {
+    return static_cast<R>(detail::cartesianSin(angle));
+};
+
+template<class R = float, class A, class B>
+R getDistance(A ax, A ay, B bx, B by) {
+    return static_cast<R>(detail::getDistance(ax, ay, bx, by));
+};
+
+template<class R = float, class A, class B>
+R getAngle(A ax, A ay, B bx, B by) {
+    return static_cast<R>(detail::getAngle(ax, ay, bx, by));
+};
 
 float rand_float(float range);
 
-float get_distance(int ax, int ay, int bx, int by);
-float get_distance(SDL_Point const& a, SDL_Point const& b);
-
-float get_angle(int ax, int ay, int bx, int by);
-float get_angle(SDL_Point const& a, SDL_Point const& b);
-
-bool collides(SDL_Rect const& a, SDL_Rect const& b);
-bool collides(Circle const& a, SDL_Rect const& b);
-bool collides(SDL_Rect const& a, Circle const& b);
-bool collides(Circle const& a, Circle const& b);
+bool circlesCollide(Circle const& a, Circle const& b);
