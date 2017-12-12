@@ -25,8 +25,16 @@ public:
 
     void restrict_pos(GameObject&);
 
+    struct FailedToParseLevelData : public std::runtime_error {
+        explicit FailedToParseLevelData(const char* message);
+
+        explicit FailedToParseLevelData(const std::string& message);
+    };
+
 private:
     int randomInt();
+
+    void parseLevelData();
 
 private:
     std::mt19937 mRandomEngine;

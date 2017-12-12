@@ -139,6 +139,10 @@ void Player::handle_events(InputContext& input) {
                     mSelectedWeaponIdx = 2;
                     break;
 
+                case SDLK_4:
+                    mSelectedWeaponIdx = 3;
+                    break;
+
                 case SDLK_UP:
                 case SDLK_w: {
                     mInputState.reset(UP_PRESSED);

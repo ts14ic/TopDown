@@ -1,0 +1,61 @@
+{
+  "player": {
+    "weapons": [
+      {
+        "name": "pistol",
+        "max_ammo": 7,
+        "projectiles_per_shot": 1,
+        "length": 10,
+        "projectile_damage": 15,
+        "projectile_speed": 12,
+        "fire_cooldown": 350,
+        "reload_cooldown": 1000,
+        "projectile_spread": 2,
+        "fire_sounds": [
+          "pistol_shot"
+        ]
+      },
+      {
+        "name": "shotgun",
+        "max_ammo": 2,
+        "projectiles_per_shot": 8,
+        "length": 45,
+        "projectile_damage": 7,
+        "projectile_speed": 8,
+        "fire_cooldown": 200,
+        "reload_cooldown": 1000,
+        "projectile_spread": 20,
+        "fire_sounds": [
+          "shotgun_shot"
+        ]
+      },
+      {
+        "name": "uzi",
+        "max_ammo": 25,
+        "projectiles_per_shot": 1,
+        "length": 25,
+        "projectile_damage": 10,
+        "projectile_speed": 12,
+        "fire_cooldown": 100,
+        "reload_cooldown": 3000,
+        "projectile_spread": 5,
+        "fire_sounds": [
+          "uzi_shot1",
+          "uzi_shot2"
+        ]
+      },
+      {
+        "name": "aura",
+        "max_ammo": 1,
+        "projectiles_per_shot": 100,
+        "length": 25,
+        "projectile_damage": 50,
+        "projectile_speed": 3,
+        "fire_cooldown": 50,
+        "reload_cooldown": 5000,
+        "projectile_spread": 180,
+        "fire_sounds": []
+      }
+    ]
+  }
+}
