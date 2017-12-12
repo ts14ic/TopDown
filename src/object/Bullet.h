@@ -4,13 +4,14 @@
 #pragma once
 
 #include "GameObject.h"
+#include "../engine/Random.h"
 #include <vector>
 
 class Weapon;
 
 class Bullet : public GameObject {
 public:
-    Bullet(GameObject const& origin, Weapon const& weap);
+    Bullet(Random& random, GameObject const& origin, Weapon const& weap);
 
     float getX() const override;
 

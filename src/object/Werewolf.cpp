@@ -105,12 +105,12 @@ void Werewolf::handle_logic() {
     }
 }
 
-void Werewolf::teleport() {
+void Werewolf::teleport(Random& random) {
     if(_state == DYING) return;
 
     if(_state != TELEPORTING && _teleportCd.ticksHavePassed(1000)) {
-        _x += std::rand() % 300 - 150;
-        _y += std::rand() % 300 - 150;
+        _x += random.getInt(-150, 150);
+        _y += random.getInt(-150, 150);
         _state = TELEPORTING;
         _frame = 0;
         _teleportCd.restart();

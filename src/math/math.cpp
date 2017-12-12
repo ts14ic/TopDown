@@ -17,9 +17,3 @@ double detail::getDistance(double ax, double ay, double bx, double by) {
 double detail::getAngle(double ax, double ay, double bx, double by) {
     return std::atan2(by - ay, bx - ax);
 }
-
-// todo replace with uniform_real_distribution
-float rand_float(float range) {
-    float k = (float) rand() / RAND_MAX;
-    return range * (k * 2 - 1);
-}

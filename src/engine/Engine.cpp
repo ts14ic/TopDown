@@ -11,7 +11,8 @@ constexpr int MS_ONE_SECOND = 1000;
 constexpr int FRAMES_PER_SECOND = 60;
 constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
-Engine::Engine() : mRenderSystem{mAssets, 800, 600} {}
+Engine::Engine()
+        : mRenderSystem{mAssets, 800, 600} {}
 
 void Engine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(*this);
@@ -71,4 +72,8 @@ RenderContext& Engine::getRenderContext() {
 
 Assets& Engine::getAssets() {
     return mAssets;
+}
+
+Random& Engine::getRandom() {
+    return mRandom;
 }

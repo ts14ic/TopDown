@@ -5,6 +5,7 @@
 
 #include "Damageable.h"
 #include "../timer/StopWatch.h"
+#include "../engine/Random.h"
 #include <vector>
 
 class Werewolf : public Damageable {
@@ -48,7 +49,7 @@ public:
     // StateMoon interface
     void set_target(float x, float y, bool ignore = false);
 
-    void teleport();
+    void teleport(Random& random);
 
     void handle_logic();
 

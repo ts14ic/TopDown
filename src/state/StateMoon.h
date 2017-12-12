@@ -32,18 +32,13 @@ public:
     };
 
 private:
-    int randomInt();
-
     void parseLevelData();
 
 private:
-    std::mt19937 mRandomEngine;
-    std::uniform_int_distribution<int> mRandomDistribution;
-
     // todo replace with text path
     Texture _texBackground;
-    int const _levelWidth = 800;
-    int const _levelHeight = 600;
+    int const _levelWidth;
+    int const _levelHeight;
 
     Player mPlayer;
     StopWatch _mobSpawner;

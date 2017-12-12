@@ -9,6 +9,7 @@
 #include "../assets/Assets.h"
 #include "../state/GameState.h"
 #include "../timer/StopWatch.h"
+#include "Random.h"
 
 class Engine {
 public:
@@ -24,6 +25,8 @@ public:
 
     Assets& getAssets();
 
+    Random& getRandom();
+
 private:
     void changeState();
 
@@ -33,6 +36,7 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
+    Random mRandom;
     Assets mAssets;
     RenderContext mRenderSystem;
     InputContext mInputSystem;

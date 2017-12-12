@@ -10,8 +10,9 @@ vector<Bullet>& bullets() {
     return ret;
 }
 
-Bullet::Bullet(GameObject const& shooter, Weapon const& weap) {
-    _angle = shooter.getAngle() + rand_float(weap.getProjectileSpread());
+Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weap) {
+    float half = weap.getProjectileSpread() / 2;
+    _angle = shooter.getAngle() + random.getFloat(-half, half);
     _x = shooter.getX() + cartesianCos(_angle) * weap.getLength();
     _y = shooter.getY() + cartesianSin(_angle) * weap.getLength();
 

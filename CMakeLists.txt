@@ -36,7 +36,9 @@ set(SOURCE_FILES
         src/object/Bullet.cpp src/object/Bullet.h
         src/assets/Assets.cpp src/assets/Assets.h
         src/engine/GState.h
-        src/shape/Circle.cpp src/shape/Circle.h src/json/getValue.h)
+        src/shape/Circle.cpp src/shape/Circle.h
+        src/json/getValue.h
+        src/engine/Random.cpp src/engine/Random.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

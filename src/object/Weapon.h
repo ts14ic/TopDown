@@ -4,6 +4,7 @@
 #pragma once
 
 #include "../timer/StopWatch.h"
+#include "../engine/Random.h"
 #include <vector>
 #include <string>
 
@@ -17,7 +18,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pullTrigger(Assets& assets, GameObject const& shooter);
+    void pullTrigger(Random& random, Assets& assets, GameObject const& shooter);
 
     void tryReload();
 
@@ -38,7 +39,7 @@ private:
 
     void playFireSound(Assets& assets);
 
-    void spawnBullets(const GameObject& shooter);
+    void spawnBullets(Random& random, GameObject const& shooter);
 
 private:
     std::string mName;

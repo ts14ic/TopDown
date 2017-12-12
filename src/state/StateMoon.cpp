@@ -7,24 +7,19 @@
 #include <SDL_render.h>
 #include <algorithm>
 #include <ctime>
+#include <iostream>
 
 StateMoon::StateMoon(Engine& engine)
         : _texBackground(engine.getRenderContext(), "assets/gfx/test_bg.png"),
-          mRandomEngine{std::random_device{}()} {
+          _levelWidth(engine.getRenderContext().getScreenWidth()),
+          _levelHeight(engine.getRenderContext().getScreenHeight()) {
     zombies().clear();
     werewolves().clear();
     _mobSpawner.restart();
 
-    mPlayer.setPos(
-            engine.getRenderContext().getScreenWidth() / 2,
-            engine.getRenderContext().getScreenHeight() / 2
-    );
+    mPlayer.setPos(_levelWidth / 2, _levelHeight / 2);
 
     parseLevelData();
-}
-
-int StateMoon::randomInt() {
-    return mRandomDistribution(mRandomEngine);
 }
 
 void StateMoon::handle_events(Engine& engine) {
@@ -52,44 +47,47 @@ void StateMoon::restrict_pos(GameObject& o) {
     else if(o.getY() > _levelHeight) o.setY(_levelHeight);
 }
 
-void StateMoon::handle_logic(Engine& engine) {
-    if(_mobSpawner.ticksHavePassed(500) && (zombies().size() + werewolves().size() < 7)) {
-        if(zombies().size() < 7) {
-            int border = randomInt() % 2;
-            if(border == 0) {
-                int lx = randomInt() % _levelWidth;
-                int ly = randomInt() % 2 * _levelHeight;
-                zombies().emplace_back(lx, ly);
-            } else {
-                int lx = randomInt() % 2 * _levelWidth;
-                int ly = randomInt() % _levelHeight;
-                zombies().emplace_back(lx, ly);
-            }
-        }
+int randomInt() {
+    static std::mt19937 engine{std::default_random_engine{}()};
+    static std::uniform_int_distribution<int> dis;
+    return dis(engine);
+}
 
-        if(werewolves().size() < 7) {
-            int border = randomInt() % 2;
-            if(border == 0) {
-                int lx = randomInt() % _levelWidth;
-                int ly = randomInt() % 2 * _levelHeight;
-                werewolves().emplace_back(lx, ly);
-            } else {
-                int lx = randomInt() % 2 * _levelWidth;
-                int ly = randomInt() % _levelHeight;
-                werewolves().emplace_back(lx, ly);
-            }
+std::pair<int, int> randomPosition(Random& random, int width, int height) {
+    int border = randomInt() % 2;
+    int lx;
+    int ly;
+    if(border == 0) {
+        lx = random.getInt(0, width);
+        ly = random.getInt(0, 1) * height;
+    } else {
+        lx = random.getInt(0, 1) * width;
+        ly = random.getInt(0, height);
+    }
+    return {lx, ly};
+};
+
+void StateMoon::handle_logic(Engine& engine) {
+    if(_mobSpawner.ticksHavePassed(50) && (zombies().size() + werewolves().size() < 7)) {
+        auto position = randomPosition(engine.getRandom(), _levelWidth, _levelHeight);
+        int type = engine.getRandom().getInt(0, 1);
+        if(type == 0) {
+            zombies().emplace_back(position.first, position.second);
+        } else {
+            werewolves().emplace_back(position.first, position.second);
         }
 
         _mobSpawner.restart();
     }
 
-    mPlayer.handle_logic(engine.getAssets());
+    mPlayer.handle_logic(engine.getRandom(), engine.getAssets());
 
     int screenWidth = engine.getRenderContext().getScreenWidth();
     int screenHeight = engine.getRenderContext().getScreenHeight();
 
     // process bullet moving and collisions
-    auto removeFrom = std::remove_if(bullets().begin(), bullets().end(), [screenWidth, screenHeight](Bullet& b) {
+    auto removeFrom = std::remove_if(bullets().begin(), bullets().end(),
+                                     [screenWidth, screenHeight, &engine](Bullet& b) {
         b.handle_logic();
 
         if((b.getX() > screenWidth) || (b.getX() < 0) ||
@@ -109,7 +107,7 @@ void StateMoon::handle_logic(Engine& engine) {
                 return true;
             }
             if(getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
-                w.teleport();
+                w.teleport(engine.getRandom());
             }
         }
 

@@ -38,16 +38,16 @@ void Weapon::playFireSound(Assets& assets) {
     }
 }
 
-void Weapon::spawnBullets(GameObject const& shooter) {
+void Weapon::spawnBullets(Random& random, GameObject const& shooter) {
     for(int i = 0; i < mProjectilesPerShot; ++i) {
-        Bullet b(shooter, *this);
+        Bullet b(random, shooter, *this);
         bullets().push_back(b);
     }
 }
 
-void Weapon::pullTrigger(Assets& assets, GameObject const& shooter) {
+void Weapon::pullTrigger(Random& random, Assets& assets, GameObject const& shooter) {
     if(mFireCooldownTimer.ticksHavePassed(mFireCooldown) && mCurrentAmmo > 0) {
-        spawnBullets(shooter);
+        spawnBullets(random, shooter);
 
         playFireSound(assets);
 

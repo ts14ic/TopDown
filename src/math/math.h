@@ -49,6 +49,3 @@ template<class R = float, class A, class B>
 R getAngle(A ax, A ay, B bx, B by) {
     return static_cast<R>(detail::getAngle(ax, ay, bx, by));
 };
-
-float rand_float(float range);
-

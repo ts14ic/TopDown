@@ -53,7 +53,7 @@
         "projectile_speed": 3,
         "fire_cooldown": 50,
         "reload_cooldown": 5000,
-        "projectile_spread": 180,
+        "projectile_spread": 360,
         "fire_sounds": [
           "shotgun_shot"
         ]
