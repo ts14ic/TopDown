@@ -65,14 +65,14 @@ private:
 
     void selectPreviousWeapon();
 
-    void selectWeapon(int idx);
+    void selectWeapon(unsigned idx);
 
 private:
     float mX = 0, mY = 0, _speed = 0;
     float _angle = 0.0f;
 
     std::vector<Weapon> mWeapons;
-    int mSelectedWeaponIdx = 0;
+    unsigned mSelectedWeaponIdx = 0;
     int _hp = 0;
 
     StopWatch _dmgCd;

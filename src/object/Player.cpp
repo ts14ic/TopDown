@@ -3,6 +3,7 @@
 #include "../math/math.h"
 #include "../engine/InputContext.h"
 #include <sstream>
+#include <iostream>
 
 Player::Player()
         : Player(0, 0) {}
@@ -38,7 +39,7 @@ void Player::setSpeed(float s) { _speed = s; }
 Circle Player::getCircle() const { return {mX, mY, 30}; }
 
 std::string Player::getTexName() const {
-    if(mWeapons.empty()) {
+    if(mWeapons.empty() || mSelectedWeaponIdx >= mWeapons.size()) {
         return "player";
     } else {
         std::ostringstream ostringstream;
@@ -127,21 +128,21 @@ void Player::handle_events(InputContext& input) {
 
         case SDL_KEYUP:
             switch(input.getInputEvent().key.keysym.sym) {
+                case SDLK_0:
                 case SDLK_1:
-                    mSelectedWeaponIdx = 0;
-                    break;
-
                 case SDLK_2:
-                    mSelectedWeaponIdx = 1;
-                    break;
-
                 case SDLK_3:
-                    mSelectedWeaponIdx = 2;
-                    break;
-
                 case SDLK_4:
-                    mSelectedWeaponIdx = 3;
+                case SDLK_5:
+                case SDLK_6:
+                case SDLK_7:
+                case SDLK_8:
+                case SDLK_9: {
+                    auto keysym = input.getInputEvent().key.keysym.sym;
+                    auto idx = 9u - (SDLK_9 - keysym);
+                    selectWeapon(idx - 1);
                     break;
+                }
 
                 case SDLK_UP:
                 case SDLK_w: {
@@ -224,20 +225,27 @@ void Player::handle_render(Assets& assets, RenderContext& renderContext) {
 }
 
 void Player::selectNextWeapon() {
-    selectWeapon(mSelectedWeaponIdx + 1);
+    auto last = mWeapons.size() - 1;
+    if(mSelectedWeaponIdx < last) {
+        mSelectedWeaponIdx++;
+    } else {
+        mSelectedWeaponIdx = static_cast<unsigned>(last);
+    }
 }
 
 void Player::selectPreviousWeapon() {
-    selectWeapon(mSelectedWeaponIdx - 1);
+    auto first = 0u;
+    if(mSelectedWeaponIdx > first) {
+        mSelectedWeaponIdx--;
+    }
 }
 
-void Player::selectWeapon(int idx) {
-    mSelectedWeaponIdx = idx;
-    if(mSelectedWeaponIdx < 0) {
-        mSelectedWeaponIdx = static_cast<int>(0);
-    } else if(mSelectedWeaponIdx > mWeapons.size() - 1) {
-        mSelectedWeaponIdx = static_cast<int>(mWeapons.size() - 1);
+void Player::selectWeapon(unsigned idx) {
+    auto last = mWeapons.size() - 1;
+    if(idx > last) {
+        idx = static_cast<unsigned>(last);
     }
+    mSelectedWeaponIdx = idx;
 }
 
 void Player::addWeapon(Weapon weapon) {

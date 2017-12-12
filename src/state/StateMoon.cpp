@@ -65,7 +65,7 @@ std::pair<int, int> randomPosition(Random& random, int width, int height) {
         ly = random.getInt(0, height);
     }
     return {lx, ly};
-};
+}
 
 void StateMoon::handle_logic(Engine& engine) {
     if(_mobSpawner.ticksHavePassed(50) && (zombies().size() + werewolves().size() < 7)) {

@@ -42,23 +42,21 @@ private:
     void spawnBullets(Random& random, GameObject const& shooter);
 
 private:
-    std::string mName;
-
-    // todo Move sound generation out of this class
-    std::vector<std::string> mFireSounds;
-    int mCurrentFireSound = 0;
-
     StopWatch mFireCooldownTimer;
     StopWatch mReloadCooldownTimer;
+    bool mIsReloading = false;
 
-    int mCurrentAmmo;
+    std::string mName;
     int mMaxAmmo;
+    int mCurrentAmmo;
     int mProjectilesPerShot;
     int mWeaponLength;
     int mProjectileDamage;
     float mProjectileSpeed;
-    unsigned int mFireCooldown;
-    unsigned int mReloadCooldown;
     float mProjectileSpread;
-    bool mIsReloading;
+    // todo Move sound generation out of this class
+    std::vector<std::string> mFireSounds;
+    unsigned mCurrentFireSound = 0;
+    unsigned mFireCooldown;
+    unsigned mReloadCooldown;
 };

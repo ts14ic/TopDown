@@ -38,14 +38,14 @@ R cartesianCos(A angle) {
 template<class R = float, class A>
 R cartesianSin(A angle) {
     return static_cast<R>(detail::cartesianSin(angle));
-};
+}
 
 template<class R = float, class A, class B>
 R getDistance(A ax, A ay, B bx, B by) {
     return static_cast<R>(detail::getDistance(ax, ay, bx, by));
-};
+}
 
 template<class R = float, class A, class B>
 R getAngle(A ax, A ay, B bx, B by) {
     return static_cast<R>(detail::getAngle(ax, ay, bx, by));
-};
+}

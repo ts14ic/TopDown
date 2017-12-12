@@ -22,7 +22,7 @@ Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weap) {
 
 float Bullet::getX() const { return _x; }
 
-float Bullet::getY() const { return _y; };
+float Bullet::getY() const { return _y; }
 
 float Bullet::getAngle() const { return _angle; }
 
@@ -30,7 +30,7 @@ float Bullet::getSpeed() const { return _speed; }
 
 void Bullet::setX(float x) { _x = x; }
 
-void Bullet::setY(float y) { _y = y; };
+void Bullet::setY(float y) { _y = y; }
 
 void Bullet::setAngle(float a) { _angle = a; }
 
