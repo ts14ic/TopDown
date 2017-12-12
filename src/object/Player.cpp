@@ -242,10 +242,9 @@ void Player::selectPreviousWeapon() {
 
 void Player::selectWeapon(unsigned idx) {
     auto last = mWeapons.size() - 1;
-    if(idx > last) {
-        idx = static_cast<unsigned>(last);
+    if(idx <= last) {
+        mSelectedWeaponIdx = idx;
     }
-    mSelectedWeaponIdx = idx;
 }
 
 void Player::addWeapon(Weapon weapon) {
