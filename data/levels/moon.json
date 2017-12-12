@@ -2,6 +2,18 @@
   "player": {
     "weapons": [
       {
+        "name": "hands",
+        "max_ammo": 0,
+        "projectiles_per_shot": 0,
+        "length": 10,
+        "projectile_damage": 0,
+        "projectile_speed": 0,
+        "fire_cooldown": 0,
+        "reload_cooldown": 0,
+        "projectile_spread": 0,
+        "fire_sounds": []
+      },
+      {
         "name": "pistol",
         "max_ammo": 7,
         "projectiles_per_shot": 1,

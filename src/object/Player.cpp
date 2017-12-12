@@ -140,7 +140,7 @@ void Player::handle_events(InputContext& input) {
                 case SDLK_9: {
                     auto keysym = input.getInputEvent().key.keysym.sym;
                     auto idx = 9u - (SDLK_9 - keysym);
-                    selectWeapon(idx - 1);
+                    selectWeapon(idx);
                     break;
                 }
 
