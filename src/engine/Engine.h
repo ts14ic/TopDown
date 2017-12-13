@@ -12,7 +12,7 @@ class GraphicContext;
 
 class AudioContext;
 
-class Assets;
+class Resources;
 
 class Random;
 
@@ -28,7 +28,7 @@ public:
 
     virtual AudioContext& getAudioContext() = 0;
 
-    virtual Assets& getAssets() = 0;
+    virtual Resources& getResources() = 0;
 
     virtual Random& getRandom() = 0;
 

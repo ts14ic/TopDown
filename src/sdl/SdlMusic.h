@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../assets/Music.h"
+#include "../resources/Music.h"
 #include <string>
 #include <memory>
 

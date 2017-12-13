@@ -4,7 +4,7 @@
 
 #pragma once
 
-class Assets;
+class Resources;
 
 class Texture;
 
@@ -25,8 +25,4 @@ public:
     virtual void render(Texture const& texture, int x, int y) = 0;
 
     virtual void render(Texture const& texture, int x, int y, float angle) = 0;
-
-    virtual int getScreenWidth() = 0;
-
-    virtual int getScreenHeight() = 0;
 };

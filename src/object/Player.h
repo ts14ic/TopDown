@@ -54,9 +54,9 @@ public:
 
     void handle_events(InputContext& input);
 
-    void handle_logic(Random& random, Assets& assets, AudioContext& audioContext);
+    void handle_logic(Random& random, Resources& resources, AudioContext& audioContext);
 
-    void handle_render(Assets& assets, GraphicContext& graphicContext);
+    void handle_render(Resources& resources, GraphicContext& graphicContext);
 
     void addWeapon(Weapon weapon);
 

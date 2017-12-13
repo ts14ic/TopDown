@@ -15,14 +15,14 @@ constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 DefaultEngine::DefaultEngine(
         std::unique_ptr<ContextFactory> contextFactory,
         std::unique_ptr<Random> random)
-        : mRenderContext{std::move(contextFactory->createRenderContext(800, 600))},
+        : mResources(std::move(contextFactory->createResources(800, 600))),
+          mRenderContext{std::move(contextFactory->createRenderContext())},
           mAudioContext{std::move(contextFactory->createAudioContext())},
           mInputContext{std::move(contextFactory->createInputContext())},
-          mRandom{std::move(random)},
-          mAssets(std::move(contextFactory->createAssets())) {
+          mRandom{std::move(random)} {
 
-    getAssets().setRenderContext(getRenderContext());
-    getAssets().setAudioContext(getAudioContext());
+    getResources().setRenderContext(getRenderContext());
+    getResources().setAudioContext(getAudioContext());
 
     loadMedia();
 }
@@ -83,8 +83,8 @@ GraphicContext& DefaultEngine::getRenderContext() {
     return *mRenderContext;
 }
 
-Assets& DefaultEngine::getAssets() {
-    return *mAssets;
+Resources& DefaultEngine::getResources() {
+    return *mResources;
 }
 
 Random& DefaultEngine::getRandom() {

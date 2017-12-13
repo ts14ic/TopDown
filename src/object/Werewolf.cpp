@@ -5,8 +5,8 @@
 #include "../math/math.h"
 #include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
-#include "../assets/Assets.h"
-#include "../assets/Sound.h"
+#include "../resources/Resources.h"
+#include "../resources/Sound.h"
 
 using std::vector;
 
@@ -120,8 +120,8 @@ void Werewolf::teleport(Random& random) {
     }
 }
 
-void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext, AudioContext& audioContext) {
-    default_render(assets, graphicContext);
+void Werewolf::handle_render(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext) {
+    default_render(resources, graphicContext);
 
     if(_hp > 0) {
         Box healthBox;
@@ -132,7 +132,7 @@ void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext, Aud
 
     if(_state == ATTACKING) {
         if(_frame == 3 || _frame == 7) {
-            audioContext.playSound(assets.getSound("wolf_attack"));
+            audioContext.playSound(resources.getSound("wolf_attack"));
         }
 
         if(_timer.ticksHavePassed(100)) {
@@ -149,7 +149,7 @@ void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext, Aud
     } else if(_state == TELEPORTING) {
         if(_timer.ticksHavePassed(100)) {
             if(_frame == 2) {
-                audioContext.playSound(assets.getSound("wolf_teleport"));
+                audioContext.playSound(resources.getSound("wolf_teleport"));
             }
 
             ++_frame;

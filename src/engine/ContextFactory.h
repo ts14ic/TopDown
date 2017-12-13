@@ -12,17 +12,17 @@ class AudioContext;
 
 class InputContext;
 
-class Assets;
+class Resources;
 
 class ContextFactory {
 public:
-    virtual std::unique_ptr<GraphicContext> createRenderContext(int screenWidth, int screenHeight) = 0;
+    virtual std::unique_ptr<GraphicContext> createRenderContext() = 0;
 
     virtual std::unique_ptr<AudioContext> createAudioContext() = 0;
 
     virtual std::unique_ptr<InputContext> createInputContext() = 0;
 
-    virtual std::unique_ptr<Assets> createAssets() = 0;
+    virtual std::unique_ptr<Resources> createResources(int screenWidth, int screenHeight) = 0;
 
     virtual ~ContextFactory() = 0;
 };

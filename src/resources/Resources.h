@@ -16,11 +16,15 @@ class GraphicContext;
 
 class AudioContext;
 
-class Assets {
+class Resources {
 public:
     virtual void setRenderContext(GraphicContext& graphicContext) = 0;
 
     virtual void setAudioContext(AudioContext& audioContext) = 0;
+
+    virtual int getScreenWidth() = 0;
+
+    virtual int getScreenHeight() = 0;
 
     virtual Texture& getTexture(const std::string& name) = 0;
 
@@ -34,5 +38,5 @@ public:
 
     virtual void loadMusic(const std::string& name, const char* path) = 0;
 
-    virtual ~Assets() = 0;
+    virtual ~Resources() = 0;
 };

@@ -6,7 +6,8 @@
 struct SDL_Color;
 
 class Circle;
-class Assets;
+
+class Resources;
 
 class GraphicContext;
 
@@ -37,7 +38,7 @@ public:
 protected:
     void default_move();
 
-    void default_render(Assets& assets, GraphicContext& graphicContext);
+    void default_render(Resources& resources, GraphicContext& graphicContext);
 };
 
 bool objectsCollide(GameObject& a, GameObject& b);

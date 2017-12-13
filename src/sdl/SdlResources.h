@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "../assets/Assets.h"
-#include "../assets/Music.h"
+#include "../resources/Resources.h"
+#include "../resources/Music.h"
 #include "SdlTexture.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"
@@ -15,14 +15,23 @@ class SdlGraphicContext;
 
 class SdlAudioContext;
 
+struct SDL_Window;
+struct SDL_Renderer;
+
 // todo rename to resources, move resource loading and renderer here
-class SdlAssets : public Assets {
+class SdlResources : public Resources {
 public:
-    ~SdlAssets() override;
+    SdlResources(int width, int height);
+
+    ~SdlResources() override;
 
     void setRenderContext(GraphicContext& graphicContext) override;
 
     void setAudioContext(AudioContext& audioContext) override;
+
+    int getScreenWidth() override;
+
+    int getScreenHeight() override;
 
     Texture& getTexture(const std::string& name) override;
 
@@ -44,13 +53,41 @@ public:
         explicit FailedSdlMixerInitException(const char* message);
     };
 
+    struct FailedToLoadTextureException : public std::runtime_error {
+        explicit FailedToLoadTextureException(const char* message);
+    };
+
 private:
     void initGraphicsSystem();
 
     void initAudioSystem();
 
-    SdlGraphicContext* mGraphicContext = nullptr;
-    SdlAudioContext* mAudioContext = nullptr;
+    SdlTexture loadTexture(const char* path);
+
+    struct SdlDeleter {
+        void operator()(SDL_Window* p);
+
+        void operator()(SDL_Renderer* p);
+    };
+
+    SdlSound loadSound(const char* path);
+
+    SdlMusic loadMusic(const char* path);
+
+    struct FailedToLoadSoundException : public std::runtime_error {
+        explicit FailedToLoadSoundException(const char* message);
+    };
+
+    struct FailedToLoadMusicException : public std::runtime_error {
+        explicit FailedToLoadMusicException(const char* message);
+    };
+
+private:
+    int mScreenWidth;
+    int mScreenHeight;
+
+    std::unique_ptr<SDL_Window, SdlDeleter> mWindow;
+    std::unique_ptr<SDL_Renderer, SdlDeleter> mRenderer;
     std::unordered_map<std::string, SdlSound> mNameToSound;
     std::unordered_map<std::string, SdlTexture> mNameToTexture;
     std::unordered_map<std::string, SdlMusic> mNameToMusic;

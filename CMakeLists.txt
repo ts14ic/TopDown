@@ -22,9 +22,9 @@ set(SOURCE_FILES
         src/state/StateIntro.cpp src/state/StateIntro.h
         src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_parseLevelData.cpp
         src/state/GameState.h
-        src/assets/Sound.cpp src/assets/Sound.h
-        src/assets/Music.cpp src/assets/Music.h
-        src/assets/Texture.cpp src/assets/Texture.h
+        src/resources/Sound.cpp src/resources/Sound.h
+        src/resources/Music.cpp src/resources/Music.h
+        src/resources/Texture.cpp src/resources/Texture.h
         src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
         src/engine/InputContext.cpp src/engine/InputContext.h
@@ -36,7 +36,7 @@ set(SOURCE_FILES
         src/object/WeaponBuilder.cpp src/object/WeaponBuilder.h
         src/object/Weapon.h src/object/Weapon.cpp
         src/object/Bullet.cpp src/object/Bullet.h
-        src/assets/Assets.cpp src/assets/Assets.h
+        src/resources/Resources.cpp src/resources/Resources.h
         src/engine/GState.h
         src/shape/Circle.cpp src/shape/Circle.h
         src/json/getValue.h src/json/getValue.cpp
@@ -46,7 +46,7 @@ set(SOURCE_FILES
         src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
-        src/sdl/SdlAssets.cpp src/sdl/SdlAssets.h
+        src/sdl/SdlResources.cpp src/sdl/SdlResources.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
         src/engine/ContextFactory.cpp src/engine/ContextFactory.h
         src/sdl/SdlContextFactory.cpp src/sdl/SdlContextFactory.h

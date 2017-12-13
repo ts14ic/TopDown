@@ -1,7 +1,7 @@
 #include "StateIntro.h"
 #include "../engine/Engine.h"
-#include "../assets/Assets.h"
-#include "../assets/Texture.h"
+#include "../resources/Resources.h"
+#include "../resources/Texture.h"
 #include "../engine/InputContext.h"
 #include "../engine/GraphicContext.h"
 #include <SDL_render.h>
@@ -10,7 +10,7 @@
 StateIntro::StateIntro(Engine& engine)
         : mBackgroundTexId{"intro_background"} {
 
-    engine.getAssets().loadTexture(mBackgroundTexId, "assets/gfx/intro_bg.png");
+    engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/intro_bg.png");
 }
 
 void StateIntro::handle_events(Engine& engine) {
@@ -50,7 +50,7 @@ void StateIntro::handle_logic(Engine& engine) {}
 void StateIntro::handle_render(Engine& engine) {
     auto& render = engine.getRenderContext();
 
-    Texture& background = engine.getAssets().getTexture(mBackgroundTexId);
+    Texture& background = engine.getResources().getTexture(mBackgroundTexId);
     render.render(background, 0, 0);
 
     render.refreshScreen();

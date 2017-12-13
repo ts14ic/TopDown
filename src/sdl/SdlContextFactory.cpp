@@ -6,18 +6,18 @@
 #include "SdlGraphicContext.h"
 #include "SdlAudioContext.h"
 #include "SdlInputContext.h"
-#include "SdlAssets.h"
+#include "SdlResources.h"
 
-std::unique_ptr<GraphicContext> SdlContextFactory::createRenderContext(int screenWidth, int screenHeight) {
-    return std::make_unique<SdlGraphicContext>(screenWidth, screenHeight);
+std::unique_ptr<GraphicContext> SdlContextFactory::createRenderContext() {
+    return std::make_unique<SdlGraphicContext>();
 }
 
 std::unique_ptr<InputContext> SdlContextFactory::createInputContext() {
     return std::make_unique<SdlInputContext>();
 }
 
-std::unique_ptr<Assets> SdlContextFactory::createAssets() {
-    return std::make_unique<SdlAssets>();
+std::unique_ptr<Resources> SdlContextFactory::createResources(int screenWidth, int screenHeight) {
+    return std::make_unique<SdlResources>(screenWidth, screenHeight);
 }
 
 std::unique_ptr<AudioContext> SdlContextFactory::createAudioContext() {

@@ -10,7 +10,7 @@
 
 class GameObject;
 
-class Assets;
+class Resources;
 
 class WeaponBuilder;
 
@@ -20,7 +20,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pullTrigger(Random& random, Assets& assets, AudioContext& audioContext, GameObject const& shooter);
+    void pullTrigger(Random& random, Resources& resources, AudioContext& audioContext, GameObject const& shooter);
 
     void tryReload();
 
@@ -39,7 +39,7 @@ public:
 private:
     void startReloading();
 
-    void playFireSound(Assets& assets, AudioContext& audioContext);
+    void playFireSound(Resources& resources, AudioContext& audioContext);
 
     void spawnBullets(Random& random, GameObject const& shooter);
 

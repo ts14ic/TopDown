@@ -7,7 +7,7 @@
 #include "GState.h"
 #include "../state/GameState.h"
 #include "../timer/StopWatch.h"
-#include "../assets/Assets.h"
+#include "../resources/Resources.h"
 #include "GraphicContext.h"
 #include "InputContext.h"
 #include "AudioContext.h"
@@ -33,7 +33,7 @@ public:
 
     AudioContext& getAudioContext() override;
 
-    Assets& getAssets() override;
+    Resources& getResources() override;
 
     Random& getRandom() override;
 
@@ -48,9 +48,9 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
+    std::unique_ptr<Resources> mResources;
     std::unique_ptr<GraphicContext> mRenderContext;
     std::unique_ptr<AudioContext> mAudioContext;
     std::unique_ptr<InputContext> mInputContext;
     std::unique_ptr<Random> mRandom;
-    std::unique_ptr<Assets> mAssets;
 };

@@ -4,12 +4,12 @@
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
-#include "../assets/Texture.h"
+#include "../resources/Texture.h"
 #include "../engine/InputContext.h"
 #include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
-#include "../assets/Assets.h"
-#include "../assets/Music.h"
+#include "../resources/Resources.h"
+#include "../resources/Music.h"
 #include <SDL_render.h>
 #include <SDL_events.h>
 #include <algorithm>
@@ -18,10 +18,10 @@
 
 StateMoon::StateMoon(Engine& engine)
         : mBackgroundTexId{"moon_background"},
-          _levelWidth(engine.getRenderContext().getScreenWidth()),
-          _levelHeight(engine.getRenderContext().getScreenHeight()) {
+          _levelWidth(engine.getResources().getScreenWidth()),
+          _levelHeight(engine.getResources().getScreenHeight()) {
 
-    engine.getAssets().loadTexture(mBackgroundTexId, "assets/gfx/test_bg.png");
+    engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/test_bg.png");
 
     zombies().clear();
     werewolves().clear();
@@ -84,18 +84,17 @@ void StateMoon::handle_logic(Engine& engine) {
         _mobSpawner.restart();
     }
 
-    mPlayer.handle_logic(engine.getRandom(), engine.getAssets(), engine.getAudioContext());
+    mPlayer.handle_logic(engine.getRandom(), engine.getResources(), engine.getAudioContext());
 
-    int screenWidth = engine.getRenderContext().getScreenWidth();
-    int screenHeight = engine.getRenderContext().getScreenHeight();
-
+    int maxWidth = _levelWidth;
+    int maxHeight = _levelHeight;
     // process bullet moving and collisions
     auto removeFrom = std::remove_if(bullets().begin(), bullets().end(),
-                                     [screenWidth, screenHeight, &engine](Bullet& b) {
+                                     [maxWidth, maxHeight, &engine](Bullet& b) {
                                          b.handle_logic();
 
-                                         if((b.getX() > screenWidth) || (b.getX() < 0) ||
-                                            (b.getY() > screenHeight) || (b.getY() < 0)) {
+                                         if((b.getX() > maxWidth) || (b.getX() < 0) ||
+                                            (b.getY() > maxHeight) || (b.getY() < 0)) {
                                              return true;
                                          }
 
@@ -145,39 +144,39 @@ void StateMoon::handle_logic(Engine& engine) {
     if(mPlayer.dead()) engine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(Assets& assets, GraphicContext& graphicContext, Player const& pl) {
+static void render_crosshair(Resources& resources, GraphicContext& graphicContext, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
-    mx -= assets.getTexture("crosshair").getWidth() / 2;
-    my -= assets.getTexture("crosshair").getHeight() / 2;
+    mx -= resources.getTexture("crosshair").getWidth() / 2;
+    my -= resources.getTexture("crosshair").getHeight() / 2;
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;
-    graphicContext.render(assets.getTexture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
+    graphicContext.render(resources.getTexture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
 }
 
 void StateMoon::handle_render(Engine& engine) {
     auto& render = engine.getRenderContext();
     render.clearScreen();
 
-    auto& assets = engine.getAssets();
+    auto& resources = engine.getResources();
     auto& audio = engine.getAudioContext();
-    audio.playMusic(assets.getMusic("weather"));
+    audio.playMusic(resources.getMusic("weather"));
 
-    render.render(assets.getTexture(mBackgroundTexId), 0, 0);
+    render.render(resources.getTexture(mBackgroundTexId), 0, 0);
 
-    mPlayer.handle_render(assets, render);
+    mPlayer.handle_render(resources, render);
     for(auto& z : zombies()) {
-        z.handle_render(assets, render, engine.getAudioContext());
+        z.handle_render(resources, render, engine.getAudioContext());
     }
     for(auto& w : werewolves()) {
-        w.handle_render(assets, render, engine.getAudioContext());
+        w.handle_render(resources, render, engine.getAudioContext());
     }
     for(auto& b : bullets()) {
-        b.handle_render(assets, render);
+        b.handle_render(resources, render);
     }
 
-    render_crosshair(assets, render, mPlayer);
+    render_crosshair(resources, render, mPlayer);
 
     render.refreshScreen();
 }

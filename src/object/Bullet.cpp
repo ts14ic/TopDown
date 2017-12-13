@@ -47,8 +47,8 @@ void Bullet::handle_logic() {
     default_move();
 }
 
-void Bullet::handle_render(Assets& assets, GraphicContext& graphicContext) {
-    default_render(assets, graphicContext);
+void Bullet::handle_render(Resources& resources, GraphicContext& graphicContext) {
+    default_render(resources, graphicContext);
 }
 
 void Bullet::setPos(float x, float y) {

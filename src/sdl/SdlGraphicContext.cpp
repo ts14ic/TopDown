@@ -3,48 +3,31 @@
 //
 
 #include "SdlGraphicContext.h"
-#include "../assets/Assets.h"
+#include "../resources/Resources.h"
 #include "../shape/Box.h"
 #include "../shape/Color.h"
 #include "SdlTexture.h"
 #include <SDL.h>
-#include <SDL_image.h>
-
-SdlGraphicContext::SdlGraphicContext(int screenWidth, int screenHeight)
-        : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
-}
-
-SDL_Renderer* SdlGraphicContext::getRenderer() {
-    return mRenderer.get();
-}
-
-int SdlGraphicContext::getScreenHeight() {
-    return mScreenHeight;
-}
-
-int SdlGraphicContext::getScreenWidth() {
-    return mScreenWidth;
-}
 
 void SdlGraphicContext::refreshScreen() {
-    SDL_RenderPresent(getRenderer());
+    SDL_RenderPresent(mRenderer);
 }
 
 void SdlGraphicContext::clearScreen() {
-    SDL_RenderClear(getRenderer());
+    SDL_RenderClear(mRenderer);
 }
 
 void SdlGraphicContext::render(const Texture& texture, int x, int y) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopy(getRenderer(), dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr, &destRect);
+        SDL_RenderCopy(mRenderer, dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr, &destRect);
     }
 }
 
 void SdlGraphicContext::render(Texture const& texture, int x, int y, float angle) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopyEx(getRenderer(), dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr,
+        SDL_RenderCopyEx(mRenderer, dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);
     }
@@ -59,54 +42,18 @@ void SdlGraphicContext::renderBox(const Box& box, const Color& color) {
             static_cast<int>(box.getHeight())
     };
     SDL_SetRenderDrawColor(
-            getRenderer(),
+            mRenderer,
             // todo add inferring getters for Color
             static_cast<Uint8>(color.getRed()),
             static_cast<Uint8>(color.getGreen()),
             static_cast<Uint8>(color.getBlue()),
             static_cast<Uint8>(color.getAlpha())
     );
-    SDL_RenderFillRect(getRenderer(), &rect);
+    SDL_RenderFillRect(mRenderer, &rect);
 }
 
-SdlGraphicContext::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
-        : runtime_error(message) {}
-
-SdlTexture SdlGraphicContext::loadTexture(const char* path) {
-    struct SDLSurfaceDeleter {
-        void operator()(SDL_Surface* surf) {
-            SDL_FreeSurface(surf);
-        }
-    };
-
-    std::unique_ptr<SDL_Surface, SDLSurfaceDeleter> buf{IMG_Load(path)};
-    if(!buf) {
-        throw FailedToLoadTextureException{IMG_GetError()};
-    }
-
-    std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> newTex{
-            SDL_CreateTextureFromSurface(getRenderer(), buf.get())
-    };
-    if(!newTex) {
-        throw FailedToLoadTextureException{SDL_GetError()};
-    }
-
-    SdlTexture tex{std::move(newTex), buf->w, buf->h};
-    SDL_Log("SdlTexture loaded: %s.\n", path);
-
-    return tex;
-}
-
-void SdlGraphicContext::setSdlRenderer(std::unique_ptr<SDL_Window, SdlGraphicContext::SdlDeleter> sdlWindow,
-                                       std::unique_ptr<SDL_Renderer, SdlGraphicContext::SdlDeleter> sdlRenderer) {
-    mWindow = std::move(sdlWindow);
-    mRenderer = std::move(sdlRenderer);
-}
-
-void SdlGraphicContext::SdlDeleter::operator()(SDL_Window* p) {
-    SDL_DestroyWindow(p);
-}
-
-void SdlGraphicContext::SdlDeleter::operator()(SDL_Renderer* p) {
-    SDL_DestroyRenderer(p);
+void SdlGraphicContext::setSdlRenderer(SDL_Window* sdlWindow,
+                                       SDL_Renderer* sdlRenderer) {
+    mWindow = sdlWindow;
+    mRenderer = sdlRenderer;
 }
