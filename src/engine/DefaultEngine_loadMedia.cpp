@@ -3,9 +3,9 @@
 //
 
 #include "DefaultEngine.h"
-#include "../sound/Sound.h"
-#include "../sound/Music.h"
-#include "../texture/Texture.h"
+#include "../sdl/Sound.h"
+#include "../sdl/Music.h"
+#include "../sdl/Texture.h"
 #include "../json/getValue.h"
 #include <fstream>
 #include <sstream>

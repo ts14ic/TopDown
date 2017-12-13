@@ -22,9 +22,9 @@ set(SOURCE_FILES
         src/state/StateIntro.cpp src/state/StateIntro.h
         src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_levelParsing.cpp
         src/state/GameState.h
-        src/sound/Sound.cpp src/sound/Sound.h
-        src/sound/Music.cpp src/sound/Music.h
-        src/texture/Texture.cpp src/texture/Texture.h
+        src/sdl/Sound.cpp src/sdl/Sound.h
+        src/sdl/Music.cpp src/sdl/Music.h
+        src/sdl/Texture.cpp src/sdl/Texture.h
         src/engine/RenderContext.cpp src/engine/RenderContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h
         src/engine/InputContext.cpp src/engine/InputContext.h

@@ -6,7 +6,7 @@
 #include "WeaponBuilder.h"
 #include "Bullet.h"
 #include "../assets/Assets.h"
-#include "../sound/Sound.h"
+#include "../sdl/Sound.h"
 
 Weapon::Weapon(const WeaponBuilder& builder)
         : mName{builder.getName()},

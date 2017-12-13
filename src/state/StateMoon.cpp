@@ -8,7 +8,7 @@
 #include "../engine/RenderContext.h"
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
-#include "../sound/Music.h"
+#include "../sdl/Music.h"
 #include <SDL_render.h>
 #include <SDL_events.h>
 #include <algorithm>

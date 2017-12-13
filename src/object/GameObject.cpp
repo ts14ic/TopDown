@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "../shape/Circle.h"
 #include "../assets/Assets.h"
-#include "../texture/Texture.h"
+#include "../sdl/Texture.h"
 #include "../engine/RenderContext.h"
 #include "../math/math.h"
 

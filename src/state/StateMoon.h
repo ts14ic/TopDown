@@ -4,7 +4,7 @@
 #pragma once
 
 #include "../state/GameState.h"
-#include "../texture/Texture.h"
+#include "../sdl/Texture.h"
 #include "../object/Player.h"
 #include "../timer/StopWatch.h"
 

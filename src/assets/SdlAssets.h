@@ -5,9 +5,9 @@
 #pragma once
 
 #include "Assets.h"
-#include "../texture/Texture.h"
-#include "../sound/Music.h"
-#include "../sound/Sound.h"
+#include "../sdl/Texture.h"
+#include "../sdl/Music.h"
+#include "../sdl/Sound.h"
 #include <unordered_map>
 
 class SdlAssets : public Assets {
