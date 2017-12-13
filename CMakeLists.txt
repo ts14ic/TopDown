@@ -39,8 +39,9 @@ set(SOURCE_FILES
         src/assets/Assets.cpp src/assets/Assets.h
         src/engine/GState.h
         src/shape/Circle.cpp src/shape/Circle.h
-        src/json/getValue.h
-        src/engine/Random.cpp src/engine/Random.h src/json/getValue.cpp)
+        src/json/getValue.h src/json/getValue.cpp
+        src/engine/Random.cpp src/engine/Random.h
+        src/utils/demangle.cpp src/utils/demangle.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

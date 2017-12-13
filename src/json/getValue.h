@@ -3,6 +3,8 @@
 //
 #pragma once
 
+#include "../utils/demangle.h"
+
 #define RAPIDJSON_HAS_STDSTRING 1
 
 #include <rapidjson/document.h>
@@ -21,8 +23,6 @@ rapidjson::Pointer checkPointer(const char* pointerPath);
 
 const rapidjson::Value*
 checkValue(const rapidjson::Value& root, const rapidjson::Pointer& pointer, const char* pointerPath);
-
-const char* demangleTypeName(const char* typeName);
 
 /*
  * Despite the docs saying Is<> and Get<> work only on scalars,
