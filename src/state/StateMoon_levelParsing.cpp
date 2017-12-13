@@ -30,9 +30,8 @@ rapidjson::Document readLevelDocument() {
     return doc;
 }
 
-#include <iostream>
-
 void StateMoon::parseLevelData() {
+    // todo check for parse errors
     auto doc = readLevelDocument();
 
     auto weaponsArray = getValue<rapidjson::Value::ConstArray>(doc, "/player/weapons");
