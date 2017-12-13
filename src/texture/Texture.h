@@ -16,7 +16,8 @@ class RenderContext;
  * current responsibilities:
  * 1. loading
  * 2. texture info
- * 3. rendering
+ *
+ * TODO Add a "missing texture" texture
  */
 class Texture {
 public:

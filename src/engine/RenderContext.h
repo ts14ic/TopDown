@@ -18,8 +18,6 @@ public:
 
     virtual SDL_Renderer* getRenderer() = 0;
 
-    virtual void load_media(Assets& assets) = 0;
-
     virtual void render(Texture const& texture, int x, int y) = 0;
 
     virtual void render(Texture const& texture, int x, int y, float angle) = 0;

@@ -7,14 +7,10 @@
 #include "RenderContext.h"
 #include <memory>
 
-// forward declarations begin
-class Assets;
-
 class Texture;
 
 struct SDL_Renderer;
 struct SDL_Window;
-// forward declarations end
 
 class DefaultRenderContext : public RenderContext {
 public:
@@ -24,8 +20,6 @@ public:
 
     // todo SDL_Renderer is too specific
     SDL_Renderer* getRenderer() override;
-
-    void load_media(Assets& assets) override;
 
     void render(Texture const& texture, int x, int y) override;
 
@@ -43,8 +37,6 @@ public:
 
 private:
     void init();
-
-    void load_texture(Assets& assets, const char* name, const char* filename);
 
 private:
     struct SDLDeleter {
