@@ -161,7 +161,8 @@ void StateMoon::handle_render(Engine& engine) {
     render.clearScreen();
 
     auto& assets = engine.getAssets();
-    assets.music("weather").play();
+    auto& audio = engine.getAudioContext();
+    audio.playMusic(assets.getMusic("weather"));
 
     render.render(assets.getTexture(mBackgroundTexId), 0, 0);
 

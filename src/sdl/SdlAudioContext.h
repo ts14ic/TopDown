@@ -9,6 +9,8 @@
 
 class SdlSound;
 
+class SdlMusic;
+
 class SdlAudioContext : public AudioContext {
 public:
     ~SdlAudioContext() override;
@@ -19,7 +21,13 @@ public:
 
     SdlSound loadSound(const char* path);
 
+    SdlMusic loadMusic(const char* path);
+
     struct FailedToLoadSoundException : public std::runtime_error {
         explicit FailedToLoadSoundException(const char* message);
+    };
+
+    struct FailedToLoadMusicException : public std::runtime_error {
+        explicit FailedToLoadMusicException(const char* message);
     };
 };

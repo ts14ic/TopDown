@@ -22,6 +22,8 @@ DefaultEngine::DefaultEngine(
           mRandom{std::move(random)} {
 
     getAssets().setRenderContext(getRenderContext());
+    getAssets().setAudioContext(getAudioContext());
+
     loadMedia();
 }
 

@@ -3,18 +3,9 @@
 //
 
 #include "DefaultEngine.h"
-#include "../assets/Music.h"
 #include "../file/readFile.h"
 #include "../json/getValue.h"
 #include "../json/parseJson.h"
-
-void DefaultEngine::loadSound(const char* name, const char* filename) {
-    mAssets->loadSound(name, filename);
-}
-
-void DefaultEngine::loadMusic(const char* name, const char* filename) {
-    mAssets->music(name).load(filename);
-}
 
 // todo use abstract asset classes
 void DefaultEngine::loadMedia() {
@@ -27,12 +18,12 @@ void DefaultEngine::loadMedia() {
 
     auto soundsMap = getValue<rapidjson::Value::ConstObject>(doc, "/sounds");
     for(const auto& entry : soundsMap) {
-        loadSound(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
+        mAssets->loadSound(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
     }
 
     auto musicMap = getValue<rapidjson::Value::ConstObject>(doc, "/music");
     for(const auto& entry : musicMap) {
-        loadMusic(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
+        mAssets->loadMusic(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
     }
 }
 

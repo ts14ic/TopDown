@@ -22,15 +22,17 @@ public:
 
     virtual void setAudioContext(AudioContext& audioContext) = 0;
 
-    virtual Texture& getTexture(std::string const& name) = 0;
+    virtual Texture& getTexture(const std::string& name) = 0;
 
-    virtual void loadTexture(std::string const& name, const char* path) = 0;
+    virtual void loadTexture(const std::string& name, const char* path) = 0;
 
-    virtual Sound& getSound(std::string const& name) = 0;
+    virtual Sound& getSound(const std::string& name) = 0;
 
-    virtual void loadSound(std::string const& name, const char* path) = 0;
+    virtual void loadSound(const std::string& name, const char* path) = 0;
 
-    virtual Music& music(std::string const& name) = 0;
+    virtual Music& getMusic(const std::string& name) = 0;
+
+    virtual void loadMusic(const std::string& name, const char* path) = 0;
 
     virtual ~Assets() = 0;
 };

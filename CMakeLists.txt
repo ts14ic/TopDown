@@ -56,7 +56,8 @@ set(SOURCE_FILES
         src/json/parseJson.cpp src/json/parseJson.h
         src/engine/AudioContext.cpp src/engine/AudioContext.h
         src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
-        src/sdl/SdlSound.cpp src/sdl/SdlSound.h)
+        src/sdl/SdlSound.cpp src/sdl/SdlSound.h
+        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

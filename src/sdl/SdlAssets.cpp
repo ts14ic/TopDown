@@ -24,7 +24,7 @@ Texture& SdlAssets::getTexture(std::string const& name) {
     return mNameToTexture[name];
 }
 
-Music& SdlAssets::music(std::string const& name) {
+Music& SdlAssets::getMusic(std::string const& name) {
     return mNameToMusic[name];
 }
 
@@ -38,4 +38,8 @@ void SdlAssets::loadTexture(std::string const& name, const char* path) {
 
 void SdlAssets::loadSound(std::string const& name, const char* path) {
     mNameToSound.insert(std::make_pair(name, std::move(mAudioContext->loadSound(path))));
+}
+
+void SdlAssets::loadMusic(const std::string& name, const char* path) {
+    mNameToMusic.insert(std::make_pair(name, std::move(mAudioContext->loadMusic(path))));
 }

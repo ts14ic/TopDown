@@ -4,11 +4,19 @@
 
 #include "SdlAudioContext.h"
 #include "SdlSound.h"
+#include "SdlMusic.h"
 #include <SDL_mixer.h>
 #include <SDL_log.h>
 
 SdlAudioContext::FailedToLoadSoundException::FailedToLoadSoundException(const char* message)
         : runtime_error(message) {}
+
+SdlAudioContext::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
+        : runtime_error(message) {}
+
+SdlAudioContext::~SdlAudioContext() {
+    Mix_Quit();
+}
 
 void SdlAudioContext::playSound(const Sound& sound) {
     if(sound.isLoaded()) {
@@ -17,7 +25,9 @@ void SdlAudioContext::playSound(const Sound& sound) {
 }
 
 void SdlAudioContext::playMusic(const Music& music) {
-    // todo stub
+    if(music.isLoaded() && Mix_PlayingMusic() == 0) {
+        Mix_PlayMusic(dynamic_cast<const SdlMusic&>(music).getWrappedMusic(), -1);
+    }
 }
 
 SdlSound SdlAudioContext::loadSound(const char* path) {
@@ -32,6 +42,12 @@ SdlSound SdlAudioContext::loadSound(const char* path) {
     return sound;
 }
 
-SdlAudioContext::~SdlAudioContext() {
-    Mix_Quit();
+SdlMusic SdlAudioContext::loadMusic(const char* path) {
+    std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> newMusic{Mix_LoadMUS(path)};
+    if(!newMusic) {
+        throw FailedToLoadMusicException{Mix_GetError()};
+    }
+    SdlMusic music{std::move(newMusic)};
+    SDL_Log("SdlMusic loaded: %s.\n", path);
+    return music;
 }

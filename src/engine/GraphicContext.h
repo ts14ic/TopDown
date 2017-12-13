@@ -12,7 +12,6 @@ class Box;
 
 class Color;
 
-
 class GraphicContext {
 public:
     virtual ~GraphicContext() = 0;

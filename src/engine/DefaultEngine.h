@@ -42,10 +42,6 @@ private:
 
     void loadMedia();
 
-    void loadSound(const char* name, const char* filename);
-
-    void loadMusic(const char* name, const char* filename);
-
 private:
     GState mCurrentStateId = GState::null;
     GState mNextStateId = GState::null;
