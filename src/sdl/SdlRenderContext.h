@@ -20,9 +20,6 @@ public:
 
     ~SdlRenderContext() override;
 
-    // todo move texture loading here, and make this getter private
-    SDL_Renderer* getRenderer();
-
     void refreshScreen() override;
 
     void clearScreen() override;
@@ -52,6 +49,8 @@ public:
 
 private:
     void init();
+
+    SDL_Renderer* getRenderer();
 
 private:
     struct SDLDeleter {
