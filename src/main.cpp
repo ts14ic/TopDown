@@ -1,5 +1,5 @@
-#include "engine/Engine.h"
+#include "engine/DefaultEngine.h"
 
 int main(int, char* []) {
-    Engine{}.runLoop();
+    DefaultEngine{}.runLoop();
 }

@@ -1,43 +1,32 @@
 //
-// Created by ts14ic on 12/2/17.
+// Created by ts14ic on 12/13/17.
 //
+
 #pragma once
 
 #include "GState.h"
-#include "RenderContext.h"
-#include "InputContext.h"
-#include "../assets/Assets.h"
-#include "../state/GameState.h"
-#include "../timer/StopWatch.h"
-#include "Random.h"
+
+class InputContext;
+
+class RenderContext;
+
+class Assets;
+
+class Random;
 
 class Engine {
 public:
-    Engine();
+    virtual void runLoop() = 0;
 
-    void runLoop();
+    virtual void requestStateChange(GState stateId) = 0;
 
-    void requestStateChange(GState stateId);
+    virtual InputContext& getInputContext() = 0;
 
-    InputContext& getInputContext();
+    virtual RenderContext& getRenderContext() = 0;
 
-    RenderContext& getRenderContext();
+    virtual Assets& getAssets() = 0;
 
-    Assets& getAssets();
+    virtual Random& getRandom() = 0;
 
-    Random& getRandom();
-
-private:
-    void changeState();
-
-private:
-    GState mCurrentStateId = GState::null;
-    GState mNextStateId = GState::null;
-    std::unique_ptr<GameState> mCurrentState;
-    StopWatch mFpsWatch;
-
-    Random mRandom;
-    Assets mAssets;
-    RenderContext mRenderSystem;
-    InputContext mInputSystem;
+    virtual ~Engine();
 };

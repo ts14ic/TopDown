@@ -4,6 +4,9 @@
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
+#include "../engine/InputContext.h"
+#include "../engine/RenderContext.h"
+#include "../assets/Assets.h"
 #include <SDL_render.h>
 #include <algorithm>
 #include <ctime>

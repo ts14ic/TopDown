@@ -26,7 +26,7 @@ set(SOURCE_FILES
         src/sound/Music.cpp src/sound/Music.h
         src/texture/Texture.cpp src/texture/Texture.h
         src/engine/RenderContext.cpp src/engine/RenderContext.h
-        src/engine/Engine.cpp src/engine/Engine.h
+        src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h
         src/engine/InputContext.cpp src/engine/InputContext.h
         src/object/GameObject.cpp src/object/GameObject.h
         src/object/Damageable.h src/object/Damageable.cpp
@@ -41,7 +41,8 @@ set(SOURCE_FILES
         src/shape/Circle.cpp src/shape/Circle.h
         src/json/getValue.h src/json/getValue.cpp
         src/engine/Random.cpp src/engine/Random.h
-        src/utils/demangle.cpp src/utils/demangle.h)
+        src/utils/demangle.cpp src/utils/demangle.h
+        src/engine/Engine.cpp src/engine/Engine.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
