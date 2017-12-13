@@ -36,10 +36,8 @@ public:
 
     SdlTexture loadTexture(const char* path);
 
-    class FailedSDLInitException : public std::runtime_error {
-    public:
-        explicit FailedSDLInitException(const char* message)
-                : runtime_error(message) {}
+    struct FailedSdlInitException : public std::runtime_error {
+        explicit FailedSdlInitException(const char* message);
     };
 
     struct FailedToLoadTextureException : public std::runtime_error {

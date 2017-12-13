@@ -14,8 +14,7 @@
 
 #include <vector>
 
-class JsonParseException : public std::runtime_error {
-public:
+struct JsonParseException : public std::runtime_error {
     explicit JsonParseException(const std::string& message);
 };
 
