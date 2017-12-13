@@ -14,9 +14,9 @@ public:
 
     SdlTexture(RenderContext& engine, char const* path);
 
-    SdlTexture(Texture const&) = delete;
+    SdlTexture(SdlTexture const&) = delete;
 
-    SdlTexture(Texture&&) = delete;
+    SdlTexture(SdlTexture&&) noexcept;
 
     void load(RenderContext& context, char const* path) override;
 

@@ -16,6 +16,8 @@ SdlTexture::SdlTexture(RenderContext& engine, char const* path) {
     load(engine, path);
 }
 
+SdlTexture::SdlTexture(SdlTexture&& other) = default;
+
 void SdlTexture::load(RenderContext& context, char const* path) {
     auto& sdl = dynamic_cast<SdlRenderContext&>(context);
 
