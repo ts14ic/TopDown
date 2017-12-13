@@ -53,5 +53,5 @@ void StateIntro::handle_render(Engine& engine) {
     Texture& background = engine.getAssets().getTexture(mBackgroundTexId);
     render.render(background, 0, 0);
 
-    SDL_RenderPresent(render.getRenderer());
+    render.refreshScreen();
 }

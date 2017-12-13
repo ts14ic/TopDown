@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../shape/Circle.h"
+#include "../shape/Color.h"
 #include "../math/math.h"
 #include "../engine/InputContext.h"
 #include <SDL_events.h>
@@ -222,7 +223,7 @@ void Player::handle_logic(Random& random, Assets& assets) {
 
 void Player::handle_render(Assets& assets, RenderContext& renderContext) {
     default_render(assets, renderContext);
-    default_render_health(renderContext, SDL_Color{0, 0x77, 0, 0xFF});
+    default_render_health(renderContext, Color{0, 0x77, 0, 0xFF});
 }
 
 void Player::selectNextWeapon() {

@@ -1,5 +1,7 @@
 #include "Werewolf.h"
 #include "../shape/Circle.h"
+#include "../shape/Box.h"
+#include "../shape/Color.h"
 #include "../math/math.h"
 #include "../engine/RenderContext.h"
 #include "../engine/Random.h"
@@ -123,13 +125,10 @@ void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
     default_render(assets, engine);
 
     if(_hp > 0) {
-        SDL_Rect healthRect{};
-        healthRect.w = 1.66f * _hp; // 50 px of _hp/30 ratio
-        healthRect.h = 5;
-        healthRect.x = _x - healthRect.w / 2;
-        healthRect.y = _y - getCircle().getRadius();
-        SDL_SetRenderDrawColor(engine.getRenderer(), 0x55, 0, 0x33, 0xFF);
-        SDL_RenderFillRect(engine.getRenderer(), &healthRect);
+        Box healthBox;
+        healthBox.setSize(1.66f * _hp, 5);
+        healthBox.setPosition(_x - healthBox.getWidth() / 2, _y - getCircle().getRadius());
+        engine.renderBox(healthBox, Color{0x55, 0, 0x33});
     }
 
     if(_state == ATTACKING) {

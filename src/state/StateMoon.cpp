@@ -158,10 +158,9 @@ static void render_crosshair(Assets& assets, RenderContext& renderContext, Playe
 
 void StateMoon::handle_render(Engine& engine) {
     auto& render = engine.getRenderContext();
+    render.clearScreen();
+
     auto& assets = engine.getAssets();
-
-    SDL_RenderClear(render.getRenderer());
-
     assets.music("weather").play();
 
     render.render(assets.getTexture(mBackgroundTexId), 0, 0);
@@ -179,5 +178,5 @@ void StateMoon::handle_render(Engine& engine) {
 
     render_crosshair(assets, render, mPlayer);
 
-    SDL_RenderPresent(render.getRenderer());
+    render.refreshScreen();
 }

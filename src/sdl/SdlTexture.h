@@ -18,7 +18,7 @@ public:
 
     SdlTexture(Texture&&) = delete;
 
-    void load(RenderContext& engine, char const* path) override;
+    void load(RenderContext& context, char const* path) override;
 
     bool isLoaded() const override;
 

@@ -18,8 +18,14 @@ public:
 
     ~SdlRenderContext() override;
 
-    // todo SDL_Renderer is too specific
-    SDL_Renderer* getRenderer() override;
+    // todo move texture loading here, and make this getter private
+    SDL_Renderer* getRenderer();
+
+    void refreshScreen() override;
+
+    void clearScreen() override;
+
+    void renderBox(const Box& box, const Color& color) override;
 
     void render(Texture const& texture, int x, int y) override;
 

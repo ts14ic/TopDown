@@ -4,19 +4,24 @@
 
 #pragma once
 
-// forward declarations begin
 class Assets;
+
 class Texture;
-struct SDL_Renderer;
-struct SDL_Window;
-// forward declarations end
+
+class Box;
+
+class Color;
 
 
 class RenderContext {
 public:
     virtual ~RenderContext() = 0;
 
-    virtual SDL_Renderer* getRenderer() = 0;
+    virtual void refreshScreen() = 0;
+
+    virtual void clearScreen() = 0;
+
+    virtual void renderBox(const Box& box, const Color& color) = 0;
 
     virtual void render(Texture const& texture, int x, int y) = 0;
 

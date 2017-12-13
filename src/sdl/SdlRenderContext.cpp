@@ -5,6 +5,8 @@
 #include "SdlRenderContext.h"
 #include "../assets/Assets.h"
 #include "../assets/Texture.h"
+#include "../shape/Box.h"
+#include "../shape/Color.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
@@ -72,18 +74,45 @@ int SdlRenderContext::getScreenWidth() {
     return mScreenWidth;
 }
 
+void SdlRenderContext::refreshScreen() {
+    SDL_RenderPresent(getRenderer());
+}
+
+void SdlRenderContext::clearScreen() {
+    SDL_RenderClear(getRenderer());
+}
+
 void SdlRenderContext::render(const Texture& texture, int x, int y) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopy(mRenderer.get(), texture.getWrapped(), nullptr, &destRect);
+        SDL_RenderCopy(getRenderer(), texture.getWrapped(), nullptr, &destRect);
     }
 }
 
 void SdlRenderContext::render(Texture const& texture, int x, int y, float angle) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopyEx(mRenderer.get(), texture.getWrapped(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(getRenderer(), texture.getWrapped(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
     }
+}
+
+void SdlRenderContext::renderBox(const Box& box, const Color& color) {
+    SDL_Rect rect{
+            // todo add inferring getters for Box
+            static_cast<int>(box.getX()),
+            static_cast<int>(box.getY()),
+            static_cast<int>(box.getWidth()),
+            static_cast<int>(box.getHeight())
+    };
+    SDL_SetRenderDrawColor(
+            getRenderer(),
+            // todo add inferring getters for Color
+            static_cast<Uint8>(color.getRed()),
+            static_cast<Uint8>(color.getGreen()),
+            static_cast<Uint8>(color.getBlue()),
+            static_cast<Uint8>(color.getAlpha())
+    );
+    SDL_RenderFillRect(getRenderer(), &rect);
 }
 
 void SdlRenderContext::SDLDeleter::operator()(SDL_Window* p) {

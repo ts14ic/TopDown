@@ -4,6 +4,7 @@
 
 #include "SdlTexture.h"
 #include "../engine/RenderContext.h"
+#include "SdlRenderContext.h"
 #include <SDL_image.h>
 
 SdlTexture::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
@@ -15,7 +16,9 @@ SdlTexture::SdlTexture(RenderContext& engine, char const* path) {
     load(engine, path);
 }
 
-void SdlTexture::load(RenderContext& engine, char const* path) {
+void SdlTexture::load(RenderContext& context, char const* path) {
+    auto& sdl = dynamic_cast<SdlRenderContext&>(context);
+
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -27,7 +30,7 @@ void SdlTexture::load(RenderContext& engine, char const* path) {
         throw FailedToLoadTextureException{IMG_GetError()};
     }
 
-    SDL_Texture* newTex = SDL_CreateTextureFromSurface(engine.getRenderer(), buf.get());
+    SDL_Texture* newTex = SDL_CreateTextureFromSurface(sdl.getRenderer(), buf.get());
     if(!newTex) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }

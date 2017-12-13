@@ -5,6 +5,8 @@
 
 #include "GameObject.h"
 
+class Color;
+
 class Damageable : public virtual GameObject {
 public:
     virtual int hp() const = 0;
@@ -18,5 +20,5 @@ public:
     virtual bool dead() const = 0;
 
 protected:
-    void default_render_health(RenderContext& renderContext, SDL_Color const& c) const;
+    void default_render_health(RenderContext& renderContext, Color const& color) const;
 };

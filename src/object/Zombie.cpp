@@ -1,9 +1,9 @@
 #include "Zombie.h"
 #include "../shape/Circle.h"
+#include "../shape/Color.h"
 #include "../math/math.h"
 #include "../assets/Assets.h"
 #include "../sdl/Sound.h"
-#include <SDL_pixels.h>
 
 using std::vector;
 
@@ -85,7 +85,7 @@ void Zombie::handle_logic() {
 
 void Zombie::handle_render(Assets& assets, RenderContext& renderContext) {
     default_render(assets, renderContext);
-    default_render_health(renderContext, SDL_Color{0, 0x77, 0, 0xFF});
+    default_render_health(renderContext, Color{0, 0x77, 0, 0xFF});
 
     if(_state == ATTACKING) {
         if(_frame == 5) {
