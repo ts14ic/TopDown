@@ -4,6 +4,4 @@
 
 #include "InputContext.h"
 
-SDL_Event& InputContext::getInputEvent() {
-    return mInputEvent;
-}
+InputContext::~InputContext() = default;

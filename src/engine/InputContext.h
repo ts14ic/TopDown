@@ -7,7 +7,7 @@
 
 class InputContext {
 public:
-    SDL_Event& getInputEvent();
-private:
-    SDL_Event mInputEvent {};
+    virtual SDL_Event& getInputEvent() = 0;
+
+    virtual ~InputContext() = 0;
 };

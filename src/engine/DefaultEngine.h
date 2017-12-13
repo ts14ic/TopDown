@@ -6,7 +6,7 @@
 #include "Engine.h"
 #include "GState.h"
 #include "RenderContext.h"
-#include "InputContext.h"
+#include "DefaultInputContext.h"
 #include "../assets/Assets.h"
 #include "../state/GameState.h"
 #include "../timer/StopWatch.h"
@@ -41,5 +41,5 @@ private:
     Random mRandom;
     Assets mAssets;
     RenderContext mRenderSystem;
-    InputContext mInputSystem;
+    DefaultInputContext mInputSystem;
 };
