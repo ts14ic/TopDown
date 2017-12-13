@@ -40,7 +40,7 @@ set(SOURCE_FILES
         src/engine/GState.h
         src/shape/Circle.cpp src/shape/Circle.h
         src/json/getValue.h
-        src/engine/Random.cpp src/engine/Random.h)
+        src/engine/Random.cpp src/engine/Random.h src/json/getValue.cpp)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
