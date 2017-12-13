@@ -3,8 +3,13 @@
 //
 #pragma once
 
+#define RAPIDJSON_HAS_STDSTRING 1
 #include <rapidjson/document.h>
 #include <rapidjson/pointer.h>
+
+#undef RAPIDJSON_HAS_STDSTRING
+
+#include <vector>
 
 template <typename T>
 bool isValueOfType(const rapidjson::Value& value) {
@@ -45,3 +50,17 @@ T getValue(const rapidjson::Value& root, const char* pointerPath) {
     return checkValueType<T>(value, pointerPath);
 }
 
+template <typename T>
+std::vector<T>
+getValues(const rapidjson::Value& root, const char* pointerPath) {
+    auto pointer = checkPointer(pointerPath);
+    auto arrayValue = checkValue(root, pointer, pointerPath);
+    auto array = checkValueType<rapidjson::Value::ConstArray>(arrayValue, pointerPath);
+
+    std::vector<T> vector;
+    vector.reserve(array.Size());
+    for(const auto& value : array) {
+        vector.emplace_back(value.Get<T>());
+    }
+    return vector;
+}

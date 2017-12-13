@@ -30,19 +30,16 @@ rapidjson::Document readLevelDocument() {
     return doc;
 }
 
+#include <iostream>
+
 void StateMoon::parseLevelData() {
     auto doc = readLevelDocument();
 
     auto weaponsArray = getValue<rapidjson::Value::ConstArray>(doc, "/player/weapons");
 
     for(const auto& weapon : weaponsArray) {
-        auto soundsArray = getValue<rapidjson::Value::ConstArray>(weapon, "/fire_sounds");
-        std::vector<std::string> fireSounds;
-        for(const auto& sound : soundsArray) {
-            fireSounds.emplace_back(getValue<const char*>(sound, ""));
-        }
-
         auto builder = WeaponBuilder{getValue<const char*>(weapon, "/name")}
+                .fireSounds(getValues<std::string>(weapon, "/fire_sounds"))
                 .maxAmmo(getValue<int>(weapon, "/max_ammo"))
                 .projectilesPerShot(getValue<int>(weapon, "/projectiles_per_shot"))
                 .length(getValue<int>(weapon, "/length"))
@@ -50,8 +47,7 @@ void StateMoon::parseLevelData() {
                 .projectileDamage(getValue<int>(weapon, "/projectile_damage"))
                 .projectileSpread(getValue<int>(weapon, "/projectile_spread"))
                 .fireCooldown(getValue<unsigned>(weapon, "/fire_cooldown"))
-                .reloadCooldown(getValue<unsigned>(weapon, "/reload_cooldown"))
-                .fireSounds(fireSounds);
+                .reloadCooldown(getValue<unsigned>(weapon, "/reload_cooldown"));
         mPlayer.addWeapon(builder.build());
     }
 }
