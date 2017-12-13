@@ -7,7 +7,7 @@
 #include "../timer/StopWatch.h"
 #include <vector>
 
-class RenderContext;
+class GraphicContext;
 
 class Zombie : public Damageable {
 public:
@@ -52,7 +52,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Assets& assets, RenderContext& renderContext);
+    void handle_render(Assets& assets, GraphicContext& graphicContext);
 
 private:
     float _x, _y;

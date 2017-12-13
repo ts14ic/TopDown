@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../engine/RenderContext.h"
+#include "../engine/GraphicContext.h"
 #include <memory>
 
 class Texture;
@@ -14,11 +14,11 @@ class SdlTexture;
 struct SDL_Renderer;
 struct SDL_Window;
 
-class SdlRenderContext : public RenderContext {
+class SdlGraphicContext : public GraphicContext {
 public:
-    SdlRenderContext(int screenWidth, int screenHeight);
+    SdlGraphicContext(int screenWidth, int screenHeight);
 
-    ~SdlRenderContext() override;
+    ~SdlGraphicContext() override;
 
     void refreshScreen() override;
 

@@ -2,7 +2,7 @@
 #include "../shape/Circle.h"
 #include "../assets/Assets.h"
 #include "../assets/Texture.h"
-#include "../engine/RenderContext.h"
+#include "../engine/GraphicContext.h"
 #include "../math/math.h"
 
 bool objectsCollide(GameObject& a, GameObject& b) {
@@ -14,9 +14,9 @@ void GameObject::default_move() {
     setY(getY() + getSpeed() * cartesianSin(getAngle()));
 }
 
-void GameObject::default_render(Assets& assets, RenderContext& renderContext) {
+void GameObject::default_render(Assets& assets, GraphicContext& graphicContext) {
     Texture& tex = assets.getTexture(getTexName());
     auto tx = static_cast<int>(getX() - tex.getWidth() / 2);
     auto ty = static_cast<int>(getY() - tex.getHeight() / 2);
-    renderContext.render(tex, tx, ty, getAngle());
+    graphicContext.render(tex, tx, ty, getAngle());
 }

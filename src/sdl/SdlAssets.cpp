@@ -3,12 +3,12 @@
 //
 
 #include "SdlAssets.h"
-#include "SdlRenderContext.h"
+#include "SdlGraphicContext.h"
 
-void SdlAssets::setRenderContext(RenderContext& renderContext) {
-    mRenderContext = dynamic_cast<SdlRenderContext*>(&renderContext);
+void SdlAssets::setRenderContext(GraphicContext& graphicContext) {
+    mRenderContext = dynamic_cast<SdlGraphicContext*>(&graphicContext);
     if(mRenderContext == nullptr) {
-        throw std::runtime_error{"SdlAssets can only work with SdlRenderContext"};
+        throw std::runtime_error{"SdlAssets can only work with SdlGraphicContext"};
     }
 }
 

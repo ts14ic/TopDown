@@ -2,7 +2,7 @@
 // Created by ts14ic on 12/13/17.
 //
 
-#include "SdlRenderContext.h"
+#include "SdlGraphicContext.h"
 #include "../assets/Assets.h"
 #include "../shape/Box.h"
 #include "../shape/Color.h"
@@ -11,12 +11,12 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
-SdlRenderContext::SdlRenderContext(int screenWidth, int screenHeight)
+SdlGraphicContext::SdlGraphicContext(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
     init();
 }
 
-void SdlRenderContext::init() {
+void SdlGraphicContext::init() {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSDLInitException{SDL_GetError()};
@@ -58,38 +58,38 @@ void SdlRenderContext::init() {
     SDL_RenderPresent(mRenderer.get());
 }
 
-SdlRenderContext::~SdlRenderContext() {
+SdlGraphicContext::~SdlGraphicContext() {
     SDL_Quit();
 }
 
-SDL_Renderer* SdlRenderContext::getRenderer() {
+SDL_Renderer* SdlGraphicContext::getRenderer() {
     return mRenderer.get();
 }
 
-int SdlRenderContext::getScreenHeight() {
+int SdlGraphicContext::getScreenHeight() {
     return mScreenHeight;
 }
 
-int SdlRenderContext::getScreenWidth() {
+int SdlGraphicContext::getScreenWidth() {
     return mScreenWidth;
 }
 
-void SdlRenderContext::refreshScreen() {
+void SdlGraphicContext::refreshScreen() {
     SDL_RenderPresent(getRenderer());
 }
 
-void SdlRenderContext::clearScreen() {
+void SdlGraphicContext::clearScreen() {
     SDL_RenderClear(getRenderer());
 }
 
-void SdlRenderContext::render(const Texture& texture, int x, int y) {
+void SdlGraphicContext::render(const Texture& texture, int x, int y) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
         SDL_RenderCopy(getRenderer(), dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr, &destRect);
     }
 }
 
-void SdlRenderContext::render(Texture const& texture, int x, int y, float angle) {
+void SdlGraphicContext::render(Texture const& texture, int x, int y, float angle) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
         SDL_RenderCopyEx(getRenderer(), dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr,
@@ -98,7 +98,7 @@ void SdlRenderContext::render(Texture const& texture, int x, int y, float angle)
     }
 }
 
-void SdlRenderContext::renderBox(const Box& box, const Color& color) {
+void SdlGraphicContext::renderBox(const Box& box, const Color& color) {
     SDL_Rect rect{
             // todo add inferring getters for Box
             static_cast<int>(box.getX()),
@@ -117,10 +117,10 @@ void SdlRenderContext::renderBox(const Box& box, const Color& color) {
     SDL_RenderFillRect(getRenderer(), &rect);
 }
 
-SdlRenderContext::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
+SdlGraphicContext::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
         : runtime_error(message) {}
 
-SdlTexture SdlRenderContext::loadTexture(const char* path) {
+SdlTexture SdlGraphicContext::loadTexture(const char* path) {
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -145,10 +145,10 @@ SdlTexture SdlRenderContext::loadTexture(const char* path) {
     return tex;
 }
 
-void SdlRenderContext::SDLDeleter::operator()(SDL_Window* p) {
+void SdlGraphicContext::SDLDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
 }
 
-void SdlRenderContext::SDLDeleter::operator()(SDL_Renderer* p) {
+void SdlGraphicContext::SDLDeleter::operator()(SDL_Renderer* p) {
     SDL_DestroyRenderer(p);
 }

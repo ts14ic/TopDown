@@ -221,9 +221,9 @@ void Player::handle_logic(Random& random, Assets& assets) {
     }
 }
 
-void Player::handle_render(Assets& assets, RenderContext& renderContext) {
-    default_render(assets, renderContext);
-    default_render_health(renderContext, Color{0, 0x77, 0, 0xFF});
+void Player::handle_render(Assets& assets, GraphicContext& graphicContext) {
+    default_render(assets, graphicContext);
+    default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
 }
 
 void Player::selectNextWeapon() {

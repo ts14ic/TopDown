@@ -39,7 +39,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Assets& assets, RenderContext& renderContext);
+    void handle_render(Assets& assets, GraphicContext& graphicContext);
 
 private:
     int _dmg;

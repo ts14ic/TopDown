@@ -10,11 +10,11 @@
 #include "Sound.h"
 #include <unordered_map>
 
-class SdlRenderContext;
+class SdlGraphicContext;
 
 class SdlAssets : public Assets {
 public:
-    void setRenderContext(RenderContext& renderContext) override;
+    void setRenderContext(GraphicContext& graphicContext) override;
 
     Texture& getTexture(std::string const& name) override;
 
@@ -25,7 +25,7 @@ public:
     Sound& sound(std::string const& name) override;
 
 private:
-    SdlRenderContext* mRenderContext;
+    SdlGraphicContext* mRenderContext;
     std::unordered_map<std::string, Music> mNameToMusic;
     std::unordered_map<std::string, Sound> mNameToSound;
     std::unordered_map<std::string, SdlTexture> mNameToTexture;

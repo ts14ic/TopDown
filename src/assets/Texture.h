@@ -1,6 +1,6 @@
 #pragma once
 
-class RenderContext;
+class GraphicContext;
 
 // TODO Add a fallback texture
 

@@ -76,7 +76,7 @@ InputContext& DefaultEngine::getInputContext() {
     return *mInputContext;
 }
 
-RenderContext& DefaultEngine::getRenderContext() {
+GraphicContext& DefaultEngine::getRenderContext() {
     return *mRenderContext;
 }
 

@@ -8,7 +8,7 @@
 
 class InputContext;
 
-class RenderContext;
+class GraphicContext;
 
 class Assets;
 
@@ -22,7 +22,7 @@ public:
 
     virtual InputContext& getInputContext() = 0;
 
-    virtual RenderContext& getRenderContext() = 0;
+    virtual GraphicContext& getRenderContext() = 0;
 
     virtual Assets& getAssets() = 0;
 

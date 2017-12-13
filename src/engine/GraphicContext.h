@@ -13,9 +13,9 @@ class Box;
 class Color;
 
 
-class RenderContext {
+class GraphicContext {
 public:
-    virtual ~RenderContext() = 0;
+    virtual ~GraphicContext() = 0;
 
     virtual void refreshScreen() = 0;
 

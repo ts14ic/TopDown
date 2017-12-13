@@ -3,7 +3,7 @@
 #include "../shape/Box.h"
 #include "../shape/Color.h"
 #include "../math/math.h"
-#include "../engine/RenderContext.h"
+#include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
 #include "../sdl/Sound.h"
@@ -121,14 +121,14 @@ void Werewolf::teleport(Random& random) {
     }
 }
 
-void Werewolf::handle_render(Assets& assets, RenderContext& engine) {
-    default_render(assets, engine);
+void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext) {
+    default_render(assets, graphicContext);
 
     if(_hp > 0) {
         Box healthBox;
         healthBox.setSize(1.66f * _hp, 5);
         healthBox.setPosition(_x - healthBox.getWidth() / 2, _y - getCircle().getRadius());
-        engine.renderBox(healthBox, Color{0x55, 0, 0x33});
+        graphicContext.renderBox(healthBox, Color{0x55, 0, 0x33});
     }
 
     if(_state == ATTACKING) {

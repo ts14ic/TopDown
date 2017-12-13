@@ -25,7 +25,7 @@ set(SOURCE_FILES
         src/sdl/Sound.cpp src/sdl/Sound.h
         src/sdl/Music.cpp src/sdl/Music.h
         src/assets/Texture.cpp src/assets/Texture.h
-        src/engine/RenderContext.cpp src/engine/RenderContext.h
+        src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
         src/engine/InputContext.cpp src/engine/InputContext.h
         src/object/GameObject.cpp src/object/GameObject.h
@@ -45,7 +45,7 @@ set(SOURCE_FILES
         src/engine/Engine.cpp src/engine/Engine.h
         src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
-        src/sdl/SdlRenderContext.cpp src/sdl/SdlRenderContext.h
+        src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
         src/sdl/SdlAssets.cpp src/sdl/SdlAssets.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
         src/engine/ContextFactory.cpp src/engine/ContextFactory.h

@@ -3,7 +3,7 @@
 #include "../assets/Assets.h"
 #include "../assets/Texture.h"
 #include "../engine/InputContext.h"
-#include "../engine/RenderContext.h"
+#include "../engine/GraphicContext.h"
 #include <SDL_render.h>
 #include <SDL_events.h>
 

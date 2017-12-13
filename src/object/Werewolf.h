@@ -54,7 +54,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Assets& assets, RenderContext& engine);
+    void handle_render(Assets& assets, GraphicContext& graphicContext);
 
 private:
     float _x, _y, _speed = 2.5f;

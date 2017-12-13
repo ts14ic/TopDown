@@ -12,11 +12,11 @@ class Sound;
 
 class Music;
 
-class RenderContext;
+class GraphicContext;
 
 class Assets {
 public:
-    virtual void setRenderContext(RenderContext& renderContext) = 0;
+    virtual void setRenderContext(GraphicContext& graphicContext) = 0;
 
     virtual Texture& getTexture(std::string const& name) = 0;
 

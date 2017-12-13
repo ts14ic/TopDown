@@ -8,7 +8,7 @@
 
 class SdlContextFactory : public ContextFactory {
 public:
-    std::unique_ptr<RenderContext> createRenderContext(int screenWidth, int screenHeight) override;
+    std::unique_ptr<GraphicContext> createRenderContext(int screenWidth, int screenHeight) override;
 
     std::unique_ptr<InputContext> createInputContext() override;
 

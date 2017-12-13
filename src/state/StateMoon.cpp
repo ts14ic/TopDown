@@ -6,7 +6,7 @@
 #include "../object/Bullet.h"
 #include "../assets/Texture.h"
 #include "../engine/InputContext.h"
-#include "../engine/RenderContext.h"
+#include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
 #include "../sdl/Music.h"
@@ -145,7 +145,7 @@ void StateMoon::handle_logic(Engine& engine) {
     if(mPlayer.dead()) engine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(Assets& assets, RenderContext& renderContext, Player const& pl) {
+static void render_crosshair(Assets& assets, GraphicContext& graphicContext, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     mx -= assets.getTexture("crosshair").getWidth() / 2;
@@ -153,7 +153,7 @@ static void render_crosshair(Assets& assets, RenderContext& renderContext, Playe
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;
-    renderContext.render(assets.getTexture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
+    graphicContext.render(assets.getTexture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
 }
 
 void StateMoon::handle_render(Engine& engine) {

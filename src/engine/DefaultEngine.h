@@ -8,7 +8,7 @@
 #include "../state/GameState.h"
 #include "../timer/StopWatch.h"
 #include "../assets/Assets.h"
-#include "RenderContext.h"
+#include "GraphicContext.h"
 #include "InputContext.h"
 #include "Random.h"
 #include <memory>
@@ -28,7 +28,7 @@ public:
 
     InputContext& getInputContext() override;
 
-    RenderContext& getRenderContext() override;
+    GraphicContext& getRenderContext() override;
 
     Assets& getAssets() override;
 
@@ -50,7 +50,7 @@ private:
     StopWatch mFpsWatch;
 
     std::unique_ptr<Assets> mAssets;
-    std::unique_ptr<RenderContext> mRenderContext;
+    std::unique_ptr<GraphicContext> mRenderContext;
     std::unique_ptr<InputContext> mInputContext;
     std::unique_ptr<Random> mRandom;
 };

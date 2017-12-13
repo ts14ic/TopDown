@@ -83,9 +83,9 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(Assets& assets, RenderContext& renderContext) {
-    default_render(assets, renderContext);
-    default_render_health(renderContext, Color{0, 0x77, 0, 0xFF});
+void Zombie::handle_render(Assets& assets, GraphicContext& graphicContext) {
+    default_render(assets, graphicContext);
+    default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
 
     if(_state == ATTACKING) {
         if(_frame == 5) {

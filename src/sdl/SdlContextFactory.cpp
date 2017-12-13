@@ -3,12 +3,12 @@
 //
 
 #include "SdlContextFactory.h"
-#include "SdlRenderContext.h"
+#include "SdlGraphicContext.h"
 #include "SdlInputContext.h"
 #include "SdlAssets.h"
 
-std::unique_ptr<RenderContext> SdlContextFactory::createRenderContext(int screenWidth, int screenHeight) {
-    return std::make_unique<SdlRenderContext>(screenWidth, screenHeight);
+std::unique_ptr<GraphicContext> SdlContextFactory::createRenderContext(int screenWidth, int screenHeight) {
+    return std::make_unique<SdlGraphicContext>(screenWidth, screenHeight);
 }
 
 std::unique_ptr<InputContext> SdlContextFactory::createInputContext() {

@@ -56,7 +56,7 @@ public:
 
     void handle_logic(Random& random, Assets& assets);
 
-    void handle_render(Assets& assets, RenderContext& renderContext);
+    void handle_render(Assets& assets, GraphicContext& graphicContext);
 
     void addWeapon(Weapon weapon);
 
