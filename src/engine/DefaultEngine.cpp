@@ -3,7 +3,7 @@
 //
 
 #include "DefaultEngine.h"
-#include "ContextFactory.h"
+#include "ContextInjector.h"
 #include "../state/StateIntro.h"
 #include "../state/StateMoon.h"
 #include <SDL_timer.h>
@@ -13,18 +13,14 @@ constexpr int FRAMES_PER_SECOND = 60;
 constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 DefaultEngine::DefaultEngine(
-        std::unique_ptr<ContextFactory> contextFactory,
+        int screenWidth, int screenHeight,
+        std::unique_ptr<ContextInjector> contextInjector,
         std::unique_ptr<Random> random)
-        : mResources(std::move(contextFactory->createResources(800, 600))),
-          mRenderContext{std::move(contextFactory->createRenderContext())},
-          mAudioContext{std::move(contextFactory->createAudioContext())},
-          mInputContext{std::move(contextFactory->createInputContext())},
-          mRandom{std::move(random)} {
+        : mRandom{std::move(random)} {
 
-    getResources().setRenderContext(getRenderContext());
-    getResources().setAudioContext(getAudioContext());
+    contextInjector->inject(*this, screenWidth, screenHeight);
 
-    loadMedia();
+    loadResources();
 }
 
 void DefaultEngine::runLoop() {
@@ -79,8 +75,8 @@ InputContext& DefaultEngine::getInputContext() {
     return *mInputContext;
 }
 
-GraphicContext& DefaultEngine::getRenderContext() {
-    return *mRenderContext;
+GraphicContext& DefaultEngine::getGraphicContext() {
+    return *mGraphicContext;
 }
 
 Resources& DefaultEngine::getResources() {
@@ -89,4 +85,20 @@ Resources& DefaultEngine::getResources() {
 
 Random& DefaultEngine::getRandom() {
     return *mRandom;
+}
+
+void DefaultEngine::setInputContext(std::unique_ptr<InputContext> inputContext) {
+    mInputContext = std::move(inputContext);
+}
+
+void DefaultEngine::setGraphicContext(std::unique_ptr<GraphicContext> graphicContext) {
+    mGraphicContext = std::move(graphicContext);
+}
+
+void DefaultEngine::setAudioContext(std::unique_ptr<AudioContext> audioContext) {
+    mAudioContext = std::move(audioContext);
+}
+
+void DefaultEngine::setResources(std::unique_ptr<Resources> resources) {
+    mResources = std::move(resources);
 }

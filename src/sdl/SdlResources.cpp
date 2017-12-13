@@ -25,9 +25,8 @@ SdlResources::FailedToLoadSoundException::FailedToLoadSoundException(const char*
 SdlResources::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
         : runtime_error(message) {}
 
-SdlResources::SdlResources(int width, int height)
-        : mScreenWidth{width}, mScreenHeight{height} {
-    initGraphicsSystem();
+SdlResources::SdlResources(int width, int height) {
+    initGraphicsSystem(width, height);
     initAudioSystem();
 }
 
@@ -38,31 +37,6 @@ SdlResources::~SdlResources() {
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
-}
-
-void SdlResources::setRenderContext(GraphicContext& graphicContext) {
-    auto graphic = dynamic_cast<SdlGraphicContext*>(&graphicContext);
-    if(graphic == nullptr) {
-        throw std::runtime_error{"SdlResources can only work with SdlGraphicContext"};
-    }
-    graphic->setSdlRenderer(mWindow.get(), mRenderer.get());
-}
-
-void SdlResources::setAudioContext(AudioContext& audioContext) {
-    auto audio = dynamic_cast<SdlAudioContext*>(&audioContext);
-    if(audio == nullptr) {
-        throw std::runtime_error{"SdlResources can only work with SdlAudioContext"};
-    }
-}
-
-int SdlResources::getScreenHeight() {
-    SDL_GetWindowSize(mWindow.get(), &mScreenWidth, &mScreenHeight);
-    return mScreenHeight;
-}
-
-int SdlResources::getScreenWidth() {
-    SDL_GetWindowSize(mWindow.get(), &mScreenWidth, &mScreenHeight);
-    return mScreenWidth;
 }
 
 Texture& SdlResources::getTexture(std::string const& name) {
@@ -136,7 +110,7 @@ SdlMusic SdlResources::loadMusic(const char* path) {
     return music;
 }
 
-void SdlResources::initGraphicsSystem() {
+void SdlResources::initGraphicsSystem(int screenWidth, int screenHeight) {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSdlInitException{SDL_GetError()};
@@ -147,7 +121,7 @@ void SdlResources::initGraphicsSystem() {
                     "TopDown - Reborn",
                     SDL_WINDOWPOS_CENTERED,
                     SDL_WINDOWPOS_CENTERED,
-                    mScreenWidth, mScreenHeight,
+                    screenWidth, screenHeight,
                     SDL_WINDOW_SHOWN
             )
     );
@@ -182,6 +156,14 @@ void SdlResources::initAudioSystem() {
     if(0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
         throw FailedSdlMixerInitException{Mix_GetError()};
     }
+}
+
+SDL_Window* SdlResources::getWindow() const {
+    return mWindow.get();
+}
+
+SDL_Renderer* SdlResources::getRenderer() const {
+    return mRenderer.get();
 }
 
 void SdlResources::SdlDeleter::operator()(SDL_Window* p) {

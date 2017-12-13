@@ -48,8 +48,8 @@ set(SOURCE_FILES
         src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
         src/sdl/SdlResources.cpp src/sdl/SdlResources.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
-        src/engine/ContextFactory.cpp src/engine/ContextFactory.h
-        src/sdl/SdlContextFactory.cpp src/sdl/SdlContextFactory.h
+        src/engine/ContextInjector.cpp src/engine/ContextInjector.h
+        src/sdl/SdlContextInjector.cpp src/sdl/SdlContextInjector.h
         src/shape/Box.cpp src/shape/Box.h
         src/shape/Color.cpp src/shape/Color.h
         src/file/readFile.cpp src/file/readFile.h

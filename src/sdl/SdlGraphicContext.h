@@ -10,11 +10,15 @@ class Texture;
 
 class SdlTexture;
 
+class SdlResources;
+
 struct SDL_Renderer;
 struct SDL_Window;
 
 class SdlGraphicContext : public GraphicContext {
 public:
+    SdlGraphicContext(SDL_Window* window, SDL_Renderer* renderer);
+
     void refreshScreen() override;
 
     void clearScreen() override;
@@ -25,9 +29,14 @@ public:
 
     void render(Texture const& texture, int x, int y, float angle) override;
 
-    void setSdlRenderer(SDL_Window* mWindow, SDL_Renderer* mRenderer);
+    int getScreenWidth() override;
+
+    int getScreenHeight() override;
 
 private:
+    int mScreenWidth;
+    int mScreenHeight;
+
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
 };

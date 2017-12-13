@@ -18,8 +18,8 @@
 
 StateMoon::StateMoon(Engine& engine)
         : mBackgroundTexId{"moon_background"},
-          _levelWidth(engine.getResources().getScreenWidth()),
-          _levelHeight(engine.getResources().getScreenHeight()) {
+          _levelWidth(engine.getGraphicContext().getScreenWidth()),
+          _levelHeight(engine.getGraphicContext().getScreenHeight()) {
 
     engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/test_bg.png");
 
@@ -156,7 +156,7 @@ static void render_crosshair(Resources& resources, GraphicContext& graphicContex
 }
 
 void StateMoon::handle_render(Engine& engine) {
-    auto& render = engine.getRenderContext();
+    auto& render = engine.getGraphicContext();
     render.clearScreen();
 
     auto& resources = engine.getResources();

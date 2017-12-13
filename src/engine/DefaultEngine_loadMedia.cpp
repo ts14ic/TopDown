@@ -8,7 +8,7 @@
 #include "../json/parseJson.h"
 
 // todo use abstract asset classes
-void DefaultEngine::loadMedia() {
+void DefaultEngine::loadResources() {
     auto doc = parseJson(readFile("data/common_media.json"));
 
     auto texturesMap = getValue<rapidjson::Value::ConstObject>(doc, "/textures");

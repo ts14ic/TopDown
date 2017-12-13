@@ -9,6 +9,10 @@
 #include "SdlTexture.h"
 #include <SDL.h>
 
+SdlGraphicContext::SdlGraphicContext(SDL_Window* window, SDL_Renderer* renderer)
+        : mWindow{window}, mRenderer{renderer} {
+}
+
 void SdlGraphicContext::refreshScreen() {
     SDL_RenderPresent(mRenderer);
 }
@@ -52,8 +56,12 @@ void SdlGraphicContext::renderBox(const Box& box, const Color& color) {
     SDL_RenderFillRect(mRenderer, &rect);
 }
 
-void SdlGraphicContext::setSdlRenderer(SDL_Window* sdlWindow,
-                                       SDL_Renderer* sdlRenderer) {
-    mWindow = sdlWindow;
-    mRenderer = sdlRenderer;
+int SdlGraphicContext::getScreenWidth() {
+    SDL_GetWindowSize(mWindow, &mScreenWidth, &mScreenHeight);
+    return mScreenWidth;
+}
+
+int SdlGraphicContext::getScreenHeight() {
+    SDL_GetWindowSize(mWindow, &mScreenWidth, &mScreenHeight);
+    return mScreenHeight;
 }

@@ -25,14 +25,6 @@ public:
 
     ~SdlResources() override;
 
-    void setRenderContext(GraphicContext& graphicContext) override;
-
-    void setAudioContext(AudioContext& audioContext) override;
-
-    int getScreenWidth() override;
-
-    int getScreenHeight() override;
-
     Texture& getTexture(const std::string& name) override;
 
     void loadTexture(const std::string& name, const char* path) override;
@@ -44,6 +36,10 @@ public:
     Music& getMusic(const std::string& name) override;
 
     void loadMusic(const std::string& name, const char* path) override;
+
+    SDL_Window* getWindow() const;
+
+    SDL_Renderer* getRenderer() const;
 
     struct FailedSdlInitException : public std::runtime_error {
         explicit FailedSdlInitException(const char* message);
@@ -58,7 +54,7 @@ public:
     };
 
 private:
-    void initGraphicsSystem();
+    void initGraphicsSystem(int width, int height);
 
     void initAudioSystem();
 
@@ -83,9 +79,6 @@ private:
     };
 
 private:
-    int mScreenWidth;
-    int mScreenHeight;
-
     std::unique_ptr<SDL_Window, SdlDeleter> mWindow;
     std::unique_ptr<SDL_Renderer, SdlDeleter> mRenderer;
     std::unordered_map<std::string, SdlSound> mNameToSound;

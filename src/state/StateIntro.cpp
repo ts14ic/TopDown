@@ -48,7 +48,7 @@ void StateIntro::handle_events(Engine& engine) {
 void StateIntro::handle_logic(Engine& engine) {}
 
 void StateIntro::handle_render(Engine& engine) {
-    auto& render = engine.getRenderContext();
+    auto& render = engine.getGraphicContext();
 
     Texture& background = engine.getResources().getTexture(mBackgroundTexId);
     render.render(background, 0, 0);
