@@ -14,17 +14,6 @@ SdlAudioContext::FailedToLoadSoundException::FailedToLoadSoundException(const ch
 SdlAudioContext::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
         : runtime_error(message) {}
 
-SdlAudioContext::FailedSdlMixerInitException::FailedSdlMixerInitException(const char* message)
-        : runtime_error(message) {}
-
-SdlAudioContext::SdlAudioContext() {
-    init();
-}
-
-SdlAudioContext::~SdlAudioContext() {
-    Mix_Quit();
-}
-
 void SdlAudioContext::playSound(const Sound& sound) {
     if(sound.isLoaded()) {
         Mix_PlayChannel(-1, dynamic_cast<const SdlSound&>(sound).getWrappedChunk(), 0);
@@ -57,10 +46,4 @@ SdlMusic SdlAudioContext::loadMusic(const char* path) {
     SdlMusic music{std::move(newMusic)};
     SDL_Log("SdlMusic loaded: %s.\n", path);
     return music;
-}
-
-void SdlAudioContext::init() {
-    if(0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
-        throw FailedSdlMixerInitException{Mix_GetError()};
-    }
 }

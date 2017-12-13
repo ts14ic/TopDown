@@ -10,55 +10,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-SdlGraphicContext::FailedSdlInitException::FailedSdlInitException(const char* message)
-        : runtime_error(message) {}
-
 SdlGraphicContext::SdlGraphicContext(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
-    init();
-}
-
-void SdlGraphicContext::init() {
-    Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
-    if(0 != SDL_Init(initFlags)) {
-        throw FailedSdlInitException{SDL_GetError()};
-    }
-
-    mWindow.reset(SDL_CreateWindow(
-            "TopDown - Reborn",
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
-            mScreenWidth, mScreenHeight,
-            SDL_WINDOW_SHOWN
-    ));
-    if(!mWindow) {
-        throw FailedSdlInitException{SDL_GetError()};
-    }
-
-    mRenderer.reset(SDL_CreateRenderer(
-            mWindow.get(), -1,
-            SDL_RENDERER_ACCELERATED |
-            SDL_RENDERER_PRESENTVSYNC
-    ));
-    if(!mRenderer) {
-        throw FailedSdlInitException{SDL_GetError()};
-    }
-
-    int IMG_flags = IMG_INIT_JPG | IMG_INIT_PNG;
-    if(IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {
-        throw FailedSdlInitException{IMG_GetError()};
-    }
-
-    SDL_ShowCursor(SDL_DISABLE);
-
-    SDL_SetRenderDrawColor(mRenderer.get(), 0x10, 0x10, 0x10, 0xff);
-    SDL_RenderClear(mRenderer.get());
-    SDL_RenderPresent(mRenderer.get());
-}
-
-SdlGraphicContext::~SdlGraphicContext() {
-    IMG_Quit();
-    SDL_Quit();
 }
 
 SDL_Renderer* SdlGraphicContext::getRenderer() {
@@ -144,10 +97,16 @@ SdlTexture SdlGraphicContext::loadTexture(const char* path) {
     return tex;
 }
 
-void SdlGraphicContext::SDLDeleter::operator()(SDL_Window* p) {
+void SdlGraphicContext::setSdlRenderer(std::unique_ptr<SDL_Window, SdlGraphicContext::SdlDeleter> sdlWindow,
+                                       std::unique_ptr<SDL_Renderer, SdlGraphicContext::SdlDeleter> sdlRenderer) {
+    mWindow = std::move(sdlWindow);
+    mRenderer = std::move(sdlRenderer);
+}
+
+void SdlGraphicContext::SdlDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
 }
 
-void SdlGraphicContext::SDLDeleter::operator()(SDL_Renderer* p) {
+void SdlGraphicContext::SdlDeleter::operator()(SDL_Renderer* p) {
     SDL_DestroyRenderer(p);
 }

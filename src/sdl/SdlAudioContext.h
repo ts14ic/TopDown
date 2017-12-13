@@ -13,10 +13,6 @@ class SdlMusic;
 
 class SdlAudioContext : public AudioContext {
 public:
-    SdlAudioContext();
-
-    ~SdlAudioContext() override;
-
     void playSound(const Sound& sound) override;
 
     void playMusic(const Music& music) override;
@@ -32,11 +28,4 @@ public:
     struct FailedToLoadMusicException : public std::runtime_error {
         explicit FailedToLoadMusicException(const char* message);
     };
-
-    struct FailedSdlMixerInitException : public std::runtime_error {
-        explicit FailedSdlMixerInitException(const char* message);
-    };
-
-private:
-    void init();
 };

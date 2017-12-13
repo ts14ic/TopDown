@@ -18,8 +18,6 @@ class SdlGraphicContext : public GraphicContext {
 public:
     SdlGraphicContext(int screenWidth, int screenHeight);
 
-    ~SdlGraphicContext() override;
-
     void refreshScreen() override;
 
     void clearScreen() override;
@@ -36,28 +34,27 @@ public:
 
     SdlTexture loadTexture(const char* path);
 
-    struct FailedSdlInitException : public std::runtime_error {
-        explicit FailedSdlInitException(const char* message);
+    struct SdlDeleter {
+        void operator()(SDL_Window* p);
+
+        void operator()(SDL_Renderer* p);
     };
+
+    void setSdlRenderer(
+            std::unique_ptr<SDL_Window, SdlDeleter> sdlWindow,
+            std::unique_ptr<SDL_Renderer, SdlDeleter> sdlRenderer
+    );
 
     struct FailedToLoadTextureException : public std::runtime_error {
         explicit FailedToLoadTextureException(const char* message);
     };
 
 private:
-    void init();
-
     SDL_Renderer* getRenderer();
 
 private:
-    struct SDLDeleter {
-        void operator()(SDL_Window* p);
-
-        void operator()(SDL_Renderer* p);
-    };
-
     int mScreenWidth;
     int mScreenHeight;
-    std::unique_ptr<SDL_Window, SDLDeleter> mWindow;
-    std::unique_ptr<SDL_Renderer, SDLDeleter> mRenderer;
+    std::unique_ptr<SDL_Window, SdlDeleter> mWindow;
+    std::unique_ptr<SDL_Renderer, SdlDeleter> mRenderer;
 };

@@ -15,8 +15,11 @@ class SdlGraphicContext;
 
 class SdlAudioContext;
 
+// todo rename to resources, move resource loading and renderer here
 class SdlAssets : public Assets {
 public:
+    ~SdlAssets() override;
+
     void setRenderContext(GraphicContext& graphicContext) override;
 
     void setAudioContext(AudioContext& audioContext) override;
@@ -33,8 +36,20 @@ public:
 
     void loadMusic(const std::string& name, const char* path) override;
 
+    struct FailedSdlInitException : public std::runtime_error {
+        explicit FailedSdlInitException(const char* message);
+    };
+
+    struct FailedSdlMixerInitException : public std::runtime_error {
+        explicit FailedSdlMixerInitException(const char* message);
+    };
+
 private:
-    SdlGraphicContext* mRenderContext = nullptr;
+    void initGraphicsSystem();
+
+    void initAudioSystem();
+
+    SdlGraphicContext* mGraphicContext = nullptr;
     SdlAudioContext* mAudioContext = nullptr;
     std::unordered_map<std::string, SdlSound> mNameToSound;
     std::unordered_map<std::string, SdlTexture> mNameToTexture;
