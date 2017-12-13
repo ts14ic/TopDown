@@ -1,5 +1,7 @@
 #include "engine/DefaultEngine.h"
 
 int main(int, char* []) {
-    DefaultEngine{}.runLoop();
+    DefaultEngine{
+            std::make_unique<DefaultInputContext>()
+    }.runLoop();
 }

@@ -15,7 +15,7 @@
 
 class DefaultEngine : public Engine {
 public:
-    DefaultEngine();
+    explicit DefaultEngine(std::unique_ptr<InputContext> inputContext);
 
     void runLoop() override;
 
@@ -41,5 +41,5 @@ private:
     Random mRandom;
     Assets mAssets;
     RenderContext mRenderSystem;
-    DefaultInputContext mInputSystem;
+    std::unique_ptr<InputContext> mInputContext;
 };

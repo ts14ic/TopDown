@@ -11,8 +11,9 @@ constexpr int MS_ONE_SECOND = 1000;
 constexpr int FRAMES_PER_SECOND = 60;
 constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
-DefaultEngine::DefaultEngine()
-        : mRenderSystem{mAssets, 800, 600} {}
+DefaultEngine::DefaultEngine(std::unique_ptr<InputContext> inputContext)
+        : mRenderSystem{mAssets, 800, 600},
+          mInputContext{std::move(inputContext)} {}
 
 void DefaultEngine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(*this);
@@ -63,7 +64,7 @@ void DefaultEngine::requestStateChange(GState stateId) {
 }
 
 InputContext& DefaultEngine::getInputContext() {
-    return mInputSystem;
+    return *mInputContext;
 }
 
 RenderContext& DefaultEngine::getRenderContext() {
