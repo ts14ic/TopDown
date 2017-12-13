@@ -47,7 +47,11 @@ set(SOURCE_FILES
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/sdl/SdlRenderContext.cpp src/sdl/SdlRenderContext.h
         src/sdl/SdlAssets.cpp src/sdl/SdlAssets.h
-        src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h src/engine/ContextFactory.cpp src/engine/ContextFactory.h src/sdl/SdlContextFactory.cpp src/sdl/SdlContextFactory.h src/shape/Box.cpp src/shape/Box.h src/shape/Color.cpp src/shape/Color.h)
+        src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
+        src/engine/ContextFactory.cpp src/engine/ContextFactory.h
+        src/sdl/SdlContextFactory.cpp src/sdl/SdlContextFactory.h
+        src/shape/Box.cpp src/shape/Box.h
+        src/shape/Color.cpp src/shape/Color.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
