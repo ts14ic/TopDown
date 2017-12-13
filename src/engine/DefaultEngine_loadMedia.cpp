@@ -5,15 +5,9 @@
 #include "DefaultEngine.h"
 #include "../sdl/Sound.h"
 #include "../sdl/Music.h"
-#include "../assets/Texture.h"
 #include "../json/getValue.h"
 #include <fstream>
 #include <sstream>
-#include <iostream>
-
-void DefaultEngine::loadTexture(const char* name, const char* filename) {
-    mAssets->texture(name).load(getRenderContext(), filename);
-}
 
 void DefaultEngine::loadSound(const char* name, const char* filename) {
     mAssets->sound(name).load(filename);
@@ -47,7 +41,7 @@ void DefaultEngine::loadMedia() {
 
     auto texturesMap = getValue<rapidjson::Value::ConstObject>(doc, "/textures");
     for(const auto& entry : texturesMap) {
-        loadTexture(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
+        mAssets->loadTexture(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
     }
 
     auto soundsMap = getValue<rapidjson::Value::ConstObject>(doc, "/sounds");

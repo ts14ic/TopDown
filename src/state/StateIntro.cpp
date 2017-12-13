@@ -8,7 +8,10 @@
 #include <SDL_events.h>
 
 StateIntro::StateIntro(Engine& engine)
-        : mBackgroundTexId{"assets/gfx/intro_bg.png"} {} /* todo prepare the assets */
+        : mBackgroundTexId{"intro_background"} {
+
+    engine.getAssets().loadTexture(mBackgroundTexId, "assets/gfx/intro_bg.png");
+}
 
 void StateIntro::handle_events(Engine& engine) {
     auto& input = engine.getInputContext();
@@ -47,7 +50,7 @@ void StateIntro::handle_logic(Engine& engine) {}
 void StateIntro::handle_render(Engine& engine) {
     auto& render = engine.getRenderContext();
 
-    Texture& background = engine.getAssets().texture(mBackgroundTexId);
+    Texture& background = engine.getAssets().getTexture(mBackgroundTexId);
     render.render(background, 0, 0);
 
     SDL_RenderPresent(render.getRenderer());

@@ -17,9 +17,12 @@
 #include <iostream>
 
 StateMoon::StateMoon(Engine& engine)
-        : _texBackground("assets/gfx/test_bg.png"), // todo prepare the assets
+        : mBackgroundTexId{"moon_background"}, // todo prepare the assets
           _levelWidth(engine.getRenderContext().getScreenWidth()),
           _levelHeight(engine.getRenderContext().getScreenHeight()) {
+
+    engine.getAssets().loadTexture(mBackgroundTexId, "assets/gfx/test_bg.png");
+
     zombies().clear();
     werewolves().clear();
     _mobSpawner.restart();
@@ -145,12 +148,12 @@ void StateMoon::handle_logic(Engine& engine) {
 static void render_crosshair(Assets& assets, RenderContext& renderContext, Player const& pl) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
-    mx -= assets.texture("crosshair").getWidth() / 2;
-    my -= assets.texture("crosshair").getHeight() / 2;
+    mx -= assets.getTexture("crosshair").getWidth() / 2;
+    my -= assets.getTexture("crosshair").getHeight() / 2;
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;
-    renderContext.render(assets.texture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
+    renderContext.render(assets.getTexture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
 }
 
 void StateMoon::handle_render(Engine& engine) {
@@ -161,7 +164,7 @@ void StateMoon::handle_render(Engine& engine) {
 
     assets.music("weather").play();
 
-    render.render(assets.texture(_texBackground), 0, 0);
+    render.render(assets.getTexture(mBackgroundTexId), 0, 0);
 
     mPlayer.handle_render(assets, render);
     for(auto& z : zombies()) {

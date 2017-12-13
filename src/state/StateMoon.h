@@ -33,7 +33,7 @@ private:
     void parseLevelData();
 
 private:
-    std::string _texBackground;
+    std::string mBackgroundTexId;
     int const _levelWidth;
     int const _levelHeight;
 

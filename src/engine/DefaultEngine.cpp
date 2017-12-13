@@ -21,6 +21,7 @@ DefaultEngine::DefaultEngine(
           mInputContext{std::move(inputContext)},
           mRandom{std::move(random)} {
 
+    getAssets().setRenderContext(getRenderContext());
     loadMedia();
 }
 

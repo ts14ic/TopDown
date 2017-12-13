@@ -3,9 +3,16 @@
 //
 
 #include "SdlAssets.h"
+#include "../engine/DefaultRenderContext.h"
 
+void SdlAssets::setRenderContext(RenderContext& renderContext) {
+    mRenderContext = dynamic_cast<DefaultRenderContext*>(&renderContext);
+    if(mRenderContext == nullptr) {
+        throw std::runtime_error{"SdlAssets can only work with SdlRenderContext"};
+    }
+}
 
-Texture& SdlAssets::texture(std::string const& name) {
+Texture& SdlAssets::getTexture(std::string const& name) {
     return mNameToTexture[name];
 }
 
@@ -15,4 +22,8 @@ Music& SdlAssets::music(std::string const& name) {
 
 Sound& SdlAssets::sound(std::string const& name) {
     return mNameToSound[name];
+}
+
+void SdlAssets::loadTexture(std::string const& name, const char* path) {
+    getTexture(name).load(*mRenderContext, path);
 }
