@@ -5,6 +5,7 @@
 #pragma once
 
 #include "InputContext.h"
+#include <SDL_events.h>
 
 class DefaultInputContext : public InputContext {
 public:

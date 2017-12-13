@@ -6,7 +6,7 @@
 #include "Engine.h"
 #include "GState.h"
 #include "RenderContext.h"
-#include "DefaultInputContext.h"
+#include "InputContext.h"
 #include "../assets/Assets.h"
 #include "../state/GameState.h"
 #include "../timer/StopWatch.h"

@@ -8,6 +8,7 @@
 #include "../engine/RenderContext.h"
 #include "../assets/Assets.h"
 #include <SDL_render.h>
+#include <SDL_events.h>
 #include <algorithm>
 #include <ctime>
 #include <iostream>

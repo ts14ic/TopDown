@@ -3,6 +3,7 @@
 #include "../engine/InputContext.h"
 #include "../engine/RenderContext.h"
 #include <SDL_render.h>
+#include <SDL_events.h>
 
 StateIntro::StateIntro(Engine& engine)
         : _background(engine.getRenderContext(), "assets/gfx/intro_bg.png") {}

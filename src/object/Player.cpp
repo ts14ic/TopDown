@@ -2,6 +2,7 @@
 #include "../shape/Circle.h"
 #include "../math/math.h"
 #include "../engine/InputContext.h"
+#include <SDL_events.h>
 #include <sstream>
 #include <iostream>
 
