@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "InputContext.h"
+#include "../engine/InputContext.h"
 #include <SDL_events.h>
 
-class DefaultInputContext : public InputContext {
+class SdlInputContext : public InputContext {
 public:
     SDL_Event& getInputEvent() override;
 

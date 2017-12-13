@@ -13,12 +13,12 @@
 #include "Random.h"
 #include <memory>
 
+class ContextFactory;
+
 class DefaultEngine : public Engine {
 public:
     DefaultEngine(
-            std::unique_ptr<Assets> assets,
-            std::unique_ptr<RenderContext> renderContext,
-            std::unique_ptr<InputContext> inputContext,
+            std::unique_ptr<ContextFactory> contextFactory,
             std::unique_ptr<Random> random
     );
 

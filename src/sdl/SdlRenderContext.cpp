@@ -2,19 +2,19 @@
 // Created by ts14ic on 12/13/17.
 //
 
-#include "DefaultRenderContext.h"
+#include "SdlRenderContext.h"
 #include "../assets/Assets.h"
 #include "../assets/Texture.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
-DefaultRenderContext::DefaultRenderContext(int screenWidth, int screenHeight)
+SdlRenderContext::SdlRenderContext(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
     init();
 }
 
-void DefaultRenderContext::init() {
+void SdlRenderContext::init() {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSDLInitException{SDL_GetError()};
@@ -56,40 +56,40 @@ void DefaultRenderContext::init() {
     SDL_RenderPresent(mRenderer.get());
 }
 
-DefaultRenderContext::~DefaultRenderContext() {
+SdlRenderContext::~SdlRenderContext() {
     SDL_Quit();
 }
 
-SDL_Renderer* DefaultRenderContext::getRenderer() {
+SDL_Renderer* SdlRenderContext::getRenderer() {
     return mRenderer.get();
 }
 
-int DefaultRenderContext::getScreenHeight() {
+int SdlRenderContext::getScreenHeight() {
     return mScreenHeight;
 }
 
-int DefaultRenderContext::getScreenWidth() {
+int SdlRenderContext::getScreenWidth() {
     return mScreenWidth;
 }
 
-void DefaultRenderContext::render(const Texture& texture, int x, int y) {
+void SdlRenderContext::render(const Texture& texture, int x, int y) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
         SDL_RenderCopy(mRenderer.get(), texture.getWrapped(), nullptr, &destRect);
     }
 }
 
-void DefaultRenderContext::render(Texture const& texture, int x, int y, float angle) {
+void SdlRenderContext::render(Texture const& texture, int x, int y, float angle) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
         SDL_RenderCopyEx(mRenderer.get(), texture.getWrapped(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
-void DefaultRenderContext::SDLDeleter::operator()(SDL_Window* p) {
+void SdlRenderContext::SDLDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
 }
 
-void DefaultRenderContext::SDLDeleter::operator()(SDL_Renderer* p) {
+void SdlRenderContext::SDLDeleter::operator()(SDL_Renderer* p) {
     SDL_DestroyRenderer(p);
 }

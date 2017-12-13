@@ -1,14 +1,11 @@
 #include "engine/DefaultEngine.h"
-#include "engine/DefaultInputContext.h"
+#include "sdl/SdlContextFactory.h"
 #include "random/Mt19937Random.h"
-#include "engine/DefaultRenderContext.h"
-#include "sdl/SdlAssets.h"
 
 int main(int, char* []) {
+    // todo Use a factory to create assets and contexts
     DefaultEngine{
-            std::make_unique<SdlAssets>(),
-            std::make_unique<DefaultRenderContext>(800, 600),
-            std::make_unique<DefaultInputContext>(),
+            std::make_unique<SdlContextFactory>(),
             std::make_unique<Mt19937Random>()
     }.runLoop();
 }

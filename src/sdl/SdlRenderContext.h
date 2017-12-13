@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "RenderContext.h"
+#include "../engine/RenderContext.h"
 #include <memory>
 
 class Texture;
@@ -12,11 +12,11 @@ class Texture;
 struct SDL_Renderer;
 struct SDL_Window;
 
-class DefaultRenderContext : public RenderContext {
+class SdlRenderContext : public RenderContext {
 public:
-    DefaultRenderContext(int screenWidth, int screenHeight);
+    SdlRenderContext(int screenWidth, int screenHeight);
 
-    ~DefaultRenderContext() override;
+    ~SdlRenderContext() override;
 
     // todo SDL_Renderer is too specific
     SDL_Renderer* getRenderer() override;

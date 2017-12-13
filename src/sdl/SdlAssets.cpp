@@ -3,10 +3,10 @@
 //
 
 #include "SdlAssets.h"
-#include "../engine/DefaultRenderContext.h"
+#include "SdlRenderContext.h"
 
 void SdlAssets::setRenderContext(RenderContext& renderContext) {
-    mRenderContext = dynamic_cast<DefaultRenderContext*>(&renderContext);
+    mRenderContext = dynamic_cast<SdlRenderContext*>(&renderContext);
     if(mRenderContext == nullptr) {
         throw std::runtime_error{"SdlAssets can only work with SdlRenderContext"};
     }
