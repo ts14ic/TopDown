@@ -30,6 +30,7 @@ rapidjson::Document readLevelDocument() {
     return doc;
 }
 
+// todo rename file to contain this method name
 void StateMoon::parseLevelData() {
     // todo check for parse errors
     auto doc = readLevelDocument();
