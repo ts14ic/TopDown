@@ -10,16 +10,6 @@
 
 #endif
 
-template <>
-bool isValueOfType<rapidjson::Value::ConstObject>(const rapidjson::Value& value) {
-    return value.IsObject();
-}
-
-template <>
-bool isValueOfType<rapidjson::Value::ConstArray>(const rapidjson::Value& value) {
-    return value.IsArray();
-}
-
 rapidjson::Pointer checkPointer(const char* pointerPath) {
     rapidjson::Pointer pointer{pointerPath};
     if(!pointer.IsValid()) {

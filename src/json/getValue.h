@@ -4,23 +4,13 @@
 #pragma once
 
 #define RAPIDJSON_HAS_STDSTRING 1
+
 #include <rapidjson/document.h>
 #include <rapidjson/pointer.h>
 
 #undef RAPIDJSON_HAS_STDSTRING
 
 #include <vector>
-
-template <typename T>
-bool isValueOfType(const rapidjson::Value& value) {
-    return value.Is<T>();
-}
-
-template <>
-bool isValueOfType<rapidjson::Value::ConstObject>(const rapidjson::Value& value);
-
-template <>
-bool isValueOfType<rapidjson::Value::ConstArray>(const rapidjson::Value& value);
 
 class JsonParseException : public std::runtime_error {
 public:
@@ -34,9 +24,13 @@ checkValue(const rapidjson::Value& root, const rapidjson::Pointer& pointer, cons
 
 const char* demangleTypeName(const char* typeName);
 
+/*
+ * Despite the docs saying Is<> and Get<> work only on scalars,
+ * this also works for ConstArray and ConstObject
+ */
 template <class T>
 T checkValueType(const rapidjson::Value* value, const char* pointerPath) {
-    if(!isValueOfType<T>(*value)) {
+    if(!value->Is<T>()) {
         throw JsonParseException{
                 std::string{"Value on "} + pointerPath + " is not of type " + demangleTypeName(typeid(T).name())};
     }
