@@ -7,7 +7,6 @@
 #include "../texture/Texture.h"
 #include "../object/Player.h"
 #include "../timer/StopWatch.h"
-#include <random>
 
 class Engine;
 

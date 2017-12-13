@@ -5,8 +5,9 @@
 
 #include "Damageable.h"
 #include "../timer/StopWatch.h"
-#include "../engine/Random.h"
 #include <vector>
+
+class Random;
 
 class Werewolf : public Damageable {
 public:

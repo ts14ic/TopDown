@@ -4,9 +4,9 @@
 #pragma once
 
 #include "GameObject.h"
-#include "../engine/Random.h"
 #include <vector>
 
+class Random;
 class Weapon;
 
 class Bullet : public GameObject {

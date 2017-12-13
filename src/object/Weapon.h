@@ -4,7 +4,6 @@
 #pragma once
 
 #include "../timer/StopWatch.h"
-#include "../engine/Random.h"
 #include <vector>
 #include <string>
 
@@ -13,6 +12,8 @@ class GameObject;
 class Assets;
 
 class WeaponBuilder;
+
+class Random;
 
 class Weapon {
 public:

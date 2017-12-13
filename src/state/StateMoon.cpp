@@ -6,6 +6,7 @@
 #include "../object/Bullet.h"
 #include "../engine/InputContext.h"
 #include "../engine/RenderContext.h"
+#include "../engine/Random.h"
 #include "../assets/Assets.h"
 #include <SDL_render.h>
 #include <SDL_events.h>
@@ -51,14 +52,8 @@ void StateMoon::restrict_pos(GameObject& o) {
     else if(o.getY() > _levelHeight) o.setY(_levelHeight);
 }
 
-int randomInt() {
-    static std::mt19937 engine{std::default_random_engine{}()};
-    static std::uniform_int_distribution<int> dis;
-    return dis(engine);
-}
-
 std::pair<int, int> randomPosition(Random& random, int width, int height) {
-    int border = randomInt() % 2;
+    int border = random.getInt(0, 1);
     int lx;
     int ly;
     if(border == 0) {

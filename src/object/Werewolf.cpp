@@ -2,6 +2,7 @@
 #include "../shape/Circle.h"
 #include "../math/math.h"
 #include "../engine/RenderContext.h"
+#include "../engine/Random.h"
 #include "../assets/Assets.h"
 #include <SDL_render.h>
 

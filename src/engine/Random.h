@@ -3,18 +3,15 @@
 //
 #pragma once
 
-#include <random>
-
 class Random {
 public:
-    Random();
+    virtual int getInt() = 0;
 
-    int getInt();
+    virtual int getInt(int min, int max) = 0;
 
-    int getInt(int min, int max);
+    virtual float getFloat() = 0;
 
-    float getFloat(float min = 0.f, float max = 1.f);
+    virtual float getFloat(float min, float max) = 0;
 
-private:
-    std::mt19937 mRandomEngine;
+    virtual ~Random() = 0;
 };

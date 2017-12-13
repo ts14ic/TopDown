@@ -42,7 +42,7 @@ set(SOURCE_FILES
         src/json/getValue.h src/json/getValue.cpp
         src/engine/Random.cpp src/engine/Random.h
         src/utils/demangle.cpp src/utils/demangle.h
-        src/engine/Engine.cpp src/engine/Engine.h src/engine/DefaultInputContext.cpp src/engine/DefaultInputContext.h)
+        src/engine/Engine.cpp src/engine/Engine.h src/engine/DefaultInputContext.cpp src/engine/DefaultInputContext.h src/random/Mt19937Random.h src/random/Mt19937Random.cpp)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
