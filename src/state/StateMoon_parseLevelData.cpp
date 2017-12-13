@@ -5,28 +5,10 @@
 #include "../object/WeaponBuilder.h"
 #include "../json/getValue.h"
 #include "../file/readFile.h"
-#include <rapidjson/error/en.h>
-#include <fstream>
-#include <sstream>
-
-StateMoon::FailedToParseLevelData::FailedToParseLevelData(const char* message)
-        : runtime_error(message) {}
-
-StateMoon::FailedToParseLevelData::FailedToParseLevelData(const std::string& message)
-        : runtime_error(message) {}
-
-rapidjson::Document readLevelDocument() {
-    std::string levelFile = readFile("data/levels/moon.json");
-    rapidjson::Document doc;
-    doc.Parse(levelFile.c_str());
-    return doc;
-}
+#include "../json/parseJson.h"
 
 void StateMoon::parseLevelData() {
-    auto doc = readLevelDocument();
-    if(doc.HasParseError()) {
-        throw FailedToParseLevelData{rapidjson::GetParseError_En(doc.GetParseError())};
-    }
+    auto doc = parseJson(readFile("data/levels/moon.json"));
 
     auto weaponsArray = getValue<rapidjson::Value::ConstArray>(doc, "/player/weapons");
 
