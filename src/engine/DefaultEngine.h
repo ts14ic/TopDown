@@ -48,9 +48,9 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
-    std::unique_ptr<Assets> mAssets;
     std::unique_ptr<GraphicContext> mRenderContext;
     std::unique_ptr<AudioContext> mAudioContext;
     std::unique_ptr<InputContext> mInputContext;
     std::unique_ptr<Random> mRandom;
+    std::unique_ptr<Assets> mAssets;
 };

@@ -7,7 +7,6 @@
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
 #include "../assets/Sound.h"
-#include <SDL_render.h>
 
 using std::vector;
 

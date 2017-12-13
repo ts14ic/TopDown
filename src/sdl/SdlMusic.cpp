@@ -4,6 +4,7 @@
 
 #include "SdlMusic.h"
 #include <SDL_mixer.h>
+#include <iostream>
 
 SdlMusic::SdlMusic() = default;
 
@@ -15,7 +16,6 @@ void SdlMusic::MixDeleter::operator()(Mix_Music* p) {
 
 SdlMusic::SdlMusic(std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> music)
         : mMusic{std::move(music)} {
-
 }
 
 bool SdlMusic::isLoaded() const {
