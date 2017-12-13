@@ -9,6 +9,8 @@
 
 class Texture;
 
+class SdlTexture;
+
 struct SDL_Renderer;
 struct SDL_Window;
 
@@ -35,10 +37,17 @@ public:
 
     int getScreenHeight() override;
 
+    SdlTexture loadTexture(const char* path);
+
     class FailedSDLInitException : public std::runtime_error {
     public:
         explicit FailedSDLInitException(const char* message)
                 : runtime_error(message) {}
+    };
+
+
+    struct FailedToLoadTextureException : public std::runtime_error {
+        explicit FailedToLoadTextureException(const char* message);
     };
 
 private:

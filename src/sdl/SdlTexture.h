@@ -7,18 +7,21 @@
 #include "../assets/Texture.h"
 #include <memory>
 
+class SDL_Texture;
 
 class SdlTexture : public Texture {
 public:
+    struct TextureDeleter {
+        void operator()(SDL_Texture* p);
+    };
+
     SdlTexture();
 
-    SdlTexture(RenderContext& engine, char const* path);
+    SdlTexture(std::unique_ptr<SDL_Texture, TextureDeleter> tex, int width, int height);
 
     SdlTexture(SdlTexture const&) = delete;
 
     SdlTexture(SdlTexture&&) noexcept;
-
-    void load(RenderContext& context, char const* path) override;
 
     bool isLoaded() const override;
 
@@ -26,20 +29,10 @@ public:
 
     int getHeight() const override;
 
-    SDL_Texture* getWrapped() const override;
-
-    struct FailedToLoadTextureException : public std::runtime_error {
-        explicit FailedToLoadTextureException(const char* message);
-    };
+    SDL_Texture* getWrappedTexture() const;
 
 private:
-    struct SDLTextureDeleter {
-        void operator()(SDL_Texture* p);
-    };
-
-private:
-
-    std::unique_ptr<SDL_Texture, SDLTextureDeleter> mTex;
+    std::unique_ptr<SDL_Texture, TextureDeleter> mTex;
     int mWidth = 0;
     int mHeight = 0;
 };

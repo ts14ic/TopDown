@@ -25,5 +25,5 @@ Sound& SdlAssets::sound(std::string const& name) {
 }
 
 void SdlAssets::loadTexture(std::string const& name, const char* path) {
-    getTexture(name).load(*mRenderContext, path);
+    mNameToTexture.insert(std::make_pair(name, std::move(mRenderContext->loadTexture(path))));
 }

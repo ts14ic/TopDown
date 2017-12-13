@@ -4,9 +4,9 @@
 
 #include "SdlRenderContext.h"
 #include "../assets/Assets.h"
-#include "../assets/Texture.h"
 #include "../shape/Box.h"
 #include "../shape/Color.h"
+#include "SdlTexture.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
@@ -85,14 +85,16 @@ void SdlRenderContext::clearScreen() {
 void SdlRenderContext::render(const Texture& texture, int x, int y) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopy(getRenderer(), texture.getWrapped(), nullptr, &destRect);
+        SDL_RenderCopy(getRenderer(), dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr, &destRect);
     }
 }
 
 void SdlRenderContext::render(Texture const& texture, int x, int y, float angle) {
     if(texture.isLoaded()) {
         SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopyEx(getRenderer(), texture.getWrapped(), nullptr, &destRect, angle, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(getRenderer(), dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr,
+                         &destRect,
+                         angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
@@ -113,6 +115,34 @@ void SdlRenderContext::renderBox(const Box& box, const Color& color) {
             static_cast<Uint8>(color.getAlpha())
     );
     SDL_RenderFillRect(getRenderer(), &rect);
+}
+
+SdlRenderContext::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
+        : runtime_error(message) {}
+
+SdlTexture SdlRenderContext::loadTexture(const char* path) {
+    struct SDLSurfaceDeleter {
+        void operator()(SDL_Surface* surf) {
+            SDL_FreeSurface(surf);
+        }
+    };
+
+    std::unique_ptr<SDL_Surface, SDLSurfaceDeleter> buf{IMG_Load(path)};
+    if(!buf) {
+        throw FailedToLoadTextureException{IMG_GetError()};
+    }
+
+    std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> newTex{
+            SDL_CreateTextureFromSurface(getRenderer(), buf.get())
+    };
+    if(!newTex) {
+        throw FailedToLoadTextureException{SDL_GetError()};
+    }
+
+    SdlTexture tex{std::move(newTex), buf->w, buf->h};
+    SDL_Log("SdlTexture loaded: %s.\n", path);
+
+    return tex;
 }
 
 void SdlRenderContext::SDLDeleter::operator()(SDL_Window* p) {
