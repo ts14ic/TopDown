@@ -6,6 +6,7 @@
 #include "../sdl/Sound.h"
 #include "../sdl/Music.h"
 #include "../json/getValue.h"
+#include "../file/readFile.h"
 #include <fstream>
 #include <sstream>
 
@@ -17,19 +18,8 @@ void DefaultEngine::loadMusic(const char* name, const char* filename) {
     mAssets->music(name).load(filename);
 }
 
-// todo extract these two common reading functions
-std::string readMediaFile() {
-    std::ifstream mediaFile{"data/common_media.json"};
-    if(!mediaFile) {
-        throw std::runtime_error{"Failed to open data/common_media.json"};
-    }
-    std::stringstream buffer;
-    buffer << mediaFile.rdbuf();
-    return buffer.str();
-}
-
 rapidjson::Document readMediaDocument() {
-    std::string mediaFile = readMediaFile();
+    std::string mediaFile = readFile("data/common_media.json");
     rapidjson::Document doc;
     doc.Parse(mediaFile);
     return doc;

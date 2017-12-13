@@ -4,6 +4,8 @@
 #include "StateMoon.h"
 #include "../object/WeaponBuilder.h"
 #include "../json/getValue.h"
+#include "../file/readFile.h"
+#include <rapidjson/error/en.h>
 #include <fstream>
 #include <sstream>
 
@@ -13,27 +15,18 @@ StateMoon::FailedToParseLevelData::FailedToParseLevelData(const char* message)
 StateMoon::FailedToParseLevelData::FailedToParseLevelData(const std::string& message)
         : runtime_error(message) {}
 
-std::string readLevelFile() {
-    std::ifstream levelFile{"data/levels/moon.json"};
-    if(!levelFile) {
-        throw StateMoon::FailedToParseLevelData{"Failed to open data/levels/moon.json"};
-    }
-    std::stringstream buffer;
-    buffer << levelFile.rdbuf();
-    return buffer.str();
-}
-
 rapidjson::Document readLevelDocument() {
-    std::string levelFile = readLevelFile();
+    std::string levelFile = readFile("data/levels/moon.json");
     rapidjson::Document doc;
     doc.Parse(levelFile.c_str());
     return doc;
 }
 
-// todo rename file to contain this method name
 void StateMoon::parseLevelData() {
-    // todo check for parse errors
     auto doc = readLevelDocument();
+    if(doc.HasParseError()) {
+        throw FailedToParseLevelData{rapidjson::GetParseError_En(doc.GetParseError())};
+    }
 
     auto weaponsArray = getValue<rapidjson::Value::ConstArray>(doc, "/player/weapons");
 

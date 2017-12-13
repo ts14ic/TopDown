@@ -51,7 +51,7 @@ set(SOURCE_FILES
         src/engine/ContextFactory.cpp src/engine/ContextFactory.h
         src/sdl/SdlContextFactory.cpp src/sdl/SdlContextFactory.h
         src/shape/Box.cpp src/shape/Box.h
-        src/shape/Color.cpp src/shape/Color.h)
+        src/shape/Color.cpp src/shape/Color.h src/file/readFile.cpp src/file/readFile.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
