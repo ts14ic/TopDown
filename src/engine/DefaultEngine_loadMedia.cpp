@@ -5,7 +5,7 @@
 #include "DefaultEngine.h"
 #include "../sdl/Sound.h"
 #include "../sdl/Music.h"
-#include "../sdl/Texture.h"
+#include "../assets/Texture.h"
 #include "../json/getValue.h"
 #include <fstream>
 #include <sstream>

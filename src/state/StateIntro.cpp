@@ -1,12 +1,13 @@
 #include "StateIntro.h"
 #include "../engine/Engine.h"
+#include "../assets/Assets.h"
 #include "../engine/InputContext.h"
 #include "../engine/RenderContext.h"
 #include <SDL_render.h>
 #include <SDL_events.h>
 
 StateIntro::StateIntro(Engine& engine)
-        : _background(engine.getRenderContext(), "assets/gfx/intro_bg.png") {}
+        : mBackgroundTexId{"assets/gfx/intro_bg.png"} {} /* todo prepare the assets */
 
 void StateIntro::handle_events(Engine& engine) {
     auto& input = engine.getInputContext();
@@ -43,7 +44,10 @@ void StateIntro::handle_events(Engine& engine) {
 void StateIntro::handle_logic(Engine& engine) {}
 
 void StateIntro::handle_render(Engine& engine) {
-    engine.getRenderContext().render(_background, 0, 0);
+    auto& render = engine.getRenderContext();
 
-    SDL_RenderPresent(engine.getRenderContext().getRenderer());
+    Texture& background = engine.getAssets().texture(mBackgroundTexId);
+    render.render(background, 0, 0);
+
+    SDL_RenderPresent(render.getRenderer());
 }

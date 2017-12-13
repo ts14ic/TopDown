@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "Assets.h"
-#include "../sdl/Texture.h"
-#include "../sdl/Music.h"
-#include "../sdl/Sound.h"
+#include "../assets/Assets.h"
+#include "SdlTexture.h"
+#include "Music.h"
+#include "Sound.h"
 #include <unordered_map>
 
 class SdlAssets : public Assets {
@@ -21,5 +21,5 @@ public:
 private:
     std::unordered_map<std::string, Music> mNameToMusic;
     std::unordered_map<std::string, Sound> mNameToSound;
-    std::unordered_map<std::string, Texture> mNameToTexture;
+    std::unordered_map<std::string, SdlTexture> mNameToTexture;
 };

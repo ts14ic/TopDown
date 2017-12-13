@@ -4,7 +4,7 @@
 #pragma once
 
 #include "../state/GameState.h"
-#include "../sdl/Texture.h"
+#include "../assets/Texture.h"
 #include "../object/Player.h"
 #include "../timer/StopWatch.h"
 
@@ -34,8 +34,7 @@ private:
     void parseLevelData();
 
 private:
-    // todo replace with text path
-    Texture _texBackground;
+    std::string _texBackground;
     int const _levelWidth;
     int const _levelHeight;
 

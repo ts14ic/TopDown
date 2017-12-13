@@ -4,7 +4,7 @@
 
 #include "DefaultRenderContext.h"
 #include "../assets/Assets.h"
-#include "../sdl/Texture.h"
+#include "../assets/Texture.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>

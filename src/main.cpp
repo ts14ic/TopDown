@@ -2,7 +2,7 @@
 #include "engine/DefaultInputContext.h"
 #include "random/Mt19937Random.h"
 #include "engine/DefaultRenderContext.h"
-#include "assets/SdlAssets.h"
+#include "sdl/SdlAssets.h"
 
 int main(int, char* []) {
     DefaultEngine{

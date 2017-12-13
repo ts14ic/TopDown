@@ -1,16 +1,21 @@
-#include "Texture.h"
+//
+// Created by ts14ic on 12/13/17.
+//
+
+#include "SdlTexture.h"
 #include "../engine/RenderContext.h"
 #include <SDL_image.h>
 
-Texture::FailedToLoadTextureException::FailedToLoadTextureException(const char* message) : runtime_error(message) {}
+SdlTexture::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
+        : runtime_error(message) {}
 
-Texture::Texture() = default;
+SdlTexture::SdlTexture() = default;
 
-Texture::Texture(RenderContext& engine, char const* path) {
+SdlTexture::SdlTexture(RenderContext& engine, char const* path) {
     load(engine, path);
 }
 
-void Texture::load(RenderContext& engine, char const* path) {
+void SdlTexture::load(RenderContext& engine, char const* path) {
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -27,21 +32,25 @@ void Texture::load(RenderContext& engine, char const* path) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 
-    SDL_Log("Texture loaded: %s.\n", path);
+    SDL_Log("SdlTexture loaded: %s.\n", path);
     mTex.reset(newTex);
     mWidth = buf->w;
     mHeight = buf->h;
 }
 
-bool Texture::isLoaded() const {
+bool SdlTexture::isLoaded() const {
     return mTex != nullptr;
 
 }
 
-SDL_Texture* Texture::getWrapped() const {
+SDL_Texture* SdlTexture::getWrapped() const {
     return mTex.get();
 }
 
-void Texture::SDLTextureDeleter::operator()(SDL_Texture* p) {
+int SdlTexture::getWidth() const { return mWidth; }
+
+int SdlTexture::getHeight() const { return mHeight; }
+
+void SdlTexture::SDLTextureDeleter::operator()(SDL_Texture* p) {
     SDL_DestroyTexture(p);
 }

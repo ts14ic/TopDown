@@ -16,7 +16,7 @@
 #include <iostream>
 
 StateMoon::StateMoon(Engine& engine)
-        : _texBackground(engine.getRenderContext(), "assets/gfx/test_bg.png"),
+        : _texBackground("assets/gfx/test_bg.png"), // todo prepare the assets
           _levelWidth(engine.getRenderContext().getScreenWidth()),
           _levelHeight(engine.getRenderContext().getScreenHeight()) {
     zombies().clear();
@@ -88,31 +88,31 @@ void StateMoon::handle_logic(Engine& engine) {
     // process bullet moving and collisions
     auto removeFrom = std::remove_if(bullets().begin(), bullets().end(),
                                      [screenWidth, screenHeight, &engine](Bullet& b) {
-        b.handle_logic();
+                                         b.handle_logic();
 
-        if((b.getX() > screenWidth) || (b.getX() < 0) ||
-           (b.getY() > screenHeight) || (b.getY() < 0)) {
-            return true;
-        }
+                                         if((b.getX() > screenWidth) || (b.getX() < 0) ||
+                                            (b.getY() > screenHeight) || (b.getY() < 0)) {
+                                             return true;
+                                         }
 
-        for(auto& z : zombies()) {
-            if(objectsCollide(b, z) && z.hp() > 0) {
-                z.damage(b.dmg());
-                return true;
-            }
-        }
-        for(auto& w : werewolves()) {
-            if(objectsCollide(b, w) && w.hp() > 0) {
-                w.damage(b.dmg());
-                return true;
-            }
-            if(getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
-                w.teleport(engine.getRandom());
-            }
-        }
+                                         for(auto& z : zombies()) {
+                                             if(objectsCollide(b, z) && z.hp() > 0) {
+                                                 z.damage(b.dmg());
+                                                 return true;
+                                             }
+                                         }
+                                         for(auto& w : werewolves()) {
+                                             if(objectsCollide(b, w) && w.hp() > 0) {
+                                                 w.damage(b.dmg());
+                                                 return true;
+                                             }
+                                             if(getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
+                                                 w.teleport(engine.getRandom());
+                                             }
+                                         }
 
-        return false;
-    });
+                                         return false;
+                                     });
     bullets().erase(removeFrom, bullets().end());
 
     zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this](Zombie& z) {
@@ -154,25 +154,26 @@ static void render_crosshair(Assets& assets, RenderContext& renderContext, Playe
 
 void StateMoon::handle_render(Engine& engine) {
     auto& render = engine.getRenderContext();
+    auto& assets = engine.getAssets();
 
     SDL_RenderClear(render.getRenderer());
 
-    engine.getAssets().music("weather").play();
+    assets.music("weather").play();
 
-    engine.getRenderContext().render(_texBackground, 0, 0);
+    render.render(assets.texture(_texBackground), 0, 0);
 
-    mPlayer.handle_render(engine.getAssets(), render);
+    mPlayer.handle_render(assets, render);
     for(auto& z : zombies()) {
-        z.handle_render(engine.getAssets(), render);
+        z.handle_render(assets, render);
     }
     for(auto& w : werewolves()) {
-        w.handle_render(engine.getAssets(), render);
+        w.handle_render(assets, render);
     }
     for(auto& b : bullets()) {
-        b.handle_render(engine.getAssets(), render);
+        b.handle_render(assets, render);
     }
 
-    render_crosshair(engine.getAssets(), render, mPlayer);
+    render_crosshair(assets, render, mPlayer);
 
     SDL_RenderPresent(render.getRenderer());
 }

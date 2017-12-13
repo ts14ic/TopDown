@@ -4,7 +4,8 @@
 #pragma once
 
 #include "../state/GameState.h"
-#include "../sdl/Texture.h"
+#include "../assets/Texture.h"
+#include <string>
 
 class Engine;
 
@@ -19,6 +20,6 @@ public:
     void handle_render(Engine& engine) override;
 
 private:
-    Texture _background;
+    std::string mBackgroundTexId;
 };
 

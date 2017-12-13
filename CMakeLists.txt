@@ -24,9 +24,9 @@ set(SOURCE_FILES
         src/state/GameState.h
         src/sdl/Sound.cpp src/sdl/Sound.h
         src/sdl/Music.cpp src/sdl/Music.h
-        src/sdl/Texture.cpp src/sdl/Texture.h
+        src/assets/Texture.cpp src/assets/Texture.h
         src/engine/RenderContext.cpp src/engine/RenderContext.h
-        src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h
+        src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
         src/engine/InputContext.cpp src/engine/InputContext.h
         src/object/GameObject.cpp src/object/GameObject.h
         src/object/Damageable.h src/object/Damageable.cpp
@@ -42,7 +42,12 @@ set(SOURCE_FILES
         src/json/getValue.h src/json/getValue.cpp
         src/engine/Random.cpp src/engine/Random.h
         src/utils/demangle.cpp src/utils/demangle.h
-        src/engine/Engine.cpp src/engine/Engine.h src/engine/DefaultInputContext.cpp src/engine/DefaultInputContext.h src/random/Mt19937Random.h src/random/Mt19937Random.cpp src/engine/DefaultRenderContext.cpp src/engine/DefaultRenderContext.h src/assets/SdlAssets.cpp src/assets/SdlAssets.h src/engine/DefaultEngine_loadMedia.cpp)
+        src/engine/Engine.cpp src/engine/Engine.h
+        src/engine/DefaultInputContext.cpp src/engine/DefaultInputContext.h
+        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
+        src/engine/DefaultRenderContext.cpp src/engine/DefaultRenderContext.h
+        src/sdl/SdlAssets.cpp src/sdl/SdlAssets.h
+        src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
