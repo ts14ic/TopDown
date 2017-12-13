@@ -20,7 +20,7 @@ set(SOURCE_FILES
         src/timer/StopWatch.cpp src/timer/StopWatch.h
         src/math/math.cpp src/math/math.h
         src/state/StateIntro.cpp src/state/StateIntro.h
-        src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_levelParsing.cpp
+        src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_parseLevelData.cpp
         src/state/GameState.h
         src/sdl/Sound.cpp src/sdl/Sound.h
         src/sdl/Music.cpp src/sdl/Music.h

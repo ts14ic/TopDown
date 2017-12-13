@@ -17,7 +17,7 @@
 #include <iostream>
 
 StateMoon::StateMoon(Engine& engine)
-        : mBackgroundTexId{"moon_background"}, // todo prepare the assets
+        : mBackgroundTexId{"moon_background"},
           _levelWidth(engine.getRenderContext().getScreenWidth()),
           _levelHeight(engine.getRenderContext().getScreenHeight()) {
 
