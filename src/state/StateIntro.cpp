@@ -1,6 +1,7 @@
 #include "StateIntro.h"
 #include "../engine/Engine.h"
 #include "../assets/Assets.h"
+#include "../assets/Texture.h"
 #include "../engine/InputContext.h"
 #include "../engine/RenderContext.h"
 #include <SDL_render.h>

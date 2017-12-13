@@ -4,7 +4,6 @@
 #pragma once
 
 #include "../state/GameState.h"
-#include "../assets/Texture.h"
 #include <string>
 
 class Engine;

@@ -4,6 +4,7 @@
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
+#include "../assets/Texture.h"
 #include "../engine/InputContext.h"
 #include "../engine/RenderContext.h"
 #include "../engine/Random.h"
