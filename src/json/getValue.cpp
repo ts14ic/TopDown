@@ -11,21 +11,6 @@
 #endif
 
 template <>
-bool isValueOfType<int>(const rapidjson::Value& value) {
-    return value.IsInt();
-}
-
-template <>
-bool isValueOfType<unsigned>(const rapidjson::Value& value) {
-    return value.IsUint();
-}
-
-template <>
-bool isValueOfType<const char*>(const rapidjson::Value& value) {
-    return value.IsString();
-}
-
-template <>
 bool isValueOfType<rapidjson::Value::ConstObject>(const rapidjson::Value& value) {
     return value.IsObject();
 }

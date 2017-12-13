@@ -7,16 +7,9 @@
 #include <rapidjson/pointer.h>
 
 template <typename T>
-bool isValueOfType(const rapidjson::Value& value);
-
-template <>
-bool isValueOfType<int>(const rapidjson::Value& value);
-
-template <>
-bool isValueOfType<unsigned>(const rapidjson::Value& value);
-
-template <>
-bool isValueOfType<const char*>(const rapidjson::Value& value);
+bool isValueOfType(const rapidjson::Value& value) {
+    return value.Is<T>();
+}
 
 template <>
 bool isValueOfType<rapidjson::Value::ConstObject>(const rapidjson::Value& value);
@@ -37,18 +30,18 @@ checkValue(const rapidjson::Value& root, const rapidjson::Pointer& pointer, cons
 const char* demangleTypeName(const char* typeName);
 
 template <class T>
-const rapidjson::Value* checkValueType(const rapidjson::Value* value, const char* pointerPath) {
+T checkValueType(const rapidjson::Value* value, const char* pointerPath) {
     if(!isValueOfType<T>(*value)) {
         throw JsonParseException{
                 std::string{"Value on "} + pointerPath + " is not of type " + demangleTypeName(typeid(T).name())};
     }
-    return value;
+    return value->Get<T>();
 }
 
 template <typename T>
 T getValue(const rapidjson::Value& root, const char* pointerPath) {
     auto pointer = checkPointer(pointerPath);
     auto value = checkValue(root, pointer, pointerPath);
-    return checkValueType<T>(value, pointerPath)->Get<T>();
+    return checkValueType<T>(value, pointerPath);
 }
 
