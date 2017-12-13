@@ -22,8 +22,8 @@ set(SOURCE_FILES
         src/state/StateIntro.cpp src/state/StateIntro.h
         src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_parseLevelData.cpp
         src/state/GameState.h
-        src/sdl/Sound.cpp src/sdl/Sound.h
-        src/sdl/Music.cpp src/sdl/Music.h
+        src/assets/Sound.cpp src/assets/Sound.h
+        src/assets/Music.cpp src/assets/Music.h
         src/assets/Texture.cpp src/assets/Texture.h
         src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
@@ -51,7 +51,12 @@ set(SOURCE_FILES
         src/engine/ContextFactory.cpp src/engine/ContextFactory.h
         src/sdl/SdlContextFactory.cpp src/sdl/SdlContextFactory.h
         src/shape/Box.cpp src/shape/Box.h
-        src/shape/Color.cpp src/shape/Color.h src/file/readFile.cpp src/file/readFile.h src/json/parseJson.cpp src/json/parseJson.h)
+        src/shape/Color.cpp src/shape/Color.h
+        src/file/readFile.cpp src/file/readFile.h
+        src/json/parseJson.cpp src/json/parseJson.h
+        src/engine/AudioContext.cpp src/engine/AudioContext.h
+        src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
+        src/sdl/SdlSound.cpp src/sdl/SdlSound.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

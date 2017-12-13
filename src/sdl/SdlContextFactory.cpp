@@ -4,6 +4,7 @@
 
 #include "SdlContextFactory.h"
 #include "SdlGraphicContext.h"
+#include "SdlAudioContext.h"
 #include "SdlInputContext.h"
 #include "SdlAssets.h"
 
@@ -17,4 +18,8 @@ std::unique_ptr<InputContext> SdlContextFactory::createInputContext() {
 
 std::unique_ptr<Assets> SdlContextFactory::createAssets() {
     return std::make_unique<SdlAssets>();
+}
+
+std::unique_ptr<AudioContext> SdlContextFactory::createAudioContext() {
+    return std::make_unique<SdlAudioContext>();
 }

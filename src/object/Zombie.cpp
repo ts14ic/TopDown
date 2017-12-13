@@ -3,7 +3,7 @@
 #include "../shape/Color.h"
 #include "../math/math.h"
 #include "../assets/Assets.h"
-#include "../sdl/Sound.h"
+#include "../assets/Sound.h"
 
 using std::vector;
 
@@ -83,13 +83,13 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(Assets& assets, GraphicContext& graphicContext) {
+void Zombie::handle_render(Assets& assets, GraphicContext& graphicContext, AudioContext& audioContext) {
     default_render(assets, graphicContext);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
 
     if(_state == ATTACKING) {
         if(_frame == 5) {
-            assets.sound("zombie_attack").play();
+            audioContext.playSound(assets.getSound("zombie_attack"));
         }
 
         if(_timer.ticksHavePassed(100)) {

@@ -6,7 +6,7 @@
 #include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
-#include "../sdl/Sound.h"
+#include "../assets/Sound.h"
 #include <SDL_render.h>
 
 using std::vector;
@@ -121,7 +121,7 @@ void Werewolf::teleport(Random& random) {
     }
 }
 
-void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext) {
+void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext, AudioContext& audioContext) {
     default_render(assets, graphicContext);
 
     if(_hp > 0) {
@@ -133,7 +133,7 @@ void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext) {
 
     if(_state == ATTACKING) {
         if(_frame == 3 || _frame == 7) {
-            assets.sound("wolf_attack").play();
+            audioContext.playSound(assets.getSound("wolf_attack"));
         }
 
         if(_timer.ticksHavePassed(100)) {
@@ -149,7 +149,9 @@ void Werewolf::handle_render(Assets& assets, GraphicContext& graphicContext) {
         }
     } else if(_state == TELEPORTING) {
         if(_timer.ticksHavePassed(100)) {
-            if(_frame == 2) assets.sound("wolf_teleport").play();
+            if(_frame == 2) {
+                audioContext.playSound(assets.getSound("wolf_teleport"));
+            }
 
             ++_frame;
             if(_frame > 2) _frame = 0;

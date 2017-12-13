@@ -17,6 +17,7 @@ DefaultEngine::DefaultEngine(
         std::unique_ptr<Random> random)
         : mAssets(std::move(contextFactory->createAssets())),
           mRenderContext{std::move(contextFactory->createRenderContext(800, 600))},
+          mAudioContext{std::move(contextFactory->createAudioContext())},
           mInputContext{std::move(contextFactory->createInputContext())},
           mRandom{std::move(random)} {
 

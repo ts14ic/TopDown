@@ -8,6 +8,8 @@
 
 class GraphicContext;
 
+class AudioContext;
+
 class InputContext;
 
 class Assets;
@@ -15,6 +17,8 @@ class Assets;
 class ContextFactory {
 public:
     virtual std::unique_ptr<GraphicContext> createRenderContext(int screenWidth, int screenHeight) = 0;
+
+    virtual std::unique_ptr<AudioContext> createAudioContext() = 0;
 
     virtual std::unique_ptr<InputContext> createInputContext() = 0;
 

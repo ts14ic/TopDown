@@ -6,7 +6,7 @@
 #include "WeaponBuilder.h"
 #include "Bullet.h"
 #include "../assets/Assets.h"
-#include "../sdl/Sound.h"
+#include "../assets/Sound.h"
 
 Weapon::Weapon(const WeaponBuilder& builder)
         : mName{builder.getName()},
@@ -28,13 +28,13 @@ void Weapon::startReloading() {
     mIsReloading = true;
 }
 
-void Weapon::playFireSound(Assets& assets) {
+void Weapon::playFireSound(Assets& assets, AudioContext& audioContext) {
     if(!mFireSounds.empty()) {
         if(mCurrentFireSound >= mFireSounds.size()) {
             mCurrentFireSound = 0;
         }
 
-        assets.sound(mFireSounds[mCurrentFireSound]).play();
+        audioContext.playSound(assets.getSound(mFireSounds[mCurrentFireSound]));
         mCurrentFireSound++;
     }
 }
@@ -46,11 +46,11 @@ void Weapon::spawnBullets(Random& random, GameObject const& shooter) {
     }
 }
 
-void Weapon::pullTrigger(Random& random, Assets& assets, GameObject const& shooter) {
+void Weapon::pullTrigger(Random& random, Assets& assets, AudioContext& audioContext, GameObject const& shooter) {
     if(mFireCooldownTimer.ticksHavePassed(mFireCooldown) && mCurrentAmmo > 0) {
         spawnBullets(random, shooter);
 
-        playFireSound(assets);
+        playFireSound(assets, audioContext);
 
         --mCurrentAmmo;
         if(mCurrentAmmo < 1) {

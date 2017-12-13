@@ -10,6 +10,8 @@ class InputContext;
 
 class GraphicContext;
 
+class AudioContext;
+
 class Assets;
 
 class Random;
@@ -23,6 +25,8 @@ public:
     virtual InputContext& getInputContext() = 0;
 
     virtual GraphicContext& getRenderContext() = 0;
+
+    virtual AudioContext& getAudioContext() = 0;
 
     virtual Assets& getAssets() = 0;
 

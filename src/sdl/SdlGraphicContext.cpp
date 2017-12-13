@@ -59,6 +59,7 @@ void SdlGraphicContext::init() {
 }
 
 SdlGraphicContext::~SdlGraphicContext() {
+    IMG_Quit();
     SDL_Quit();
 }
 

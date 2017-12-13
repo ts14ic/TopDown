@@ -5,6 +5,7 @@
 
 #include "Damageable.h"
 #include "../timer/StopWatch.h"
+#include "../engine/AudioContext.h"
 #include <vector>
 
 class GraphicContext;
@@ -52,7 +53,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Assets& assets, GraphicContext& graphicContext);
+    void handle_render(Assets& assets, GraphicContext& graphicContext, AudioContext& audioContext);
 
 private:
     float _x, _y;

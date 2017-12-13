@@ -3,14 +3,13 @@
 //
 
 #include "DefaultEngine.h"
-#include "../sdl/Sound.h"
-#include "../sdl/Music.h"
+#include "../assets/Music.h"
 #include "../file/readFile.h"
 #include "../json/getValue.h"
 #include "../json/parseJson.h"
 
 void DefaultEngine::loadSound(const char* name, const char* filename) {
-    mAssets->sound(name).load(filename);
+    mAssets->loadSound(name, filename);
 }
 
 void DefaultEngine::loadMusic(const char* name, const char* filename) {
@@ -35,4 +34,8 @@ void DefaultEngine::loadMedia() {
     for(const auto& entry : musicMap) {
         loadMusic(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
     }
+}
+
+AudioContext& DefaultEngine::getAudioContext() {
+    return *mAudioContext;
 }

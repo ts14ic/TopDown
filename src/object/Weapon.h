@@ -4,6 +4,7 @@
 #pragma once
 
 #include "../timer/StopWatch.h"
+#include "../engine/AudioContext.h"
 #include <vector>
 #include <string>
 
@@ -19,7 +20,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pullTrigger(Random& random, Assets& assets, GameObject const& shooter);
+    void pullTrigger(Random& random, Assets& assets, AudioContext& audioContext, GameObject const& shooter);
 
     void tryReload();
 
@@ -38,7 +39,7 @@ public:
 private:
     void startReloading();
 
-    void playFireSound(Assets& assets);
+    void playFireSound(Assets& assets, AudioContext& audioContext);
 
     void spawnBullets(Random& random, GameObject const& shooter);
 

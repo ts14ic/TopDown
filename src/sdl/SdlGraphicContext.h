@@ -42,7 +42,6 @@ public:
                 : runtime_error(message) {}
     };
 
-
     struct FailedToLoadTextureException : public std::runtime_error {
         explicit FailedToLoadTextureException(const char* message);
     };

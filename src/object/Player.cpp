@@ -188,7 +188,7 @@ void Player::handle_events(InputContext& input) {
     }
 }
 
-void Player::handle_logic(Random& random, Assets& assets) {
+void Player::handle_logic(Random& random, Assets& assets, AudioContext& audioContext) {
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     _angle = toCartesian(::getAngle(mX, mY, mx, my));
@@ -216,7 +216,7 @@ void Player::handle_logic(Random& random, Assets& assets) {
         // todo don't try to reload on every frame
         mWeapons[mSelectedWeaponIdx].tryReload();
         if(mInputState.test(TRIGGER_PRESSED)) {
-            mWeapons[mSelectedWeaponIdx].pullTrigger(random, assets, *this);
+            mWeapons[mSelectedWeaponIdx].pullTrigger(random, assets, audioContext, *this);
         }
     }
 }

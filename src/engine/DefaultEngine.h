@@ -10,6 +10,7 @@
 #include "../assets/Assets.h"
 #include "GraphicContext.h"
 #include "InputContext.h"
+#include "AudioContext.h"
 #include "Random.h"
 #include <memory>
 
@@ -29,6 +30,8 @@ public:
     InputContext& getInputContext() override;
 
     GraphicContext& getRenderContext() override;
+
+    AudioContext& getAudioContext() override;
 
     Assets& getAssets() override;
 
@@ -51,6 +54,7 @@ private:
 
     std::unique_ptr<Assets> mAssets;
     std::unique_ptr<GraphicContext> mRenderContext;
+    std::unique_ptr<AudioContext> mAudioContext;
     std::unique_ptr<InputContext> mInputContext;
     std::unique_ptr<Random> mRandom;
 };

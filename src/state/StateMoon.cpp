@@ -9,7 +9,7 @@
 #include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
-#include "../sdl/Music.h"
+#include "../assets/Music.h"
 #include <SDL_render.h>
 #include <SDL_events.h>
 #include <algorithm>
@@ -84,7 +84,7 @@ void StateMoon::handle_logic(Engine& engine) {
         _mobSpawner.restart();
     }
 
-    mPlayer.handle_logic(engine.getRandom(), engine.getAssets());
+    mPlayer.handle_logic(engine.getRandom(), engine.getAssets(), engine.getAudioContext());
 
     int screenWidth = engine.getRenderContext().getScreenWidth();
     int screenHeight = engine.getRenderContext().getScreenHeight();
@@ -167,10 +167,10 @@ void StateMoon::handle_render(Engine& engine) {
 
     mPlayer.handle_render(assets, render);
     for(auto& z : zombies()) {
-        z.handle_render(assets, render);
+        z.handle_render(assets, render, engine.getAudioContext());
     }
     for(auto& w : werewolves()) {
-        w.handle_render(assets, render);
+        w.handle_render(assets, render, engine.getAudioContext());
     }
     for(auto& b : bullets()) {
         b.handle_render(assets, render);
