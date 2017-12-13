@@ -12,14 +12,16 @@ constexpr int FRAMES_PER_SECOND = 60;
 constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 DefaultEngine::DefaultEngine(
-        Assets& assets,
+        std::unique_ptr<Assets> assets,
         std::unique_ptr<RenderContext> renderContext,
         std::unique_ptr<InputContext> inputContext,
         std::unique_ptr<Random> random)
-        : mAssets(assets),
+        : mAssets(std::move(assets)),
           mRenderContext{std::move(renderContext)},
           mInputContext{std::move(inputContext)},
-          mRandom{std::move(random)} {}
+          mRandom{std::move(random)} {
+    mRenderContext->load_media(getAssets());
+}
 
 void DefaultEngine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(*this);
@@ -78,7 +80,7 @@ RenderContext& DefaultEngine::getRenderContext() {
 }
 
 Assets& DefaultEngine::getAssets() {
-    return mAssets;
+    return *mAssets;
 }
 
 Random& DefaultEngine::getRandom() {

@@ -4,6 +4,7 @@
 #include "../engine/RenderContext.h"
 #include "../engine/Random.h"
 #include "../assets/Assets.h"
+#include "../sound/Sound.h"
 #include <SDL_render.h>
 
 using std::vector;

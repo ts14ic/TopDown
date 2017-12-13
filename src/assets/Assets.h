@@ -4,21 +4,21 @@
 
 #pragma once
 
-#include "../texture/Texture.h"
-#include "../sound/Music.h"
-#include "../sound/Sound.h"
-#include <unordered_map>
+#include <iosfwd>
+
+class Texture;
+
+class Sound;
+
+class Music;
 
 class Assets {
 public:
-    Texture& texture(std::string const& name);
+    virtual Texture& texture(std::string const& name) = 0;
 
-    Music& music(std::string const& name);
+    virtual Music& music(std::string const& name) = 0;
 
-    Sound& sound(std::string const& name);
+    virtual Sound& sound(std::string const& name) = 0;
 
-private:
-    std::unordered_map<std::string, Music> mNameToMusic;
-    std::unordered_map<std::string, Sound> mNameToSound;
-    std::unordered_map<std::string, Texture> mNameToTexture;
+    virtual ~Assets() = 0;
 };

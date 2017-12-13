@@ -2,6 +2,7 @@
 #include "../shape/Circle.h"
 #include "../math/math.h"
 #include "../assets/Assets.h"
+#include "../sound/Sound.h"
 #include <SDL_pixels.h>
 
 using std::vector;

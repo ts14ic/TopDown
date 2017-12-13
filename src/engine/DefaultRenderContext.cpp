@@ -4,14 +4,16 @@
 
 #include "DefaultRenderContext.h"
 #include "../assets/Assets.h"
+#include "../texture/Texture.h"
+#include "../sound/Sound.h"
+#include "../sound/Music.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 
-DefaultRenderContext::DefaultRenderContext(Assets& assets, int screenWidth, int screenHeight)
+DefaultRenderContext::DefaultRenderContext(int screenWidth, int screenHeight)
         : mScreenWidth(screenWidth), mScreenHeight(screenHeight) {
     init();
-    load_media(assets);
 }
 
 void DefaultRenderContext::init() {

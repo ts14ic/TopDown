@@ -18,7 +18,7 @@ struct SDL_Window;
 
 class DefaultRenderContext : public RenderContext {
 public:
-    DefaultRenderContext(Assets& assets, int screenWidth, int screenHeight);
+    DefaultRenderContext(int screenWidth, int screenHeight);
 
     ~DefaultRenderContext() override;
 

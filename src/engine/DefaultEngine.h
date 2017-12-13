@@ -5,18 +5,18 @@
 
 #include "Engine.h"
 #include "GState.h"
+#include "../state/GameState.h"
+#include "../timer/StopWatch.h"
+#include "../assets/Assets.h"
 #include "RenderContext.h"
 #include "InputContext.h"
 #include "Random.h"
-#include "../assets/Assets.h"
-#include "../state/GameState.h"
-#include "../timer/StopWatch.h"
 #include <memory>
 
 class DefaultEngine : public Engine {
 public:
     DefaultEngine(
-            Assets& assets,
+            std::unique_ptr<Assets> assets,
             std::unique_ptr<RenderContext> renderContext,
             std::unique_ptr<InputContext> inputContext,
             std::unique_ptr<Random> random
@@ -43,7 +43,7 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
-    Assets& mAssets;
+    std::unique_ptr<Assets> mAssets;
     std::unique_ptr<RenderContext> mRenderContext;
     std::unique_ptr<InputContext> mInputContext;
     std::unique_ptr<Random> mRandom;
