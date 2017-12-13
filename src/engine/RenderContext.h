@@ -1,6 +1,8 @@
-#pragma once
+//
+// Created by ts14ic on 12/2/17.
+//
 
-#include <memory>
+#pragma once
 
 // forward declarations begin
 class Assets;
@@ -9,44 +11,20 @@ struct SDL_Renderer;
 struct SDL_Window;
 // forward declarations end
 
+
 class RenderContext {
 public:
-    RenderContext(Assets& assets, int screenWidth, int screenHeight);
+    virtual ~RenderContext() = 0;
 
-    ~RenderContext();
+    virtual SDL_Renderer* getRenderer() = 0;
 
-    SDL_Renderer* getRenderer();
+    virtual void load_media(Assets& assets) = 0;
 
-    void load_media(Assets& assets);
+    virtual void render(Texture const& texture, int x, int y) = 0;
 
-    void render(Texture const& texture, int x, int y);
+    virtual void render(Texture const& texture, int x, int y, float angle) = 0;
 
-    void render(Texture const& texture, int x, int y, float angle);
+    virtual int getScreenWidth() = 0;
 
-    int getScreenWidth();
-
-    int getScreenHeight();
-
-    class FailedSDLInitException : public std::runtime_error {
-    public:
-        explicit FailedSDLInitException(const char* message) : runtime_error(message) {}
-    };
-
-private:
-    void init();
-
-    void load_texture(Assets& assets, const char* name, const char* filename);
-
-private:
-    struct SDLDeleter {
-        void operator()(SDL_Window* p);
-
-        void operator()(SDL_Renderer* p);
-    };
-
-    int mScreenWidth;
-    int mScreenHeight;
-    std::unique_ptr<SDL_Window, SDLDeleter> mWindow;
-    std::unique_ptr<SDL_Renderer, SDLDeleter> mRenderer;
+    virtual int getScreenHeight() = 0;
 };
-

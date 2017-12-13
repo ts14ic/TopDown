@@ -11,8 +11,13 @@ constexpr int MS_ONE_SECOND = 1000;
 constexpr int FRAMES_PER_SECOND = 60;
 constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
-DefaultEngine::DefaultEngine(std::unique_ptr<InputContext> inputContext, std::unique_ptr<Random> random)
-        : mRenderSystem{mAssets, 800, 600},
+DefaultEngine::DefaultEngine(
+        Assets& assets,
+        std::unique_ptr<RenderContext> renderContext,
+        std::unique_ptr<InputContext> inputContext,
+        std::unique_ptr<Random> random)
+        : mAssets(assets),
+          mRenderContext{std::move(renderContext)},
           mInputContext{std::move(inputContext)},
           mRandom{std::move(random)} {}
 
@@ -69,7 +74,7 @@ InputContext& DefaultEngine::getInputContext() {
 }
 
 RenderContext& DefaultEngine::getRenderContext() {
-    return mRenderSystem;
+    return *mRenderContext;
 }
 
 Assets& DefaultEngine::getAssets() {

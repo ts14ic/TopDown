@@ -5,9 +5,9 @@
 
 #include "Engine.h"
 #include "GState.h"
+#include "RenderContext.h"
 #include "InputContext.h"
 #include "Random.h"
-#include "RenderContext.h"
 #include "../assets/Assets.h"
 #include "../state/GameState.h"
 #include "../timer/StopWatch.h"
@@ -15,7 +15,12 @@
 
 class DefaultEngine : public Engine {
 public:
-    explicit DefaultEngine(std::unique_ptr<InputContext> inputContext, std::unique_ptr<Random> random);
+    DefaultEngine(
+            Assets& assets,
+            std::unique_ptr<RenderContext> renderContext,
+            std::unique_ptr<InputContext> inputContext,
+            std::unique_ptr<Random> random
+    );
 
     void runLoop() override;
 
@@ -38,8 +43,8 @@ private:
     std::unique_ptr<GameState> mCurrentState;
     StopWatch mFpsWatch;
 
-    Assets mAssets;
-    RenderContext mRenderSystem;
+    Assets& mAssets;
+    std::unique_ptr<RenderContext> mRenderContext;
     std::unique_ptr<InputContext> mInputContext;
     std::unique_ptr<Random> mRandom;
 };
