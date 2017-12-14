@@ -7,7 +7,6 @@
 #include "../json/getValue.h"
 #include "../json/parseJson.h"
 
-// todo use abstract asset classes
 void DefaultEngine::loadResources() {
     auto doc = parseJson(readFile("data/common_media.json"));
 

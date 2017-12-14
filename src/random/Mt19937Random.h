@@ -11,15 +11,15 @@ class Mt19937Random : public Random {
 public:
     Mt19937Random();
 
-    int getInt() override;
+    int getInt() const override;
 
-    int getInt(int min, int max) override;
+    int getInt(int min, int max) const override;
 
-    float getFloat() override;
+    float getFloat() const override;
 
-    float getFloat(float min, float max) override;
+    float getFloat(float min, float max) const override;
 
 private:
-    std::mt19937 mRandomEngine;
+    mutable std::mt19937 mRandomEngine;
 };
 

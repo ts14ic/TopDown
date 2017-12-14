@@ -5,13 +5,13 @@
 
 class Random {
 public:
-    virtual int getInt() = 0;
+    virtual int getInt() const = 0;
 
-    virtual int getInt(int min, int max) = 0;
+    virtual int getInt(int min, int max) const = 0;
 
-    virtual float getFloat() = 0;
+    virtual float getFloat() const = 0;
 
-    virtual float getFloat(float min, float max) = 0;
+    virtual float getFloat(float min, float max) const = 0;
 
     virtual ~Random() = 0;
 };
