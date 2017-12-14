@@ -39,7 +39,6 @@ void SdlGraphicContext::render(Texture const& texture, int x, int y, float angle
 
 void SdlGraphicContext::renderBox(const Box& box, const Color& color) {
     SDL_Rect rect{
-            // todo add inferring getters for Box
             static_cast<int>(box.getX()),
             static_cast<int>(box.getY()),
             static_cast<int>(box.getWidth()),
@@ -47,7 +46,6 @@ void SdlGraphicContext::renderBox(const Box& box, const Color& color) {
     };
     SDL_SetRenderDrawColor(
             mRenderer,
-            // todo add inferring getters for Color
             static_cast<Uint8>(color.getRed()),
             static_cast<Uint8>(color.getGreen()),
             static_cast<Uint8>(color.getBlue()),

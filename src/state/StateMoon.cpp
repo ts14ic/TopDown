@@ -88,7 +88,6 @@ void StateMoon::handle_logic(Engine& engine) {
     mPlayer.handle_logic(engine.getRandom(), engine.getResources(), engine.getAudioContext());
 
     const auto& clock = engine.getClock();
-    // todo random should be logically const
     auto& random = engine.getRandom();
 
     int maxWidth = _levelWidth;

@@ -12,17 +12,17 @@ public:
 
     int getRed() const;
 
-    void setRed(int red);
-
     int getGreen() const;
-
-    void setGreen(int green);
 
     int getBlue() const;
 
-    void setBlue(int blue);
-
     int getAlpha() const;
+
+    void setRed(int red);
+
+    void setGreen(int green);
+
+    void setBlue(int blue);
 
     void setAlpha(int alpha);
 

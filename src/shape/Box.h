@@ -12,19 +12,19 @@ public:
 
     float getX() const;
 
-    void setX(float x);
-
     float getY() const;
+
+    float getWidth() const;
+
+    float getHeight() const;
+
+    void setX(float x);
 
     void setY(float y);
 
     void setPosition(float x, float y);
 
-    float getWidth() const;
-
     void setWidth(float width);
-
-    float getHeight() const;
 
     void setHeight(float height);
 
