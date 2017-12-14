@@ -6,8 +6,9 @@
 #include "Engine.h"
 #include "GState.h"
 #include "../state/GameState.h"
-#include "../timer/StopWatch.h"
 #include "../resources/Resources.h"
+#include "Timer.h"
+#include "Clock.h"
 #include "GraphicContext.h"
 #include "InputContext.h"
 #include "AudioContext.h"
@@ -30,21 +31,23 @@ public:
 
     InputContext& getInputContext() override;
 
-    void setInputContext(std::unique_ptr<InputContext> inputContext) override;
-
     GraphicContext& getGraphicContext() override;
-
-    void setGraphicContext(std::unique_ptr<GraphicContext> graphicContext) override;
 
     AudioContext& getAudioContext() override;
 
-    void setAudioContext(std::unique_ptr<AudioContext> audioContext) override;
-
     Resources& getResources() override;
 
-    void setResources(std::unique_ptr<Resources> resources) override;
-
     Random& getRandom() override;
+
+    const Clock& getClock() override;
+
+    void setInputContext(std::unique_ptr<InputContext> inputContext) override;
+
+    void setGraphicContext(std::unique_ptr<GraphicContext> graphicContext) override;
+
+    void setAudioContext(std::unique_ptr<AudioContext> audioContext) override;
+
+    void setResources(std::unique_ptr<Resources> resources) override;
 
 private:
     void changeState();
@@ -56,7 +59,7 @@ private:
     GState mCurrentStateId = GState::null;
     GState mNextStateId = GState::null;
     std::unique_ptr<GameState> mCurrentState;
-    StopWatch mFpsWatch;
+    Timer mLoopTimer;
 
     std::unique_ptr<Resources> mResources;
     std::unique_ptr<GraphicContext> mGraphicContext;

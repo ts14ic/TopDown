@@ -5,7 +5,7 @@
 
 #include "../state/GameState.h"
 #include "../object/Player.h"
-#include "../timer/StopWatch.h"
+#include "../engine/Timer.h"
 
 class Engine;
 
@@ -32,5 +32,5 @@ private:
     int const _levelHeight;
 
     Player mPlayer;
-    StopWatch _mobSpawner;
+    Timer mEnemySpawnCooldown;
 };

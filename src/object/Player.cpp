@@ -2,19 +2,18 @@
 #include "../shape/Circle.h"
 #include "../shape/Color.h"
 #include "../math/math.h"
+#include "../resources/Resources.h"
 #include "../engine/InputContext.h"
 #include <SDL_events.h>
 #include <sstream>
 #include <iostream>
 
 Player::Player()
-        : Player(0, 0) {}
+        : Player{0, 0} {}
 
 Player::Player(int x, int y)
         : mX(x), mY(y) {
     _hp = Player::defaultHp();
-
-    _dmgCd.restart();
 }
 
 void Player::setPos(float x, float y) {
@@ -60,10 +59,10 @@ bool Player::dead() const {
     return _hp <= 0;
 }
 
-void Player::damage(int v) {
-    if(v > 0 && _dmgCd.ticksHavePassed(500)) {
-        _hp -= v;
-        _dmgCd.restart();
+void Player::damage(const Clock& clock, int damageAmount) {
+    if(damageAmount > 0 && mDamageCooldown.haveTicksPassedSinceStart(clock, 500)) {
+        _hp -= damageAmount;
+        mDamageCooldown.restart(clock);
     }
 }
 
@@ -193,7 +192,7 @@ void Player::handle_logic(Random& random, Resources& resources, AudioContext& au
     SDL_GetMouseState(&mx, &my);
     _angle = toCartesian(::getAngle(mX, mY, mx, my));
 
-    if(_dmgCd.ticksHavePassed(500)) {
+    if(mDamageCooldown.haveTicksPassedSinceStart(resources.getClock(), 500)) {
         _speed = 2.3f;
     } else {
         _speed = 1.0f;
@@ -214,7 +213,7 @@ void Player::handle_logic(Random& random, Resources& resources, AudioContext& au
 
     if(!mWeapons.empty()) {
         // todo don't try to reload on every frame
-        mWeapons[mSelectedWeaponIdx].tryReload();
+        mWeapons[mSelectedWeaponIdx].tryReload(resources.getClock());
         if(mInputState.test(TRIGGER_PRESSED)) {
             mWeapons[mSelectedWeaponIdx].pullTrigger(random, resources, audioContext, *this);
         }

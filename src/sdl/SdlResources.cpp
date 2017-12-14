@@ -166,6 +166,10 @@ SDL_Renderer* SdlResources::getRenderer() const {
     return mRenderer.get();
 }
 
+const Clock& SdlResources::getClock() {
+    return *this;
+}
+
 void SdlResources::SdlDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
 }

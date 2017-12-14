@@ -13,9 +13,6 @@ using std::vector;
 Werewolf::Werewolf(float x, float y)
         : _x{x}, _y{y} {
     _hp = Werewolf::defaultHp();
-
-    _timer.restart();
-    _teleportCd.restart();
 }
 
 // GameObject legacy
@@ -63,7 +60,7 @@ std::string Werewolf::getTexName() const {
     return name;
 }
 
-void Werewolf::damage(int d) {
+void Werewolf::damage(const Clock& clock, int d) {
     if(_state == TELEPORTING) d /= 2;
 
     if(d > 0) _hp -= d;
@@ -73,11 +70,11 @@ void Werewolf::damage(int d) {
     }
 }
 
-void Werewolf::set_target(float x, float y, bool ignore) {
+void Werewolf::set_target(const Clock& clock, float x, float y, bool ignore) {
     if(ignore || _state == DYING) return;
 
     if(_state == TELEPORTING) {
-        if(!_teleportCd.ticksHavePassed(500)) return;
+        if(!mTeleportCooldown.haveTicksPassedSinceStart(clock, 500)) return;
     }
 
     _angle = toCartesian(::getAngle(_x, _y, x, y));
@@ -94,29 +91,29 @@ void Werewolf::set_target(float x, float y, bool ignore) {
     }
 }
 
-void Werewolf::handle_logic() {
+void Werewolf::handle_logic(const Clock& clock) {
     if(_state == DYING) return;
 
     if(_state == MOVING) {
         default_move();
     } else if(_state == ATTACKING) {
-        if(_timer.ticksHavePassed(600)) {
-            _timer.restart();
+        if(mAttackCooldown.haveTicksPassedSinceStart(clock, 600)) {
+            mAttackCooldown.restart(clock);
             _state = MOVING;
             _frame = 0;
         }
     }
 }
 
-void Werewolf::teleport(Random& random) {
+void Werewolf::teleport(const Clock& clock, Random& random) {
     if(_state == DYING) return;
 
-    if(_state != TELEPORTING && _teleportCd.ticksHavePassed(1000)) {
+    if(_state != TELEPORTING && mTeleportCooldown.haveTicksPassedSinceStart(clock, 1000)) {
         _x += random.getInt(-150, 150);
         _y += random.getInt(-150, 150);
         _state = TELEPORTING;
         _frame = 0;
-        _teleportCd.restart();
+        mTeleportCooldown.restart(clock);
     }
 }
 
@@ -130,36 +127,38 @@ void Werewolf::handle_render(Resources& resources, GraphicContext& graphicContex
         graphicContext.renderBox(healthBox, Color{0x55, 0, 0x33});
     }
 
+    const auto& clock = resources.getClock();
+    // todo Wow, wow, wow. Fix all the repetition
     if(_state == ATTACKING) {
         if(_frame == 3 || _frame == 7) {
             audioContext.playSound(resources.getSound("wolf_attack"));
         }
 
-        if(_timer.ticksHavePassed(100)) {
+        if(mAttackCooldown.haveTicksPassedSinceStart(clock, 100)) {
             ++_frame;
             if(_frame >= 8) _frame = 0;
-            _timer.restart();
+            mAttackCooldown.restart(clock);
         }
     } else if(_state == MOVING) {
-        if(_timer.ticksHavePassed(100)) {
+        if(mAttackCooldown.haveTicksPassedSinceStart(clock, 100)) {
             ++_frame;
             if(_frame >= 6) _frame = 0;
-            _timer.restart();
+            mAttackCooldown.restart(clock);
         }
     } else if(_state == TELEPORTING) {
-        if(_timer.ticksHavePassed(100)) {
+        if(mAttackCooldown.haveTicksPassedSinceStart(clock, 100)) {
             if(_frame == 2) {
                 audioContext.playSound(resources.getSound("wolf_teleport"));
             }
 
             ++_frame;
             if(_frame > 2) _frame = 0;
-            _timer.restart();
+            mAttackCooldown.restart(clock);
         }
     } else if(_state == DYING) {
-        if(_frame < 2 && _timer.ticksHavePassed(500)) {
+        if(_frame < 2 && mAttackCooldown.haveTicksPassedSinceStart(clock, 500)) {
             ++_frame;
-            _timer.restart();
+            mAttackCooldown.restart(clock);
         }
     }
 }

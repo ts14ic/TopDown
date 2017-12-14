@@ -8,8 +8,7 @@
 using std::vector;
 
 Zombie::Zombie(int x, int y)
-: _x(x), _y(y)
-{
+        : _x(x), _y(y) {
     _hp = Zombie::defaultHp();
 }
 
@@ -32,7 +31,9 @@ void Zombie::setSpeed(float s) { _speed = s; }
 Circle Zombie::getCircle() const { return {_x, _y, 25}; }
 
 int Zombie::hp() const { return _hp; }
+
 int Zombie::defaultHp() const { return 50; }
+
 int Zombie::dmg() const { if(_state == ATTACKING && _frame == 5) return 15; else return 0; }
 
 std::string Zombie::getTexName() const {
@@ -49,7 +50,7 @@ std::string Zombie::getTexName() const {
     return name;
 }
 
-void Zombie::damage(int d) {
+void Zombie::damage(const Clock& clock, int d) {
     if(d > 0) _hp -= d;
 
     if(_hp <= 0 && _state != DYING) {
@@ -87,20 +88,21 @@ void Zombie::handle_render(Resources& resources, GraphicContext& graphicContext,
     default_render(resources, graphicContext);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
 
+    const auto& clock = resources.getClock();
     if(_state == ATTACKING) {
         if(_frame == 5) {
             audioContext.playSound(resources.getSound("zombie_attack"));
         }
 
-        if(_timer.ticksHavePassed(100)) {
+        if(mTimer.haveTicksPassedSinceStart(clock, 100)) {
             ++_frame;
             if(_frame >= 6) _frame = 0;
-            _timer.restart();
+            mTimer.restart(clock);
         }
     } else if(_state == DYING) {
-        if(_frame < 7 && _timer.ticksHavePassed(500)) {
+        if(_frame < 7 && mTimer.haveTicksPassedSinceStart(clock, 500)) {
             ++_frame;
-            _timer.restart();
+            mTimer.restart(clock);
         }
     }
 }

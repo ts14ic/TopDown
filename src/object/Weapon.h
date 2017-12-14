@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../timer/StopWatch.h"
+#include "../engine/Timer.h"
 #include "../engine/AudioContext.h"
 #include <vector>
 #include <string>
@@ -22,7 +22,7 @@ public:
 
     void pullTrigger(Random& random, Resources& resources, AudioContext& audioContext, GameObject const& shooter);
 
-    void tryReload();
+    void tryReload(const Clock& clock);
 
     bool isReloading() const;
 
@@ -37,15 +37,15 @@ public:
     float getProjectileSpread() const;
 
 private:
-    void startReloading();
+    void startReloading(const Clock& clock);
 
     void playFireSound(Resources& resources, AudioContext& audioContext);
 
     void spawnBullets(Random& random, GameObject const& shooter);
 
 private:
-    StopWatch mFireCooldownTimer;
-    StopWatch mReloadCooldownTimer;
+    Timer mFireCooldownTimer;
+    Timer mReloadCooldownTimer;
     bool mIsReloading = false;
 
     std::string mName;

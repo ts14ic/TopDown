@@ -17,7 +17,6 @@ include_directories(${SDL2_INCLUDE_DIR}
 
 set(SOURCE_FILES
         src/main.cpp
-        src/timer/StopWatch.cpp src/timer/StopWatch.h
         src/math/math.cpp src/math/math.h
         src/state/StateIntro.cpp src/state/StateIntro.h
         src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_parseLevelData.cpp
@@ -57,7 +56,10 @@ set(SOURCE_FILES
         src/engine/AudioContext.cpp src/engine/AudioContext.h
         src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
         src/sdl/SdlSound.cpp src/sdl/SdlSound.h
-        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h)
+        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
+        src/engine/Timer.cpp src/engine/Timer.h
+        src/engine/Clock.cpp src/engine/Clock.h
+        src/sdl/SdlClock.cpp src/sdl/SdlClock.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

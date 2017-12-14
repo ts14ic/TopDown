@@ -5,10 +5,10 @@
 #pragma once
 
 #include "../resources/Resources.h"
-#include "../resources/Music.h"
 #include "SdlTexture.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"
+#include "SdlClock.h"
 #include <unordered_map>
 
 class SdlGraphicContext;
@@ -18,8 +18,7 @@ class SdlAudioContext;
 struct SDL_Window;
 struct SDL_Renderer;
 
-// todo rename to resources, move resource loading and renderer here
-class SdlResources : public Resources {
+class SdlResources : public Resources, private SdlClock {
 public:
     SdlResources(int width, int height);
 
@@ -27,13 +26,15 @@ public:
 
     Texture& getTexture(const std::string& name) override;
 
-    void loadTexture(const std::string& name, const char* path) override;
-
     Sound& getSound(const std::string& name) override;
 
-    void loadSound(const std::string& name, const char* path) override;
-
     Music& getMusic(const std::string& name) override;
+
+    const Clock& getClock() override;
+
+    void loadTexture(const std::string& name, const char* path) override;
+
+    void loadSound(const std::string& name, const char* path) override;
 
     void loadMusic(const std::string& name, const char* path) override;
 

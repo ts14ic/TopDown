@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Damageable.h"
-#include "../timer/StopWatch.h"
+#include "../engine/Timer.h"
 #include "../engine/AudioContext.h"
 #include <vector>
 
@@ -46,7 +46,7 @@ public:
 
     int dmg() const override;
 
-    void damage(int d) override;
+    void damage(const Clock& clock, int d) override;
 
     // StateMoon interface
     void set_target(float x, float y, bool ignore = false);
@@ -62,7 +62,7 @@ private:
 
     int _hp, _frame = 0;
 
-    StopWatch _timer;
+    Timer mTimer;
 
     enum {
         IDLE = 0x0,

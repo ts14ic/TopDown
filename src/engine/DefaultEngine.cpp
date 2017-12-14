@@ -8,16 +8,15 @@
 #include "../state/StateMoon.h"
 #include <SDL_timer.h>
 
-constexpr int MS_ONE_SECOND = 1000;
-constexpr int FRAMES_PER_SECOND = 60;
-constexpr int MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
+constexpr unsigned MS_ONE_SECOND = 1000;
+constexpr unsigned FRAMES_PER_SECOND = 60;
+constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 DefaultEngine::DefaultEngine(
         int screenWidth, int screenHeight,
         std::unique_ptr<ContextInjector> contextInjector,
         std::unique_ptr<Random> random)
         : mRandom{std::move(random)} {
-
     contextInjector->inject(*this, screenWidth, screenHeight);
 
     loadResources();
@@ -27,7 +26,7 @@ void DefaultEngine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(*this);
 
     while(mCurrentStateId != GState::exit) {
-        mFpsWatch.restart();
+        mLoopTimer.restart(getClock());
 
         mCurrentState->handle_events(*this);
         mCurrentState->handle_logic(*this);
@@ -36,8 +35,9 @@ void DefaultEngine::runLoop() {
 
         mCurrentState->handle_render(*this);
 
-        if(mFpsWatch.getTicks() < MS_PER_FRAME) {
-            SDL_Delay(MS_PER_FRAME - mFpsWatch.getTicks());
+        if(!mLoopTimer.haveTicksPassedSinceStart(getClock(), MS_PER_FRAME)) {
+            // todo Don't call SDL directly
+            SDL_Delay(static_cast<unsigned>(MS_PER_FRAME - mLoopTimer.getTicksSinceRestart(getClock())));
         }
     }
 }
@@ -85,6 +85,10 @@ Resources& DefaultEngine::getResources() {
 
 Random& DefaultEngine::getRandom() {
     return *mRandom;
+}
+
+const Clock& DefaultEngine::getClock() {
+    return mResources->getClock();
 }
 
 void DefaultEngine::setInputContext(std::unique_ptr<InputContext> inputContext) {

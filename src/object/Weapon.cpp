@@ -20,11 +20,11 @@ Weapon::Weapon(const WeaponBuilder& builder)
           mFireSounds{builder.getFireSounds()},
           mFireCooldown(builder.getFireCooldown()),
           mReloadCooldown(builder.getReloadCooldown()) {
-    mFireCooldownTimer.restart();
+//    mFireCooldownTimer.restart();
 }
 
-void Weapon::startReloading() {
-    mReloadCooldownTimer.restart();
+void Weapon::startReloading(const Clock& clock) {
+    mReloadCooldownTimer.restart(clock);
     mIsReloading = true;
 }
 
@@ -47,17 +47,18 @@ void Weapon::spawnBullets(Random& random, GameObject const& shooter) {
 }
 
 void Weapon::pullTrigger(Random& random, Resources& resources, AudioContext& audioContext, GameObject const& shooter) {
-    if(mFireCooldownTimer.ticksHavePassed(mFireCooldown) && mCurrentAmmo > 0) {
+    const auto& clock = resources.getClock();
+    if(mFireCooldownTimer.haveTicksPassedSinceStart(clock, mFireCooldown) && mCurrentAmmo > 0) {
         spawnBullets(random, shooter);
 
         playFireSound(resources, audioContext);
 
         --mCurrentAmmo;
         if(mCurrentAmmo < 1) {
-            startReloading();
+            startReloading(clock);
         }
 
-        mFireCooldownTimer.restart();
+        mFireCooldownTimer.restart(clock);
     }
 }
 
@@ -81,8 +82,8 @@ bool Weapon::isReloading() const {
     return mIsReloading;
 }
 
-void Weapon::tryReload() {
-    if(mIsReloading && mReloadCooldownTimer.ticksHavePassed(mReloadCooldown)) {
+void Weapon::tryReload(const Clock& clock) {
+    if(mIsReloading && mReloadCooldownTimer.haveTicksPassedSinceStart(clock, mReloadCooldown)) {
         mCurrentAmmo = mMaxAmmo;
         mIsReloading = false;
     }

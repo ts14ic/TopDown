@@ -19,13 +19,13 @@
 StateMoon::StateMoon(Engine& engine)
         : mBackgroundTexId{"moon_background"},
           _levelWidth(engine.getGraphicContext().getScreenWidth()),
-          _levelHeight(engine.getGraphicContext().getScreenHeight()) {
-
+          _levelHeight(engine.getGraphicContext().getScreenHeight()),
+          mEnemySpawnCooldown{} {
     engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/test_bg.png");
 
     zombies().clear();
     werewolves().clear();
-    _mobSpawner.restart();
+    mEnemySpawnCooldown.restart(engine.getClock());
 
     mPlayer.setPos(_levelWidth / 2, _levelHeight / 2);
 
@@ -72,7 +72,8 @@ std::pair<int, int> randomPosition(Random& random, int width, int height) {
 }
 
 void StateMoon::handle_logic(Engine& engine) {
-    if(_mobSpawner.ticksHavePassed(50) && (zombies().size() + werewolves().size() < 7)) {
+    if(mEnemySpawnCooldown.haveTicksPassedSinceStart(engine.getClock(), 50) &&
+       (zombies().size() + werewolves().size() < 7)) {
         auto position = randomPosition(engine.getRandom(), _levelWidth, _levelHeight);
         int type = engine.getRandom().getInt(0, 1);
         if(type == 0) {
@@ -81,16 +82,20 @@ void StateMoon::handle_logic(Engine& engine) {
             werewolves().emplace_back(position.first, position.second);
         }
 
-        _mobSpawner.restart();
+        mEnemySpawnCooldown.restart(engine.getClock());
     }
 
     mPlayer.handle_logic(engine.getRandom(), engine.getResources(), engine.getAudioContext());
+
+    const auto& clock = engine.getClock();
+    // todo random should be logically const
+    auto& random = engine.getRandom();
 
     int maxWidth = _levelWidth;
     int maxHeight = _levelHeight;
     // process bullet moving and collisions
     auto removeFrom = std::remove_if(bullets().begin(), bullets().end(),
-                                     [maxWidth, maxHeight, &engine](Bullet& b) {
+                                     [maxWidth, maxHeight, &random, &clock](Bullet& b) {
                                          b.handle_logic();
 
                                          if((b.getX() > maxWidth) || (b.getX() < 0) ||
@@ -100,17 +105,17 @@ void StateMoon::handle_logic(Engine& engine) {
 
                                          for(auto& z : zombies()) {
                                              if(objectsCollide(b, z) && z.hp() > 0) {
-                                                 z.damage(b.dmg());
+                                                 z.damage(clock, b.dmg());
                                                  return true;
                                              }
                                          }
                                          for(auto& w : werewolves()) {
                                              if(objectsCollide(b, w) && w.hp() > 0) {
-                                                 w.damage(b.dmg());
+                                                 w.damage(clock, b.dmg());
                                                  return true;
                                              }
                                              if(getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
-                                                 w.teleport(engine.getRandom());
+                                                 w.teleport(clock, random);
                                              }
                                          }
 
@@ -118,23 +123,23 @@ void StateMoon::handle_logic(Engine& engine) {
                                      });
     bullets().erase(removeFrom, bullets().end());
 
-    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this](Zombie& z) {
+    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this, &clock](Zombie& z) {
         z.set_target(mPlayer.getX(), mPlayer.getY());
         z.handle_logic();
 
         if(objectsCollide(z, mPlayer)) {
-            mPlayer.damage(z.dmg());
+            mPlayer.damage(clock, z.dmg());
         }
 
         return z.dead();
     }), zombies().end());
 
-    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this](Werewolf& w) {
-        w.set_target(mPlayer.getX(), mPlayer.getY());
-        w.handle_logic();
+    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
+        w.set_target(clock, mPlayer.getX(), mPlayer.getY(), false);
+        w.handle_logic(clock);
 
         if(objectsCollide(w, mPlayer)) {
-            mPlayer.damage(w.dmg());
+            mPlayer.damage(clock, w.dmg());
         }
 
         return w.dead();

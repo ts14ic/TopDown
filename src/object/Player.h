@@ -4,13 +4,12 @@
 #pragma once
 
 #include "Damageable.h"
-#include "../timer/StopWatch.h"
+#include "../engine/Timer.h"
 #include "Weapon.h"
 #include <memory>
 #include <bitset>
 
 class InputContext;
-
 
 class Player : public virtual GameObject, public Damageable {
 public:
@@ -48,7 +47,7 @@ public:
 
     bool dead() const override;
 
-    void damage(int v) override;
+    void damage(const Clock& clock, int damageAmount) override;
 
     bool reloading() const;
 
@@ -75,7 +74,7 @@ private:
     unsigned mSelectedWeaponIdx = 0;
     int _hp = 0;
 
-    StopWatch _dmgCd;
+    Timer mDamageCooldown;
 
     enum InputState {
         UP_PRESSED,
