@@ -7,6 +7,7 @@
 #include "SdlAudioContext.h"
 #include "SdlInputContext.h"
 #include "SdlResources.h"
+#include "../random/Mt19937Random.h"
 #include "../engine/Engine.h"
 
 std::unique_ptr<SdlGraphicContext> createGraphicContext(SDL_Window* window, SDL_Renderer* renderer) {
@@ -25,11 +26,16 @@ std::unique_ptr<SdlAudioContext> createAudioContext() {
     return std::make_unique<SdlAudioContext>();
 }
 
+std::unique_ptr<Mt19937Random> createRandom() {
+    return std::make_unique<Mt19937Random>();
+}
+
 void SdlContextInjector::inject(Engine& engine, int screenWidth, int screenHeight) {
     auto resources = createResources(screenWidth, screenHeight);
     auto graphic = createGraphicContext(resources->getWindow(), resources->getRenderer());
 
     engine.setResources(std::move(resources));
+    engine.setRandom(std::move(createRandom()));
     engine.setGraphicContext(std::move(graphic));
     engine.setAudioContext(createAudioContext());
     engine.setInputContext(createInputContext());

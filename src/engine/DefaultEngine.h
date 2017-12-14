@@ -21,8 +21,7 @@ class DefaultEngine : public Engine {
 public:
     DefaultEngine(
             int screenWidth, int screenHeight,
-            std::unique_ptr<ContextInjector> contextInjector,
-            std::unique_ptr<Random> random
+            std::unique_ptr<ContextInjector> contextInjector
     );
 
     void runLoop() override;
@@ -48,6 +47,8 @@ public:
     void setAudioContext(std::unique_ptr<AudioContext> audioContext) override;
 
     void setResources(std::unique_ptr<Resources> resources) override;
+
+    void setRandom(std::unique_ptr<Random> random) override;
 
 private:
     void changeState();

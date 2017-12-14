@@ -14,9 +14,7 @@ constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 DefaultEngine::DefaultEngine(
         int screenWidth, int screenHeight,
-        std::unique_ptr<ContextInjector> contextInjector,
-        std::unique_ptr<Random> random)
-        : mRandom{std::move(random)} {
+        std::unique_ptr<ContextInjector> contextInjector) {
     contextInjector->inject(*this, screenWidth, screenHeight);
 
     loadResources();
@@ -105,4 +103,8 @@ void DefaultEngine::setAudioContext(std::unique_ptr<AudioContext> audioContext) 
 
 void DefaultEngine::setResources(std::unique_ptr<Resources> resources) {
     mResources = std::move(resources);
+}
+
+void DefaultEngine::setRandom(std::unique_ptr<Random> random) {
+    mRandom = std::move(random);
 }

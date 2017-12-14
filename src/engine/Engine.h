@@ -46,4 +46,6 @@ public:
     virtual void setAudioContext(std::unique_ptr<AudioContext> audioContext) = 0;
 
     virtual void setResources(std::unique_ptr<Resources> resources) = 0;
+
+    virtual void setRandom(std::unique_ptr<Random> random) = 0;
 };
