@@ -15,9 +15,9 @@ constexpr unsigned FRAMES_PER_SECOND = 60;
 constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 DefaultEngine::DefaultEngine(
-        int screenWidth, int screenHeight,
-        // TODO don't pass a unique_ptr here
-        std::unique_ptr<ContextInjector> contextInjector) {
+        int screenWidth,
+        int screenHeight,
+        ContextInjector* contextInjector) {
     contextInjector->inject(*this, screenWidth, screenHeight);
 
     loadResources();

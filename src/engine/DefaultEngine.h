@@ -23,7 +23,7 @@ class DefaultEngine : public Engine,
 public:
     DefaultEngine(
             int screenWidth, int screenHeight,
-            std::unique_ptr<ContextInjector> contextInjector
+            ContextInjector* contextInjector
     );
 
     void runLoop() override;
