@@ -15,7 +15,7 @@ class StateMoon : public GameState {
 public:
     explicit StateMoon(Engine& engine);
 
-    void handle_events(Engine& engine) override;
+    virtual void handleWindowEvent() override;
 
     void handle_logic(Engine& engine) override;
 

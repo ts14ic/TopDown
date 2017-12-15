@@ -7,17 +7,19 @@
 #include "GState.h"
 #include "../state/GameState.h"
 #include "../resources/Resources.h"
+#include "../event/InputContext.h"
+#include "../event/EventHandler.h"
 #include "Timer.h"
 #include "Clock.h"
 #include "GraphicContext.h"
-#include "InputContext.h"
 #include "AudioContext.h"
 #include "Random.h"
 #include <memory>
 
 class ContextInjector;
 
-class DefaultEngine : public Engine {
+class DefaultEngine : public Engine,
+                      public EventHandler {
 public:
     DefaultEngine(
             int screenWidth, int screenHeight,
@@ -28,17 +30,19 @@ public:
 
     void requestStateChange(GState stateId) override;
 
-    InputContext& getInputContext() override;
+    InputContext &getInputContext() override;
 
-    GraphicContext& getGraphicContext() override;
+    GraphicContext &getGraphicContext() override;
 
-    AudioContext& getAudioContext() override;
+    AudioContext &getAudioContext() override;
 
-    Resources& getResources() override;
+    Resources &getResources() override;
 
-    Random& getRandom() override;
+    Random &getRandom() override;
 
-    const Clock& getClock() override;
+    const Clock &getClock() override;
+
+    void handleWindowEvent() override;
 
     void setInputContext(std::unique_ptr<InputContext> inputContext) override;
 

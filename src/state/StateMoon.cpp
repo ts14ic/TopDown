@@ -5,7 +5,7 @@
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
 #include "../resources/Texture.h"
-#include "../engine/InputContext.h"
+#include "../event/InputContext.h"
 #include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
 #include "../resources/Resources.h"
@@ -32,22 +32,27 @@ StateMoon::StateMoon(Engine& engine)
     parseLevelData();
 }
 
-void StateMoon::handle_events(Engine& engine) {
-    auto& input = engine.getInputContext();
-
-    while(SDL_PollEvent(&input.getInputEvent())) {
-
-        mPlayer.handle_events(input);
-
-        switch(input.getInputEvent().type) {
-            case SDL_QUIT:
-                engine.requestStateChange(GState::exit);
-                break;
-
-            default:;
-        }
-    }
+void StateMoon::handleWindowEvent() {
+    // TODO stub
 }
+
+// TODO move to separate handlers
+//void StateMoon::handle_events(Engine& engine) {
+//    auto& event = engine.getInputContext();
+//
+//    while(SDL_PollEvent(&event.getInputEvent())) {
+//
+//        mPlayer.handle_events(event);
+//
+//        switch(event.getInputEvent().type) {
+//            case SDL_QUIT:
+//                engine.requestStateChange(GState::exit);
+//                break;
+//
+//            default:;
+//        }
+//    }
+//}
 
 void StateMoon::restrict_pos(GameObject& o) {
     if(o.getX() < 0) o.setX(0);

@@ -26,7 +26,9 @@ void DefaultEngine::runLoop() {
     while(mCurrentStateId != GState::exit) {
         mLoopTimer.restart(getClock());
 
-        mCurrentState->handle_events(*this);
+//        mCurrentState->handle_events(*this);
+        mInputContext->pollEvents(*this);
+
         mCurrentState->handle_logic(*this);
 
         changeState();
@@ -107,4 +109,8 @@ void DefaultEngine::setResources(std::unique_ptr<Resources> resources) {
 
 void DefaultEngine::setRandom(std::unique_ptr<Random> random) {
     mRandom = std::move(random);
+}
+
+void DefaultEngine::handleWindowEvent() {
+    // TODO stub
 }

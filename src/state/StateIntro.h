@@ -12,7 +12,7 @@ class StateIntro : public GameState {
 public:
     explicit StateIntro(Engine& engine);
 
-    void handle_events(Engine& engine) override;
+    virtual void handleWindowEvent() override;
 
     void handle_logic(Engine& engine) override;
 

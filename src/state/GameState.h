@@ -1,14 +1,12 @@
 #pragma once
 
+#include "../event/EventHandler.h"
+
 class Engine;
 
-class GameState {
+class GameState : public EventHandler {
 public:
-    virtual void handle_events(Engine& engine) = 0;
+    virtual void handle_logic(Engine &engine)  = 0;
 
-    virtual void handle_logic(Engine& engine)  = 0;
-
-    virtual void handle_render(Engine& engine) = 0;
-
-    virtual ~GameState() = default;
+    virtual void handle_render(Engine &engine) = 0;
 };

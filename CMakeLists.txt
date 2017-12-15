@@ -26,7 +26,7 @@ set(SOURCE_FILES
         src/resources/Texture.cpp src/resources/Texture.h
         src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
-        src/engine/InputContext.cpp src/engine/InputContext.h
+        src/event/InputContext.cpp src/event/InputContext.h
         src/object/GameObject.cpp src/object/GameObject.h
         src/object/Damageable.h src/object/Damageable.cpp
         src/object/Player.cpp src/object/Player.h
@@ -59,7 +59,7 @@ set(SOURCE_FILES
         src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
         src/engine/Timer.cpp src/engine/Timer.h
         src/engine/Clock.cpp src/engine/Clock.h
-        src/sdl/SdlClock.cpp src/sdl/SdlClock.h)
+        src/sdl/SdlClock.cpp src/sdl/SdlClock.h src/event/WindowEventHandler.cpp src/event/WindowEventHandler.h src/event/KeyboardEventHandler.cpp src/event/KeyboardEventHandler.h src/event/MouseEventHandler.cpp src/event/MouseEventHandler.h src/event/EventHandler.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

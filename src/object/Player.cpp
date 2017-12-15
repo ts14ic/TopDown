@@ -3,7 +3,6 @@
 #include "../shape/Color.h"
 #include "../math/math.h"
 #include "../resources/Resources.h"
-#include "../engine/InputContext.h"
 #include <SDL_events.h>
 #include <sstream>
 #include <iostream>
@@ -70,122 +69,123 @@ bool Player::reloading() const {
     return !mWeapons.empty() && mWeapons[mSelectedWeaponIdx].isReloading();
 }
 
-void Player::handle_events(InputContext& input) {
-    switch(input.getInputEvent().type) {
-        case SDL_MOUSEWHEEL:
-            if(input.getInputEvent().wheel.y < 0) {
-                selectNextWeapon();
-            } else {
-                selectPreviousWeapon();
-            }
-            break;
-
-        case SDL_MOUSEBUTTONDOWN:
-            if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
-                mInputState.set(TRIGGER_PRESSED);
-            }
-            break;
-
-        case SDL_MOUSEBUTTONUP:
-            if(input.getInputEvent().button.button == SDL_BUTTON_LEFT) {
-                mInputState.reset(TRIGGER_PRESSED);
-            }
-            break;
-
-        case SDL_KEYDOWN:
-            switch(input.getInputEvent().key.keysym.sym) {
-                case SDLK_UP:
-                case SDLK_w: {
-                    mInputState.set(UP_PRESSED);
-                    break;
-                }
-
-                case SDLK_DOWN:
-                case SDLK_s: {
-                    mInputState.set(DOWN_PRESSED);
-                    break;
-                }
-
-                case SDLK_LEFT:
-                case SDLK_a: {
-                    mInputState.set(LEFT_PRESSED);
-                    break;
-                }
-
-                case SDLK_RIGHT:
-                case SDLK_d: {
-                    mInputState.set(RIGHT_PRESSED);
-                    break;
-                }
-
-                case SDLK_SPACE: {
-                    mInputState.set(TRIGGER_PRESSED);
-                    break;
-                }
-
-                default:;
-            }
-            break;
-
-        case SDL_KEYUP:
-            switch(input.getInputEvent().key.keysym.sym) {
-                case SDLK_0:
-                case SDLK_1:
-                case SDLK_2:
-                case SDLK_3:
-                case SDLK_4:
-                case SDLK_5:
-                case SDLK_6:
-                case SDLK_7:
-                case SDLK_8:
-                case SDLK_9: {
-                    auto keysym = input.getInputEvent().key.keysym.sym;
-                    auto idx = 9u - (SDLK_9 - keysym);
-                    selectWeapon(idx);
-                    break;
-                }
-
-                case SDLK_UP:
-                case SDLK_w: {
-                    mInputState.reset(UP_PRESSED);
-                    break;
-                }
-
-                case SDLK_DOWN:
-                case SDLK_s: {
-                    mInputState.reset(DOWN_PRESSED);
-                    break;
-                }
-
-                case SDLK_LEFT:
-                case SDLK_a: {
-                    mInputState.reset(LEFT_PRESSED);
-                    break;
-                }
-
-                case SDLK_RIGHT:
-                case SDLK_d: {
-                    mInputState.reset(RIGHT_PRESSED);
-                    break;
-                }
-
-                case SDLK_SPACE: {
-                    mInputState.reset(TRIGGER_PRESSED);
-                    break;
-                }
-
-                default:;
-            }
-            break;
-
-        case SDL_MOUSEMOTION:
-            _angle = toCartesian(
-                    ::getAngle(getX(), getY(), input.getInputEvent().motion.x, input.getInputEvent().motion.y));
-            break;
-
-        default:;
-    }
-}
+// TODO move to separate handlers
+//void Player::handle_events(InputContext& event) {
+//    switch(event.getInputEvent().type) {
+//        case SDL_MOUSEWHEEL:
+//            if(event.getInputEvent().wheel.y < 0) {
+//                selectNextWeapon();
+//            } else {
+//                selectPreviousWeapon();
+//            }
+//            break;
+//
+//        case SDL_MOUSEBUTTONDOWN:
+//            if(event.getInputEvent().button.button == SDL_BUTTON_LEFT) {
+//                mInputState.set(TRIGGER_PRESSED);
+//            }
+//            break;
+//
+//        case SDL_MOUSEBUTTONUP:
+//            if(event.getInputEvent().button.button == SDL_BUTTON_LEFT) {
+//                mInputState.reset(TRIGGER_PRESSED);
+//            }
+//            break;
+//
+//        case SDL_KEYDOWN:
+//            switch(event.getInputEvent().key.keysym.sym) {
+//                case SDLK_UP:
+//                case SDLK_w: {
+//                    mInputState.set(UP_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_DOWN:
+//                case SDLK_s: {
+//                    mInputState.set(DOWN_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_LEFT:
+//                case SDLK_a: {
+//                    mInputState.set(LEFT_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_RIGHT:
+//                case SDLK_d: {
+//                    mInputState.set(RIGHT_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_SPACE: {
+//                    mInputState.set(TRIGGER_PRESSED);
+//                    break;
+//                }
+//
+//                default:;
+//            }
+//            break;
+//
+//        case SDL_KEYUP:
+//            switch(event.getInputEvent().key.keysym.sym) {
+//                case SDLK_0:
+//                case SDLK_1:
+//                case SDLK_2:
+//                case SDLK_3:
+//                case SDLK_4:
+//                case SDLK_5:
+//                case SDLK_6:
+//                case SDLK_7:
+//                case SDLK_8:
+//                case SDLK_9: {
+//                    auto keysym = event.getInputEvent().key.keysym.sym;
+//                    auto idx = 9u - (SDLK_9 - keysym);
+//                    selectWeapon(idx);
+//                    break;
+//                }
+//
+//                case SDLK_UP:
+//                case SDLK_w: {
+//                    mInputState.reset(UP_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_DOWN:
+//                case SDLK_s: {
+//                    mInputState.reset(DOWN_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_LEFT:
+//                case SDLK_a: {
+//                    mInputState.reset(LEFT_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_RIGHT:
+//                case SDLK_d: {
+//                    mInputState.reset(RIGHT_PRESSED);
+//                    break;
+//                }
+//
+//                case SDLK_SPACE: {
+//                    mInputState.reset(TRIGGER_PRESSED);
+//                    break;
+//                }
+//
+//                default:;
+//            }
+//            break;
+//
+//        case SDL_MOUSEMOTION:
+//            _angle = toCartesian(
+//                    ::getAngle(getX(), getY(), event.getInputEvent().motion.x, event.getInputEvent().motion.y));
+//            break;
+//
+//        default:;
+//    }
+//}
 
 void Player::handle_logic(Random& random, Resources& resources, AudioContext& audioContext) {
     int mx, my;

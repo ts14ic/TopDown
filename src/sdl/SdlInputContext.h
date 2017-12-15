@@ -4,12 +4,27 @@
 
 #pragma once
 
-#include "../engine/InputContext.h"
+#include "../event/InputContext.h"
 #include <SDL_events.h>
+
+class WindowEventHandler;
+
+class MouseEventHandler;
+
+class KeyboardEventHandler;
+
+class EventHandler;
 
 class SdlInputContext : public InputContext {
 public:
-    SDL_Event& getInputEvent() override;
+    void pollEvents(EventHandler &eventHandler) override;
+
+protected:
+    void forwardWindowEvent(WindowEventHandler &eventHandler) override;
+
+    void forwardMouseEvent(MouseEventHandler &eventHandler) override;
+
+    void forwardKeyboardEvent(KeyboardEventHandler &eventHandler) override;
 
 private:
     SDL_Event mInputEvent{};
