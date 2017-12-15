@@ -1,10 +1,5 @@
 #pragma once
 
-struct SDL_Point;
-struct SDL_Rect;
-
-class Circle;
-
 // trigonometry
 constexpr float PI = 3.14159265359f;
 constexpr float PI_OVER_180 = PI / 180.f;

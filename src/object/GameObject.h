@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 
-struct SDL_Color;
-
 class Circle;
 
 class Resources;
