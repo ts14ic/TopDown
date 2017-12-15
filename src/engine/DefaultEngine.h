@@ -30,8 +30,6 @@ public:
 
     void requestStateChange(GState stateId) override;
 
-    InputContext &getInputContext() override;
-
     GraphicContext &getGraphicContext() override;
 
     AudioContext &getAudioContext() override;

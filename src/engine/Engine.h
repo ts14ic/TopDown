@@ -27,8 +27,6 @@ public:
 
     virtual void requestStateChange(GState stateId) = 0;
 
-    virtual InputContext& getInputContext() = 0;
-
     virtual GraphicContext& getGraphicContext() = 0;
 
     virtual AudioContext& getAudioContext() = 0;

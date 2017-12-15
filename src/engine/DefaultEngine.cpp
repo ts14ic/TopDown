@@ -29,7 +29,6 @@ void DefaultEngine::runLoop() {
     while(mCurrentStateId != GState::exit) {
         mLoopTimer.restart(getClock());
 
-//        mCurrentState->handle_events(*this);
         mInputContext->pollEvents(*this);
 
         mCurrentState->handleLogic();
@@ -72,10 +71,6 @@ void DefaultEngine::requestStateChange(GState stateId) {
     if(mNextStateId != GState::exit) {
         mNextStateId = stateId;
     }
-}
-
-InputContext& DefaultEngine::getInputContext() {
-    return *mInputContext;
 }
 
 GraphicContext& DefaultEngine::getGraphicContext() {
