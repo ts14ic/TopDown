@@ -26,8 +26,8 @@ void StateIntro::handleKeyEvent(const KeyboardEvent& event) {
                 break;
             }
 
-            case '\033':
-            case '\r': {
+            case KEY_ESCAPE:
+            case KEY_ENTER: {
                 mEngine.requestStateChange(GState::moon);
                 break;
             }

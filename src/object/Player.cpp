@@ -73,27 +73,31 @@ bool Player::reloading() const {
 void Player::handleKeyEvent(const KeyboardEvent& event) {
     if(event.getType() == KeyboardEvent::Type::KeyDown) {
         switch(event.getKey()) {
+            case KEY_UP:
             case 'w': {
                 mInputState.set(UP_PRESSED);
                 break;
             }
 
+            case KEY_DOWN:
             case 's': {
                 mInputState.set(DOWN_PRESSED);
                 break;
             }
 
+            case KEY_LEFT:
             case 'a': {
                 mInputState.set(LEFT_PRESSED);
                 break;
             }
 
+            case KEY_RIGHT:
             case 'd': {
                 mInputState.set(RIGHT_PRESSED);
                 break;
             }
 
-            case ' ': {
+            case KEY_SPACE: {
                 mInputState.set(TRIGGER_PRESSED);
                 break;
             }
@@ -104,27 +108,31 @@ void Player::handleKeyEvent(const KeyboardEvent& event) {
         }
     } else if(event.getType() == KeyboardEvent::Type::KeyUp) {
         switch(event.getKey()) {
+            case KEY_UP:
             case 'w': {
                 mInputState.reset(UP_PRESSED);
                 break;
             }
 
+            case KEY_DOWN:
             case 's': {
                 mInputState.reset(DOWN_PRESSED);
                 break;
             }
 
+            case KEY_LEFT:
             case 'a': {
                 mInputState.reset(LEFT_PRESSED);
                 break;
             }
 
+            case KEY_RIGHT:
             case 'd': {
                 mInputState.reset(RIGHT_PRESSED);
                 break;
             }
 
-            case ' ': {
+            case KEY_SPACE: {
                 mInputState.reset(TRIGGER_PRESSED);
                 break;
             }

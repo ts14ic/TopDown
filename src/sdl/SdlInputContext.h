@@ -22,7 +22,7 @@ class SdlInputContext : public InputContext {
 public:
     void pollEvents(EventHandler& eventHandler) override;
 
-protected:
+private:
     void forwardWindowEvent(WindowEventHandler& eventHandler) override;
 
     void forwardMouseEvent(MouseEventHandler& eventHandler) override;

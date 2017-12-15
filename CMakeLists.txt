@@ -63,7 +63,13 @@ set(SOURCE_FILES
         src/event/WindowEventHandler.cpp src/event/WindowEventHandler.h
         src/event/KeyboardEventHandler.cpp src/event/KeyboardEventHandler.h
         src/event/MouseEventHandler.cpp src/event/MouseEventHandler.h
-        src/event/EventHandler.h src/event/WindowEvent.h src/event/WindowEvent.cpp src/event/KeyboardEvent.cpp src/event/KeyboardEvent.h src/state/GameState.cpp src/event/MouseEvent.cpp src/event/MouseEvent.h)
+        src/event/EventHandler.h
+        src/event/WindowEvent.h src/event/WindowEvent.cpp
+        src/event/KeyboardEvent.cpp src/event/KeyboardEvent.h
+        src/state/GameState.cpp src/event/MouseEvent.cpp
+        src/event/MouseEvent.h src/event/KeyboardKey.h
+        src/sdl/SdlInputContext_transformSdlKeyCode.cpp src/sdl/SdlInputContext_transformSdlKeyCode.h
+        )
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

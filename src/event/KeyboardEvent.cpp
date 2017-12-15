@@ -10,7 +10,7 @@ KeyboardEvent::Type KeyboardEvent::getType() const {
     return mType;
 }
 
-int KeyboardEvent::getKey() const {
+KeyboardKey_t KeyboardEvent::getKey() const {
     return mKey;
 }
 
@@ -18,6 +18,6 @@ void KeyboardEvent::setType(KeyboardEvent::Type type) {
     mType = type;
 }
 
-void KeyboardEvent::setKey(int key) {
+void KeyboardEvent::setKey(KeyboardKey_t key) {
     mKey = key;
 }

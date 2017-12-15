@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "KeyboardKey.h"
+
 class KeyboardEvent {
 public:
     enum class Type {
@@ -15,13 +17,13 @@ public:
 
     Type getType() const;
 
-    int getKey() const;
+    KeyboardKey_t getKey() const;
 
     void setType(Type type);
 
-    void setKey(int key);
+    void setKey(KeyboardKey_t key);
 
 private:
     Type mType;
-    int mKey;
+    KeyboardKey_t mKey;
 };
