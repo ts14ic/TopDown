@@ -4,14 +4,19 @@
 #pragma once
 
 #include "Damageable.h"
-#include "../engine/Timer.h"
 #include "Weapon.h"
+#include "../engine/Timer.h"
+#include "../event/KeyboardEventHandler.h"
+#include "../event/MouseEventHandler.h"
 #include <memory>
 #include <bitset>
 
 class InputContext;
 
-class Player : public virtual GameObject, public Damageable {
+class Player : public virtual GameObject,
+               public Damageable,
+               public KeyboardEventHandler,
+               public MouseEventHandler {
 public:
     Player();
 
@@ -51,7 +56,9 @@ public:
 
     bool reloading() const;
 
-    void handle_events(InputContext& input);
+    void handleKeyEvent(const KeyboardEvent& event) override;
+
+    void handleMouseEvent(const MouseEvent& event) override;
 
     void handle_logic(Random& random, Resources& resources, AudioContext& audioContext);
 
@@ -67,8 +74,10 @@ private:
     void selectWeapon(unsigned idx);
 
 private:
-    float mX = 0, mY = 0, _speed = 0;
-    float _angle = 0.0f;
+    float mX = 0;
+    float mY = 0;
+    float _speed = 0;
+    float mAngle = 0.0f;
 
     std::vector<Weapon> mWeapons;
     unsigned mSelectedWeaponIdx = 0;
@@ -85,4 +94,6 @@ private:
         LENGTH
     };
     std::bitset<LENGTH> mInputState;
+    float mMouseX = 0.f;
+    float mMouseY = 0.f;
 };

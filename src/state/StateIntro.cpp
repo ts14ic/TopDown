@@ -4,56 +4,47 @@
 #include "../engine/GraphicContext.h"
 #include "../resources/Resources.h"
 #include "../resources/Texture.h"
+#include "../event/KeyboardEvent.h"
 
 StateIntro::StateIntro(Engine& engine)
-        : mBackgroundTexId{"intro_background"} {
-
+        : mEngine{engine},
+          mBackgroundTexId{"intro_background"} {
     engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/intro_bg.png");
 }
 
-void StateIntro::handleWindowEvent() {
-    // TODO stub
+void StateIntro::handleWindowEvent(const WindowEvent& event) {
 }
 
-// TODO move to separate handlers
-//void StateIntro::handle_events(Engine& engine) {
-//    auto& event = engine.getInputContext();
-//
-//    while(SDL_PollEvent(&event.getInputEvent())) {
-//        switch(event.getInputEvent().type) {
-//            case SDL_QUIT: {
-//                engine.requestStateChange(GState::exit);
-//                break;
-//            }
-//
-//            case SDL_KEYDOWN: {
-//                switch(event.getInputEvent().key.keysym.sym) {
-//                    case SDLK_q:
-//                        engine.requestStateChange(GState::exit);
-//                        break;
-//
-//                    case SDLK_RETURN:
-//                    case SDLK_ESCAPE:
-//                        engine.requestStateChange(GState::moon);
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//                break;
-//            }
-//
-//            default:;
-//        }
-//    }
-//}
+void StateIntro::handleMouseEvent(const MouseEvent& event) {
+}
 
-void StateIntro::handle_logic(Engine& engine) {}
+void StateIntro::handleKeyEvent(const KeyboardEvent& event) {
+    if(event.getType() == KeyboardEvent::Type::KeyDown) {
+        switch(event.getKey()) {
+            case 'q': {
+                mEngine.requestStateChange(GState::exit);
+                break;
+            }
 
-void StateIntro::handle_render(Engine& engine) {
-    auto& render = engine.getGraphicContext();
+            case '\033':
+            case '\r': {
+                mEngine.requestStateChange(GState::moon);
+                break;
+            }
 
-    Texture& background = engine.getResources().getTexture(mBackgroundTexId);
+            default: {
+                break;
+            }
+        }
+    }
+}
+
+void StateIntro::handleLogic() {}
+
+void StateIntro::handleRender() {
+    auto& render = mEngine.getGraphicContext();
+
+    Texture& background = mEngine.getResources().getTexture(mBackgroundTexId);
     render.render(background, 0, 0);
 
     render.refreshScreen();

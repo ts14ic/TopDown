@@ -6,6 +6,8 @@
 #include "ContextInjector.h"
 #include "../state/StateIntro.h"
 #include "../state/StateMoon.h"
+#include "../event/WindowEvent.h"
+#include "../event/KeyboardEvent.h"
 #include <SDL_timer.h>
 
 constexpr unsigned MS_ONE_SECOND = 1000;
@@ -29,11 +31,11 @@ void DefaultEngine::runLoop() {
 //        mCurrentState->handle_events(*this);
         mInputContext->pollEvents(*this);
 
-        mCurrentState->handle_logic(*this);
+        mCurrentState->handleLogic();
 
         changeState();
 
-        mCurrentState->handle_render(*this);
+        mCurrentState->handleRender();
 
         if(!mLoopTimer.haveTicksPassedSinceStart(getClock(), MS_PER_FRAME)) {
             // todo Don't call SDL directly
@@ -111,6 +113,24 @@ void DefaultEngine::setRandom(std::unique_ptr<Random> random) {
     mRandom = std::move(random);
 }
 
-void DefaultEngine::handleWindowEvent() {
-    // TODO stub
+void DefaultEngine::handleWindowEvent(const WindowEvent& event) {
+    switch(event.getType()) {
+        case WindowEvent::Type::Close: {
+            requestStateChange(GState::exit);
+            break;
+        }
+
+//        default: {
+//            mCurrentState->handleWindowEvent(event);
+//            break;
+//        }
+    }
+}
+
+void DefaultEngine::handleKeyEvent(const KeyboardEvent& event) {
+    mCurrentState->handleKeyEvent(event);
+}
+
+void DefaultEngine::handleMouseEvent(const MouseEvent& event) {
+    mCurrentState->handleMouseEvent(event);
 }

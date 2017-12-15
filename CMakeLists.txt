@@ -59,7 +59,11 @@ set(SOURCE_FILES
         src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
         src/engine/Timer.cpp src/engine/Timer.h
         src/engine/Clock.cpp src/engine/Clock.h
-        src/sdl/SdlClock.cpp src/sdl/SdlClock.h src/event/WindowEventHandler.cpp src/event/WindowEventHandler.h src/event/KeyboardEventHandler.cpp src/event/KeyboardEventHandler.h src/event/MouseEventHandler.cpp src/event/MouseEventHandler.h src/event/EventHandler.h)
+        src/sdl/SdlClock.cpp src/sdl/SdlClock.h
+        src/event/WindowEventHandler.cpp src/event/WindowEventHandler.h
+        src/event/KeyboardEventHandler.cpp src/event/KeyboardEventHandler.h
+        src/event/MouseEventHandler.cpp src/event/MouseEventHandler.h
+        src/event/EventHandler.h src/event/WindowEvent.h src/event/WindowEvent.cpp src/event/KeyboardEvent.cpp src/event/KeyboardEvent.h src/state/GameState.cpp src/event/MouseEvent.cpp src/event/MouseEvent.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

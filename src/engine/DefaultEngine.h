@@ -42,7 +42,11 @@ public:
 
     const Clock &getClock() override;
 
-    void handleWindowEvent() override;
+    void handleWindowEvent(const WindowEvent& event) override;
+
+    void handleKeyEvent(const KeyboardEvent& event) override;
+
+    void handleMouseEvent(const MouseEvent& event) override;
 
     void setInputContext(std::unique_ptr<InputContext> inputContext) override;
 

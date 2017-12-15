@@ -10,14 +10,15 @@
 #include "../engine/Random.h"
 #include "../resources/Resources.h"
 #include "../resources/Music.h"
-#include <SDL_render.h>
-#include <SDL_events.h>
+#include "../event/WindowEvent.h"
+#include "../event/MouseEvent.h"
 #include <algorithm>
 #include <ctime>
 #include <iostream>
 
 StateMoon::StateMoon(Engine& engine)
-        : mBackgroundTexId{"moon_background"},
+        : mEngine{engine},
+          mBackgroundTexId{"moon_background"},
           _levelWidth(engine.getGraphicContext().getScreenWidth()),
           _levelHeight(engine.getGraphicContext().getScreenHeight()),
           mEnemySpawnCooldown{} {
@@ -32,27 +33,25 @@ StateMoon::StateMoon(Engine& engine)
     parseLevelData();
 }
 
-void StateMoon::handleWindowEvent() {
-    // TODO stub
+StateMoon::StateMoon(const StateMoon& other)
+        : StateMoon{other.mEngine} {
 }
 
-// TODO move to separate handlers
-//void StateMoon::handle_events(Engine& engine) {
-//    auto& event = engine.getInputContext();
-//
-//    while(SDL_PollEvent(&event.getInputEvent())) {
-//
-//        mPlayer.handle_events(event);
-//
-//        switch(event.getInputEvent().type) {
-//            case SDL_QUIT:
-//                engine.requestStateChange(GState::exit);
-//                break;
-//
-//            default:;
-//        }
-//    }
-//}
+void StateMoon::handleWindowEvent(const WindowEvent& event) {
+}
+
+void StateMoon::handleMouseEvent(const MouseEvent& event) {
+    if(event.getType() == MouseEvent::Type::Motion) {
+        mMouseX = static_cast<int>(event.getX());
+        mMouseY = static_cast<int>(event.getY());
+    }
+
+    mPlayer.handleMouseEvent(event);
+}
+
+void StateMoon::handleKeyEvent(const KeyboardEvent& event) {
+    mPlayer.handleKeyEvent(event);
+}
 
 void StateMoon::restrict_pos(GameObject& o) {
     if(o.getX() < 0) o.setX(0);
@@ -76,24 +75,24 @@ std::pair<int, int> randomPosition(Random& random, int width, int height) {
     return {lx, ly};
 }
 
-void StateMoon::handle_logic(Engine& engine) {
-    if(mEnemySpawnCooldown.haveTicksPassedSinceStart(engine.getClock(), 50) &&
+void StateMoon::handleLogic() {
+    if(mEnemySpawnCooldown.haveTicksPassedSinceStart(mEngine.getClock(), 50) &&
        (zombies().size() + werewolves().size() < 7)) {
-        auto position = randomPosition(engine.getRandom(), _levelWidth, _levelHeight);
-        int type = engine.getRandom().getInt(0, 1);
+        auto position = randomPosition(mEngine.getRandom(), _levelWidth, _levelHeight);
+        int type = mEngine.getRandom().getInt(0, 1);
         if(type == 0) {
             zombies().emplace_back(position.first, position.second);
         } else {
             werewolves().emplace_back(position.first, position.second);
         }
 
-        mEnemySpawnCooldown.restart(engine.getClock());
+        mEnemySpawnCooldown.restart(mEngine.getClock());
     }
 
-    mPlayer.handle_logic(engine.getRandom(), engine.getResources(), engine.getAudioContext());
+    mPlayer.handle_logic(mEngine.getRandom(), mEngine.getResources(), mEngine.getAudioContext());
 
-    const auto& clock = engine.getClock();
-    auto& random = engine.getRandom();
+    const auto& clock = mEngine.getClock();
+    auto& random = mEngine.getRandom();
 
     int maxWidth = _levelWidth;
     int maxHeight = _levelHeight;
@@ -150,42 +149,42 @@ void StateMoon::handle_logic(Engine& engine) {
     }), werewolves().end());
 
     restrict_pos(mPlayer);
-    if(mPlayer.dead()) engine.requestStateChange(GState::intro);
+    if(mPlayer.dead()) mEngine.requestStateChange(GState::intro);
 }
 
-static void render_crosshair(Resources& resources, GraphicContext& graphicContext, Player const& pl) {
-    int mx, my;
-    SDL_GetMouseState(&mx, &my);
-    mx -= resources.getTexture("crosshair").getWidth() / 2;
-    my -= resources.getTexture("crosshair").getHeight() / 2;
+void renderCrosshair(int mouseX, int mouseY, Resources& resources, GraphicContext& graphicContext, Player const& pl) {
+    int x = mouseX - resources.getTexture("crosshair").getWidth() / 2;
+    int y = mouseY - resources.getTexture("crosshair").getHeight() / 2;
+
     static float angle = 0.f;
     angle += 5.f;
     if(angle > 360.f) angle = 5.f;
-    graphicContext.render(resources.getTexture(pl.reloading() ? "reload" : "crosshair"), mx, my, angle);
+
+    graphicContext.render(resources.getTexture(pl.reloading() ? "reload" : "crosshair"), x, y, angle);
 }
 
-void StateMoon::handle_render(Engine& engine) {
-    auto& render = engine.getGraphicContext();
+void StateMoon::handleRender() {
+    auto& render = mEngine.getGraphicContext();
     render.clearScreen();
 
-    auto& resources = engine.getResources();
-    auto& audio = engine.getAudioContext();
+    auto& resources = mEngine.getResources();
+    auto& audio = mEngine.getAudioContext();
     audio.playMusic(resources.getMusic("weather"));
 
     render.render(resources.getTexture(mBackgroundTexId), 0, 0);
 
     mPlayer.handle_render(resources, render);
     for(auto& z : zombies()) {
-        z.handle_render(resources, render, engine.getAudioContext());
+        z.handle_render(resources, render, mEngine.getAudioContext());
     }
     for(auto& w : werewolves()) {
-        w.handle_render(resources, render, engine.getAudioContext());
+        w.handle_render(resources, render, mEngine.getAudioContext());
     }
     for(auto& b : bullets()) {
         b.handle_render(resources, render);
     }
 
-    render_crosshair(resources, render, mPlayer);
+    renderCrosshair(mMouseX, mMouseY, resources, render, mPlayer);
 
     render.refreshScreen();
 }

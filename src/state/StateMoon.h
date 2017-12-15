@@ -15,11 +15,17 @@ class StateMoon : public GameState {
 public:
     explicit StateMoon(Engine& engine);
 
-    virtual void handleWindowEvent() override;
+    StateMoon(const StateMoon& other);
 
-    void handle_logic(Engine& engine) override;
+    void handleWindowEvent(const WindowEvent& event) override;
 
-    void handle_render(Engine& engine) override;
+    void handleMouseEvent(const MouseEvent& event) override;
+
+    void handleKeyEvent(const KeyboardEvent& event) override;
+
+    void handleLogic() override;
+
+    void handleRender() override;
 
     void restrict_pos(GameObject&);
 
@@ -27,10 +33,14 @@ private:
     void parseLevelData();
 
 private:
+    Engine& mEngine;
+
     std::string mBackgroundTexId;
     int const _levelWidth;
     int const _levelHeight;
 
+    int mMouseX;
+    int mMouseY;
     Player mPlayer;
     Timer mEnemySpawnCooldown;
 };

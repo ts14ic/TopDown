@@ -5,6 +5,9 @@
 #pragma once
 
 #include "../event/InputContext.h"
+#include "../event/MouseEvent.h"
+#include "../event/KeyboardEvent.h"
+#include "../event/WindowEvent.h"
 #include <SDL_events.h>
 
 class WindowEventHandler;
@@ -17,15 +20,17 @@ class EventHandler;
 
 class SdlInputContext : public InputContext {
 public:
-    void pollEvents(EventHandler &eventHandler) override;
+    void pollEvents(EventHandler& eventHandler) override;
 
 protected:
-    void forwardWindowEvent(WindowEventHandler &eventHandler) override;
+    void forwardWindowEvent(WindowEventHandler& eventHandler) override;
 
-    void forwardMouseEvent(MouseEventHandler &eventHandler) override;
+    void forwardMouseEvent(MouseEventHandler& eventHandler) override;
 
-    void forwardKeyboardEvent(KeyboardEventHandler &eventHandler) override;
+    void forwardKeyboardEvent(KeyboardEventHandler& eventHandler) override;
 
 private:
-    SDL_Event mInputEvent{};
+    WindowEvent mWindowEvent;
+    MouseEvent mMouseEvent;
+    KeyboardEvent mKeyEvent;
 };

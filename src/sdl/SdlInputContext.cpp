@@ -6,10 +6,63 @@
 #include "../event/EventHandler.h"
 
 void SdlInputContext::pollEvents(EventHandler &eventHandler) {
-    while(SDL_PollEvent(&mInputEvent)) {
-        switch(mInputEvent.type) {
+    SDL_Event event{};
+    while(SDL_PollEvent(&event)) {
+        switch(event.type) {
             case SDL_QUIT: {
-                eventHandler.handleWindowEvent();
+                mWindowEvent.setType(WindowEvent::Type::Close);
+                eventHandler.handleWindowEvent(mWindowEvent);
+                break;
+            }
+
+            case SDL_KEYDOWN: {
+                // TODO transform to own codes (see SDL_keycode.h for available commands)
+                mKeyEvent.setType(KeyboardEvent::Type::KeyDown);
+                mKeyEvent.setKey(event.key.keysym.sym);
+                eventHandler.handleKeyEvent(mKeyEvent);
+                break;
+            }
+
+            case SDL_KEYUP: {
+                mKeyEvent.setType(KeyboardEvent::Type::KeyUp);
+                mKeyEvent.setKey(event.key.keysym.sym);
+                eventHandler.handleKeyEvent(mKeyEvent);
+                break;
+            }
+
+            case SDL_MOUSEMOTION: {
+                mMouseEvent.setType(MouseEvent::Type::Motion);
+                mMouseEvent.setX(event.motion.x);
+                mMouseEvent.setY(event.motion.y);
+                eventHandler.handleMouseEvent(mMouseEvent);
+                break;
+            }
+
+            case SDL_MOUSEBUTTONUP: {
+                mMouseEvent.setType(MouseEvent::Type::ButtonUp);
+                mMouseEvent.setX(event.button.x);
+                mMouseEvent.setY(event.button.y);
+                eventHandler.handleMouseEvent(mMouseEvent);
+                break;
+            }
+
+            case SDL_MOUSEBUTTONDOWN: {
+                mMouseEvent.setType(MouseEvent::Type::ButtonDown);
+                mMouseEvent.setX(event.button.x);
+                mMouseEvent.setY(event.button.y);
+                eventHandler.handleMouseEvent(mMouseEvent);
+                break;
+            }
+
+            case SDL_MOUSEWHEEL: {
+                if(event.wheel.y > 0) {
+                    mMouseEvent.setType(MouseEvent::Type::ScrollUp);
+                    mMouseEvent.setScrollAmount(event.wheel.y);
+                } else {
+                    mMouseEvent.setType(MouseEvent::Type::ScrollDown);
+                    mMouseEvent.setScrollAmount(-event.wheel.y);
+                }
+                eventHandler.handleMouseEvent(mMouseEvent);
                 break;
             }
 
@@ -18,36 +71,6 @@ void SdlInputContext::pollEvents(EventHandler &eventHandler) {
             }
         }
     }
-    // TODO stub
-//    auto& event = engine.getInputContext();
-//
-//    while(SDL_PollEvent(&event.getInputEvent())) {
-//        switch(event.getInputEvent().type) {
-//            case SDL_QUIT: {
-//                engine.requestStateChange(GState::exit);
-//                break;
-//            }
-//
-//            case SDL_KEYDOWN: {
-//                switch(event.getInputEvent().key.keysym.sym) {
-//                    case SDLK_q:
-//                        engine.requestStateChange(GState::exit);
-//                        break;
-//
-//                    case SDLK_RETURN:
-//                    case SDLK_ESCAPE:
-//                        engine.requestStateChange(GState::moon);
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//                break;
-//            }
-//
-//            default:;
-//        }
-//    }
 }
 
 void SdlInputContext::forwardWindowEvent(WindowEventHandler &eventHandler) {

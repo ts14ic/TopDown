@@ -12,13 +12,18 @@ class StateIntro : public GameState {
 public:
     explicit StateIntro(Engine& engine);
 
-    virtual void handleWindowEvent() override;
+    void handleWindowEvent(const WindowEvent& event) override;
 
-    void handle_logic(Engine& engine) override;
+    void handleMouseEvent(const MouseEvent& event) override;
 
-    void handle_render(Engine& engine) override;
+    void handleKeyEvent(const KeyboardEvent& event) override;
+
+    void handleLogic() override;
+
+    void handleRender() override;
 
 private:
+    Engine& mEngine;
     std::string mBackgroundTexId;
 };
 

@@ -12,5 +12,4 @@ class EventHandler : public WindowEventHandler,
                      public MouseEventHandler,
                      public KeyboardEventHandler {
 public:
-
 };
