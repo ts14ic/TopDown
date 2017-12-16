@@ -9,10 +9,10 @@
 #include <cxxabi.h>
 #include <memory>
 
-#endif
+#endif // __GNUG__
 
 std::string utils::demangleTypeName(const char* typeName) {
-#ifdef __GNUC__
+#ifdef __GNUG__
     int status{};
     std::unique_ptr<char, decltype(&std::free)> res{
             __cxxabiv1::__cxa_demangle(typeName, nullptr, nullptr, &status),
@@ -21,5 +21,5 @@ std::string utils::demangleTypeName(const char* typeName) {
     return (status == 0) ? res.get() : typeName;
 #else
     return typeName;
-#endif
+#endif // __GNUG__
 }

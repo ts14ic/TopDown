@@ -3,7 +3,7 @@ project(TopDown)
 
 set(CMAKE_CXX_STANDARD 14)
 # GCC specific
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -rdynamic -Wall -pedantic")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(SDL2 REQUIRED)
@@ -69,6 +69,7 @@ set(SOURCE_FILES
         src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
         src/engine/sdl/SdlInputContext_transformSdlKeyCode.cpp src/engine/sdl/SdlInputContext_transformSdlKeyCode.h
+        src/utils/abortHandlers.cpp src/utils/abortHandlers.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})
