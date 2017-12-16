@@ -24,10 +24,10 @@ namespace json {
     const rapidjson::Value*
     checkValue(const rapidjson::Value& root, const rapidjson::Pointer& pointer, const char* pointerPath);
 
-/*
- * Despite the docs saying Is<> and Get<> work only on scalars,
- * this also works for ConstArray and ConstObject
- */
+    /*
+     * Despite the docs saying Is<> and Get<> work only on scalars,
+     * this also works for ConstArray and ConstObject
+     */
     template <class T>
     T checkValueType(const rapidjson::Value* value, const char* pointerPath) {
         if(!value->Is<T>()) {
