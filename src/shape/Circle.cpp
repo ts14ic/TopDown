@@ -35,5 +35,5 @@ void Circle::setRadius(float r) {
 }
 
 bool circlesCollide(Circle const& a, Circle const& b) {
-    return getDistance(a.getX(), a.getY(), b.getX(), b.getY()) < (a.getRadius() + b.getRadius());
+    return math::getDistance(a.getX(), a.getY(), b.getX(), b.getY()) < (a.getRadius() + b.getRadius());
 }

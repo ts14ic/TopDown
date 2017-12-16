@@ -14,8 +14,8 @@ vector<Bullet>& bullets() {
 Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weap) {
     float half = weap.getProjectileSpread() / 2;
     mAngle = shooter.getAngle() + random.getFloat(-half, half);
-    mX = shooter.getX() + cartesianCos(mAngle) * weap.getLength();
-    mY = shooter.getY() + cartesianSin(mAngle) * weap.getLength();
+    mX = shooter.getX() + math::cartesianCos(mAngle) * weap.getLength();
+    mY = shooter.getY() + math::cartesianSin(mAngle) * weap.getLength();
 
     mDamage = weap.getProjectileDamage();
     mMaxSpeed = weap.getProjectileSpeed();
@@ -48,8 +48,8 @@ void Bullet::handle_logic() {
         // TODO extract speed setting
         auto movementAngle = getAngle();
 
-        float speedX = cartesianCos(movementAngle) * getMaxMovementSpeed();
-        float speedY = cartesianSin(movementAngle) * getMaxMovementSpeed();
+        float speedX = math::cartesianCos(movementAngle) * getMaxMovementSpeed();
+        float speedY = math::cartesianSin(movementAngle) * getMaxMovementSpeed();
 
         setCurrentSpeedX(speedX);
         setCurrentSpeedY(speedY);

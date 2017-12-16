@@ -81,9 +81,9 @@ void Werewolf::set_target(const Clock& clock, float x, float y, bool ignore) {
         if(!mTeleportCooldown.haveTicksPassedSinceStart(clock, 500)) return;
     }
 
-    setAngle(toCartesian(::getAngle(mX, mY, x, y)));
+    setAngle(math::toCartesian(math::getAngle(mX, mY, x, y)));
 
-    auto dist = getDistance(mX, mY, x, y);
+    auto dist = math::getDistance(mX, mY, x, y);
     if(dist > getCircle().getRadius() * 1.7f) {
         if(mAiState != MOVING) {
             mAiState = MOVING;
@@ -105,8 +105,8 @@ void Werewolf::handleLogic(const Clock& clock) {
         // TODO extract speed setting
         auto movementAngle = getAngle();
 
-        float speedX = cartesianCos(movementAngle) * getMaxMovementSpeed();
-        float speedY = cartesianSin(movementAngle) * getMaxMovementSpeed();
+        float speedX = math::cartesianCos(movementAngle) * getMaxMovementSpeed();
+        float speedY = math::cartesianSin(movementAngle) * getMaxMovementSpeed();
 
         setCurrentSpeed(speedX, speedY);
         defaultMove();

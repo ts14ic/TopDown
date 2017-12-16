@@ -2,6 +2,8 @@
 #include <cmath>
 #include <cstdlib>
 
+using namespace math;
+
 double detail::cartesianCos(double x) {
     return std::cos(toRadians(x));
 }

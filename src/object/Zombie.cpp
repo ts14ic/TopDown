@@ -62,9 +62,9 @@ void Zombie::damage(const Clock& clock, int d) {
 void Zombie::set_target(float x, float y, bool ignore) {
     if(ignore || mAiState == DYING) return;
 
-    mAngle = toCartesian(::getAngle(mX, mY, x, y));
+    mAngle = math::toCartesian(math::getAngle(mX, mY, x, y));
 
-    auto dist = getDistance(mX, mY, x, y);
+    auto dist = math::getDistance(mX, mY, x, y);
     if(dist > getCircle().getRadius() * 1.7f) {
         if(mAiState != MOVING) {
             mAiState = MOVING;
@@ -86,8 +86,8 @@ void Zombie::handle_logic() {
         // TODO extract speed setting
         auto movementAngle = getAngle();
 
-        float speedX = cartesianCos(movementAngle) * getMaxMovementSpeed();
-        float speedY = cartesianSin(movementAngle) * getMaxMovementSpeed();
+        float speedX = math::cartesianCos(movementAngle) * getMaxMovementSpeed();
+        float speedY = math::cartesianSin(movementAngle) * getMaxMovementSpeed();
 
         setCurrentSpeed(speedX, speedY);
         defaultMove();

@@ -116,7 +116,7 @@ void StateMoon::handleLogic() {
                                                  w.damage(clock, b.dmg());
                                                  return true;
                                              }
-                                             if(getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
+                                             if(math::getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
                                                  w.teleport(clock, random);
                                              }
                                          }
