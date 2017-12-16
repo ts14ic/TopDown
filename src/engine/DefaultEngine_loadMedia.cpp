@@ -8,7 +8,7 @@
 #include "../json/parseJson.h"
 
 void DefaultEngine::loadResources() {
-    auto doc = json::parseJson(readFile("data/common_media.json"));
+    auto doc = json::parseJson(file::readFile("data/common_media.json"));
 
     using json::getValue;
     auto texturesMap = getValue<rapidjson::Value::ConstObject>(doc, "/textures");
