@@ -5,8 +5,8 @@
 
 #include "WeaponBuilder.h"
 #include "Bullet.h"
-#include "../resources/Resources.h"
-#include "../resources/Sound.h"
+#include "../../resources/Resources.h"
+#include "../../resources/Sound.h"
 
 Weapon::Weapon(const WeaponBuilder& builder)
         : mName{builder.getName()},

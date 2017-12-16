@@ -1,9 +1,9 @@
 #include "Zombie.h"
-#include "../shape/Circle.h"
-#include "../shape/Color.h"
-#include "../math/math.h"
-#include "../resources/Resources.h"
-#include "../resources/Sound.h"
+#include "../../shape/Circle.h"
+#include "../../shape/Color.h"
+#include "../../math/math.h"
+#include "../../resources/Resources.h"
+#include "../../resources/Sound.h"
 
 using std::vector;
 

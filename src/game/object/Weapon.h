@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include "../engine/Timer.h"
-#include "../engine/AudioContext.h"
+#include "../../engine/Timer.h"
+#include "../../engine/AudioContext.h"
 #include <vector>
 #include <string>
 

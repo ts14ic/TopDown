@@ -3,9 +3,9 @@
 //
 #include "StateMoon.h"
 #include "../object/WeaponBuilder.h"
-#include "../json/getValue.h"
-#include "../file/readFile.h"
-#include "../json/parseJson.h"
+#include "../../json/getValue.h"
+#include "../../file/readFile.h"
+#include "../../json/parseJson.h"
 
 void StateMoon::parseLevelData() {
     auto doc = json::parseJson(file::readFile("data/levels/moon.json"));

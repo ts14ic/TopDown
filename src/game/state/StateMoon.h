@@ -3,9 +3,9 @@
 //
 #pragma once
 
-#include "../state/GameState.h"
+#include "GameState.h"
 #include "../object/Player.h"
-#include "../engine/Timer.h"
+#include "../../engine/Timer.h"
 
 class Engine;
 

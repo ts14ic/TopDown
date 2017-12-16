@@ -1,12 +1,12 @@
 #include "Werewolf.h"
-#include "../shape/Circle.h"
-#include "../shape/Box.h"
-#include "../shape/Color.h"
-#include "../math/math.h"
-#include "../engine/GraphicContext.h"
-#include "../engine/Random.h"
-#include "../resources/Resources.h"
-#include "../resources/Sound.h"
+#include "../../shape/Circle.h"
+#include "../../shape/Box.h"
+#include "../../shape/Color.h"
+#include "../../math/math.h"
+#include "../../engine/GraphicContext.h"
+#include "../../engine/Random.h"
+#include "../../resources/Resources.h"
+#include "../../resources/Sound.h"
 
 using std::vector;
 

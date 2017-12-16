@@ -1,10 +1,10 @@
 #include "StateIntro.h"
-#include "../engine/Engine.h"
-#include "../engine/input//InputContext.h"
-#include "../engine/GraphicContext.h"
-#include "../resources/Resources.h"
-#include "../resources/Texture.h"
-#include "../engine/input//KeyboardEvent.h"
+#include "../../engine/Engine.h"
+#include "../../engine/input/InputContext.h"
+#include "../../engine/GraphicContext.h"
+#include "../../resources/Resources.h"
+#include "../../resources/Texture.h"
+#include "../../engine/input/KeyboardEvent.h"
 
 StateIntro::StateIntro(Engine& engine)
         : mEngine{engine},

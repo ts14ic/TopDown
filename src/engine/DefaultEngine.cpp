@@ -4,8 +4,8 @@
 
 #include "DefaultEngine.h"
 #include "ContextInjector.h"
-#include "../state/StateIntro.h"
-#include "../state/StateMoon.h"
+#include "../game/state/StateIntro.h"
+#include "../game/state/StateMoon.h"
 #include "input/WindowEvent.h"
 #include "input/KeyboardEvent.h"
 

@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../state/GameState.h"
+#include "GameState.h"
 #include <string>
 
 class Engine;

@@ -18,22 +18,22 @@ include_directories(${SDL2_INCLUDE_DIR}
 set(SOURCE_FILES
         src/main.cpp
         src/math/math.cpp src/math/math.h
-        src/state/StateIntro.cpp src/state/StateIntro.h
-        src/state/StateMoon.cpp src/state/StateMoon.h src/state/StateMoon_parseLevelData.cpp
-        src/state/GameState.h
+        src/game/state/StateIntro.cpp src/game/state/StateIntro.h
+        src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parseLevelData.cpp
+        src/game/state/GameState.h
         src/resources/Sound.cpp src/resources/Sound.h
         src/resources/Music.cpp src/resources/Music.h
         src/resources/Texture.cpp src/resources/Texture.h
         src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
-        src/object/GameObject.cpp src/object/GameObject.h
-        src/object/Damageable.h src/object/Damageable.cpp
-        src/object/Player.cpp src/object/Player.h
-        src/object/Werewolf.cpp src/object/Werewolf.h
-        src/object/Zombie.cpp src/object/Zombie.h
-        src/object/WeaponBuilder.cpp src/object/WeaponBuilder.h
-        src/object/Weapon.h src/object/Weapon.cpp
-        src/object/Bullet.cpp src/object/Bullet.h
+        src/game/object/GameObject.cpp src/game/object/GameObject.h
+        src/game/object/Damageable.h src/game/object/Damageable.cpp
+        src/game/object/Player.cpp src/game/object/Player.h
+        src/game/object/Werewolf.cpp src/game/object/Werewolf.h
+        src/game/object/Zombie.cpp src/game/object/Zombie.h
+        src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
+        src/game/object/Weapon.h src/game/object/Weapon.cpp
+        src/game/object/Bullet.cpp src/game/object/Bullet.h
         src/resources/Resources.cpp src/resources/Resources.h
         src/engine/GState.h
         src/shape/Circle.cpp src/shape/Circle.h
@@ -66,7 +66,7 @@ set(SOURCE_FILES
         src/engine/input/EventHandler.h
         src/engine/input/WindowEvent.h src/engine/input/WindowEvent.cpp
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
-        src/state/GameState.cpp src/engine/input/MouseEvent.cpp
+        src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
         src/sdl/SdlInputContext_transformSdlKeyCode.cpp src/sdl/SdlInputContext_transformSdlKeyCode.h
         )

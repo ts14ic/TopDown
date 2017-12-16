@@ -5,9 +5,9 @@
 
 #include "Damageable.h"
 #include "Weapon.h"
-#include "../engine/Timer.h"
-#include "../engine/input//KeyboardEventHandler.h"
-#include "../engine/input//MouseEventHandler.h"
+#include "../../engine/Timer.h"
+#include "../../engine/input/KeyboardEventHandler.h"
+#include "../../engine/input/MouseEventHandler.h"
 #include <memory>
 #include <bitset>
 

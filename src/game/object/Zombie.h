@@ -4,8 +4,8 @@
 #pragma once
 
 #include "Damageable.h"
-#include "../engine/Timer.h"
-#include "../engine/AudioContext.h"
+#include "../../engine/Timer.h"
+#include "../../engine/AudioContext.h"
 #include <vector>
 
 class GraphicContext;
