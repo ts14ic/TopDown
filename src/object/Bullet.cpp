@@ -13,38 +13,49 @@ vector<Bullet>& bullets() {
 
 Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weap) {
     float half = weap.getProjectileSpread() / 2;
-    _angle = shooter.getAngle() + random.getFloat(-half, half);
-    _x = shooter.getX() + cartesianCos(_angle) * weap.getLength();
-    _y = shooter.getY() + cartesianSin(_angle) * weap.getLength();
+    mAngle = shooter.getAngle() + random.getFloat(-half, half);
+    mX = shooter.getX() + cartesianCos(mAngle) * weap.getLength();
+    mY = shooter.getY() + cartesianSin(mAngle) * weap.getLength();
 
-    _dmg = weap.getProjectileDamage();
-    _speed = weap.getProjectileSpeed();
+    mDamage = weap.getProjectileDamage();
+    mMaxSpeed = weap.getProjectileSpeed();
 }
 
-float Bullet::getX() const { return _x; }
+float Bullet::getX() const { return mX; }
 
-float Bullet::getY() const { return _y; }
+float Bullet::getY() const { return mY; }
 
-float Bullet::getAngle() const { return _angle; }
+float Bullet::getAngle() const { return mAngle; }
 
-float Bullet::getMaxMovementSpeed() const { return _speed; }
+float Bullet::getMaxMovementSpeed() const { return mMaxSpeed; }
 
-void Bullet::setX(float x) { _x = x; }
+void Bullet::setX(float x) { mX = x; }
 
-void Bullet::setY(float y) { _y = y; }
+void Bullet::setY(float y) { mY = y; }
 
-void Bullet::setAngle(float a) { _angle = a; }
+void Bullet::setAngle(float a) { mAngle = a; }
 
-void Bullet::setSpeed(float s) { _speed = s; }
+void Bullet::setMaxMovementSpeed(float s) { mMaxSpeed = s; }
 
-int Bullet::dmg() const { return _dmg; }
+int Bullet::dmg() const { return mDamage; }
 
-Circle Bullet::getCircle() const { return {_x, _y, 2}; }
+Circle Bullet::getCircle() const { return {mX, mY, 2}; }
 
 std::string Bullet::getTexName() const { return "bullet"; }
 
 void Bullet::handle_logic() {
-    default_move();
+    {
+        // TODO extract speed setting
+        auto movementAngle = getAngle();
+
+        float speedX = cartesianCos(movementAngle) * getMaxMovementSpeed();
+        float speedY = cartesianSin(movementAngle) * getMaxMovementSpeed();
+
+        setCurrentSpeedX(speedX);
+        setCurrentSpeedY(speedY);
+    }
+
+    defaultMove();
 }
 
 void Bullet::handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
@@ -54,4 +65,25 @@ void Bullet::handleRender(Resources& resources, GraphicContext& graphicContext, 
 void Bullet::setPos(float x, float y) {
     setX(x);
     setY(y);
+}
+
+float Bullet::getCurrentSpeedX() const {
+    return mCurrentSpeedX;
+}
+
+float Bullet::getCurrentSpeedY() const {
+    return mCurrentSpeedY;
+}
+
+void Bullet::setCurrentSpeedX(float speedX) {
+    mCurrentSpeedX = speedX;
+}
+
+void Bullet::setCurrentSpeedY(float speedY) {
+    mCurrentSpeedY = speedY;
+}
+
+void Bullet::setCurrentSpeed(float speedX, float speedY) {
+    setCurrentSpeedX(speedX);
+    setCurrentSpeedY(speedY);
 }

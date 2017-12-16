@@ -4,7 +4,6 @@
 
 #include "SdlMusic.h"
 #include <SDL_mixer.h>
-#include <iostream>
 
 SdlMusic::SdlMusic() = default;
 

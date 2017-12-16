@@ -21,6 +21,10 @@ public:
 
     float getMaxMovementSpeed() const override;
 
+    float getCurrentSpeedX() const override;
+
+    float getCurrentSpeedY() const override;
+
     void setX(float x) override;
 
     void setY(float y) override;
@@ -29,7 +33,13 @@ public:
 
     void setAngle(float a) override;
 
-    void setSpeed(float s) override;
+    void setMaxMovementSpeed(float s) override;
+
+    void setCurrentSpeedX(float speedX) override;
+
+    void setCurrentSpeedY(float speedY) override;
+
+    void setCurrentSpeed(float speedX, float speedY) override;
 
     Circle getCircle() const override;
 
@@ -42,8 +52,13 @@ public:
     void handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio);
 
 private:
-    int _dmg;
-    float _x, _y, _angle, _speed;
+    int mDamage;
+    float mX;
+    float mY;
+    float mAngle;
+    float mMaxSpeed;
+    float mCurrentSpeedX;
+    float mCurrentSpeedY;
 };
 
 std::vector<Bullet>& bullets();

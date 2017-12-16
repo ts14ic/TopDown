@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 class Circle;
 
@@ -17,8 +16,11 @@ public:
 
     virtual float getAngle() const = 0;
 
-    // TODO Add getters for x y speeds
     virtual float getMaxMovementSpeed() const = 0;
+
+    virtual float getCurrentSpeedX() const = 0;
+
+    virtual float getCurrentSpeedY() const = 0;
 
     virtual Circle getCircle() const = 0;
 
@@ -28,14 +30,20 @@ public:
 
     virtual void setY(float y) = 0;
 
+    virtual void setCurrentSpeedX(float speedX) = 0;
+
+    virtual void setCurrentSpeedY(float speedY) = 0;
+
+    virtual void setCurrentSpeed(float speedX, float speedY) = 0;
+
     virtual void setPos(float x, float y) = 0;
 
     virtual void setAngle(float angle) = 0;
 
-    virtual void setSpeed(float speed) = 0;
+    virtual void setMaxMovementSpeed(float speed) = 0;
 
 protected:
-    void default_move();
+    void defaultMove();
 
     void defaultRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio);
 };

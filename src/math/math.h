@@ -10,6 +10,10 @@ namespace detail {
 
     double cartesianSin(double x);
 
+    double radianCos(double x);
+
+    double radianSin(double x);
+
     double getAngle(double ax, double ay, double bx, double by);
 
     double getDistance(double ax, double ay, double bx, double by);
@@ -28,6 +32,16 @@ R toCartesian(A angle) {
 template<class R = float, class A>
 R cartesianCos(A angle) {
     return static_cast<R>(detail::cartesianCos(angle));
+}
+
+template <typename R = float, typename A>
+R radianCos(A angle) {
+    return static_cast<R>(detail::radianCos(angle));
+}
+
+template <typename R = float, typename A>
+R radianSin(A angle) {
+    return static_cast<R>(detail::radianSin(angle));
 }
 
 template<class R = float, class A>

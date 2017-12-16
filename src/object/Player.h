@@ -30,6 +30,10 @@ public:
 
     float getMaxMovementSpeed() const override;
 
+    float getCurrentSpeedX() const override;
+
+    float getCurrentSpeedY() const override;
+
     void setPos(float x, float y) override;
 
     void setX(float x) override;
@@ -38,7 +42,13 @@ public:
 
     void setAngle(float a) override;
 
-    void setSpeed(float s) override;
+    void setMaxMovementSpeed(float movementSpeed) override;
+
+    void setCurrentSpeedX(float speedX) override;
+
+    void setCurrentSpeedY(float speedY) override;
+
+    void setCurrentSpeed(float speedX, float speedY) override;
 
     Circle getCircle() const override;
 
@@ -74,9 +84,14 @@ private:
     void selectWeapon(unsigned idx);
 
 private:
+    void setSpeeds();
+
+private:
     float mX = 0;
     float mY = 0;
-    float _speed = 0;
+    float mCurrentSpeedX = 0;
+    float mCurrentSpeedY = 0;
+    float mMaxMovementSpeed = 0;
     float mAngle = 0.0f;
 
     std::vector<Weapon> mWeapons;
@@ -94,6 +109,4 @@ private:
         LENGTH
     };
     std::bitset<LENGTH> mInputState;
-    float mMouseX = 0.f;
-    float mMouseY = 0.f;
 };

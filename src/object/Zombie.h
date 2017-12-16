@@ -19,19 +19,29 @@ public:
 
     float getY() const override;
 
+    float getAngle() const override;
+
+    float getMaxMovementSpeed() const override;
+
+    float getCurrentSpeedX() const override;
+
+    float getCurrentSpeedY() const override;
+
     void setX(float x) override;
 
     void setY(float y) override;
 
     void setPos(float x, float y) override;
 
-    float getAngle() const override;
-
-    float getMaxMovementSpeed() const override;
-
     void setAngle(float angle) override;
 
-    void setSpeed(float speed) override;
+    void setMaxMovementSpeed(float speed) override;
+
+    void setCurrentSpeedX(float speedX) override;
+
+    void setCurrentSpeedY(float speedY) override;
+
+    void setCurrentSpeed(float speedX, float speedY) override;
 
     Circle getCircle() const override;
 
@@ -57,11 +67,15 @@ public:
                       float predictionRatio);
 
 private:
-    float _x, _y;
-    float _angle;
-    float _speed = 1.7f;
+    float mX = 0.f;
+    float mY = 0.f;
+    float mCurrentSpeedX = 0.f;
+    float mCurrentSpeedY = 0.f;
+    float mAngle = 0.f;
+    float mSpeed = 1.7f;
 
-    int _hp, _frame = 0;
+    int mCurrentHp = 0;
+    int mAnimationFrame = 0;
 
     Timer mTimer;
 
@@ -71,7 +85,7 @@ private:
         ATTACKING = 0x2,
         DYING = 0x4
     };
-    int _state = IDLE;
+    int mAiState = IDLE;
 };
 
 std::vector<Zombie>& zombies();

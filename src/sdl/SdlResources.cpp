@@ -8,7 +8,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <iostream>
 
 SdlResources::FailedSdlInitException::FailedSdlInitException(const char* message)
         : runtime_error(message) {}

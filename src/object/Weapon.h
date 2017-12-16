@@ -56,7 +56,7 @@ private:
     int mProjectileDamage;
     float mProjectileSpeed;
     float mProjectileSpread;
-    // todo Move sound generation out of this class
+    // TODO Move sound generation out of this class
     std::vector<std::string> mFireSounds;
     unsigned mCurrentFireSound = 0;
     unsigned mFireCooldown;

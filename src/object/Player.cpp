@@ -6,7 +6,7 @@
 #include "../event/KeyboardEvent.h"
 #include "../event/MouseEvent.h"
 #include <sstream>
-#include <iostream>
+#include <cmath>
 
 Player::Player()
         : Player{0, 0} {}
@@ -27,7 +27,9 @@ float Player::getY() const { return mY; }
 
 float Player::getAngle() const { return mAngle; }
 
-float Player::getMaxMovementSpeed() const { return _speed; }
+float Player::getMaxMovementSpeed() const {
+    return mMaxMovementSpeed;
+}
 
 void Player::setX(float x) { mX = x; }
 
@@ -35,7 +37,11 @@ void Player::setY(float y) { mY = y; }
 
 void Player::setAngle(float a) { mAngle = a; }
 
-void Player::setSpeed(float s) { _speed = s; }
+void Player::setMaxMovementSpeed(float movementSpeed) {
+    if(std::isgreaterequal(movementSpeed, 0.f)) {
+        mMaxMovementSpeed = movementSpeed;
+    }
+}
 
 Circle Player::getCircle() const { return {mX, mY, 30}; }
 
@@ -174,43 +180,45 @@ void Player::handleMouseEvent(const MouseEvent& event) {
 
         case MouseEvent::Type::Motion: {
             mAngle = toCartesian(::getAngle(getX(), getY(), event.getX(), event.getY()));
-            mMouseX = event.getX();
-            mMouseY = event.getY();
             break;
         }
     }
 }
 
 void Player::handle_logic(Random& random, Resources& resources, AudioContext& audioContext) {
-//    int mx, my;
-//    SDL_GetMouseState(&mx, &my);
-//    mAngle = toCartesian(::getAngle(mX, mY, mx, my));
+    // TODO Make the timer store a pointer to clock
+    // TODO AFTER Move the condition inside the getter
+    setMaxMovementSpeed(mDamageCooldown.haveTicksPassedSinceStart(resources.getClock(), 500) ? 2.3f : 1.0f);
 
-    if(mDamageCooldown.haveTicksPassedSinceStart(resources.getClock(), 500)) {
-        _speed = 2.3f;
-    } else {
-        _speed = 1.0f;
-    }
+    setSpeeds();
 
-    if(mInputState.test(DOWN_PRESSED)) {
-        mY = mY + _speed;
-    }
-    if(mInputState.test(UP_PRESSED)) {
-        mY = mY - _speed;
-    }
-    if(mInputState.test(LEFT_PRESSED)) {
-        mX = mX - _speed;
-    }
-    if(mInputState.test(RIGHT_PRESSED)) {
-        mX = mX + _speed;
-    }
+    defaultMove();
 
     if(!mWeapons.empty()) {
-        // todo don't try to reload on every frame
+        // TODO don't try to reload on every frame
         mWeapons[mSelectedWeaponIdx].tryReload(resources.getClock());
         if(mInputState.test(TRIGGER_PRESSED)) {
             mWeapons[mSelectedWeaponIdx].pullTrigger(random, resources, audioContext, *this);
         }
+    }
+}
+
+void Player::setSpeeds() {
+    // TODO extract speed calculations to share between classes
+    int directionX = mInputState.test(RIGHT_PRESSED) - mInputState.test(LEFT_PRESSED);
+    int directionY = mInputState.test(DOWN_PRESSED) - mInputState.test(UP_PRESSED);
+
+    if(directionX != 0 || directionY != 0) {
+        auto movementAngle = ::getAngle(0, 0, directionX, directionY);
+
+        float speedX = radianCos(movementAngle) * getMaxMovementSpeed();
+        float speedY = radianSin(movementAngle) * getMaxMovementSpeed();
+
+        setCurrentSpeedX(speedX);
+        setCurrentSpeedY(speedY);
+    } else {
+        setCurrentSpeedX(0);
+        setCurrentSpeedY(0);
     }
 }
 
@@ -244,4 +252,25 @@ void Player::selectWeapon(unsigned idx) {
 
 void Player::addWeapon(Weapon weapon) {
     mWeapons.emplace_back(weapon);
+}
+
+float Player::getCurrentSpeedX() const {
+    return mCurrentSpeedX;
+}
+
+float Player::getCurrentSpeedY() const {
+    return mCurrentSpeedY;
+}
+
+void Player::setCurrentSpeedX(float speedX) {
+    mCurrentSpeedX = speedX;
+}
+
+void Player::setCurrentSpeedY(float speedY) {
+    mCurrentSpeedY = speedY;
+}
+
+void Player::setCurrentSpeed(float speedX, float speedY) {
+    setCurrentSpeedX(speedX);
+    setCurrentSpeedY(speedY);
 }

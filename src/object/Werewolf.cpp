@@ -11,108 +11,124 @@
 using std::vector;
 
 Werewolf::Werewolf(float x, float y)
-        : _x{x}, _y{y} {
-    _hp = Werewolf::defaultHp();
+        : mX{x}, mY{y} {
+    mCurrentHp = Werewolf::defaultHp();
 }
 
 // GameObject legacy
-float Werewolf::getX() const { return _x; }
+float Werewolf::getX() const { return mX; }
 
-float Werewolf::getY() const { return _y; }
+float Werewolf::getY() const { return mY; }
 
-void Werewolf::setX(float x) { _x = x; }
+void Werewolf::setX(float x) { mX = x; }
 
-void Werewolf::setY(float y) { _y = y; }
+void Werewolf::setY(float y) { mY = y; }
 
-float Werewolf::getAngle() const { return _angle; }
+float Werewolf::getAngle() const { return mViewAngle; }
 
-float Werewolf::getMaxMovementSpeed() const { return _speed; }
+float Werewolf::getMaxMovementSpeed() const { return mMaxMovementSpeed; }
 
-void Werewolf::setAngle(float a) { _angle = a; }
+void Werewolf::setAngle(float a) { mViewAngle = a; }
 
-void Werewolf::setSpeed(float s) { _speed = s; }
+void Werewolf::setMaxMovementSpeed(float s) { mMaxMovementSpeed = s; }
 
-Circle Werewolf::getCircle() const { return {_x, _y, 25}; }
+Circle Werewolf::getCircle() const { return {mX, mY, 25}; }
 
-int Werewolf::hp() const { return _hp; }
+int Werewolf::hp() const { return mCurrentHp; }
 
 int Werewolf::defaultHp() const { return 30; }
 
-int Werewolf::dmg() const { if(_state == ATTACKING && (_frame == 3 || _frame == 7)) return 10; else return 0; }
+int Werewolf::dmg() const {
+    if(mAiState == ATTACKING && (mAnimationFrame == 3 || mAnimationFrame == 7))
+        return 10;
+    else return 0;
+}
 
 std::string Werewolf::getTexName() const {
     std::string name = "wolf";
 
-    if(_state == ATTACKING) {
+    if(mAiState == ATTACKING) {
         name += "_attack";
-        name += std::to_string(_frame);
-    } else if(_state == TELEPORTING) {
+        name += std::to_string(mAnimationFrame);
+    } else if(mAiState == TELEPORTING) {
         name += "_teleport";
-        name += std::to_string(_frame);
-    } else if(_state == DYING) {
+        name += std::to_string(mAnimationFrame);
+    } else if(mAiState == DYING) {
         name += "_teleport";
-        name += std::to_string(_frame);
+        name += std::to_string(mAnimationFrame);
     } else {
         name += "_move";
-        name += std::to_string(_frame);
+        name += std::to_string(mAnimationFrame);
     }
 
     return name;
 }
 
 void Werewolf::damage(const Clock& clock, int d) {
-    if(_state == TELEPORTING) d /= 2;
+    if(mAiState == TELEPORTING) d /= 2;
 
-    if(d > 0) _hp -= d;
-    if(_hp <= 0 && _state != DYING) {
-        _state = DYING;
-        _frame = 0;
+    if(d > 0) mCurrentHp -= d;
+    if(mCurrentHp <= 0 && mAiState != DYING) {
+        mAiState = DYING;
+        mAnimationFrame = 0;
     }
 }
 
 void Werewolf::set_target(const Clock& clock, float x, float y, bool ignore) {
-    if(ignore || _state == DYING) return;
+    if(ignore || mAiState == DYING) return;
 
-    if(_state == TELEPORTING) {
+    if(mAiState == TELEPORTING) {
         if(!mTeleportCooldown.haveTicksPassedSinceStart(clock, 500)) return;
     }
 
-    _angle = toCartesian(::getAngle(_x, _y, x, y));
+    setAngle(toCartesian(::getAngle(mX, mY, x, y)));
 
-    auto dist = getDistance(_x, _y, x, y);
+    auto dist = getDistance(mX, mY, x, y);
     if(dist > getCircle().getRadius() * 1.7f) {
-        if(_state != MOVING) {
-            _state = MOVING;
-            _frame = 0;
+        if(mAiState != MOVING) {
+            mAiState = MOVING;
+            mAnimationFrame = 0;
         }
-    } else if(_state != ATTACKING) {
-        _state = ATTACKING;
-        _frame = 0;
+    } else if(mAiState != ATTACKING) {
+        mAiState = ATTACKING;
+        mAnimationFrame = 0;
     }
 }
 
-void Werewolf::handle_logic(const Clock& clock) {
-    if(_state == DYING) return;
+void Werewolf::handleLogic(const Clock& clock) {
+    if(mAiState == DYING) {
+        setCurrentSpeed(0, 0);
+        return;
+    }
 
-    if(_state == MOVING) {
-        default_move();
-    } else if(_state == ATTACKING) {
-        if(mAttackCooldown.haveTicksPassedSinceStart(clock, 600)) {
-            mAttackCooldown.restart(clock);
-            _state = MOVING;
-            _frame = 0;
-        }
+    if(mAiState == MOVING) {
+        // TODO extract speed setting
+        auto movementAngle = getAngle();
+
+        float speedX = cartesianCos(movementAngle) * getMaxMovementSpeed();
+        float speedY = cartesianSin(movementAngle) * getMaxMovementSpeed();
+
+        setCurrentSpeed(speedX, speedY);
+        defaultMove();
+    } else {
+        setCurrentSpeed(0.f, 0.f);
+    }
+
+    if(mAiState == ATTACKING && mAttackCooldown.haveTicksPassedSinceStart(clock, 600)) {
+        mAttackCooldown.restart(clock);
+        mAiState = MOVING;
+        mAnimationFrame = 0;
     }
 }
 
 void Werewolf::teleport(const Clock& clock, Random& random) {
-    if(_state == DYING) return;
+    if(mAiState == DYING) return;
 
-    if(_state != TELEPORTING && mTeleportCooldown.haveTicksPassedSinceStart(clock, 1000)) {
-        _x += random.getInt(-150, 150);
-        _y += random.getInt(-150, 150);
-        _state = TELEPORTING;
-        _frame = 0;
+    if(mAiState != TELEPORTING && mTeleportCooldown.haveTicksPassedSinceStart(clock, 1000)) {
+        mX += random.getInt(-150, 150);
+        mY += random.getInt(-150, 150);
+        mAiState = TELEPORTING;
+        mAnimationFrame = 0;
         mTeleportCooldown.restart(clock);
     }
 }
@@ -121,56 +137,77 @@ void Werewolf::handleRender(Resources& resources, GraphicContext& graphicContext
                             float predictionRatio) {
     defaultRender(resources, graphicContext, predictionRatio);
 
-    if(_hp > 0) {
+    if(mCurrentHp > 0) {
         Box healthBox;
-        healthBox.setSize(1.66f * _hp, 5);
-        healthBox.setPosition(_x - healthBox.getWidth() / 2, _y - getCircle().getRadius());
+        healthBox.setSize(1.66f * mCurrentHp, 5);
+        healthBox.setPosition(mX - healthBox.getWidth() / 2, mY - getCircle().getRadius());
         graphicContext.renderBox(healthBox, Color{0x55, 0, 0x33});
     }
 
     const auto& clock = resources.getClock();
-    // todo Wow, wow, wow. Fix all the repetition
-    if(_state == ATTACKING) {
-        if(_frame == 3 || _frame == 7) {
+    // TODO Wow, wow, wow. Fix all the repetition
+    if(mAiState == ATTACKING) {
+        if(mAnimationFrame == 3 || mAnimationFrame == 7) {
             audioContext.playSound(resources.getSound("wolf_attack"));
         }
 
         if(mAttackCooldown.haveTicksPassedSinceStart(clock, 100)) {
-            ++_frame;
-            if(_frame >= 8) _frame = 0;
+            ++mAnimationFrame;
+            if(mAnimationFrame >= 8) mAnimationFrame = 0;
             mAttackCooldown.restart(clock);
         }
-    } else if(_state == MOVING) {
+    } else if(mAiState == MOVING) {
         if(mAttackCooldown.haveTicksPassedSinceStart(clock, 100)) {
-            ++_frame;
-            if(_frame >= 6) _frame = 0;
+            ++mAnimationFrame;
+            if(mAnimationFrame >= 6) mAnimationFrame = 0;
             mAttackCooldown.restart(clock);
         }
-    } else if(_state == TELEPORTING) {
+    } else if(mAiState == TELEPORTING) {
         if(mAttackCooldown.haveTicksPassedSinceStart(clock, 100)) {
-            if(_frame == 2) {
+            if(mAnimationFrame == 2) {
                 audioContext.playSound(resources.getSound("wolf_teleport"));
             }
 
-            ++_frame;
-            if(_frame > 2) _frame = 0;
+            ++mAnimationFrame;
+            if(mAnimationFrame > 2) mAnimationFrame = 0;
             mAttackCooldown.restart(clock);
         }
-    } else if(_state == DYING) {
-        if(_frame < 2 && mAttackCooldown.haveTicksPassedSinceStart(clock, 500)) {
-            ++_frame;
+    } else if(mAiState == DYING) {
+        if(mAnimationFrame < 2 && mAttackCooldown.haveTicksPassedSinceStart(clock, 500)) {
+            ++mAnimationFrame;
             mAttackCooldown.restart(clock);
         }
     }
 }
 
 bool Werewolf::dead() const {
-    return _state == DYING && _frame == 2;
+    return mAiState == DYING && mAnimationFrame == 2;
 }
 
 void Werewolf::setPos(float x, float y) {
     setX(x);
     setY(y);
+}
+
+float Werewolf::getCurrentSpeedX() const {
+    return mCurrentSpeedX;
+}
+
+float Werewolf::getCurrentSpeedY() const {
+    return mCurrentSpeedY;
+}
+
+void Werewolf::setCurrentSpeedX(float speedX) {
+    mCurrentSpeedX = speedX;
+}
+
+void Werewolf::setCurrentSpeedY(float speedY) {
+    mCurrentSpeedY = speedY;
+}
+
+void Werewolf::setCurrentSpeed(float speedX, float speedY) {
+    setCurrentSpeedX(speedX);
+    setCurrentSpeedY(speedY);
 }
 
 vector<Werewolf>& werewolves() {

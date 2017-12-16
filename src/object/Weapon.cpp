@@ -87,7 +87,8 @@ void Weapon::tryReload(const Clock& clock) {
         mCurrentAmmo = mMaxAmmo;
         mIsReloading = false;
     }
-    // todo add support for shotgun's interrupted reload
+    // TODO add support for shotgun's interrupted reload
+    // TODO add support semi-automatic fire
 //    if(mIsReloading && mReloadCooldownTimer.ticksHavePassed(1000)) {
 //        if(mCurrentAmmo == 0) {
 //            mCurrentAmmo++;

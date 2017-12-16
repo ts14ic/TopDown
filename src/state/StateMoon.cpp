@@ -14,7 +14,6 @@
 #include "../event/MouseEvent.h"
 #include <algorithm>
 #include <ctime>
-#include <iostream>
 
 StateMoon::StateMoon(Engine& engine)
         : mEngine{engine},
@@ -139,7 +138,7 @@ void StateMoon::handleLogic() {
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
         w.set_target(clock, mPlayer.getX(), mPlayer.getY(), false);
-        w.handle_logic(clock);
+        w.handleLogic(clock);
 
         if(objectsCollide(w, mPlayer)) {
             mPlayer.damage(clock, w.dmg());
