@@ -40,7 +40,7 @@ set(SOURCE_FILES
         src/shape/Circle.cpp src/shape/Circle.h
         src/json/getValue.h src/json/getValue.cpp
         src/engine/Random.cpp src/engine/Random.h
-        src/utils/demangle.cpp src/utils/demangle.h
+        src/utils/demangleTypeName.cpp src/utils/demangleTypeName.h
         src/engine/Engine.cpp src/engine/Engine.h
         src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp

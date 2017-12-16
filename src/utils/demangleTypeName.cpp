@@ -2,7 +2,7 @@
 // Created by ts14ic on 12/13/17.
 //
 
-#include "demangle.h"
+#include "demangleTypeName.h"
 
 #ifdef __GNUG__
 
@@ -11,7 +11,7 @@
 
 #endif
 
-std::string demangleTypeName(const char* typeName) {
+std::string utils::demangleTypeName(const char* typeName) {
 #ifdef __GNUC__
     int status{};
     std::unique_ptr<char, decltype(&std::free)> res{

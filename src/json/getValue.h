@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../utils/demangle.h"
+#include "../utils/demangleTypeName.h"
 
 #define RAPIDJSON_HAS_STDSTRING 1
 
@@ -32,7 +32,8 @@ namespace json {
     T checkValueType(const rapidjson::Value* value, const char* pointerPath) {
         if(!value->Is<T>()) {
             throw JsonParseException{
-                    std::string{"Value on "} + pointerPath + " is not of type " + demangleTypeName(typeid(T).name())};
+                    std::string{"Value on "} + pointerPath + " is not of type " +
+                    utils::demangleTypeName(typeid(T).name())};
         }
         return value->Get<T>();
     }
