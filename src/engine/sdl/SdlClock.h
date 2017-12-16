@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../engine/Clock.h"
+#include "../Clock.h"
 
 class SdlClock : public Clock {
 public:

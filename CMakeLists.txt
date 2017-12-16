@@ -41,24 +41,24 @@ set(SOURCE_FILES
         src/engine/Random.cpp src/engine/Random.h
         src/utils/demangleTypeName.cpp src/utils/demangleTypeName.h
         src/engine/Engine.cpp src/engine/Engine.h
-        src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
+        src/engine/sdl/SdlInputContext.cpp src/engine/sdl/SdlInputContext.h
         src/utils/random/Mt19937Random.h src/utils/random/Mt19937Random.cpp
-        src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
-        src/sdl/SdlResources.cpp src/sdl/SdlResources.h
-        src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
+        src/engine/sdl/SdlGraphicContext.cpp src/engine/sdl/SdlGraphicContext.h
+        src/engine/sdl/SdlResources.cpp src/engine/sdl/SdlResources.h
+        src/engine/sdl/SdlTexture.cpp src/engine/sdl/SdlTexture.h
         src/engine/ContextInjector.cpp src/engine/ContextInjector.h
-        src/sdl/SdlContextInjector.cpp src/sdl/SdlContextInjector.h
+        src/engine/sdl/SdlContextInjector.cpp src/engine/sdl/SdlContextInjector.h
         src/engine/graphic/shape/Box.cpp src/engine/graphic/shape/Box.h
         src/engine/graphic/shape/Color.cpp src/engine/graphic/shape/Color.h
         src/utils/file/readFile.cpp src/utils/file/readFile.h
         src/utils/json/parseJson.cpp src/utils/json/parseJson.h
         src/engine/AudioContext.cpp src/engine/AudioContext.h
-        src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
-        src/sdl/SdlSound.cpp src/sdl/SdlSound.h
-        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
+        src/engine/sdl/SdlAudioContext.cpp src/engine/sdl/SdlAudioContext.h
+        src/engine/sdl/SdlSound.cpp src/engine/sdl/SdlSound.h
+        src/engine/sdl/SdlMusic.cpp src/engine/sdl/SdlMusic.h
         src/engine/Timer.cpp src/engine/Timer.h
         src/engine/Clock.cpp src/engine/Clock.h
-        src/sdl/SdlClock.cpp src/sdl/SdlClock.h
+        src/engine/sdl/SdlClock.cpp src/engine/sdl/SdlClock.h
         src/engine/input/InputContext.cpp src/engine/input/InputContext.h
         src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
         src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
@@ -68,7 +68,7 @@ set(SOURCE_FILES
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
         src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
-        src/sdl/SdlInputContext_transformSdlKeyCode.cpp src/sdl/SdlInputContext_transformSdlKeyCode.h
+        src/engine/sdl/SdlInputContext_transformSdlKeyCode.cpp src/engine/sdl/SdlInputContext_transformSdlKeyCode.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

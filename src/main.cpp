@@ -1,5 +1,5 @@
 #include "engine/DefaultEngine.h"
-#include "sdl/SdlContextInjector.h"
+#include "engine/sdl/SdlContextInjector.h"
 
 int main(int, char* []) {
     DefaultEngine{

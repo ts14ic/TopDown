@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../engine/resources/Texture.h"
+#include "../resources/Texture.h"
 #include <memory>
 
 class SDL_Texture;

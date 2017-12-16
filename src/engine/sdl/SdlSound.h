@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include "../engine/resources/Sound.h"
+#include "../resources/Sound.h"
 #include <memory>
 
 struct Mix_Chunk;
