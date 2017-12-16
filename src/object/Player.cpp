@@ -214,11 +214,9 @@ void Player::setSpeeds() {
         float speedX = radianCos(movementAngle) * getMaxMovementSpeed();
         float speedY = radianSin(movementAngle) * getMaxMovementSpeed();
 
-        setCurrentSpeedX(speedX);
-        setCurrentSpeedY(speedY);
+        setCurrentSpeed(speedX, speedY);
     } else {
-        setCurrentSpeedX(0);
-        setCurrentSpeedY(0);
+        setCurrentSpeed(0, 0);
     }
 }
 
