@@ -3,8 +3,8 @@
 #include "../shape/Color.h"
 #include "../math/math.h"
 #include "../resources/Resources.h"
-#include "../event/KeyboardEvent.h"
-#include "../event/MouseEvent.h"
+#include "../engine/input//KeyboardEvent.h"
+#include "../engine/input//MouseEvent.h"
 #include <sstream>
 #include <cmath>
 

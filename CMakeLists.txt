@@ -26,7 +26,6 @@ set(SOURCE_FILES
         src/resources/Texture.cpp src/resources/Texture.h
         src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
-        src/event/InputContext.cpp src/event/InputContext.h
         src/object/GameObject.cpp src/object/GameObject.h
         src/object/Damageable.h src/object/Damageable.cpp
         src/object/Player.cpp src/object/Player.h
@@ -60,14 +59,15 @@ set(SOURCE_FILES
         src/engine/Timer.cpp src/engine/Timer.h
         src/engine/Clock.cpp src/engine/Clock.h
         src/sdl/SdlClock.cpp src/sdl/SdlClock.h
-        src/event/WindowEventHandler.cpp src/event/WindowEventHandler.h
-        src/event/KeyboardEventHandler.cpp src/event/KeyboardEventHandler.h
-        src/event/MouseEventHandler.cpp src/event/MouseEventHandler.h
-        src/event/EventHandler.h
-        src/event/WindowEvent.h src/event/WindowEvent.cpp
-        src/event/KeyboardEvent.cpp src/event/KeyboardEvent.h
-        src/state/GameState.cpp src/event/MouseEvent.cpp
-        src/event/MouseEvent.h src/event/KeyboardKey.h
+        src/engine/input/InputContext.cpp src/engine/input/InputContext.h
+        src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
+        src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
+        src/engine/input/MouseEventHandler.cpp src/engine/input/MouseEventHandler.h
+        src/engine/input/EventHandler.h
+        src/engine/input/WindowEvent.h src/engine/input/WindowEvent.cpp
+        src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
+        src/state/GameState.cpp src/engine/input/MouseEvent.cpp
+        src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
         src/sdl/SdlInputContext_transformSdlKeyCode.cpp src/sdl/SdlInputContext_transformSdlKeyCode.h
         )
 

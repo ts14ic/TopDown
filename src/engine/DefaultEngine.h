@@ -7,8 +7,8 @@
 #include "GState.h"
 #include "../state/GameState.h"
 #include "../resources/Resources.h"
-#include "../event/InputContext.h"
-#include "../event/EventHandler.h"
+#include "input/InputContext.h"
+#include "input/EventHandler.h"
 #include "Timer.h"
 #include "Clock.h"
 #include "GraphicContext.h"
@@ -30,15 +30,15 @@ public:
 
     void requestStateChange(GState stateId) override;
 
-    GraphicContext &getGraphicContext() override;
+    GraphicContext& getGraphicContext() override;
 
-    AudioContext &getAudioContext() override;
+    AudioContext& getAudioContext() override;
 
-    Resources &getResources() override;
+    Resources& getResources() override;
 
-    Random &getRandom() override;
+    Random& getRandom() override;
 
-    const Clock &getClock() override;
+    const Clock& getClock() override;
 
     void handleWindowEvent(const WindowEvent& event) override;
 
@@ -62,7 +62,7 @@ private:
     void loadResources();
 
 private:
-    // todo add a loop event
+    // todo add a loop input
     GState mCurrentStateId = GState::null;
     GState mNextStateId = GState::null;
     std::unique_ptr<GameState> mCurrentState;

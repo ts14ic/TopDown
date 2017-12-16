@@ -6,8 +6,8 @@
 #include "ContextInjector.h"
 #include "../state/StateIntro.h"
 #include "../state/StateMoon.h"
-#include "../event/WindowEvent.h"
-#include "../event/KeyboardEvent.h"
+#include "input/WindowEvent.h"
+#include "input/KeyboardEvent.h"
 
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;
@@ -120,7 +120,7 @@ void DefaultEngine::handleWindowEvent(const WindowEvent& event) {
         }
 
 //        default: {
-//            mCurrentState->handleWindowEvent(event);
+//            mCurrentState->handleWindowEvent(input);
 //            break;
 //        }
     }

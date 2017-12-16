@@ -5,13 +5,13 @@
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
 #include "../resources/Texture.h"
-#include "../event/InputContext.h"
+#include "../engine/input//InputContext.h"
 #include "../engine/GraphicContext.h"
 #include "../engine/Random.h"
 #include "../resources/Resources.h"
 #include "../resources/Music.h"
-#include "../event/WindowEvent.h"
-#include "../event/MouseEvent.h"
+#include "../engine/input//WindowEvent.h"
+#include "../engine/input//MouseEvent.h"
 #include <algorithm>
 #include <ctime>
 

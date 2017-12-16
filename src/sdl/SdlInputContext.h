@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "../event/InputContext.h"
-#include "../event/MouseEvent.h"
-#include "../event/KeyboardEvent.h"
-#include "../event/WindowEvent.h"
+#include "../engine/input//InputContext.h"
+#include "../engine/input//MouseEvent.h"
+#include "../engine/input//KeyboardEvent.h"
+#include "../engine/input//WindowEvent.h"
 #include <SDL_events.h>
 
 class WindowEventHandler;
