@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../engine/GraphicContext.h"
+#include "../engine/graphic/GraphicContext.h"
 
 class Texture;
 

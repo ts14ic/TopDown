@@ -6,7 +6,7 @@
 #include "../object/Bullet.h"
 #include "../../engine/resources/Texture.h"
 #include "../../engine/input/InputContext.h"
-#include "../../engine/GraphicContext.h"
+#include "../../engine/graphic/GraphicContext.h"
 #include "../../engine/Random.h"
 #include "../../engine/resources/Resources.h"
 #include "../../engine/resources/Music.h"

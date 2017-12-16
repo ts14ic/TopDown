@@ -1,6 +1,6 @@
 #include "Bullet.h"
 #include "../../engine/Random.h"
-#include "../../shape/Circle.h"
+#include "../../engine/graphic/shape/Circle.h"
 #include "../../utils/math/math.h"
 #include "Weapon.h"
 

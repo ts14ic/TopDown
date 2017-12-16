@@ -24,7 +24,7 @@ set(SOURCE_FILES
         src/engine/resources/Sound.cpp src/engine/resources/Sound.h
         src/engine/resources/Music.cpp src/engine/resources/Music.h
         src/engine/resources/Texture.cpp src/engine/resources/Texture.h
-        src/engine/GraphicContext.cpp src/engine/GraphicContext.h
+        src/engine/graphic/GraphicContext.cpp src/engine/graphic/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
         src/game/object/GameObject.cpp src/game/object/GameObject.h
         src/game/object/Damageable.h src/game/object/Damageable.cpp
@@ -36,7 +36,7 @@ set(SOURCE_FILES
         src/game/object/Bullet.cpp src/game/object/Bullet.h
         src/engine/resources/Resources.cpp src/engine/resources/Resources.h
         src/engine/GState.h
-        src/shape/Circle.cpp src/shape/Circle.h
+        src/engine/graphic/shape/Circle.cpp src/engine/graphic/shape/Circle.h
         src/utils/json/getValue.h src/utils/json/getValue.cpp
         src/engine/Random.cpp src/engine/Random.h
         src/utils/demangleTypeName.cpp src/utils/demangleTypeName.h
@@ -48,8 +48,8 @@ set(SOURCE_FILES
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
         src/engine/ContextInjector.cpp src/engine/ContextInjector.h
         src/sdl/SdlContextInjector.cpp src/sdl/SdlContextInjector.h
-        src/shape/Box.cpp src/shape/Box.h
-        src/shape/Color.cpp src/shape/Color.h
+        src/engine/graphic/shape/Box.cpp src/engine/graphic/shape/Box.h
+        src/engine/graphic/shape/Color.cpp src/engine/graphic/shape/Color.h
         src/utils/file/readFile.cpp src/utils/file/readFile.h
         src/utils/json/parseJson.cpp src/utils/json/parseJson.h
         src/engine/AudioContext.cpp src/engine/AudioContext.h

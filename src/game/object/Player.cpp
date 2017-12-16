@@ -1,6 +1,6 @@
 #include "Player.h"
-#include "../../shape/Circle.h"
-#include "../../shape/Color.h"
+#include "../../engine/graphic/shape/Circle.h"
+#include "../../engine/graphic/shape/Color.h"
 #include "../../utils/math/math.h"
 #include "../../engine/resources/Resources.h"
 #include "../../engine/input/KeyboardEvent.h"

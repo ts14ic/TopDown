@@ -11,7 +11,7 @@
 #include "input/EventHandler.h"
 #include "Timer.h"
 #include "Clock.h"
-#include "GraphicContext.h"
+#include "graphic/GraphicContext.h"
 #include "AudioContext.h"
 #include "Random.h"
 #include <memory>

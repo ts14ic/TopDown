@@ -4,8 +4,8 @@
 
 #include "SdlGraphicContext.h"
 #include "../engine/resources/Resources.h"
-#include "../shape/Box.h"
-#include "../shape/Color.h"
+#include "../engine/graphic/shape/Box.h"
+#include "../engine/graphic/shape/Color.h"
 #include "SdlTexture.h"
 #include <SDL.h>
 

@@ -1,7 +1,7 @@
 #include "StateIntro.h"
 #include "../../engine/Engine.h"
 #include "../../engine/input/InputContext.h"
-#include "../../engine/GraphicContext.h"
+#include "../../engine/graphic/GraphicContext.h"
 #include "../../engine/resources/Resources.h"
 #include "../../engine/resources/Texture.h"
 #include "../../engine/input/KeyboardEvent.h"
