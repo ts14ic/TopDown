@@ -21,9 +21,9 @@ set(SOURCE_FILES
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parseLevelData.cpp
         src/game/state/GameState.h
-        src/resources/Sound.cpp src/resources/Sound.h
-        src/resources/Music.cpp src/resources/Music.h
-        src/resources/Texture.cpp src/resources/Texture.h
+        src/engine/resources/Sound.cpp src/engine/resources/Sound.h
+        src/engine/resources/Music.cpp src/engine/resources/Music.h
+        src/engine/resources/Texture.cpp src/engine/resources/Texture.h
         src/engine/GraphicContext.cpp src/engine/GraphicContext.h
         src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
         src/game/object/GameObject.cpp src/game/object/GameObject.h
@@ -34,7 +34,7 @@ set(SOURCE_FILES
         src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
         src/game/object/Weapon.h src/game/object/Weapon.cpp
         src/game/object/Bullet.cpp src/game/object/Bullet.h
-        src/resources/Resources.cpp src/resources/Resources.h
+        src/engine/resources/Resources.cpp src/engine/resources/Resources.h
         src/engine/GState.h
         src/shape/Circle.cpp src/shape/Circle.h
         src/utils/json/getValue.h src/utils/json/getValue.cpp

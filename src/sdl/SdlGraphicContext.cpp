@@ -3,7 +3,7 @@
 //
 
 #include "SdlGraphicContext.h"
-#include "../resources/Resources.h"
+#include "../engine/resources/Resources.h"
 #include "../shape/Box.h"
 #include "../shape/Color.h"
 #include "SdlTexture.h"

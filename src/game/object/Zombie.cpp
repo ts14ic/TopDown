@@ -2,8 +2,8 @@
 #include "../../shape/Circle.h"
 #include "../../shape/Color.h"
 #include "../../utils/math/math.h"
-#include "../../resources/Resources.h"
-#include "../../resources/Sound.h"
+#include "../../engine/resources/Resources.h"
+#include "../../engine/resources/Sound.h"
 
 using std::vector;
 

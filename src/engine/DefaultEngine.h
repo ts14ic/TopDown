@@ -6,7 +6,7 @@
 #include "Engine.h"
 #include "GState.h"
 #include "../game/state/GameState.h"
-#include "../resources/Resources.h"
+#include "../engine/resources/Resources.h"
 #include "input/InputContext.h"
 #include "input/EventHandler.h"
 #include "Timer.h"

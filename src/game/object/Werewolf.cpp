@@ -5,8 +5,8 @@
 #include "../../utils/math/math.h"
 #include "../../engine/GraphicContext.h"
 #include "../../engine/Random.h"
-#include "../../resources/Resources.h"
-#include "../../resources/Sound.h"
+#include "../../engine/resources/Resources.h"
+#include "../../engine/resources/Sound.h"
 
 using std::vector;
 

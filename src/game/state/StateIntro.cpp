@@ -2,8 +2,8 @@
 #include "../../engine/Engine.h"
 #include "../../engine/input/InputContext.h"
 #include "../../engine/GraphicContext.h"
-#include "../../resources/Resources.h"
-#include "../../resources/Texture.h"
+#include "../../engine/resources/Resources.h"
+#include "../../engine/resources/Texture.h"
 #include "../../engine/input/KeyboardEvent.h"
 
 StateIntro::StateIntro(Engine& engine)
