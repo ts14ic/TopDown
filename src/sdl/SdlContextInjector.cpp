@@ -7,7 +7,7 @@
 #include "SdlAudioContext.h"
 #include "SdlInputContext.h"
 #include "SdlResources.h"
-#include "../random/Mt19937Random.h"
+#include "../utils/random/Mt19937Random.h"
 #include "../engine/Engine.h"
 
 std::unique_ptr<SdlGraphicContext> createGraphicContext(SDL_Window* window, SDL_Renderer* renderer) {

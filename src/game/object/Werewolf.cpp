@@ -2,7 +2,7 @@
 #include "../../shape/Circle.h"
 #include "../../shape/Box.h"
 #include "../../shape/Color.h"
-#include "../../math/math.h"
+#include "../../utils/math/math.h"
 #include "../../engine/GraphicContext.h"
 #include "../../engine/Random.h"
 #include "../../resources/Resources.h"

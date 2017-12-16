@@ -17,7 +17,7 @@ include_directories(${SDL2_INCLUDE_DIR}
 
 set(SOURCE_FILES
         src/main.cpp
-        src/math/math.cpp src/math/math.h
+        src/utils/math/math.cpp src/utils/math/math.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parseLevelData.cpp
         src/game/state/GameState.h
@@ -37,12 +37,12 @@ set(SOURCE_FILES
         src/resources/Resources.cpp src/resources/Resources.h
         src/engine/GState.h
         src/shape/Circle.cpp src/shape/Circle.h
-        src/json/getValue.h src/json/getValue.cpp
+        src/utils/json/getValue.h src/utils/json/getValue.cpp
         src/engine/Random.cpp src/engine/Random.h
         src/utils/demangleTypeName.cpp src/utils/demangleTypeName.h
         src/engine/Engine.cpp src/engine/Engine.h
         src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
-        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
+        src/utils/random/Mt19937Random.h src/utils/random/Mt19937Random.cpp
         src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
         src/sdl/SdlResources.cpp src/sdl/SdlResources.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
@@ -50,8 +50,8 @@ set(SOURCE_FILES
         src/sdl/SdlContextInjector.cpp src/sdl/SdlContextInjector.h
         src/shape/Box.cpp src/shape/Box.h
         src/shape/Color.cpp src/shape/Color.h
-        src/file/readFile.cpp src/file/readFile.h
-        src/json/parseJson.cpp src/json/parseJson.h
+        src/utils/file/readFile.cpp src/utils/file/readFile.h
+        src/utils/json/parseJson.cpp src/utils/json/parseJson.h
         src/engine/AudioContext.cpp src/engine/AudioContext.h
         src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
         src/sdl/SdlSound.cpp src/sdl/SdlSound.h

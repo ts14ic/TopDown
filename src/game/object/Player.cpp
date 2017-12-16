@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "../../shape/Circle.h"
 #include "../../shape/Color.h"
-#include "../../math/math.h"
+#include "../../utils/math/math.h"
 #include "../../resources/Resources.h"
 #include "../../engine/input/KeyboardEvent.h"
 #include "../../engine/input/MouseEvent.h"
