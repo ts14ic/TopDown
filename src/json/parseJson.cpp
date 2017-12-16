@@ -7,7 +7,7 @@
 
 using namespace std::string_literals;
 
-rapidjson::Document parseJson(const std::string& input) {
+rapidjson::Document json::parseJson(const std::string& input) {
     rapidjson::Document doc;
     doc.Parse(input.c_str(), input.length());
     if(doc.HasParseError()) {

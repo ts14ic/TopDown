@@ -8,10 +8,12 @@
 #include "../json/parseJson.h"
 
 void StateMoon::parseLevelData() {
-    auto doc = parseJson(readFile("data/levels/moon.json"));
+    auto doc = json::parseJson(readFile("data/levels/moon.json"));
 
+    using json::getValue;
     auto weaponsArray = getValue<rapidjson::Value::ConstArray>(doc, "/player/weapons");
 
+    using json::getValues;
     for(const auto& weapon : weaponsArray) {
         auto builder = WeaponBuilder{getValue<const char*>(weapon, "/name")}
                 .fireSounds(getValues<std::string>(weapon, "/fire_sounds"))

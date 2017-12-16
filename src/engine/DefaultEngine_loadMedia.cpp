@@ -8,8 +8,9 @@
 #include "../json/parseJson.h"
 
 void DefaultEngine::loadResources() {
-    auto doc = parseJson(readFile("data/common_media.json"));
+    auto doc = json::parseJson(readFile("data/common_media.json"));
 
+    using json::getValue;
     auto texturesMap = getValue<rapidjson::Value::ConstObject>(doc, "/textures");
     for(const auto& entry : texturesMap) {
         mResources->loadTexture(getValue<const char*>(entry.name, ""), getValue<const char*>(entry.value, ""));
