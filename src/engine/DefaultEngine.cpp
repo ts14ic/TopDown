@@ -8,7 +8,6 @@
 #include "../state/StateMoon.h"
 #include "../event/WindowEvent.h"
 #include "../event/KeyboardEvent.h"
-#include <SDL_timer.h>
 
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;
@@ -26,21 +25,25 @@ DefaultEngine::DefaultEngine(
 void DefaultEngine::runLoop() {
     mCurrentState = std::make_unique<StateIntro>(*this);
 
+    const auto& clock = getClock();
+    auto previousTime = clock.getCurrentTime();
+    auto lagTime = 0UL;
+
     while(mCurrentStateId != GState::exit) {
-        mLoopTimer.restart(getClock());
+        auto newTime = clock.getCurrentTime();
+        lagTime += newTime - previousTime;
+        previousTime = newTime;
 
         mInputContext->pollEvents(*this);
 
-        mCurrentState->handleLogic();
+        while(lagTime >= MS_PER_FRAME) {
+            mCurrentState->handleLogic();
+            lagTime -= MS_PER_FRAME;
+        }
 
         changeState();
 
-        mCurrentState->handleRender();
-
-        if(!mLoopTimer.haveTicksPassedSinceStart(getClock(), MS_PER_FRAME)) {
-            // todo Don't call SDL directly
-            SDL_Delay(static_cast<unsigned>(MS_PER_FRAME - mLoopTimer.getTicksSinceRestart(getClock())));
-        }
+        mCurrentState->handleRender(static_cast<float>(lagTime) / MS_PER_FRAME);
     }
 }
 

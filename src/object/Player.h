@@ -28,7 +28,7 @@ public:
 
     float getAngle() const override;
 
-    float getSpeed() const override;
+    float getMaxMovementSpeed() const override;
 
     void setPos(float x, float y) override;
 
@@ -62,7 +62,7 @@ public:
 
     void handle_logic(Random& random, Resources& resources, AudioContext& audioContext);
 
-    void handle_render(Resources& resources, GraphicContext& graphicContext);
+    void handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio);
 
     void addWeapon(Weapon weapon);
 

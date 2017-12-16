@@ -27,7 +27,7 @@ public:
 
     float getAngle() const override;
 
-    float getSpeed() const override;
+    float getMaxMovementSpeed() const override;
 
     void setAngle(float a) override;
 
@@ -55,7 +55,8 @@ public:
 
     void handle_logic(const Clock& clock);
 
-    void handle_render(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext);
+    void handleRender(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext,
+                      float predictionRatio);
 
 private:
     float _x, _y, _speed = 2.5f;

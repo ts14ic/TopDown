@@ -10,13 +10,25 @@ bool objectsCollide(GameObject& a, GameObject& b) {
 }
 
 void GameObject::default_move() {
-    setX(getX() + getSpeed() * cartesianCos(getAngle()));
-    setY(getY() + getSpeed() * cartesianSin(getAngle()));
+    setX(getX() + getMaxMovementSpeed() * cartesianCos(getAngle()));
+    setY(getY() + getMaxMovementSpeed() * cartesianSin(getAngle()));
 }
 
-void GameObject::default_render(Resources& resources, GraphicContext& graphicContext) {
+void GameObject::defaultRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
     Texture& tex = resources.getTexture(getTexName());
-    auto tx = static_cast<int>(getX() - tex.getWidth() / 2);
-    auto ty = static_cast<int>(getY() - tex.getHeight() / 2);
-    graphicContext.render(tex, tx, ty, getAngle());
+
+    // TODO Use current x and y speeds instead of getMovementSpeed
+
+    auto x = getX() - tex.getWidth() / 2;
+    auto predictedDx = getMaxMovementSpeed() * cartesianCos(getAngle()) * predictionRatio;
+
+    auto y = getY() - tex.getHeight() / 2;
+    auto predictedDy = getMaxMovementSpeed() * cartesianSin(getAngle()) * predictionRatio;
+
+    graphicContext.render(
+            tex,
+            static_cast<int>(x + predictedDx),
+            static_cast<int>(y + predictedDy),
+            getAngle()
+    );
 }

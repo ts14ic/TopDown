@@ -26,7 +26,7 @@ void Werewolf::setY(float y) { _y = y; }
 
 float Werewolf::getAngle() const { return _angle; }
 
-float Werewolf::getSpeed() const { return _speed; }
+float Werewolf::getMaxMovementSpeed() const { return _speed; }
 
 void Werewolf::setAngle(float a) { _angle = a; }
 
@@ -117,8 +117,9 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
     }
 }
 
-void Werewolf::handle_render(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext) {
-    default_render(resources, graphicContext);
+void Werewolf::handleRender(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext,
+                            float predictionRatio) {
+    defaultRender(resources, graphicContext, predictionRatio);
 
     if(_hp > 0) {
         Box healthBox;

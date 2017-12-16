@@ -27,7 +27,7 @@ float Player::getY() const { return mY; }
 
 float Player::getAngle() const { return mAngle; }
 
-float Player::getSpeed() const { return _speed; }
+float Player::getMaxMovementSpeed() const { return _speed; }
 
 void Player::setX(float x) { mX = x; }
 
@@ -214,8 +214,8 @@ void Player::handle_logic(Random& random, Resources& resources, AudioContext& au
     }
 }
 
-void Player::handle_render(Resources& resources, GraphicContext& graphicContext) {
-    default_render(resources, graphicContext);
+void Player::handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
+    defaultRender(resources, graphicContext, predictionRatio);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
 }
 

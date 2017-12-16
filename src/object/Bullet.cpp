@@ -27,7 +27,7 @@ float Bullet::getY() const { return _y; }
 
 float Bullet::getAngle() const { return _angle; }
 
-float Bullet::getSpeed() const { return _speed; }
+float Bullet::getMaxMovementSpeed() const { return _speed; }
 
 void Bullet::setX(float x) { _x = x; }
 
@@ -47,8 +47,8 @@ void Bullet::handle_logic() {
     default_move();
 }
 
-void Bullet::handle_render(Resources& resources, GraphicContext& graphicContext) {
-    default_render(resources, graphicContext);
+void Bullet::handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
+    defaultRender(resources, graphicContext, predictionRatio);
 }
 
 void Bullet::setPos(float x, float y) {

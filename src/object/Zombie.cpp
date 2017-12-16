@@ -22,7 +22,7 @@ void Zombie::setY(float y) { _y = y; }
 
 float Zombie::getAngle() const { return _angle; }
 
-float Zombie::getSpeed() const { return _speed; }
+float Zombie::getMaxMovementSpeed() const { return _speed; }
 
 void Zombie::setAngle(float a) { _angle = a; }
 
@@ -84,8 +84,9 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext) {
-    default_render(resources, graphicContext);
+void Zombie::handleRender(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext,
+                          float predictionRatio) {
+    defaultRender(resources, graphicContext, predictionRatio);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
 
     const auto& clock = resources.getClock();

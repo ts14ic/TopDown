@@ -41,7 +41,7 @@ void StateIntro::handleKeyEvent(const KeyboardEvent& event) {
 
 void StateIntro::handleLogic() {}
 
-void StateIntro::handleRender() {
+void StateIntro::handleRender(float predictionRatio) {
     auto& render = mEngine.getGraphicContext();
 
     Texture& background = mEngine.getResources().getTexture(mBackgroundTexId);

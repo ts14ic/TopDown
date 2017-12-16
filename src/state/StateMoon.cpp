@@ -152,18 +152,19 @@ void StateMoon::handleLogic() {
     if(mPlayer.dead()) mEngine.requestStateChange(GState::intro);
 }
 
-void renderCrosshair(int mouseX, int mouseY, Resources& resources, GraphicContext& graphicContext, Player const& pl) {
+void renderCrosshair(int mouseX, int mouseY, Resources& resources, GraphicContext& graphicContext, Player const& pl,
+                     float predictionRatio) {
     int x = mouseX - resources.getTexture("crosshair").getWidth() / 2;
     int y = mouseY - resources.getTexture("crosshair").getHeight() / 2;
 
     static float angle = 0.f;
-    angle += 5.f;
+    angle += 5.f * predictionRatio;
     if(angle > 360.f) angle = 5.f;
 
     graphicContext.render(resources.getTexture(pl.reloading() ? "reload" : "crosshair"), x, y, angle);
 }
 
-void StateMoon::handleRender() {
+void StateMoon::handleRender(float predictionRatio) {
     auto& render = mEngine.getGraphicContext();
     render.clearScreen();
 
@@ -173,18 +174,21 @@ void StateMoon::handleRender() {
 
     render.render(resources.getTexture(mBackgroundTexId), 0, 0);
 
-    mPlayer.handle_render(resources, render);
+    mPlayer.handleRender(resources, render, predictionRatio);
+
     for(auto& z : zombies()) {
-        z.handle_render(resources, render, mEngine.getAudioContext());
-    }
-    for(auto& w : werewolves()) {
-        w.handle_render(resources, render, mEngine.getAudioContext());
-    }
-    for(auto& b : bullets()) {
-        b.handle_render(resources, render);
+        z.handleRender(resources, render, mEngine.getAudioContext(), predictionRatio);
     }
 
-    renderCrosshair(mMouseX, mMouseY, resources, render, mPlayer);
+    for(auto& w : werewolves()) {
+        w.handleRender(resources, render, mEngine.getAudioContext(), predictionRatio);
+    }
+
+    for(auto& b : bullets()) {
+        b.handleRender(resources, render, predictionRatio);
+    }
+
+    renderCrosshair(mMouseX, mMouseY, resources, render, mPlayer, predictionRatio);
 
     render.refreshScreen();
 }

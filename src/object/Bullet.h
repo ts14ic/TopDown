@@ -19,7 +19,7 @@ public:
 
     float getAngle() const override;
 
-    float getSpeed() const override;
+    float getMaxMovementSpeed() const override;
 
     void setX(float x) override;
 
@@ -39,7 +39,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Resources& resources, GraphicContext& graphicContext);
+    void handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio);
 
 private:
     int _dmg;

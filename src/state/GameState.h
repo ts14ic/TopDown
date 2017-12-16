@@ -10,5 +10,5 @@ public:
 
     virtual void handleLogic()  = 0;
 
-    virtual void handleRender() = 0;
+    virtual void handleRender(float predictionRatio) = 0;
 };

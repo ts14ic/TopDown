@@ -20,7 +20,7 @@ public:
 
     void handleLogic() override;
 
-    void handleRender() override;
+    void handleRender(float predictionRatio) override;
 
 private:
     Engine& mEngine;
