@@ -99,7 +99,7 @@ void Zombie::handle_logic() {
 void Zombie::handleRender(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext,
                           float predictionRatio) {
     defaultRender(resources, graphicContext, predictionRatio);
-    default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
+    defaultRenderHealth(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
 
     const auto& clock = resources.getClock();
     if(mAiState == ATTACKING) {

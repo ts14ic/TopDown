@@ -222,7 +222,7 @@ void Player::setSpeeds() {
 
 void Player::handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
     defaultRender(resources, graphicContext, predictionRatio);
-    default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF});
+    defaultRenderHealth(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
 }
 
 void Player::selectNextWeapon() {

@@ -22,5 +22,5 @@ public:
     virtual bool dead() const = 0;
 
 protected:
-    void default_render_health(GraphicContext& graphicContext, Color const& color) const;
+    void defaultRenderHealth(GraphicContext& graphicContext, Color const& color, float predictionRatio) const;
 };
