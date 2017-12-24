@@ -15,7 +15,7 @@
 void printStackTrace() {
     std::cerr << "Stack trace:" << std::endl;
 
-    int maxFrames = 10;
+    constexpr int maxFrames = 10;
     void* framesList[maxFrames];
     int framesCount = backtrace(framesList, maxFrames);
     char** symbolsList = backtrace_symbols(framesList, framesCount);

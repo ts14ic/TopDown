@@ -15,6 +15,10 @@ public:
 
     int getInt(int min, int max) const override;
 
+    std::size_t getSize() const override;
+
+    std::size_t getSize(std::size_t min, std::size_t max) const override;
+
     float getFloat() const override;
 
     float getFloat(float min, float max) const override;

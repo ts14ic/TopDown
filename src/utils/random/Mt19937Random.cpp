@@ -16,6 +16,15 @@ int Mt19937Random::getInt(int min, int max) const {
     return dis(mRandomEngine);
 }
 
+size_t Mt19937Random::getSize() const {
+    return getSize(0, std::numeric_limits<std::size_t>::max());
+}
+
+size_t Mt19937Random::getSize(std::size_t min, std::size_t max) const {
+    std::uniform_int_distribution<std::size_t> dis(min, max);
+    return dis(mRandomEngine);
+}
+
 float Mt19937Random::getFloat() const {
     return getFloat(0.f, 1.f);
 }
