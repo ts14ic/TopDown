@@ -1,5 +1,5 @@
 #include "Zombie.h"
-#include "utils/math/math.h"
+#include "utils/math/maths.h"
 
 using std::vector;
 

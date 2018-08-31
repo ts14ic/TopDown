@@ -1,5 +1,5 @@
 #include "StateMoon.h"
-#include "utils/math/math.h"
+#include "utils/math/maths.h"
 #include "game/object/Zombie.h"
 #include "game/object/Werewolf.h"
 #include "game/object/Bullet.h"

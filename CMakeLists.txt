@@ -20,7 +20,7 @@ include_directories(
 
 set(SOURCE_FILES
         src/main.cpp
-        src/utils/math/math.cpp src/utils/math/math.h
+        src/utils/math/maths.cpp src/utils/math/maths.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parseLevelData.cpp
         src/game/state/GameState.h
