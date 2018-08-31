@@ -4,7 +4,7 @@
 
 #pragma once
 
-class Clock;
+#include "Clock.h"
 
 class Timer {
 public:

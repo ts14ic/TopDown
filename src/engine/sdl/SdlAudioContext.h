@@ -6,10 +6,6 @@
 
 #include "../AudioContext.h"
 
-class SdlSound;
-
-class SdlMusic;
-
 class SdlAudioContext : public AudioContext {
 public:
     void playSound(const Sound& sound) override;

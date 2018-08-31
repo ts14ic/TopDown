@@ -8,15 +8,8 @@
 #include "../input/MouseEvent.h"
 #include "../input/KeyboardEvent.h"
 #include "../input/WindowEvent.h"
+#include "../input/EventHandler.h"
 #include <SDL_events.h>
-
-class WindowEventHandler;
-
-class MouseEventHandler;
-
-class KeyboardEventHandler;
-
-class EventHandler;
 
 class SdlInputContext : public InputContext {
 public:

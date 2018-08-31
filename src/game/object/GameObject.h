@@ -2,11 +2,9 @@
 
 #include <string>
 
-class Circle;
-
-class Resources;
-
-class GraphicContext;
+#include "../../engine/graphic/shape/Circle.h"
+#include "../../engine/resources/Resources.h"
+#include "../../engine/graphic/GraphicContext.h"
 
 class GameObject {
 public:

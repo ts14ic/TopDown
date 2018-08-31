@@ -5,10 +5,9 @@
 
 #include "Damageable.h"
 #include "../../engine/Timer.h"
+#include "../../engine/Random.h"
 #include "../../engine/AudioContext.h"
 #include <vector>
-
-class Random;
 
 class Werewolf : public Damageable {
 public:

@@ -8,10 +8,9 @@
 #include "../../engine/Timer.h"
 #include "../../engine/input/KeyboardEventHandler.h"
 #include "../../engine/input/MouseEventHandler.h"
+#include "../../engine/input/InputContext.h"
 #include <memory>
 #include <bitset>
-
-class InputContext;
 
 class Player : public virtual GameObject,
                public Damageable,

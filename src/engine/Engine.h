@@ -4,20 +4,14 @@
 
 #pragma once
 
+#include "input/InputContext.h"
+#include "graphic/GraphicContext.h"
+#include "AudioContext.h"
+#include "resources/Resources.h"
+#include "Random.h"
+#include "Clock.h"
 #include "GState.h"
 #include <memory>
-
-class InputContext;
-
-class GraphicContext;
-
-class AudioContext;
-
-class Resources;
-
-class Random;
-
-class Clock;
 
 class Engine {
 public:

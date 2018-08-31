@@ -4,19 +4,15 @@
 #pragma once
 
 #include "Engine.h"
-#include "GState.h"
 #include "../game/state/GameState.h"
+#include "../engine/ContextInjector.h"
 #include "../engine/resources/Resources.h"
-#include "input/InputContext.h"
-#include "input/EventHandler.h"
 #include "Timer.h"
 #include "Clock.h"
 #include "graphic/GraphicContext.h"
 #include "AudioContext.h"
 #include "Random.h"
 #include <memory>
-
-class ContextInjector;
 
 class DefaultEngine : public Engine,
                       public EventHandler {

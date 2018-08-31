@@ -6,9 +6,8 @@
 #include "Damageable.h"
 #include "../../engine/Timer.h"
 #include "../../engine/AudioContext.h"
+#include "../../engine/graphic/GraphicContext.h"
 #include <vector>
-
-class GraphicContext;
 
 class Zombie : public Damageable {
 public:

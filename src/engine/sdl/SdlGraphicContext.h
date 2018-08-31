@@ -5,15 +5,9 @@
 #pragma once
 
 #include "../graphic/GraphicContext.h"
-
-class Texture;
-
-class SdlTexture;
-
-class SdlResources;
-
-struct SDL_Renderer;
-struct SDL_Window;
+#include "../resources/Texture.h"
+#include "SdlTexture.h"
+#include "SdlResources.h"
 
 class SdlGraphicContext : public GraphicContext {
 public:

@@ -5,11 +5,9 @@
 
 #include "GameState.h"
 #include "../object/Player.h"
+#include "../object/GameObject.h"
+#include "../../engine/Engine.h"
 #include "../../engine/Timer.h"
-
-class Engine;
-
-class GameObject;
 
 class StateMoon : public GameState {
 public:

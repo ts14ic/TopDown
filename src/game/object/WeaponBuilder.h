@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-class Weapon;
+class Weapon; /* forward required for builder */
 
 class WeaponBuilder {
 public:

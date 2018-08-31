@@ -6,8 +6,7 @@
 
 #include "../resources/Texture.h"
 #include <memory>
-
-class SDL_Texture;
+#include <SDL_render.h>
 
 class SdlTexture : public Texture {
 public:

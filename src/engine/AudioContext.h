@@ -3,9 +3,8 @@
 //
 #pragma once
 
-class Sound;
-
-class Music;
+#include "resources/Sound.h"
+#include "resources/Music.h"
 
 class AudioContext {
 public:

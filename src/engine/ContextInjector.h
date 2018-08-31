@@ -4,9 +4,8 @@
 
 #pragma once
 
+#include "Engine.h"
 #include <memory>
-
-class Engine;
 
 class ContextInjector {
 public:

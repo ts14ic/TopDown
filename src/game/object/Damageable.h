@@ -4,10 +4,8 @@
 #pragma once
 
 #include "GameObject.h"
-
-class Color;
-
-class Clock;
+#include "../../engine/Clock.h"
+#include "../../engine/graphic/shape/Color.h"
 
 class Damageable : public virtual GameObject {
 public:

@@ -4,7 +4,7 @@
 
 #pragma once
 
-class MouseEvent;
+#include "MouseEvent.h"
 
 class MouseEventHandler {
 public:

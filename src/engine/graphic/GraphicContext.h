@@ -4,13 +4,10 @@
 
 #pragma once
 
-class Resources;
-
-class Texture;
-
-class Box;
-
-class Color;
+#include "../resources/Resources.h"
+#include "../resources/Texture.h"
+#include "../graphic/shape/Box.h"
+#include "../graphic/shape/Color.h"
 
 class GraphicContext {
 public:

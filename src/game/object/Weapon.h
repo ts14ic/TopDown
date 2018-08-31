@@ -5,16 +5,12 @@
 
 #include "../../engine/Timer.h"
 #include "../../engine/AudioContext.h"
+#include "../../engine/resources/Resources.h"
+#include "../../engine/Random.h"
+#include "../object/GameObject.h"
+#include "../object/WeaponBuilder.h"
 #include <vector>
 #include <string>
-
-class GameObject;
-
-class Resources;
-
-class WeaponBuilder;
-
-class Random;
 
 class Weapon {
 public:

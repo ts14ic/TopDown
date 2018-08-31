@@ -4,9 +4,8 @@
 #pragma once
 
 #include "GameState.h"
+#include "../../engine/Engine.h"
 #include <string>
-
-class Engine;
 
 class StateIntro : public GameState {
 public:

@@ -7,8 +7,7 @@
 
 #include "../resources/Sound.h"
 #include <memory>
-
-struct Mix_Chunk;
+#include <SDL_mixer.h>
 
 class SdlSound : public Sound {
 public:

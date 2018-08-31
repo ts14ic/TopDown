@@ -9,14 +9,8 @@
 #include "SdlSound.h"
 #include "SdlMusic.h"
 #include "SdlClock.h"
+#include <SDL_render.h>
 #include <unordered_map>
-
-class SdlGraphicContext;
-
-class SdlAudioContext;
-
-struct SDL_Window;
-struct SDL_Renderer;
 
 class SdlResources : public Resources, private SdlClock {
 public:

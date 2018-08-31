@@ -4,7 +4,7 @@
 
 #pragma once
 
-class KeyboardEvent;
+#include "KeyboardEvent.h"
 
 class KeyboardEventHandler {
 public:

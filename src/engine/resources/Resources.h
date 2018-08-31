@@ -4,19 +4,11 @@
 
 #pragma once
 
+#include "Texture.h"
+#include "Sound.h"
+#include "Music.h"
+#include "../Clock.h"
 #include <iosfwd>
-
-class Texture;
-
-class Sound;
-
-class Music;
-
-class GraphicContext;
-
-class AudioContext;
-
-class Clock;
 
 class Resources {
 public:

@@ -4,7 +4,7 @@
 
 #pragma once
 
-class WindowEvent;
+#include "WindowEvent.h"
 
 class WindowEventHandler {
 public:

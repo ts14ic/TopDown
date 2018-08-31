@@ -3,13 +3,10 @@
 //
 #pragma once
 
-class WindowEventHandler;
-
-class MouseEventHandler;
-
-class KeyboardEventHandler;
-
-class EventHandler;
+#include "WindowEventHandler.h"
+#include "MouseEventHandler.h"
+#include "KeyboardEventHandler.h"
+#include "EventHandler.h"
 
 class InputContext {
 public:

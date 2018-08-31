@@ -7,8 +7,7 @@
 #include "../resources/Music.h"
 #include <string>
 #include <memory>
-
-typedef struct _Mix_Music Mix_Music;
+#include <SDL_mixer.h>
 
 class SdlMusic : public Music {
 public:
