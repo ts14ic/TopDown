@@ -3,11 +3,8 @@
 //
 
 #include "SdlResources.h"
-#include "SdlGraphicContext.h"
-#include "SdlAudioContext.h"
-#include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_mixer.h>
+#include <SDL.h>
 
 SdlResources::FailedSdlInitException::FailedSdlInitException(const char* message)
         : runtime_error(message) {}

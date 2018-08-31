@@ -5,7 +5,6 @@
 #include "SdlAudioContext.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"
-#include <SDL_mixer.h>
 
 void SdlAudioContext::playSound(const Sound& sound) {
     if(sound.isLoaded()) {

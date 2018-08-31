@@ -8,7 +8,6 @@
 #include "SdlInputContext.h"
 #include "SdlResources.h"
 #include "../../utils/random/Mt19937Random.h"
-#include "../Engine.h"
 
 std::unique_ptr<SdlGraphicContext> createGraphicContext(SDL_Window* window, SDL_Renderer* renderer) {
     return std::make_unique<SdlGraphicContext>(window, renderer);

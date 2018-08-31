@@ -2,7 +2,7 @@
 // Created by ts14ic on 12/15/17.
 //
 #include "SdlInputContext_transformSdlKeyCode.h"
-#include "../input//KeyboardKey.h"
+#include "../input/KeyboardKey.h"
 
 KeyboardKey_t transformSdlKeyCode(SDL_Keycode keyCode) {
     switch(keyCode) {

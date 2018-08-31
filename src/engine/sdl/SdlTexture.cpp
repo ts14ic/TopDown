@@ -3,7 +3,6 @@
 //
 
 #include "SdlTexture.h"
-#include <SDL_image.h>
 
 SdlTexture::SdlTexture() = default;
 

@@ -3,10 +3,7 @@
 //
 #include "Weapon.h"
 
-#include "WeaponBuilder.h"
 #include "Bullet.h"
-#include "../../engine/resources/Resources.h"
-#include "../../engine/resources/Sound.h"
 
 Weapon::Weapon(const WeaponBuilder& builder)
         : mName{builder.getName()},

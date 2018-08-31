@@ -3,7 +3,6 @@
 //
 
 #include "SdlSound.h"
-#include <SDL_mixer.h>
 
 SdlSound::SdlSound() = default;
 

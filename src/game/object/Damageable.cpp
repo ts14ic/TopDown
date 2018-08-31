@@ -2,9 +2,6 @@
 // Created by ts14ic on 12/3/17.
 //
 #include "Damageable.h"
-#include "../../engine/graphic/shape/Circle.h"
-#include "../../engine/graphic/GraphicContext.h"
-#include "../../engine/graphic/shape/Box.h"
 
 void Damageable::defaultRenderHealth(GraphicContext& graphicContext, Color const& color, float predictionRatio) const {
     if(hp() > 0) {

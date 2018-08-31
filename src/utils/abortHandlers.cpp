@@ -3,12 +3,12 @@
 //
 
 #include "abortHandlers.h"
+#include "demangleTypeName.h"
 
 #ifdef __GNUG__
 
 #include <csignal>
 #include <cstring>
-#include "demangleTypeName.h"
 #include <execinfo.h>
 #include <iostream>
 

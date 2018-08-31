@@ -3,7 +3,6 @@
 //
 
 #include "SdlInputContext.h"
-#include "../input/EventHandler.h"
 #include "SdlInputContext_transformSdlKeyCode.h"
 
 void SdlInputContext::pollEvents(EventHandler& eventHandler) {

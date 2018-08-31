@@ -2,10 +2,9 @@
 // Created by ts14ic on 12/12/17.
 //
 #include "StateMoon.h"
-#include "../object/WeaponBuilder.h"
 #include "../../utils/json/getValue.h"
-#include "../../utils/file/readFile.h"
 #include "../../utils/json/parseJson.h"
+#include "../../utils/file/readFile.h"
 
 void StateMoon::parseLevelData() {
     auto doc = json::parseJson(file::readFile("data/levels/moon.json"));

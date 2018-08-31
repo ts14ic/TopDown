@@ -1,9 +1,5 @@
 #include "Zombie.h"
-#include "../../engine/graphic/shape/Circle.h"
-#include "../../engine/graphic/shape/Color.h"
 #include "../../utils/math/math.h"
-#include "../../engine/resources/Resources.h"
-#include "../../engine/resources/Sound.h"
 
 using std::vector;
 

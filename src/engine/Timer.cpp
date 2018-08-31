@@ -3,7 +3,6 @@
 //
 
 #include "Timer.h"
-#include "Clock.h"
 
 Timer::Timer()
         : mStartTime{} {

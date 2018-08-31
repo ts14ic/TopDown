@@ -1,19 +1,9 @@
 #include "StateMoon.h"
 #include "../../utils/math/math.h"
-#include "../../engine/Engine.h"
 #include "../object/Zombie.h"
 #include "../object/Werewolf.h"
 #include "../object/Bullet.h"
-#include "../../engine/resources/Texture.h"
-#include "../../engine/input/InputContext.h"
-#include "../../engine/graphic/GraphicContext.h"
-#include "../../engine/Random.h"
-#include "../../engine/resources/Resources.h"
-#include "../../engine/resources/Music.h"
-#include "../../engine/input/WindowEvent.h"
-#include "../../engine/input/MouseEvent.h"
 #include <algorithm>
-#include <ctime>
 
 StateMoon::StateMoon(Engine& engine)
         : mEngine{engine},

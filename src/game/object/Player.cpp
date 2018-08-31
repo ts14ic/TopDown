@@ -1,10 +1,5 @@
 #include "Player.h"
-#include "../../engine/graphic/shape/Circle.h"
-#include "../../engine/graphic/shape/Color.h"
 #include "../../utils/math/math.h"
-#include "../../engine/resources/Resources.h"
-#include "../../engine/input/KeyboardEvent.h"
-#include "../../engine/input/MouseEvent.h"
 #include <sstream>
 #include <cmath>
 

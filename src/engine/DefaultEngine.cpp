@@ -3,11 +3,8 @@
 //
 
 #include "DefaultEngine.h"
-#include "ContextInjector.h"
 #include "../game/state/StateIntro.h"
 #include "../game/state/StateMoon.h"
-#include "input/WindowEvent.h"
-#include "input/KeyboardEvent.h"
 
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;

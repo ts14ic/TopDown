@@ -1,12 +1,5 @@
 #include "Werewolf.h"
-#include "../../engine/graphic/shape/Circle.h"
-#include "../../engine/graphic/shape/Box.h"
-#include "../../engine/graphic/shape/Color.h"
 #include "../../utils/math/math.h"
-#include "../../engine/graphic/GraphicContext.h"
-#include "../../engine/Random.h"
-#include "../../engine/resources/Resources.h"
-#include "../../engine/resources/Sound.h"
 
 using std::vector;
 

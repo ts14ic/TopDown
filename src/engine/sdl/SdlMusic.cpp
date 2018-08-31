@@ -3,7 +3,6 @@
 //
 
 #include "SdlMusic.h"
-#include <SDL_mixer.h>
 
 SdlMusic::SdlMusic() = default;
 

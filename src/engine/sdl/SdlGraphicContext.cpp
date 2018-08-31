@@ -3,11 +3,6 @@
 //
 
 #include "SdlGraphicContext.h"
-#include "../resources/Resources.h"
-#include "../graphic/shape/Box.h"
-#include "../graphic/shape/Color.h"
-#include "SdlTexture.h"
-#include <SDL.h>
 
 SdlGraphicContext::SdlGraphicContext(SDL_Window* window, SDL_Renderer* renderer)
         : mWindow{window}, mRenderer{renderer} {
