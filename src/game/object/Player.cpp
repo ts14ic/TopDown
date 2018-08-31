@@ -174,7 +174,7 @@ void Player::handleMouseEvent(const MouseEvent& event) {
         }
 
         case MouseEvent::Type::Motion: {
-            mAngle = math::toCartesian(math::getAngle(getX(), getY(), event.getX(), event.getY()));
+            mAngle = math::getCartesianAngle(getX(), getY(), event.getX(), event.getY());
             break;
         }
     }
@@ -204,7 +204,7 @@ void Player::setSpeeds() {
     int directionY = mInputState.test(DOWN_PRESSED) - mInputState.test(UP_PRESSED);
 
     if(directionX != 0 || directionY != 0) {
-        auto movementAngle = math::getAngle(0, 0, directionX, directionY);
+        auto movementAngle = math::getRadianAngle(0, 0, directionX, directionY);
 
         float speedX = math::radianCos(movementAngle) * getMaxMovementSpeed();
         float speedY = math::radianSin(movementAngle) * getMaxMovementSpeed();

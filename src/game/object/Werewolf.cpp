@@ -74,7 +74,7 @@ void Werewolf::set_target(const Clock& clock, float x, float y, bool ignore) {
         if(!mTeleportCooldown.haveTicksPassedSinceStart(clock, 500)) return;
     }
 
-    setAngle(math::toCartesian(math::getAngle(mX, mY, x, y)));
+    setAngle(math::getCartesianAngle(mX, mY, x, y));
 
     auto dist = math::getDistance(mX, mY, x, y);
     if(dist > getCircle().getRadius() * 1.7f) {

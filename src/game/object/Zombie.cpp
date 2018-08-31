@@ -58,7 +58,7 @@ void Zombie::damage(const Clock& clock, int d) {
 void Zombie::set_target(float x, float y, bool ignore) {
     if(ignore || mAiState == DYING) return;
 
-    mAngle = math::toCartesian(math::getAngle(mX, mY, x, y));
+    mAngle = math::getCartesianAngle(mX, mY, x, y);
 
     auto dist = math::getDistance(mX, mY, x, y);
     if(dist > getCircle().getRadius() * 1.7f) {

@@ -3,26 +3,26 @@
 
 using namespace math;
 
-double detail::cartesianCos(double x) {
-    return std::cos(toRadians(x));
+double detail::cartesianCos(double cartesianAngle) {
+    return std::cos(toRadians(cartesianAngle));
 }
 
-double detail::cartesianSin(double x) {
-    return std::sin(toRadians(x));
+double detail::cartesianSin(double cartesianAngle) {
+    return std::sin(toRadians(cartesianAngle));
 }
 
-double detail::radianCos(double x) {
-    return std::cos(x);
+double detail::radianCos(double radianAngle) {
+    return std::cos(radianAngle);
 }
 
-double detail::radianSin(double x) {
-    return std::sin(x);
+double detail::radianSin(double radianAngle) {
+    return std::sin(radianAngle);
 }
 
-double detail::getDistance(double ax, double ay, double bx, double by) {
-    return std::hypot(bx - ax, by - ay);
+double detail::getDistance(double lhsX, double lhsY, double rhsX, double rhsY) {
+    return std::hypot(rhsX - lhsX, rhsY - lhsY);
 }
 
-double detail::getAngle(double ax, double ay, double bx, double by) {
-    return std::atan2(by - ay, bx - ax);
+double detail::getAngle(double lhsX, double lhsY, double rhsX, double rhsY) {
+    return std::atan2(rhsY - lhsY, rhsX - lhsX);
 }
