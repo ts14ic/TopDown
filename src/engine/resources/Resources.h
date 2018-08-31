@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/8/17.
-//
-
 #pragma once
 
 #include "Texture.h"

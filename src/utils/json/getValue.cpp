@@ -1,6 +1,3 @@
-//
-// Created by ts14ic on 12/13/17.
-//
 #include "getValue.h"
 
 json::JsonParseException::JsonParseException(const std::string& message)

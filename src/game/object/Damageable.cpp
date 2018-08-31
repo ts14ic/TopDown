@@ -1,6 +1,3 @@
-//
-// Created by ts14ic on 12/3/17.
-//
 #include "Damageable.h"
 
 void Damageable::defaultRenderHealth(GraphicContext& graphicContext, Color const& color, float predictionRatio) const {

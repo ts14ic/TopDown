@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/15/17.
-//
-
 #include "MouseEvent.h"
 
 MouseEvent::MouseEvent() = default;

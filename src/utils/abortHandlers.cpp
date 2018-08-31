@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/16/17.
-//
-
 #include "abortHandlers.h"
 #include "demangleTypeName.h"
 

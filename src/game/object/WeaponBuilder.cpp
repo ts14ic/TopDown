@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/11/17.
-//
-
 #include "WeaponBuilder.h"
 #include "Weapon.h"
 

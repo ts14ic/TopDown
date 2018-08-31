@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/13/17.
-//
-
 #include "SdlResources.h"
 #include <SDL_image.h>
 #include <SDL.h>

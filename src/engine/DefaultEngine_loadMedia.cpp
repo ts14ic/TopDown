@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/13/17.
-//
-
 #include "DefaultEngine.h"
 #include "utils/file/readFile.h"
 #include "utils/json/getValue.h"

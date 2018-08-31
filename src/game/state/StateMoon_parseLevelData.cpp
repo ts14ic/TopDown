@@ -1,6 +1,3 @@
-//
-// Created by ts14ic on 12/12/17.
-//
 #include "StateMoon.h"
 #include "utils/json/getValue.h"
 #include "utils/json/parseJson.h"

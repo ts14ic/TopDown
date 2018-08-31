@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/13/17.
-//
-
 #include "SdlGraphicContext.h"
 
 SdlGraphicContext::SdlGraphicContext(SDL_Window* window, SDL_Renderer* renderer)

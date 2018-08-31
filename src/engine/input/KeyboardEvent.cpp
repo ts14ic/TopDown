@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/15/17.
-//
-
 #include "KeyboardEvent.h"
 
 KeyboardEvent::KeyboardEvent() = default;

@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/13/17.
-//
-
 #include "SdlContextInjector.h"
 #include "SdlGraphicContext.h"
 #include "SdlAudioContext.h"

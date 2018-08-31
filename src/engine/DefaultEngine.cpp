@@ -1,7 +1,3 @@
-//
-// Created by ts14ic on 12/2/17.
-//
-
 #include "DefaultEngine.h"
 #include "game/state/StateIntro.h"
 #include "game/state/StateMoon.h"
