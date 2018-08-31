@@ -2,9 +2,9 @@
 
 namespace math {
     // trigonometry
-    constexpr float PI = 3.14159265359f;
-    constexpr float PI_OVER_180 = PI / 180.f;
-    constexpr float PI_UNDER_180 = 180.f / PI;
+    extern const double PI;
+    extern const double PI_OVER_180;
+    extern const double PI_UNDER_180;
 
     namespace detail {
         double cartesianCos(double cartesianAngle);
