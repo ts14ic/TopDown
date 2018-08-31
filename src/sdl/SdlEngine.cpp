@@ -1,28 +1,28 @@
-#include "SdlResources.h"
+#include "SdlEngine.h"
 #include <SDL_image.h>
 #include <SDL.h>
 
-SdlResources::FailedSdlInitException::FailedSdlInitException(const char* message)
+SdlEngine::FailedSdlInitException::FailedSdlInitException(const char* message)
         : runtime_error(message) {}
 
-SdlResources::FailedSdlMixerInitException::FailedSdlMixerInitException(const char* message)
+SdlEngine::FailedSdlMixerInitException::FailedSdlMixerInitException(const char* message)
         : runtime_error(message) {}
 
-SdlResources::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
+SdlEngine::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
         : runtime_error(message) {}
 
-SdlResources::FailedToLoadSoundException::FailedToLoadSoundException(const char* message)
+SdlEngine::FailedToLoadSoundException::FailedToLoadSoundException(const char* message)
         : runtime_error(message) {}
 
-SdlResources::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
+SdlEngine::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
         : runtime_error(message) {}
 
-SdlResources::SdlResources(int width, int height) {
+SdlEngine::SdlEngine(int width, int height) {
     init_graphic_system(width, height);
     init_audio_system();
 }
 
-SdlResources::~SdlResources() {
+SdlEngine::~SdlEngine() {
     _name_to_texture.clear();
     _name_to_music.clear();
     _name_to_sound.clear();
@@ -31,23 +31,23 @@ SdlResources::~SdlResources() {
     SDL_Quit();
 }
 
-Texture& SdlResources::get_texture(std::string const &name) {
+Texture& SdlEngine::get_texture(std::string const &name) {
     return _name_to_texture[name];
 }
 
-Music& SdlResources::get_music(std::string const &name) {
+Music& SdlEngine::get_music(std::string const &name) {
     return _name_to_music[name];
 }
 
-Sound& SdlResources::get_sound(std::string const &name) {
+Sound& SdlEngine::get_sound(std::string const &name) {
     return _name_to_sound[name];
 }
 
-void SdlResources::load_texture(std::string const &name, const char *path) {
+void SdlEngine::load_texture(std::string const &name, const char *path) {
     _name_to_texture.insert(std::make_pair(name, load_texture(path)));
 }
 
-SdlTexture SdlResources::load_texture(const char *path) {
+SdlTexture SdlEngine::load_texture(const char *path) {
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -72,15 +72,15 @@ SdlTexture SdlResources::load_texture(const char *path) {
     return tex;
 }
 
-void SdlResources::load_sound(std::string const &name, const char *path) {
+void SdlEngine::load_sound(std::string const &name, const char *path) {
     _name_to_sound.insert(std::make_pair(name, load_sound(path)));
 }
 
-void SdlResources::load_music(const std::string &name, const char *path) {
+void SdlEngine::load_music(const std::string &name, const char *path) {
     _name_to_music.insert(std::make_pair(name, load_music(path)));
 }
 
-SdlSound SdlResources::load_sound(const char *path) {
+SdlSound SdlEngine::load_sound(const char *path) {
     std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> new_sound{Mix_LoadWAV(path)};
     if(!new_sound) {
         throw FailedToLoadSoundException{Mix_GetError()};
@@ -92,7 +92,7 @@ SdlSound SdlResources::load_sound(const char *path) {
     return sound;
 }
 
-SdlMusic SdlResources::load_music(const char *path) {
+SdlMusic SdlEngine::load_music(const char *path) {
     std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> new_music{Mix_LoadMUS(path)};
     if(!new_music) {
         throw FailedToLoadMusicException{Mix_GetError()};
@@ -102,7 +102,7 @@ SdlMusic SdlResources::load_music(const char *path) {
     return music;
 }
 
-void SdlResources::init_graphic_system(int screenWidth, int screenHeight) {
+void SdlEngine::init_graphic_system(int screenWidth, int screenHeight) {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSdlInitException{SDL_GetError()};
@@ -144,28 +144,28 @@ void SdlResources::init_graphic_system(int screenWidth, int screenHeight) {
     SDL_RenderPresent(_renderer.get());
 }
 
-void SdlResources::init_audio_system() {
+void SdlEngine::init_audio_system() {
     if(0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
         throw FailedSdlMixerInitException{Mix_GetError()};
     }
 }
 
-SDL_Window* SdlResources::get_window() const {
+SDL_Window* SdlEngine::get_window() const {
     return _window.get();
 }
 
-SDL_Renderer* SdlResources::get_renderer() const {
+SDL_Renderer* SdlEngine::get_renderer() const {
     return _renderer.get();
 }
 
-const Clock& SdlResources::get_clock() {
+const Clock& SdlEngine::get_clock() {
     return sdlClock;
 }
 
-void SdlResources::SdlDeleter::operator()(SDL_Window* p) {
+void SdlEngine::SdlDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
 }
 
-void SdlResources::SdlDeleter::operator()(SDL_Renderer* p) {
+void SdlEngine::SdlDeleter::operator()(SDL_Renderer* p) {
     SDL_DestroyRenderer(p);
 }

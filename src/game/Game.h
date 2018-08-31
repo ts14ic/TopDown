@@ -3,7 +3,7 @@
 #include "engine/input/InputContext.h"
 #include "engine/graphic/GraphicContext.h"
 #include "engine/audio/AudioContext.h"
-#include "engine/Resources.h"
+#include "engine/Engine.h"
 #include "engine/random/Random.h"
 #include "engine/clock/Clock.h"
 #include "StateId.h"
@@ -21,7 +21,7 @@ public:
 
     virtual AudioContext& get_audio_context() = 0;
 
-    virtual Resources& get_resources() = 0;
+    virtual Engine& get_engine() = 0;
 
     virtual Random& get_random() = 0;
 

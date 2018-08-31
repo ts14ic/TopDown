@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/Resources.h"
+#include "engine/Engine.h"
 #include "SdlTexture.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"
@@ -8,11 +8,11 @@
 #include <SDL_render.h>
 #include <unordered_map>
 
-class SdlResources : public Resources {
+class SdlEngine : public Engine {
 public:
-    SdlResources(int width, int height);
+    SdlEngine(int width, int height);
 
-    ~SdlResources() override;
+    ~SdlEngine() override;
 
     Texture& get_texture(const std::string &name) override;
 

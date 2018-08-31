@@ -3,18 +3,18 @@
 #include "Game.h"
 #include "game/state/GameState.h"
 #include "game/timer/Timer.h"
-#include "engine/Resources.h"
+#include "engine/Engine.h"
 #include "engine/clock/Clock.h"
 #include "engine/graphic/GraphicContext.h"
 #include "engine/audio/AudioContext.h"
 #include "engine/random/Random.h"
 #include <memory>
-#include <engine/Resources.h>
+#include <engine/Engine.h>
 
 class GameImpl : public Game, public EventHandler {
 public:
     GameImpl(
-            std::unique_ptr<Resources> resources,
+            std::unique_ptr<Engine> resources,
             std::unique_ptr<Random> random,
             std::unique_ptr<GraphicContext> graphic_context,
             std::unique_ptr<AudioContext> audio_context,
@@ -29,7 +29,7 @@ public:
 
     AudioContext& get_audio_context() override;
 
-    Resources& get_resources() override;
+    Engine& get_engine() override;
 
     Random& get_random() override;
 
@@ -52,7 +52,7 @@ private:
     StateId _next_state_id = StateId::null;
     std::unique_ptr<GameState> _current_state;
 
-    std::unique_ptr<Resources> _resources;
+    std::unique_ptr<Engine> _resources;
     std::unique_ptr<GraphicContext> _graphic_context;
     std::unique_ptr<AudioContext> _audio_context;
     std::unique_ptr<InputContext> _input_context;

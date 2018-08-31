@@ -180,7 +180,7 @@ void Player::handle_mouse_event(const MouseEvent &event) {
     }
 }
 
-void Player::handle_logic(Random& random, Resources& resources, AudioContext& audioContext) {
+void Player::handle_logic(Random& random, Engine& resources, AudioContext& audioContext) {
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
     set_max_movement_speed(_damage_cooldown.have_ticks_passed_since_start(resources.get_clock(), 500) ? 2.3f : 1.0f);
@@ -215,7 +215,7 @@ void Player::update_speeds() {
     }
 }
 
-void Player::handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
+void Player::handleRender(Engine& resources, GraphicContext& graphicContext, float predictionRatio) {
     default_render(resources, graphicContext, predictionRatio);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
 }

@@ -9,7 +9,7 @@ void GameObject::default_move() {
     set_y(get_y() + get_current_speed_y());
 }
 
-void GameObject::default_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio) {
+void GameObject::default_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio) {
     Texture& tex = resources.get_texture(get_tex_name());
 
     auto x = get_x() - tex.get_width() / 2;

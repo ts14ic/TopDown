@@ -92,7 +92,7 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(Resources &resources, GraphicContext &graphicContext, AudioContext &audioContext,
+void Zombie::handle_render(Engine &resources, GraphicContext &graphicContext, AudioContext &audioContext,
                            float predictionRatio) {
     default_render(resources, graphicContext, predictionRatio);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);

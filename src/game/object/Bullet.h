@@ -45,7 +45,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio);
+    void handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio);
 
 private:
     int _damage;

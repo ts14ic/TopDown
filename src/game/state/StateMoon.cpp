@@ -11,7 +11,7 @@ StateMoon::StateMoon(Game& engine)
           _level_width(engine.get_graphic_context().get_screen_width()),
           _level_height(engine.get_graphic_context().get_screen_height()),
           _enemy_spawn_cooldown{} {
-    engine.get_resources().load_texture(_background_tex, "assets/gfx/test_bg.png");
+    engine.get_engine().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
     zombies().clear();
     werewolves().clear();
@@ -78,7 +78,7 @@ void StateMoon::handle_logic() {
         _enemy_spawn_cooldown.restart(_engine.get_clock());
     }
 
-    _player.handle_logic(_engine.get_random(), _engine.get_resources(), _engine.get_audio_context());
+    _player.handle_logic(_engine.get_random(), _engine.get_engine(), _engine.get_audio_context());
 
     const auto& clock = _engine.get_clock();
     auto& random = _engine.get_random();
@@ -141,7 +141,7 @@ void StateMoon::handle_logic() {
     if(_player.is_dead()) _engine.request_state_change(StateId::intro);
 }
 
-void render_crosshair(int mouseX, int mouseY, Resources &resources, GraphicContext &graphic_context, Player const &player,
+void render_crosshair(int mouseX, int mouseY, Engine &resources, GraphicContext &graphic_context, Player const &player,
                       float predictionRatio) {
     int x = mouseX - resources.get_texture("crosshair").get_width() / 2;
     int y = mouseY - resources.get_texture("crosshair").get_height() / 2;
@@ -157,7 +157,7 @@ void StateMoon::handle_render(float predictionRatio) {
     auto& render = _engine.get_graphic_context();
     render.clear_screen();
 
-    auto& resources = _engine.get_resources();
+    auto& resources = _engine.get_engine();
     auto& audio = _engine.get_audio_context();
     audio.play_music(resources.get_music("weather"));
 

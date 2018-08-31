@@ -61,7 +61,7 @@ public:
 
     void handle_logic(const Clock &clock);
 
-    void handle_render(Resources &resources, GraphicContext &graphic_context, AudioContext &audioContext,
+    void handle_render(Engine &resources, GraphicContext &graphic_context, AudioContext &audioContext,
                        float predictionRatio);
 
 private:

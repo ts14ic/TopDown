@@ -59,7 +59,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Resources &resources, GraphicContext &graphicContext, AudioContext &audioContext,
+    void handle_render(Engine &resources, GraphicContext &graphicContext, AudioContext &audioContext,
                        float predictionRatio);
 
 private:

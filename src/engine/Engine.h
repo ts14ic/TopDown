@@ -6,7 +6,7 @@
 #include "engine/clock/Clock.h"
 #include <iosfwd>
 
-class Resources {
+class Engine {
 public:
     virtual Texture& get_texture(const std::string &name) = 0;
 
@@ -22,5 +22,5 @@ public:
 
     virtual void load_music(const std::string &name, const char *path) = 0;
 
-    virtual ~Resources() = 0;
+    virtual ~Engine() = 0;
 };

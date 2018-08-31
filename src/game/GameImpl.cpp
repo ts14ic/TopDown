@@ -7,7 +7,7 @@ constexpr unsigned FRAMES_PER_SECOND = 60;
 constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 GameImpl::GameImpl(
-        std::unique_ptr<Resources> resources,
+        std::unique_ptr<Engine> resources,
         std::unique_ptr<Random> random,
         std::unique_ptr<GraphicContext> graphic_context,
         std::unique_ptr<AudioContext> audio_context,
@@ -83,7 +83,7 @@ AudioContext& GameImpl::get_audio_context() {
     return *_audio_context;
 }
 
-Resources& GameImpl::get_resources() {
+Engine& GameImpl::get_engine() {
     return *_resources;
 }
 

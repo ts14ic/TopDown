@@ -37,7 +37,7 @@ set(SOURCE_FILES
         src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
         src/game/object/Weapon.h src/game/object/Weapon.cpp
         src/game/object/Bullet.cpp src/game/object/Bullet.h
-        src/engine/Resources.cpp src/engine/Resources.h
+        src/engine/Engine.cpp src/engine/Engine.h
         src/game/StateId.h
         src/engine/graphic/Circle.cpp src/engine/graphic/Circle.h
         src/io/json/get_value.h src/io/json/get_value.cpp
@@ -47,7 +47,7 @@ set(SOURCE_FILES
         src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
-        src/sdl/SdlResources.cpp src/sdl/SdlResources.h
+        src/sdl/SdlEngine.cpp src/sdl/SdlEngine.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
         src/engine/graphic/Box.cpp src/engine/graphic/Box.h
         src/engine/graphic/Color.cpp src/engine/graphic/Color.h

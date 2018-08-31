@@ -3,7 +3,7 @@
 #include <string>
 
 #include "engine/graphic/Circle.h"
-#include "engine/Resources.h"
+#include "engine/Engine.h"
 #include "engine/graphic/GraphicContext.h"
 
 class GameObject {
@@ -43,7 +43,7 @@ public:
 protected:
     void default_move();
 
-    void default_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio);
+    void default_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio);
 };
 
 bool objects_collide(GameObject &a, GameObject &b);
