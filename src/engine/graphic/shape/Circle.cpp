@@ -3,7 +3,7 @@
 //
 
 #include "Circle.h"
-#include "../../../utils/math/math.h"
+#include "utils/math/math.h"
 
 Circle::Circle() = default;
 

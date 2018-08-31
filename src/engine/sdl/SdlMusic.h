@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../resources/Music.h"
+#include "engine/resources/Music.h"
 #include <string>
 #include <memory>
 #include <SDL_mixer.h>

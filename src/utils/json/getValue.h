@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "../demangleTypeName.h"
+#include "utils/demangleTypeName.h"
 
 #define RAPIDJSON_HAS_STDSTRING 1
 

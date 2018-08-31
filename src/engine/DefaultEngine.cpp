@@ -3,8 +3,8 @@
 //
 
 #include "DefaultEngine.h"
-#include "../game/state/StateIntro.h"
-#include "../game/state/StateMoon.h"
+#include "game/state/StateIntro.h"
+#include "game/state/StateMoon.h"
 
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;

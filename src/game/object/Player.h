@@ -5,8 +5,8 @@
 
 #include "Damageable.h"
 #include "Weapon.h"
-#include "../../engine/Timer.h"
-#include "../../engine/input/InputContext.h"
+#include "engine/Timer.h"
+#include "engine/input/InputContext.h"
 #include <memory>
 #include <bitset>
 

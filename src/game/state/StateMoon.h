@@ -4,10 +4,10 @@
 #pragma once
 
 #include "GameState.h"
-#include "../object/Player.h"
-#include "../object/GameObject.h"
-#include "../../engine/Engine.h"
-#include "../../engine/Timer.h"
+#include "game/object/Player.h"
+#include "game/object/GameObject.h"
+#include "engine/Engine.h"
+#include "engine/Timer.h"
 
 class StateMoon : public GameState {
 public:

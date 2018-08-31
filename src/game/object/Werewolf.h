@@ -4,9 +4,9 @@
 #pragma once
 
 #include "Damageable.h"
-#include "../../engine/Timer.h"
-#include "../../engine/Random.h"
-#include "../../engine/AudioContext.h"
+#include "engine/Timer.h"
+#include "engine/Random.h"
+#include "engine/AudioContext.h"
 #include <vector>
 
 class Werewolf : public Damageable {

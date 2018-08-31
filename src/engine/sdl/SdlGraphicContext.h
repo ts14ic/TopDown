@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "../graphic/GraphicContext.h"
-#include "../resources/Texture.h"
+#include "engine/graphic/GraphicContext.h"
+#include "engine/resources/Texture.h"
 #include "SdlTexture.h"
 
 class SdlGraphicContext : public GraphicContext {

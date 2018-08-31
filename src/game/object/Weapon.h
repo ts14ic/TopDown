@@ -3,12 +3,12 @@
 //
 #pragma once
 
-#include "../../engine/Timer.h"
-#include "../../engine/AudioContext.h"
-#include "../../engine/resources/Resources.h"
-#include "../../engine/Random.h"
-#include "../object/GameObject.h"
-#include "../object/WeaponBuilder.h"
+#include "engine/Timer.h"
+#include "engine/AudioContext.h"
+#include "engine/resources/Resources.h"
+#include "engine/Random.h"
+#include "game/object/GameObject.h"
+#include "game/object/WeaponBuilder.h"
 #include <vector>
 #include <string>
 

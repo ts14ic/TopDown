@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../resources/Resources.h"
+#include "engine/resources/Resources.h"
 #include "SdlTexture.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"

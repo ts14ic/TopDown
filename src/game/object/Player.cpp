@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "../../utils/math/math.h"
+#include "utils/math/math.h"
 #include <sstream>
 #include <cmath>
 

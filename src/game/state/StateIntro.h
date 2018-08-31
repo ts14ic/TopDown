@@ -4,7 +4,7 @@
 #pragma once
 
 #include "GameState.h"
-#include "../../engine/Engine.h"
+#include "engine/Engine.h"
 #include <string>
 
 class StateIntro : public GameState {

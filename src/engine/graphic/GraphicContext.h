@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "../resources/Texture.h"
-#include "../graphic/shape/Box.h"
-#include "../graphic/shape/Color.h"
+#include "engine/resources/Texture.h"
+#include "engine/graphic/shape/Box.h"
+#include "engine/graphic/shape/Color.h"
 
 class GraphicContext {
 public:

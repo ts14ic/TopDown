@@ -3,9 +3,9 @@
 //
 
 #include "DefaultEngine.h"
-#include "../utils/file/readFile.h"
-#include "../utils/json/getValue.h"
-#include "../utils/json/parseJson.h"
+#include "utils/file/readFile.h"
+#include "utils/json/getValue.h"
+#include "utils/json/parseJson.h"
 
 void DefaultEngine::loadResources() {
     auto doc = json::parseJson(file::readFile("data/common_media.json"));

@@ -1,8 +1,8 @@
 #include "StateMoon.h"
-#include "../../utils/math/math.h"
-#include "../object/Zombie.h"
-#include "../object/Werewolf.h"
-#include "../object/Bullet.h"
+#include "utils/math/math.h"
+#include "game/object/Zombie.h"
+#include "game/object/Werewolf.h"
+#include "game/object/Bullet.h"
 #include <algorithm>
 
 StateMoon::StateMoon(Engine& engine)

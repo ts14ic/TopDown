@@ -4,9 +4,9 @@
 #pragma once
 
 #include "Engine.h"
-#include "../game/state/GameState.h"
-#include "../engine/ContextInjector.h"
-#include "../engine/resources/Resources.h"
+#include "game/state/GameState.h"
+#include "engine/ContextInjector.h"
+#include "engine/resources/Resources.h"
 #include "Timer.h"
 #include "Clock.h"
 #include "graphic/GraphicContext.h"

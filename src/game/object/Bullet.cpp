@@ -1,5 +1,5 @@
 #include "Bullet.h"
-#include "../../utils/math/math.h"
+#include "utils/math/math.h"
 
 using std::vector;
 
