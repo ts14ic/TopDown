@@ -3,20 +3,23 @@
 #include "Game.h"
 #include "game/state/GameState.h"
 #include "game/timer/Timer.h"
-#include "engine/ContextInjector.h"
 #include "engine/Resources.h"
 #include "engine/clock/Clock.h"
 #include "engine/graphic/GraphicContext.h"
 #include "engine/audio/AudioContext.h"
 #include "engine/random/Random.h"
 #include <memory>
+#include <engine/Resources.h>
 
 class GameImpl : public Game,
                       public EventHandler {
 public:
     GameImpl(
-            int screen_width, int screen_height,
-            ContextInjector* context_injector
+            std::unique_ptr<Resources> resources,
+            std::unique_ptr<Random> random,
+            std::unique_ptr<GraphicContext> graphic_context,
+            std::unique_ptr<AudioContext> audio_context,
+            std::unique_ptr<InputContext> input_context
     );
 
     void run_loop() override;

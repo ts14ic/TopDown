@@ -7,10 +7,16 @@ constexpr unsigned FRAMES_PER_SECOND = 60;
 constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 GameImpl::GameImpl(
-        int screen_width,
-        int screen_height,
-        ContextInjector* context_injector) {
-    context_injector->inject(*this, screen_width, screen_height);
+        std::unique_ptr<Resources> resources,
+        std::unique_ptr<Random> random,
+        std::unique_ptr<GraphicContext> graphic_context,
+        std::unique_ptr<AudioContext> audio_context,
+        std::unique_ptr<InputContext> input_context
+) : _resources{std::move(resources)},
+    _graphic_context{std::move(graphic_context)},
+    _audio_context{std::move(audio_context)},
+    _input_context{std::move(input_context)},
+    _random{std::move(random)} {
 
     load_resources();
 }

@@ -49,8 +49,6 @@ set(SOURCE_FILES
         src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
         src/sdl/SdlResources.cpp src/sdl/SdlResources.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
-        src/engine/ContextInjector.cpp src/engine/ContextInjector.h
-        src/sdl/SdlContextInjector.cpp src/sdl/SdlContextInjector.h
         src/engine/graphic/Box.cpp src/engine/graphic/Box.h
         src/engine/graphic/Color.cpp src/engine/graphic/Color.h
         src/io/files/files.cpp src/io/files/files.h
