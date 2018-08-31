@@ -30,7 +30,7 @@ void SdlContextInjector::inject(Engine& engine, int screenWidth, int screenHeigh
     auto graphic = createGraphicContext(resources->getWindow(), resources->getRenderer());
 
     engine.setResources(std::move(resources));
-    engine.setRandom(std::move(createRandom()));
+    engine.setRandom(createRandom());
     engine.setGraphicContext(std::move(graphic));
     engine.setAudioContext(createAudioContext());
     engine.setInputContext(createInputContext());

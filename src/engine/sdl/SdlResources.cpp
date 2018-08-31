@@ -44,7 +44,7 @@ Sound& SdlResources::getSound(std::string const& name) {
 }
 
 void SdlResources::loadTexture(std::string const& name, const char* path) {
-    mNameToTexture.insert(std::make_pair(name, std::move(loadTexture(path))));
+    mNameToTexture.insert(std::make_pair(name, loadTexture(path)));
 }
 
 SdlTexture SdlResources::loadTexture(const char* path) {
@@ -73,11 +73,11 @@ SdlTexture SdlResources::loadTexture(const char* path) {
 }
 
 void SdlResources::loadSound(std::string const& name, const char* path) {
-    mNameToSound.insert(std::make_pair(name, std::move(loadSound(path))));
+    mNameToSound.insert(std::make_pair(name, loadSound(path)));
 }
 
 void SdlResources::loadMusic(const std::string& name, const char* path) {
-    mNameToMusic.insert(std::make_pair(name, std::move(loadMusic(path))));
+    mNameToMusic.insert(std::make_pair(name, loadMusic(path)));
 }
 
 SdlSound SdlResources::loadSound(const char* path) {
