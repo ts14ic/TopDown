@@ -66,7 +66,7 @@ public:
 
     void handle_logic(Random& random, Engine& resources, AudioContext& audioContext);
 
-    void handleRender(Engine& resources, GraphicContext& graphicContext, float predictionRatio);
+    void handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio);
 
     void addWeapon(Weapon weapon);
 

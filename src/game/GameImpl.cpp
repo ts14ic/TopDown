@@ -7,16 +7,8 @@ constexpr unsigned FRAMES_PER_SECOND = 60;
 constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
 GameImpl::GameImpl(
-        std::unique_ptr<Engine> resources,
-        std::unique_ptr<Random> random,
-        std::unique_ptr<GraphicContext> graphic_context,
-        std::unique_ptr<AudioContext> audio_context,
-        std::unique_ptr<InputContext> input_context
-) : _resources{std::move(resources)},
-    _graphic_context{std::move(graphic_context)},
-    _audio_context{std::move(audio_context)},
-    _input_context{std::move(input_context)},
-    _random{std::move(random)} {
+        std::unique_ptr<Engine> engine
+) : _engine{std::move(engine)} {
 
     load_resources();
 }
@@ -24,7 +16,7 @@ GameImpl::GameImpl(
 void GameImpl::run_loop() {
     _current_state = std::make_unique<StateIntro>(*this);
 
-    const auto& clock = get_clock();
+    const auto& clock = _engine->get_clock();
     auto previous_time = clock.get_current_time();
     auto lag_time = 0UL;
 
@@ -33,7 +25,7 @@ void GameImpl::run_loop() {
         lag_time += new_time - previous_time;
         previous_time = new_time;
 
-        _input_context->poll_events(*this);
+        _engine->get_input_context().poll_events(*this);
 
         while(lag_time >= MS_PER_FRAME) {
             _current_state->handle_logic();
@@ -75,24 +67,8 @@ void GameImpl::request_state_change(StateId stateId) {
     }
 }
 
-GraphicContext& GameImpl::get_graphic_context() {
-    return *_graphic_context;
-}
-
-AudioContext& GameImpl::get_audio_context() {
-    return *_audio_context;
-}
-
 Engine& GameImpl::get_engine() {
-    return *_resources;
-}
-
-Random& GameImpl::get_random() {
-    return *_random;
-}
-
-const Clock& GameImpl::get_clock() {
-    return _resources->get_clock();
+    return *_engine;
 }
 
 void GameImpl::handle_window_event(const WindowEvent &event) {

@@ -13,27 +13,13 @@
 
 class GameImpl : public Game, public EventHandler {
 public:
-    GameImpl(
-            std::unique_ptr<Engine> resources,
-            std::unique_ptr<Random> random,
-            std::unique_ptr<GraphicContext> graphic_context,
-            std::unique_ptr<AudioContext> audio_context,
-            std::unique_ptr<InputContext> input_context
-    );
+    explicit GameImpl(std::unique_ptr<Engine> engine);
+
+    Engine& get_engine() override;
 
     void run_loop() override;
 
     void request_state_change(StateId stateId) override;
-
-    GraphicContext& get_graphic_context() override;
-
-    AudioContext& get_audio_context() override;
-
-    Engine& get_engine() override;
-
-    Random& get_random() override;
-
-    const Clock& get_clock() override;
 
     void handle_window_event(const WindowEvent &event) override;
 
@@ -51,10 +37,5 @@ private:
     StateId _current_state_id = StateId::null;
     StateId _next_state_id = StateId::null;
     std::unique_ptr<GameState> _current_state;
-
-    std::unique_ptr<Engine> _resources;
-    std::unique_ptr<GraphicContext> _graphic_context;
-    std::unique_ptr<AudioContext> _audio_context;
-    std::unique_ptr<InputContext> _input_context;
-    std::unique_ptr<Random> _random;
+    std::unique_ptr<Engine> _engine;
 };

@@ -215,7 +215,7 @@ void Player::update_speeds() {
     }
 }
 
-void Player::handleRender(Engine& resources, GraphicContext& graphicContext, float predictionRatio) {
+void Player::handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio) {
     default_render(resources, graphicContext, predictionRatio);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
 }

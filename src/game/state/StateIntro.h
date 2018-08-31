@@ -6,7 +6,7 @@
 
 class StateIntro : public GameState {
 public:
-    explicit StateIntro(Game& engine);
+    explicit StateIntro(Game& game);
 
     void handle_window_event(const WindowEvent &event) override;
 
@@ -19,7 +19,7 @@ public:
     void handle_render(float predictionRatio) override;
 
 private:
-    Game& _engine;
+    Game& _game;
     std::string _background_tex_id;
 };
 

@@ -5,17 +5,17 @@
 #include "game/object/Bullet.h"
 #include <algorithm>
 
-StateMoon::StateMoon(Game& engine)
-        : _engine{engine},
+StateMoon::StateMoon(Game& game)
+        : _game{game},
           _background_tex{"moon_background"},
-          _level_width(engine.get_graphic_context().get_screen_width()),
-          _level_height(engine.get_graphic_context().get_screen_height()),
+          _level_width(game.get_engine().get_graphic_context().get_screen_width()),
+          _level_height(game.get_engine().get_graphic_context().get_screen_height()),
           _enemy_spawn_cooldown{} {
-    engine.get_engine().load_texture(_background_tex, "assets/gfx/test_bg.png");
+    game.get_engine().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
     zombies().clear();
     werewolves().clear();
-    _enemy_spawn_cooldown.restart(engine.get_clock());
+    _enemy_spawn_cooldown.restart(game.get_engine().get_clock());
 
     _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
 
@@ -23,7 +23,7 @@ StateMoon::StateMoon(Game& engine)
 }
 
 StateMoon::StateMoon(const StateMoon& other)
-        : StateMoon{other._engine} {
+        : StateMoon{other._game} {
 }
 
 void StateMoon::handle_window_event(const WindowEvent &event) {
@@ -65,23 +65,23 @@ std::pair<int, int> randomPosition(Random& random, int width, int height) {
 }
 
 void StateMoon::handle_logic() {
-    if(_enemy_spawn_cooldown.have_ticks_passed_since_start(_engine.get_clock(), 50) &&
+    if(_enemy_spawn_cooldown.have_ticks_passed_since_start(_game.get_engine().get_clock(), 50) &&
        (zombies().size() + werewolves().size() < 7)) {
-        auto position = randomPosition(_engine.get_random(), _level_width, _level_height);
-        int type = _engine.get_random().get_int(0, 1);
+        auto position = randomPosition(_game.get_engine().get_random(), _level_width, _level_height);
+        int type = _game.get_engine().get_random().get_int(0, 1);
         if(type == 0) {
             zombies().emplace_back(position.first, position.second);
         } else {
             werewolves().emplace_back(position.first, position.second);
         }
 
-        _enemy_spawn_cooldown.restart(_engine.get_clock());
+        _enemy_spawn_cooldown.restart(_game.get_engine().get_clock());
     }
 
-    _player.handle_logic(_engine.get_random(), _engine.get_engine(), _engine.get_audio_context());
+    _player.handle_logic(_game.get_engine().get_random(), _game.get_engine(), _game.get_engine().get_audio_context());
 
-    const auto& clock = _engine.get_clock();
-    auto& random = _engine.get_random();
+    const auto& clock = _game.get_engine().get_clock();
+    auto& random = _game.get_engine().get_random();
 
     int maxWidth = _level_width;
     int maxHeight = _level_height;
@@ -138,7 +138,7 @@ void StateMoon::handle_logic() {
     }), werewolves().end());
 
     restrict_pos(_player);
-    if(_player.is_dead()) _engine.request_state_change(StateId::intro);
+    if(_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
 void render_crosshair(int mouseX, int mouseY, Engine &resources, GraphicContext &graphic_context, Player const &player,
@@ -154,30 +154,30 @@ void render_crosshair(int mouseX, int mouseY, Engine &resources, GraphicContext 
 }
 
 void StateMoon::handle_render(float predictionRatio) {
-    auto& render = _engine.get_graphic_context();
-    render.clear_screen();
+    auto& graphic = _game.get_engine().get_graphic_context();
+    graphic.clear_screen();
 
-    auto& resources = _engine.get_engine();
-    auto& audio = _engine.get_audio_context();
+    auto& resources = _game.get_engine();
+    auto& audio = _game.get_engine().get_audio_context();
     audio.play_music(resources.get_music("weather"));
 
-    render.render(resources.get_texture(_background_tex), 0, 0);
+    graphic.render(resources.get_texture(_background_tex), 0, 0);
 
-    _player.handleRender(resources, render, predictionRatio);
+    _player.handle_render(resources, graphic, predictionRatio);
 
     for(auto& z : zombies()) {
-        z.handle_render(resources, render, _engine.get_audio_context(), predictionRatio);
+        z.handle_render(resources, graphic, _game.get_engine().get_audio_context(), predictionRatio);
     }
 
     for(auto& w : werewolves()) {
-        w.handle_render(resources, render, _engine.get_audio_context(), predictionRatio);
+        w.handle_render(resources, graphic, _game.get_engine().get_audio_context(), predictionRatio);
     }
 
     for(auto& b : bullets()) {
-        b.handle_render(resources, render, predictionRatio);
+        b.handle_render(resources, graphic, predictionRatio);
     }
 
-    render_crosshair(_mouse_x, _mouse_y, resources, render, _player, predictionRatio);
+    render_crosshair(_mouse_x, _mouse_y, resources, graphic, _player, predictionRatio);
 
-    render.refresh_screen();
+    graphic.refresh_screen();
 }

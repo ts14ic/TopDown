@@ -17,13 +17,5 @@ public:
 
     virtual void request_state_change(StateId stateId) = 0;
 
-    virtual GraphicContext& get_graphic_context() = 0;
-
-    virtual AudioContext& get_audio_context() = 0;
-
     virtual Engine& get_engine() = 0;
-
-    virtual Random& get_random() = 0;
-
-    virtual const Clock& get_clock() = 0;
 };

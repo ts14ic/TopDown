@@ -8,7 +8,7 @@
 
 class StateMoon : public GameState {
 public:
-    explicit StateMoon(Game& engine);
+    explicit StateMoon(Game& game);
 
     StateMoon(const StateMoon& other);
 
@@ -28,7 +28,7 @@ private:
     void parse_level_data();
 
 private:
-    Game& _engine;
+    Game& _game;
 
     std::string _background_tex;
     int const _level_width;
