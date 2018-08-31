@@ -15,7 +15,7 @@ public:
 
     explicit SdlSound(std::unique_ptr<Mix_Chunk, MixDeleter> chunk);
 
-    SdlSound(SdlSound const&) = delete;
+    SdlSound(const SdlSound&) = delete;
 
     SdlSound(SdlSound&&) noexcept;
 

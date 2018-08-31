@@ -24,4 +24,4 @@ private:
     float _radius;
 };
 
-bool circles_collide(Circle const& lhs, Circle const& rhs);
+bool circles_collide(const Circle& lhs, const Circle& rhs);

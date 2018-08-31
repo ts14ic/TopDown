@@ -8,7 +8,7 @@ vector<Bullet>& bullets() {
     return ret;
 }
 
-Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weapon) {
+Bullet::Bullet(Random& random, const GameObject& shooter, const Weapon& weapon) {
     float half = weapon.get_projectile_spread() / 2;
     _angle = shooter.get_angle() + random.get_float(-half, half);
     _x = shooter.get_x() + math::cartesian_cos(_angle) * weapon.get_length();
@@ -55,7 +55,7 @@ void Bullet::handle_logic() {
     default_move();
 }
 
-void Bullet::handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio) {
+void Bullet::handle_render(Engine& resources, GraphicContext& graphicContext, float predictionRatio) {
     default_render(resources, graphicContext, predictionRatio);
 }
 

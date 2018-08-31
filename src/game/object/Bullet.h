@@ -7,7 +7,7 @@
 
 class Bullet : public GameObject {
 public:
-    Bullet(Random& random, GameObject const& origin, Weapon const& weapon);
+    Bullet(Random& random, const GameObject& origin, const Weapon& weapon);
 
     float get_x() const override;
 
@@ -45,7 +45,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio);
+    void handle_render(Engine& resources, GraphicContext& graphicContext, float predictionRatio);
 
 private:
     int _damage;

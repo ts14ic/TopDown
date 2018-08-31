@@ -13,9 +13,9 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pull_trigger(Random &random, Engine &resources, AudioContext &audioContext, GameObject const &shooter);
+    void pull_trigger(Random& random, Engine& resources, AudioContext& audioContext, const GameObject& shooter);
 
-    void try_reload(const Clock &clock);
+    void try_reload(const Clock& clock);
 
     bool is_reloading() const;
 
@@ -30,11 +30,11 @@ public:
     float get_projectile_spread() const;
 
 private:
-    void start_reloading(const Clock &clock);
+    void start_reloading(const Clock& clock);
 
-    void play_fire_sound(Engine &resources, AudioContext &audioContext);
+    void play_fire_sound(Engine& resources, AudioContext& audioContext);
 
-    void spawn_bullets(Random &random, GameObject const &shooter);
+    void spawn_bullets(Random& random, const GameObject& shooter);
 
 private:
     Timer _fire_cooldown_timer;

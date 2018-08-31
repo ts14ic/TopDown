@@ -3,5 +3,5 @@
 #include <iosfwd>
 
 namespace utils {
-    std::string demangle_type_name(const char *typeName);
+    std::string demangle_type_name(const char* type_name);
 }

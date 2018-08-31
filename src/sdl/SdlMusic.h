@@ -15,7 +15,7 @@ public:
 
     explicit SdlMusic(std::unique_ptr<Mix_Music, MixDeleter> music);
 
-    SdlMusic(SdlMusic const&) = delete;
+    SdlMusic(const SdlMusic&) = delete;
 
     SdlMusic(SdlMusic&&) noexcept;
 

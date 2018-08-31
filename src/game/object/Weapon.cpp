@@ -17,14 +17,14 @@ Weapon::Weapon(const WeaponBuilder& builder)
 //    _fire_cooldown_timer.restart();
 }
 
-void Weapon::start_reloading(const Clock &clock) {
+void Weapon::start_reloading(const Clock& clock) {
     _reload_cooldown_timer.restart(clock);
     _reloading = true;
 }
 
-void Weapon::play_fire_sound(Engine &resources, AudioContext &audioContext) {
-    if(!_fire_sounds.empty()) {
-        if(_current_fire_sound >= _fire_sounds.size()) {
+void Weapon::play_fire_sound(Engine& resources, AudioContext& audioContext) {
+    if (!_fire_sounds.empty()) {
+        if (_current_fire_sound >= _fire_sounds.size()) {
             _current_fire_sound = 0;
         }
 
@@ -33,22 +33,22 @@ void Weapon::play_fire_sound(Engine &resources, AudioContext &audioContext) {
     }
 }
 
-void Weapon::spawn_bullets(Random &random, GameObject const &shooter) {
-    for(int i = 0; i < _projectiles_per_shot; ++i) {
+void Weapon::spawn_bullets(Random& random, const GameObject& shooter) {
+    for (int i = 0; i < _projectiles_per_shot; ++i) {
         Bullet b(random, shooter, *this);
         bullets().push_back(b);
     }
 }
 
-void Weapon::pull_trigger(Random &random, Engine &resources, AudioContext &audioContext, GameObject const &shooter) {
+void Weapon::pull_trigger(Random& random, Engine& resources, AudioContext& audioContext, const GameObject& shooter) {
     const auto& clock = resources.get_clock();
-    if(_fire_cooldown_timer.have_ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
+    if (_fire_cooldown_timer.have_ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
         spawn_bullets(random, shooter);
 
         play_fire_sound(resources, audioContext);
 
         --_current_ammo;
-        if(_current_ammo < 1) {
+        if (_current_ammo < 1) {
             start_reloading(clock);
         }
 
@@ -76,8 +76,8 @@ bool Weapon::is_reloading() const {
     return _reloading;
 }
 
-void Weapon::try_reload(const Clock &clock) {
-    if(_reloading && _reload_cooldown_timer.have_ticks_passed_since_start(clock, _reload_cooldown)) {
+void Weapon::try_reload(const Clock& clock) {
+    if (_reloading && _reload_cooldown_timer.have_ticks_passed_since_start(clock, _reload_cooldown)) {
         _current_ammo = _max_ammo;
         _reloading = false;
     }

@@ -14,7 +14,7 @@ public:
 
     SdlTexture(std::unique_ptr<SDL_Texture, TextureDeleter> texture, int width, int height);
 
-    SdlTexture(SdlTexture const&) = delete;
+    SdlTexture(const SdlTexture&) = delete;
 
     SdlTexture(SdlTexture&&) noexcept;
 

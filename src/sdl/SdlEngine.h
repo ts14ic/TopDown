@@ -28,24 +28,24 @@ public:
 
     const Clock& get_clock() override;
 
-    void load_texture(const std::string &name, const char *path) override;
+    void load_texture(const std::string& name, const char* path) override;
 
-    Texture& get_texture(const std::string &name) override;
+    Texture& get_texture(const std::string& name) override;
 
-    Sound& get_sound(const std::string &name) override;
+    Sound& get_sound(const std::string& name) override;
 
-    void load_sound(const std::string &name, const char *path) override;
+    void load_sound(const std::string& name, const char* path) override;
 
-    Music& get_music(const std::string &name) override;
+    Music& get_music(const std::string& name) override;
 
-    void load_music(const std::string &name, const char *path) override;
+    void load_music(const std::string& name, const char* path) override;
 
 private:
-    SdlTexture load_texture(const char *path);
+    SdlTexture load_texture(const char* path);
 
-    SdlSound load_sound(const char *path);
+    SdlSound load_sound(const char* path);
 
-    SdlMusic load_music(const char *path);
+    SdlMusic load_music(const char* path);
 
     struct FailedToLoadSoundException : public std::runtime_error {
         explicit FailedToLoadSoundException(const char* message);

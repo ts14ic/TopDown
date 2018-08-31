@@ -23,37 +23,37 @@ SdlEngine::~SdlEngine() {
     SDL_Quit();
 }
 
-Texture& SdlEngine::get_texture(std::string const &name) {
+Texture& SdlEngine::get_texture(const std::string& name) {
     return _name_to_texture[name];
 }
 
-Music& SdlEngine::get_music(std::string const &name) {
+Music& SdlEngine::get_music(const std::string& name) {
     return _name_to_music[name];
 }
 
-Sound& SdlEngine::get_sound(std::string const &name) {
+Sound& SdlEngine::get_sound(const std::string& name) {
     return _name_to_sound[name];
 }
 
-void SdlEngine::load_texture(std::string const &name, const char *path) {
+void SdlEngine::load_texture(const std::string& name, const char* path) {
     _name_to_texture.insert(std::make_pair(name, load_texture(path)));
 }
 
-SdlTexture SdlEngine::load_texture(const char *path) {
+SdlTexture SdlEngine::load_texture(const char* path) {
     return _graphic.load_texture(path);
 }
 
-void SdlEngine::load_sound(std::string const &name, const char *path) {
+void SdlEngine::load_sound(const std::string& name, const char* path) {
     _name_to_sound.insert(std::make_pair(name, load_sound(path)));
 }
 
-void SdlEngine::load_music(const std::string &name, const char *path) {
+void SdlEngine::load_music(const std::string& name, const char* path) {
     _name_to_music.insert(std::make_pair(name, load_music(path)));
 }
 
-SdlSound SdlEngine::load_sound(const char *path) {
+SdlSound SdlEngine::load_sound(const char* path) {
     std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> new_sound{Mix_LoadWAV(path)};
-    if(!new_sound) {
+    if (!new_sound) {
         throw FailedToLoadSoundException{Mix_GetError()};
     }
 
@@ -63,9 +63,9 @@ SdlSound SdlEngine::load_sound(const char *path) {
     return sound;
 }
 
-SdlMusic SdlEngine::load_music(const char *path) {
+SdlMusic SdlEngine::load_music(const char* path) {
     std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> new_music{Mix_LoadMUS(path)};
-    if(!new_music) {
+    if (!new_music) {
         throw FailedToLoadMusicException{Mix_GetError()};
     }
     SdlMusic music{std::move(new_music)};

@@ -30,6 +30,13 @@ void Circle::set_radius(float r) {
     Circle::_radius = r;
 }
 
-bool circles_collide(Circle const &lhs, Circle const &rhs) {
-    return math::get_distance(lhs.get_x(), lhs.get_y(), rhs.get_x(), rhs.get_y()) < (lhs.get_radius() + rhs.get_radius());
+bool circles_collide(const Circle& lhs, const Circle& rhs) {
+    float distance_between_circle_centers = math::get_distance(
+            lhs.get_x(),
+            lhs.get_y(),
+            rhs.get_x(),
+            rhs.get_y()
+    );
+    float collision_distance = lhs.get_radius() + rhs.get_radius();
+    return distance_between_circle_centers < collision_distance;
 }

@@ -16,7 +16,7 @@ void print_stack_trace() {
     int frame_count = backtrace(frame_list, max_frames);
     char** symbols = backtrace_symbols(frame_list, frame_count);
 
-    for(int i = 0; i < frame_count; ++i) {
+    for (int i = 0; i < frame_count; ++i) {
         char* symbol = symbols[i];
 
         char* name_start = nullptr;
@@ -25,18 +25,18 @@ void print_stack_trace() {
 
         // find parentheses and +address offset surrounding the mangled name:
         // ./module(function+0x15c) [0x8048a6d]
-        for(char* p = symbol; *p; ++p) {
-            if(*p == '(') {
+        for (char* p = symbol; *p; ++p) {
+            if (*p == '(') {
                 name_start = p;
-            } else if(*p == '+') {
+            } else if (*p == '+') {
                 offset_start = p;
-            } else if(*p == ')' && offset_start) {
+            } else if (*p == ')' && offset_start) {
                 offset_end = p;
                 break;
             }
         }
 
-        if(name_start && offset_start && offset_end && (name_start < offset_start)) {
+        if (name_start && offset_start && offset_end && (name_start < offset_start)) {
             *name_start++ = '\0';
             *offset_start++ = '\0';
             *offset_end = '\0';
@@ -55,12 +55,12 @@ void print_stack_trace() {
 void print_exception() {
     try {
         auto exception_ptr = std::current_exception();
-        if(exception_ptr != nullptr) {
+        if (exception_ptr != nullptr) {
             std::rethrow_exception(exception_ptr);
         }
-    } catch(const std::exception& ex) {
+    } catch (const std::exception& ex) {
         std::cerr << "Uncaught exception: " << ex.what() << std::endl;
-    } catch(...) {
+    } catch (...) {
         std::cerr << "Unknown exception type." << std::endl;
     }
 }

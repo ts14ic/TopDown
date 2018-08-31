@@ -69,7 +69,7 @@ void SdlGraphicContext::render(const Texture& texture, int x, int y) {
     }
 }
 
-void SdlGraphicContext::render(Texture const& texture, int x, int y, float angle) {
+void SdlGraphicContext::render(const Texture& texture, int x, int y, float angle) {
     if(texture.is_loaded()) {
         SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
         SDL_RenderCopyEx(_renderer.get(), dynamic_cast<const SdlTexture &>(texture).get_wrapped_texture(), nullptr,
