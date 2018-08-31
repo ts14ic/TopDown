@@ -14,17 +14,17 @@ public:
 
     Type get_type() const;
 
-    float get_scroll_amount() const;
-
-    float get_x() const;
-
-    float get_y() const;
-
     void set_type(Type type);
+
+    float get_scroll_amount() const;
 
     void set_scroll_amount(float scrollAmount);
 
+    float get_x() const;
+
     void set_x(float x);
+
+    float get_y() const;
 
     void set_y(float y);
 

@@ -8,17 +8,17 @@ public:
 
     int get_red() const;
 
-    int get_green() const;
-
-    int get_blue() const;
-
-    int get_alpha() const;
-
     void set_red(int red);
+
+    int get_green() const;
 
     void set_green(int green);
 
+    int get_blue() const;
+
     void set_blue(int blue);
+
+    int get_alpha() const;
 
     void set_alpha(int alpha);
 

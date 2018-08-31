@@ -8,19 +8,19 @@ public:
 
     float get_x() const;
 
-    float get_y() const;
-
-    float get_width() const;
-
-    float get_height() const;
-
     void set_x(float x);
+
+    float get_y() const;
 
     void set_y(float y);
 
     void set_position(float x, float y);
 
+    float get_width() const;
+
     void set_width(float width);
+
+    float get_height() const;
 
     void set_height(float height);
 

@@ -13,9 +13,9 @@ public:
 
     Type get_type() const;
 
-    KeyboardKey_t get_key() const;
-
     void set_type(Type type);
+
+    KeyboardKey_t get_key() const;
 
     void set_key(KeyboardKey_t key);
 
