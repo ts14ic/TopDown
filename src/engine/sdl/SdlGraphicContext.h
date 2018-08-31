@@ -7,7 +7,6 @@
 #include "../graphic/GraphicContext.h"
 #include "../resources/Texture.h"
 #include "SdlTexture.h"
-#include "SdlResources.h"
 
 class SdlGraphicContext : public GraphicContext {
 public:

@@ -5,6 +5,5 @@
 #pragma once
 
 #include <SDL_events.h>
-#include <cstdint>
 
 int transformSdlKeyCode(SDL_Keycode keyCode);

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../../engine/input/EventHandler.h"
-#include "../../engine/Engine.h"
 
 class GameState : public EventHandler {
 public:

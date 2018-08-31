@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "../resources/Resources.h"
 #include "../resources/Texture.h"
 #include "../graphic/shape/Box.h"
 #include "../graphic/shape/Color.h"
