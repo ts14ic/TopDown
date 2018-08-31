@@ -8,19 +8,19 @@
 
 class Resources {
 public:
-    virtual Texture& getTexture(const std::string& name) = 0;
+    virtual Texture& get_texture(const std::string &name) = 0;
 
-    virtual Sound& getSound(const std::string& name) = 0;
+    virtual Sound& get_sound(const std::string &name) = 0;
 
-    virtual Music& getMusic(const std::string& name) = 0;
+    virtual Music& get_music(const std::string &name) = 0;
 
-    virtual const Clock& getClock() = 0;
+    virtual const Clock& get_clock() = 0;
 
-    virtual void loadTexture(const std::string& name, const char* path) = 0;
+    virtual void load_texture(const std::string &name, const char *path) = 0;
 
-    virtual void loadSound(const std::string& name, const char* path) = 0;
+    virtual void load_sound(const std::string &name, const char *path) = 0;
 
-    virtual void loadMusic(const std::string& name, const char* path) = 0;
+    virtual void load_music(const std::string &name, const char *path) = 0;
 
     virtual ~Resources() = 0;
 };

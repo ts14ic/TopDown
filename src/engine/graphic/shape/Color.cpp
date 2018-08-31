@@ -6,38 +6,38 @@ Color::Color()
 }
 
 Color::Color(int red, int green, int blue, int alpha)
-        : mRed{red}, mGreen{green}, mBlue{blue}, mAlpha{alpha} {
+        : _red{red}, _green{green}, _blue{blue}, _alpha{alpha} {
 
 }
 
-int Color::getRed() const {
-    return mRed;
+int Color::get_red() const {
+    return _red;
 }
 
-void Color::setRed(int red) {
-    mRed = red;
+void Color::set_red(int red) {
+    _red = red;
 }
 
-int Color::getGreen() const {
-    return mGreen;
+int Color::get_green() const {
+    return _green;
 }
 
-void Color::setGreen(int green) {
-    mGreen = green;
+void Color::set_green(int green) {
+    _green = green;
 }
 
-int Color::getBlue() const {
-    return mBlue;
+int Color::get_blue() const {
+    return _blue;
 }
 
-void Color::setBlue(int blue) {
-    mBlue = blue;
+void Color::set_blue(int blue) {
+    _blue = blue;
 }
 
-int Color::getAlpha() const {
-    return mAlpha;
+int Color::get_alpha() const {
+    return _alpha;
 }
 
-void Color::setAlpha(int alpha) {
-    mAlpha = alpha;
+void Color::set_alpha(int alpha) {
+    _alpha = alpha;
 }

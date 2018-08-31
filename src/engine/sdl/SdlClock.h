@@ -4,5 +4,5 @@
 
 class SdlClock : public Clock {
 public:
-    unsigned long getCurrentTime() const override;
+    unsigned long get_current_time() const override;
 };

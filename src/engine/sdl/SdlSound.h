@@ -19,9 +19,9 @@ public:
 
     SdlSound(SdlSound&&) noexcept;
 
-    bool isLoaded() const override;
+    bool is_loaded() const override;
 
-    Mix_Chunk* getWrappedChunk() const;
+    Mix_Chunk* get_wrapped_chunk() const;
 
 private:
     std::unique_ptr<Mix_Chunk, MixDeleter> mChunk;

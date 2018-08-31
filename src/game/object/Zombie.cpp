@@ -4,146 +4,146 @@
 using std::vector;
 
 Zombie::Zombie(int x, int y)
-        : mX(x), mY(y) {
-    mCurrentHp = Zombie::defaultHp();
+        : _x(x), _y(y) {
+    _current_hp = Zombie::get_default_hp();
 }
 
-float Zombie::getX() const { return mX; }
+float Zombie::get_x() const { return _x; }
 
-float Zombie::getY() const { return mY; }
+float Zombie::get_y() const { return _y; }
 
-void Zombie::setX(float x) { mX = x; }
+void Zombie::set_x(float x) { _x = x; }
 
-void Zombie::setY(float y) { mY = y; }
+void Zombie::set_y(float y) { _y = y; }
 
-float Zombie::getAngle() const { return mAngle; }
+float Zombie::get_angle() const { return _angle; }
 
-float Zombie::getMaxMovementSpeed() const { return mSpeed; }
+float Zombie::get_max_movement_speed() const { return _speed; }
 
-void Zombie::setAngle(float a) { mAngle = a; }
+void Zombie::set_angle(float a) { _angle = a; }
 
-void Zombie::setMaxMovementSpeed(float s) { mSpeed = s; }
+void Zombie::set_max_movement_speed(float s) { _speed = s; }
 
-Circle Zombie::getCircle() const { return {mX, mY, 25}; }
+Circle Zombie::get_circle() const { return {_x, _y, 25}; }
 
-int Zombie::hp() const { return mCurrentHp; }
+int Zombie::get_hp() const { return _current_hp; }
 
-int Zombie::defaultHp() const { return 50; }
+int Zombie::get_default_hp() const { return 50; }
 
-int Zombie::dmg() const { if(mAiState == ATTACKING && mAnimationFrame == 5) return 15; else return 0; }
+int Zombie::get_damage() const { if(_ai_state == ATTACKING && _animation_frame == 5) return 15; else return 0; }
 
-std::string Zombie::getTexName() const {
+std::string Zombie::get_tex_name() const {
     std::string name = "zombie";
 
-    if(mAiState == ATTACKING) {
+    if(_ai_state == ATTACKING) {
         name += "_attack";
-        name += std::to_string(mAnimationFrame);
-    } else if(mAiState == DYING) {
+        name += std::to_string(_animation_frame);
+    } else if(_ai_state == DYING) {
         name += "_death";
-        name += std::to_string(mAnimationFrame);
+        name += std::to_string(_animation_frame);
     }
 
     return name;
 }
 
-void Zombie::damage(const Clock& clock, int d) {
-    if(d > 0) mCurrentHp -= d;
+void Zombie::damage(const Clock &clock, int d) {
+    if(d > 0) _current_hp -= d;
 
-    if(mCurrentHp <= 0 && mAiState != DYING) {
-        mAiState = DYING;
-        mAnimationFrame = 0;
+    if(_current_hp <= 0 && _ai_state != DYING) {
+        _ai_state = DYING;
+        _animation_frame = 0;
     }
 }
 
 void Zombie::set_target(float x, float y, bool ignore) {
-    if(ignore || mAiState == DYING) return;
+    if(ignore || _ai_state == DYING) return;
 
-    mAngle = math::getCartesianAngle(mX, mY, x, y);
+    _angle = math::get_cartesian_angle(_x, _y, x, y);
 
-    auto dist = math::getDistance(mX, mY, x, y);
-    if(dist > getCircle().getRadius() * 1.7f) {
-        if(mAiState != MOVING) {
-            mAiState = MOVING;
-            mAnimationFrame = 0;
+    auto dist = math::get_distance(_x, _y, x, y);
+    if(dist > get_circle().get_radius() * 1.7f) {
+        if(_ai_state != MOVING) {
+            _ai_state = MOVING;
+            _animation_frame = 0;
         }
-    } else if(mAiState != ATTACKING) {
-        mAiState = ATTACKING;
-        mAnimationFrame = 0;
+    } else if(_ai_state != ATTACKING) {
+        _ai_state = ATTACKING;
+        _animation_frame = 0;
     }
 }
 
 void Zombie::handle_logic() {
-    if(mAiState == DYING) {
-        setCurrentSpeed(0, 0);
+    if(_ai_state == DYING) {
+        set_current_speed(0, 0);
         return;
     }
 
-    if(mAiState == MOVING) {
+    if(_ai_state == MOVING) {
         // TODO extract speed setting
-        auto movementAngle = getAngle();
+        auto movementAngle = get_angle();
 
-        float speedX = math::cartesianCos(movementAngle) * getMaxMovementSpeed();
-        float speedY = math::cartesianSin(movementAngle) * getMaxMovementSpeed();
+        float speedX = math::cartesian_cos(movementAngle) * get_max_movement_speed();
+        float speedY = math::cartesian_sin(movementAngle) * get_max_movement_speed();
 
-        setCurrentSpeed(speedX, speedY);
-        defaultMove();
+        set_current_speed(speedX, speedY);
+        default_move();
     } else {
-        setCurrentSpeed(0.f, 0.f);
+        set_current_speed(0.f, 0.f);
     }
 }
 
-void Zombie::handleRender(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext,
-                          float predictionRatio) {
-    defaultRender(resources, graphicContext, predictionRatio);
-    defaultRenderHealth(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
+void Zombie::handle_render(Resources &resources, GraphicContext &graphicContext, AudioContext &audioContext,
+                           float predictionRatio) {
+    default_render(resources, graphicContext, predictionRatio);
+    default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
 
-    const auto& clock = resources.getClock();
-    if(mAiState == ATTACKING) {
-        if(mAnimationFrame == 5) {
-            audioContext.playSound(resources.getSound("zombie_attack"));
+    const auto& clock = resources.get_clock();
+    if(_ai_state == ATTACKING) {
+        if(_animation_frame == 5) {
+            audioContext.play_sound(resources.get_sound("zombie_attack"));
         }
 
-        if(mTimer.haveTicksPassedSinceStart(clock, 100)) {
-            ++mAnimationFrame;
-            if(mAnimationFrame >= 6) mAnimationFrame = 0;
-            mTimer.restart(clock);
+        if(_animation_timer.have_ticks_passed_since_start(clock, 100)) {
+            ++_animation_frame;
+            if(_animation_frame >= 6) _animation_frame = 0;
+            _animation_timer.restart(clock);
         }
-    } else if(mAiState == DYING) {
-        if(mAnimationFrame < 7 && mTimer.haveTicksPassedSinceStart(clock, 500)) {
-            ++mAnimationFrame;
-            mTimer.restart(clock);
+    } else if(_ai_state == DYING) {
+        if(_animation_frame < 7 && _animation_timer.have_ticks_passed_since_start(clock, 500)) {
+            ++_animation_frame;
+            _animation_timer.restart(clock);
         }
     }
 }
 
-bool Zombie::dead() const {
-    return mAiState == DYING && mAnimationFrame == 7;
+bool Zombie::is_dead() const {
+    return _ai_state == DYING && _animation_frame == 7;
 }
 
-void Zombie::setPos(float x, float y) {
-    setX(x);
-    setY(y);
+void Zombie::set_position(float x, float y) {
+    set_x(x);
+    set_y(y);
 }
 
-float Zombie::getCurrentSpeedX() const {
-    return mCurrentSpeedX;
+float Zombie::get_current_speed_x() const {
+    return _current_speed_x;
 }
 
-float Zombie::getCurrentSpeedY() const {
-    return mCurrentSpeedY;
+float Zombie::get_current_speed_y() const {
+    return _current_speed_y;
 }
 
-void Zombie::setCurrentSpeedX(float speedX) {
-    mCurrentSpeedX = speedX;
+void Zombie::set_current_speed_x(float speedX) {
+    _current_speed_x = speedX;
 }
 
-void Zombie::setCurrentSpeedY(float speedY) {
-    mCurrentSpeedY = speedY;
+void Zombie::set_current_speed_y(float speedY) {
+    _current_speed_y = speedY;
 }
 
-void Zombie::setCurrentSpeed(float speedX, float speedY) {
-    setCurrentSpeedX(speedX);
-    setCurrentSpeedY(speedY);
+void Zombie::set_current_speed(float speedX, float speedY) {
+    set_current_speed_x(speedX);
+    set_current_speed_y(speedY);
 }
 
 vector<Zombie>& zombies() {

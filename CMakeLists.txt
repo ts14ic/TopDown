@@ -22,13 +22,13 @@ set(SOURCE_FILES
         src/main.cpp
         src/utils/math/maths.cpp src/utils/math/maths.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
-        src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parseLevelData.cpp
+        src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parse_level_data.cpp
         src/game/state/GameState.h
         src/engine/resources/Sound.cpp src/engine/resources/Sound.h
         src/engine/resources/Music.cpp src/engine/resources/Music.h
         src/engine/resources/Texture.cpp src/engine/resources/Texture.h
         src/engine/graphic/GraphicContext.cpp src/engine/graphic/GraphicContext.h
-        src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_loadMedia.cpp
+        src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_load_resources.cpp
         src/game/object/GameObject.cpp src/game/object/GameObject.h
         src/game/object/Damageable.h src/game/object/Damageable.cpp
         src/game/object/Player.cpp src/game/object/Player.h
@@ -38,11 +38,11 @@ set(SOURCE_FILES
         src/game/object/Weapon.h src/game/object/Weapon.cpp
         src/game/object/Bullet.cpp src/game/object/Bullet.h
         src/engine/resources/Resources.cpp src/engine/resources/Resources.h
-        src/engine/GState.h
+        src/engine/StateId.h
         src/engine/graphic/shape/Circle.cpp src/engine/graphic/shape/Circle.h
-        src/utils/json/getValue.h src/utils/json/getValue.cpp
+        src/utils/json/get_value.h src/utils/json/get_value.cpp
         src/engine/Random.cpp src/engine/Random.h
-        src/utils/demangleTypeName.cpp src/utils/demangleTypeName.h
+        src/utils/demangle_type_name.cpp src/utils/demangle_type_name.h
         src/engine/Engine.cpp src/engine/Engine.h
         src/engine/sdl/SdlInputContext.cpp src/engine/sdl/SdlInputContext.h
         src/utils/random/Mt19937Random.h src/utils/random/Mt19937Random.cpp
@@ -53,8 +53,8 @@ set(SOURCE_FILES
         src/engine/sdl/SdlContextInjector.cpp src/engine/sdl/SdlContextInjector.h
         src/engine/graphic/shape/Box.cpp src/engine/graphic/shape/Box.h
         src/engine/graphic/shape/Color.cpp src/engine/graphic/shape/Color.h
-        src/utils/file/readFileToString.cpp src/utils/file/readFileToString.h
-        src/utils/json/parseJson.cpp src/utils/json/parseJson.h
+        src/utils/file/read_file_to_string.cpp src/utils/file/read_file_to_string.h
+        src/utils/json/parse_json.cpp src/utils/json/parse_json.h
         src/engine/AudioContext.cpp src/engine/AudioContext.h
         src/engine/sdl/SdlAudioContext.cpp src/engine/sdl/SdlAudioContext.h
         src/engine/sdl/SdlSound.cpp src/engine/sdl/SdlSound.h
@@ -71,8 +71,8 @@ set(SOURCE_FILES
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
         src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
-        src/engine/sdl/SdlInputContext_transformSdlKeyCode.cpp src/engine/sdl/SdlInputContext_transformSdlKeyCode.h
-        src/utils/abortHandlers.cpp src/utils/abortHandlers.h
+        src/engine/sdl/SdlInputContext_transform_sdl_key_code.cpp src/engine/sdl/SdlInputContext_transform_sdl_key_code.h
+        src/utils/abort_handlers.cpp src/utils/abort_handlers.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

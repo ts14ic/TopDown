@@ -1,15 +1,15 @@
 #include "Damageable.h"
 
-void Damageable::defaultRenderHealth(GraphicContext& graphicContext, Color const& color, float predictionRatio) const {
-    if(hp() > 0) {
+void Damageable::default_render_health(GraphicContext &graphic_context, Color const &color, float prediction_ratio) const {
+    if(get_hp() > 0) {
         Box healthBox;
 
-        healthBox.setSize(50.f * hp() / defaultHp(), 5);
-        healthBox.setPosition(
-                getX() - healthBox.getWidth() / 2 + getCurrentSpeedX() * predictionRatio,
-                getY() - getCircle().getRadius() + getCurrentSpeedY() * predictionRatio
+        healthBox.set_sizes(50.f * get_hp() / get_default_hp(), 5);
+        healthBox.set_position(
+                get_x() - healthBox.get_width() / 2 + get_current_speed_x() * prediction_ratio,
+                get_y() - get_circle().get_radius() + get_current_speed_y() * prediction_ratio
         );
 
-        graphicContext.renderBox(healthBox, color);
+        graphic_context.render_box(healthBox, color);
     }
 }

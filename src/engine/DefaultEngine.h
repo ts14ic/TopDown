@@ -15,55 +15,54 @@ class DefaultEngine : public Engine,
                       public EventHandler {
 public:
     DefaultEngine(
-            int screenWidth, int screenHeight,
-            ContextInjector* contextInjector
+            int screen_width, int screen_height,
+            ContextInjector* context_injector
     );
 
-    void runLoop() override;
+    void run_loop() override;
 
-    void requestStateChange(GState stateId) override;
+    void request_state_change(StateId stateId) override;
 
-    GraphicContext& getGraphicContext() override;
+    GraphicContext& get_graphic_context() override;
 
-    AudioContext& getAudioContext() override;
+    AudioContext& get_audio_context() override;
 
-    Resources& getResources() override;
+    Resources& get_resources() override;
 
-    Random& getRandom() override;
+    Random& get_random() override;
 
-    const Clock& getClock() override;
+    const Clock& get_clock() override;
 
-    void handleWindowEvent(const WindowEvent& event) override;
+    void handle_window_event(const WindowEvent &event) override;
 
-    void handleKeyEvent(const KeyboardEvent& event) override;
+    void handle_key_event(const KeyboardEvent &event) override;
 
-    void handleMouseEvent(const MouseEvent& event) override;
+    void handle_mouse_event(const MouseEvent &event) override;
 
-    void setInputContext(std::unique_ptr<InputContext> inputContext) override;
+    void set_input_context(std::unique_ptr<InputContext> inputContext) override;
 
-    void setGraphicContext(std::unique_ptr<GraphicContext> graphicContext) override;
+    void set_graphic_context(std::unique_ptr<GraphicContext> graphicContext) override;
 
-    void setAudioContext(std::unique_ptr<AudioContext> audioContext) override;
+    void set_audio_context(std::unique_ptr<AudioContext> audioContext) override;
 
-    void setResources(std::unique_ptr<Resources> resources) override;
+    void set_resources(std::unique_ptr<Resources> resources) override;
 
-    void setRandom(std::unique_ptr<Random> random) override;
+    void set_random(std::unique_ptr<Random> random) override;
 
 private:
-    void changeState();
+    void change_state();
 
-    void loadResources();
+    void load_resources();
 
 private:
     // todo add a loop input
-    GState mCurrentStateId = GState::null;
-    GState mNextStateId = GState::null;
-    std::unique_ptr<GameState> mCurrentState;
-    Timer mLoopTimer;
+    StateId _current_state_id = StateId::null;
+    StateId _next_state_id = StateId::null;
+    std::unique_ptr<GameState> _current_state;
 
-    std::unique_ptr<Resources> mResources;
-    std::unique_ptr<GraphicContext> mGraphicContext;
-    std::unique_ptr<AudioContext> mAudioContext;
-    std::unique_ptr<InputContext> mInputContext;
-    std::unique_ptr<Random> mRandom;
+    std::unique_ptr<Resources> _resources;
+    std::unique_ptr<GraphicContext> _graphic_context;
+    std::unique_ptr<AudioContext> _audio_context;
+    std::unique_ptr<InputContext> _input_context;
+    std::unique_ptr<Random> _random;
 };

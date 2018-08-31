@@ -8,9 +8,9 @@ public:
 
     WindowEvent();
 
-    Type getType() const;
+    Type get_type() const;
 
-    void setType(Type type);
+    void set_type(Type type);
 
 private:
     Type mType;

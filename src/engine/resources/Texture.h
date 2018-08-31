@@ -11,9 +11,9 @@ class Texture {
 public:
     virtual ~Texture() = 0;
 
-    virtual bool isLoaded() const = 0;
+    virtual bool is_loaded() const = 0;
 
-    virtual int getWidth() const = 0;
+    virtual int get_width() const = 0;
 
-    virtual int getHeight() const = 0;
+    virtual int get_height() const = 0;
 };

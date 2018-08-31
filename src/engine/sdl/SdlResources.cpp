@@ -18,36 +18,36 @@ SdlResources::FailedToLoadMusicException::FailedToLoadMusicException(const char*
         : runtime_error(message) {}
 
 SdlResources::SdlResources(int width, int height) {
-    initGraphicsSystem(width, height);
-    initAudioSystem();
+    init_graphic_system(width, height);
+    init_audio_system();
 }
 
 SdlResources::~SdlResources() {
-    mNameToTexture.clear();
-    mNameToMusic.clear();
-    mNameToSound.clear();
+    _name_to_texture.clear();
+    _name_to_music.clear();
+    _name_to_sound.clear();
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
 }
 
-Texture& SdlResources::getTexture(std::string const& name) {
-    return mNameToTexture[name];
+Texture& SdlResources::get_texture(std::string const &name) {
+    return _name_to_texture[name];
 }
 
-Music& SdlResources::getMusic(std::string const& name) {
-    return mNameToMusic[name];
+Music& SdlResources::get_music(std::string const &name) {
+    return _name_to_music[name];
 }
 
-Sound& SdlResources::getSound(std::string const& name) {
-    return mNameToSound[name];
+Sound& SdlResources::get_sound(std::string const &name) {
+    return _name_to_sound[name];
 }
 
-void SdlResources::loadTexture(std::string const& name, const char* path) {
-    mNameToTexture.insert(std::make_pair(name, loadTexture(path)));
+void SdlResources::load_texture(std::string const &name, const char *path) {
+    _name_to_texture.insert(std::make_pair(name, load_texture(path)));
 }
 
-SdlTexture SdlResources::loadTexture(const char* path) {
+SdlTexture SdlResources::load_texture(const char *path) {
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -59,56 +59,56 @@ SdlTexture SdlResources::loadTexture(const char* path) {
         throw FailedToLoadTextureException{IMG_GetError()};
     }
 
-    std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> newTex{
-            SDL_CreateTextureFromSurface(mRenderer.get(), buf.get())
+    std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> new_texture{
+            SDL_CreateTextureFromSurface(_renderer.get(), buf.get())
     };
-    if(!newTex) {
+    if(!new_texture) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 
-    SdlTexture tex{std::move(newTex), buf->w, buf->h};
+    SdlTexture tex{std::move(new_texture), buf->w, buf->h};
     SDL_Log("SdlTexture loaded: %s.\n", path);
 
     return tex;
 }
 
-void SdlResources::loadSound(std::string const& name, const char* path) {
-    mNameToSound.insert(std::make_pair(name, loadSound(path)));
+void SdlResources::load_sound(std::string const &name, const char *path) {
+    _name_to_sound.insert(std::make_pair(name, load_sound(path)));
 }
 
-void SdlResources::loadMusic(const std::string& name, const char* path) {
-    mNameToMusic.insert(std::make_pair(name, loadMusic(path)));
+void SdlResources::load_music(const std::string &name, const char *path) {
+    _name_to_music.insert(std::make_pair(name, load_music(path)));
 }
 
-SdlSound SdlResources::loadSound(const char* path) {
-    std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> newSound{Mix_LoadWAV(path)};
-    if(!newSound) {
+SdlSound SdlResources::load_sound(const char *path) {
+    std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> new_sound{Mix_LoadWAV(path)};
+    if(!new_sound) {
         throw FailedToLoadSoundException{Mix_GetError()};
     }
 
-    SdlSound sound{std::move(newSound)};
+    SdlSound sound{std::move(new_sound)};
     SDL_Log("SdlSound loaded: %s.\n", path);
 
     return sound;
 }
 
-SdlMusic SdlResources::loadMusic(const char* path) {
-    std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> newMusic{Mix_LoadMUS(path)};
-    if(!newMusic) {
+SdlMusic SdlResources::load_music(const char *path) {
+    std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> new_music{Mix_LoadMUS(path)};
+    if(!new_music) {
         throw FailedToLoadMusicException{Mix_GetError()};
     }
-    SdlMusic music{std::move(newMusic)};
+    SdlMusic music{std::move(new_music)};
     SDL_Log("SdlMusic loaded: %s.\n", path);
     return music;
 }
 
-void SdlResources::initGraphicsSystem(int screenWidth, int screenHeight) {
+void SdlResources::init_graphic_system(int screenWidth, int screenHeight) {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
     if(0 != SDL_Init(initFlags)) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
-    mWindow.reset(
+    _window.reset(
             SDL_CreateWindow(
                     "TopDown - Reborn",
                     SDL_WINDOWPOS_CENTERED,
@@ -117,18 +117,18 @@ void SdlResources::initGraphicsSystem(int screenWidth, int screenHeight) {
                     SDL_WINDOW_SHOWN
             )
     );
-    if(!mWindow) {
+    if(!_window) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
-    mRenderer.reset(
+    _renderer.reset(
             SDL_CreateRenderer(
-                    mWindow.get(), -1,
+                    _window.get(), -1,
                     SDL_RENDERER_ACCELERATED |
                     SDL_RENDERER_PRESENTVSYNC
             )
     );
-    if(!mRenderer) {
+    if(!_renderer) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
@@ -139,26 +139,26 @@ void SdlResources::initGraphicsSystem(int screenWidth, int screenHeight) {
 
     SDL_ShowCursor(SDL_DISABLE);
 
-    SDL_SetRenderDrawColor(mRenderer.get(), 0x10, 0x10, 0x10, 0xff);
-    SDL_RenderClear(mRenderer.get());
-    SDL_RenderPresent(mRenderer.get());
+    SDL_SetRenderDrawColor(_renderer.get(), 0x10, 0x10, 0x10, 0xff);
+    SDL_RenderClear(_renderer.get());
+    SDL_RenderPresent(_renderer.get());
 }
 
-void SdlResources::initAudioSystem() {
+void SdlResources::init_audio_system() {
     if(0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
         throw FailedSdlMixerInitException{Mix_GetError()};
     }
 }
 
-SDL_Window* SdlResources::getWindow() const {
-    return mWindow.get();
+SDL_Window* SdlResources::get_window() const {
+    return _window.get();
 }
 
-SDL_Renderer* SdlResources::getRenderer() const {
-    return mRenderer.get();
+SDL_Renderer* SdlResources::get_renderer() const {
+    return _renderer.get();
 }
 
-const Clock& SdlResources::getClock() {
+const Clock& SdlResources::get_clock() {
     return *this;
 }
 

@@ -1,27 +1,27 @@
 #include "GameObject.h"
 
-bool objectsCollide(GameObject& a, GameObject& b) {
-    return circlesCollide(a.getCircle(), b.getCircle());
+bool objects_collide(GameObject &a, GameObject &b) {
+    return circles_collide(a.get_circle(), b.get_circle());
 }
 
-void GameObject::defaultMove() {
-    setX(getX() + getCurrentSpeedX());
-    setY(getY() + getCurrentSpeedY());
+void GameObject::default_move() {
+    set_x(get_x() + get_current_speed_x());
+    set_y(get_y() + get_current_speed_y());
 }
 
-void GameObject::defaultRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
-    Texture& tex = resources.getTexture(getTexName());
+void GameObject::default_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio) {
+    Texture& tex = resources.get_texture(get_tex_name());
 
-    auto x = getX() - tex.getWidth() / 2;
-    auto predictedDx = getCurrentSpeedX() * predictionRatio;
+    auto x = get_x() - tex.get_width() / 2;
+    auto predicted_dx = get_current_speed_x() * predictionRatio;
 
-    auto y = getY() - tex.getHeight() / 2;
-    auto predictedDy = getCurrentSpeedY() * predictionRatio;
+    auto y = get_y() - tex.get_height() / 2;
+    auto predicted_dy = get_current_speed_y() * predictionRatio;
 
     graphicContext.render(
             tex,
-            static_cast<int>(x + predictedDx),
-            static_cast<int>(y + predictedDy),
-            getAngle()
+            static_cast<int>(x + predicted_dx),
+            static_cast<int>(y + predicted_dy),
+            get_angle()
     );
 }

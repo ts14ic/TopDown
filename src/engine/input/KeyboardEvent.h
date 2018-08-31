@@ -11,15 +11,15 @@ public:
 
     KeyboardEvent();
 
-    Type getType() const;
+    Type get_type() const;
 
-    KeyboardKey_t getKey() const;
+    KeyboardKey_t get_key() const;
 
-    void setType(Type type);
+    void set_type(Type type);
 
-    void setKey(KeyboardKey_t key);
+    void set_key(KeyboardKey_t key);
 
 private:
-    Type mType;
-    KeyboardKey_t mKey;
+    Type _type;
+    KeyboardKey_t _key;
 };

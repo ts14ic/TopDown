@@ -6,5 +6,5 @@ class WindowEventHandler {
 public:
     virtual ~WindowEventHandler() = 0;
 
-    virtual void handleWindowEvent(const WindowEvent& event) = 0;
+    virtual void handle_window_event(const WindowEvent &event) = 0;
 };

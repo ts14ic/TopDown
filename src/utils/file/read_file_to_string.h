@@ -4,11 +4,11 @@
 
 namespace file {
     /**
-     * Reads whole file into a tring
-     * @param filePath The file location
+     * Read whole file into a string
+     * @param file_path The file location
      * @return File content
      * @throws runtime_error if failed to read the file
      */
-    std::string readFileToString(const char *filePath);
+    std::string read_file_to_string(const char *file_path);
 }
 

@@ -1,7 +1,7 @@
-#include "SdlInputContext_transformSdlKeyCode.h"
+#include "SdlInputContext_transform_sdl_key_code.h"
 #include "engine/input/KeyboardKey.h"
 
-KeyboardKey_t transformSdlKeyCode(SDL_Keycode keyCode) {
+KeyboardKey_t transform_sdl_key_code(SDL_Keycode keyCode) {
     switch(keyCode) {
         case SDLK_RETURN:
             return KEY_RETURN;

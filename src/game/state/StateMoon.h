@@ -12,30 +12,30 @@ public:
 
     StateMoon(const StateMoon& other);
 
-    void handleWindowEvent(const WindowEvent& event) override;
+    void handle_window_event(const WindowEvent &event) override;
 
-    void handleMouseEvent(const MouseEvent& event) override;
+    void handle_mouse_event(const MouseEvent &event) override;
 
-    void handleKeyEvent(const KeyboardEvent& event) override;
+    void handle_key_event(const KeyboardEvent &event) override;
 
-    void handleLogic() override;
+    void handle_logic() override;
 
-    void handleRender(float predictionRatio) override;
+    void handle_render(float predictionRatio) override;
 
     void restrict_pos(GameObject&);
 
 private:
-    void parseLevelData();
+    void parse_level_data();
 
 private:
-    Engine& mEngine;
+    Engine& _engine;
 
-    std::string mBackgroundTexId;
-    int const _levelWidth;
-    int const _levelHeight;
+    std::string _background_tex;
+    int const _level_width;
+    int const _level_height;
 
-    int mMouseX;
-    int mMouseY;
-    Player mPlayer;
-    Timer mEnemySpawnCooldown;
+    int _mouse_x;
+    int _mouse_y;
+    Player _player;
+    Timer _enemy_spawn_cooldown;
 };

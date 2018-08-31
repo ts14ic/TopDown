@@ -13,10 +13,10 @@ void SdlSound::MixDeleter::operator()(Mix_Chunk* p) {
     Mix_FreeChunk(p);
 }
 
-bool SdlSound::isLoaded() const {
+bool SdlSound::is_loaded() const {
     return mChunk != nullptr;
 }
 
-Mix_Chunk* SdlSound::getWrappedChunk() const {
+Mix_Chunk* SdlSound::get_wrapped_chunk() const {
     return mChunk.get();
 }

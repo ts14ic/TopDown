@@ -19,11 +19,11 @@ public:
 
     SdlMusic(SdlMusic&&) noexcept;
 
-    bool isLoaded() const override;
+    bool is_loaded() const override;
 
-    Mix_Music* getWrappedMusic() const;
+    Mix_Music* get_wrapped_music() const;
 
 private:
-    std::unique_ptr<Mix_Music, MixDeleter> mMusic;
+    std::unique_ptr<Mix_Music, MixDeleter> _music;
 };
 

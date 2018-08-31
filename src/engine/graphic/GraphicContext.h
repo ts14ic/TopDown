@@ -8,17 +8,17 @@ class GraphicContext {
 public:
     virtual ~GraphicContext() = 0;
 
-    virtual void refreshScreen() = 0;
+    virtual void refresh_screen() = 0;
 
-    virtual void clearScreen() = 0;
+    virtual void clear_screen() = 0;
 
-    virtual void renderBox(const Box& box, const Color& color) = 0;
+    virtual void render_box(const Box &box, const Color &color) = 0;
 
     virtual void render(Texture const& texture, int x, int y) = 0;
 
     virtual void render(Texture const& texture, int x, int y, float angle) = 0;
 
-    virtual int getScreenWidth() = 0;
+    virtual int get_screen_width() = 0;
 
-    virtual int getScreenHeight() = 0;
+    virtual int get_screen_height() = 0;
 };

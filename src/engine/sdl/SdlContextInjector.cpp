@@ -27,11 +27,11 @@ std::unique_ptr<Mt19937Random> createRandom() {
 
 void SdlContextInjector::inject(Engine& engine, int screenWidth, int screenHeight) {
     auto resources = createResources(screenWidth, screenHeight);
-    auto graphic = createGraphicContext(resources->getWindow(), resources->getRenderer());
+    auto graphic = createGraphicContext(resources->get_window(), resources->get_renderer());
 
-    engine.setResources(std::move(resources));
-    engine.setRandom(createRandom());
-    engine.setGraphicContext(std::move(graphic));
-    engine.setAudioContext(createAudioContext());
-    engine.setInputContext(createInputContext());
+    engine.set_resources(std::move(resources));
+    engine.set_random(createRandom());
+    engine.set_graphic_context(std::move(graphic));
+    engine.set_audio_context(createAudioContext());
+    engine.set_input_context(createInputContext());
 }

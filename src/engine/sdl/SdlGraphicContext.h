@@ -8,24 +8,24 @@ class SdlGraphicContext : public GraphicContext {
 public:
     SdlGraphicContext(SDL_Window* window, SDL_Renderer* renderer);
 
-    void refreshScreen() override;
+    void refresh_screen() override;
 
-    void clearScreen() override;
+    void clear_screen() override;
 
-    void renderBox(const Box& box, const Color& color) override;
+    void render_box(const Box &box, const Color &color) override;
 
     void render(Texture const& texture, int x, int y) override;
 
     void render(Texture const& texture, int x, int y, float angle) override;
 
-    int getScreenWidth() override;
+    int get_screen_width() override;
 
-    int getScreenHeight() override;
+    int get_screen_height() override;
 
 private:
-    int mScreenWidth;
-    int mScreenHeight;
+    int _screen_width;
+    int _screen_height;
 
-    SDL_Window* mWindow;
-    SDL_Renderer* mRenderer;
+    SDL_Window* _window;
+    SDL_Renderer* _renderer;
 };

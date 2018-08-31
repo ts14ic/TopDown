@@ -7,89 +7,89 @@ namespace math {
     extern const double PI_UNDER_180;
 
     namespace detail {
-        double cartesianCos(double cartesianAngle);
+        double cartesian_cos(double cartesian_angle);
 
-        double cartesianSin(double cartesianAngle);
+        double cartesian_sin(double cartesian_angle);
 
-        double radianCos(double radianAngle);
+        double radian_cos(double radian_angle);
 
-        double radianSin(double radianAngle);
+        double radian_sin(double radian_angle);
 
-        double getAngle(double lhsX, double lhsY, double rhsX, double rhsY);
+        double get_radian_angle(double lhs_x, double lhs_y, double rhs_x, double rhs_y);
 
-        double getDistance(double lhsX, double lhsY, double rhsX, double rhsY);
+        double get_distance(double lhs_x, double lhs_y, double rhs_x, double rhs_y);
     }
 
     /**
      * Transform a cartesian angle into a radian angle
      * @tparam R Radian angle value type
      * @tparam T Cartesian angle value type
-     * @param cartesianAngle Cartesian angle
+     * @param cartesian_angle Cartesian angle
      * @return Angle in radian
      */
     template <class R = float, class T>
-    R toRadians(T cartesianAngle) {
-        return static_cast<R>(cartesianAngle * PI_OVER_180);
+    R to_radians(T cartesian_angle) {
+        return static_cast<R>(cartesian_angle * PI_OVER_180);
     }
 
     /**
      * Transform a radian angle into a cartesian angle
      * @tparam R Cartesian angle value type
      * @tparam T Radian angle value type
-     * @param radianAngle Radian angle
+     * @param radian_angle Radian angle
      * @return Angle in cartesian
      */
     template <class R = float, class T>
-    R toCartesian(T radianAngle) {
-        return static_cast<R>(radianAngle * PI_UNDER_180);
+    R to_cartesian(T radian_angle) {
+        return static_cast<R>(radian_angle * PI_UNDER_180);
     }
 
     /**
      * Calculate the cosine value from a cartesian angle
      * @tparam R Input value type
      * @tparam T Output value type
-     * @param cartesianAngle Cartesian angle
+     * @param cartesian_angle Cartesian angle
      * @return Cosine value
      */
     template <class R = float, class T>
-    R cartesianCos(T cartesianAngle) {
-        return static_cast<R>(detail::cartesianCos(cartesianAngle));
+    R cartesian_cos(T cartesian_angle) {
+        return static_cast<R>(detail::cartesian_cos(cartesian_angle));
     }
 
     /**
      * Calculate the cosine value from a radian angle
      * @tparam R Input value type
      * @tparam T Output value type
-     * @param radianAngle Radian angle
+     * @param radian_angle Radian angle
      * @return Cosine value
      */
     template <typename R = float, typename T>
-    R radianCos(T radianAngle) {
-        return static_cast<R>(detail::radianCos(radianAngle));
+    R radian_cos(T radian_angle) {
+        return static_cast<R>(detail::radian_cos(radian_angle));
     }
 
     /**
      * Calculate the sine value from a radian angle
      * @tparam R Input value type
      * @tparam T Output value type
-     * @param radianAngle Radian angle
+     * @param radian_angle Radian angle
      * @return Sine value
      */
     template <typename R = float, typename T>
-    R radianSin(T radianAngle) {
-        return static_cast<R>(detail::radianSin(radianAngle));
+    R radian_sin(T radian_angle) {
+        return static_cast<R>(detail::radian_sin(radian_angle));
     }
 
     /**
      * Calculate the sine value from a cartesian angle
      * @tparam R Input value type
      * @tparam T Output value type
-     * @param cartesianAngle Cartesian angle
+     * @param cartesian_angle Cartesian angle
      * @return Sine value
      */
     template <class R = float, class T>
-    R cartesianSin(T cartesianAngle) {
-        return static_cast<R>(detail::cartesianSin(cartesianAngle));
+    R cartesian_sin(T cartesian_angle) {
+        return static_cast<R>(detail::cartesian_sin(cartesian_angle));
     }
 
     /**
@@ -97,15 +97,15 @@ namespace math {
      * @tparam R Output value type
      * @tparam A Input value type for first point
      * @tparam B Input value type for second point
-     * @param lhsX First point x coordinate
-     * @param lhsY First point y coordinate
-     * @param rhsX Second point x coordinate
-     * @param rhsY Second point y coordinate
+     * @param lhs_x First point x coordinate
+     * @param lhs_y First point y coordinate
+     * @param rhs_x Second point x coordinate
+     * @param rhs_y Second point y coordinate
      * @return Distance between two points
      */
     template <class R = float, class A, class B>
-    R getDistance(A lhsX, A lhsY, B rhsX, B rhsY) {
-        return static_cast<R>(detail::getDistance(lhsX, lhsY, rhsX, rhsY));
+    R get_distance(A lhs_x, A lhs_y, B rhs_x, B rhs_y) {
+        return static_cast<R>(detail::get_distance(lhs_x, lhs_y, rhs_x, rhs_y));
     }
 
     /**
@@ -113,15 +113,15 @@ namespace math {
      * @tparam R Output value type
      * @tparam A Input value type for first point
      * @tparam B Input value type for second point
-     * @param lhsX First point x coordinate
-     * @param lhsY First point y coordinate
-     * @param rhsX Second point x coordinate
-     * @param rhsY Second point y coordinate
+     * @param lhs_x First point x coordinate
+     * @param lhs_y First point y coordinate
+     * @param rhs_x Second point x coordinate
+     * @param rhs_y Second point y coordinate
      * @return Radian angle between two points
      */
     template <class R = float, class A, class B>
-    R getRadianAngle(A lhsX, A lhsY, B rhsX, B rhsY) {
-        return static_cast<R>(detail::getAngle(lhsX, lhsY, rhsX, rhsY));
+    R get_radian_angle(A lhs_x, A lhs_y, B rhs_x, B rhs_y) {
+        return static_cast<R>(detail::get_radian_angle(lhs_x, lhs_y, rhs_x, rhs_y));
     }
 
     /**
@@ -129,14 +129,14 @@ namespace math {
      * @tparam R Output value type
      * @tparam A Input value type for first point
      * @tparam B Input value type for second point
-     * @param lhsX First point x coordinate
-     * @param lhsY First point y coordinate
-     * @param rhsX Second point x coordinate
-     * @param rhsY Second point y coordinate
+     * @param lhs_x First point x coordinate
+     * @param lhs_y First point y coordinate
+     * @param rhs_x Second point x coordinate
+     * @param rhs_y Second point y coordinate
      * @return Cartesian angle between two points
      */
     template <class R = float, class A, class B>
-    R getCartesianAngle(A lhsX, A lhsY, B rhsX, B rhsY) {
-        return toCartesian(getRadianAngle(lhsX, lhsY, rhsX, rhsY));
+    R get_cartesian_angle(A lhs_x, A lhs_y, B rhs_x, B rhs_y) {
+        return to_cartesian(get_radian_angle(lhs_x, lhs_y, rhs_x, rhs_y));
     }
 }

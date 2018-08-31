@@ -3,26 +3,26 @@
 StateIntro::StateIntro(Engine& engine)
         : mEngine{engine},
           mBackgroundTexId{"intro_background"} {
-    engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/intro_bg.png");
+    engine.get_resources().load_texture(mBackgroundTexId, "assets/gfx/intro_bg.png");
 }
 
-void StateIntro::handleWindowEvent(const WindowEvent& event) {
+void StateIntro::handle_window_event(const WindowEvent &event) {
 }
 
-void StateIntro::handleMouseEvent(const MouseEvent& event) {
+void StateIntro::handle_mouse_event(const MouseEvent &event) {
 }
 
-void StateIntro::handleKeyEvent(const KeyboardEvent& event) {
-    if(event.getType() == KeyboardEvent::Type::KeyDown) {
-        switch(event.getKey()) {
+void StateIntro::handle_key_event(const KeyboardEvent &event) {
+    if(event.get_type() == KeyboardEvent::Type::KeyDown) {
+        switch(event.get_key()) {
             case 'q': {
-                mEngine.requestStateChange(GState::exit);
+                mEngine.request_state_change(StateId::exit);
                 break;
             }
 
             case KEY_ESCAPE:
             case KEY_ENTER: {
-                mEngine.requestStateChange(GState::moon);
+                mEngine.request_state_change(StateId::moon);
                 break;
             }
 
@@ -33,13 +33,13 @@ void StateIntro::handleKeyEvent(const KeyboardEvent& event) {
     }
 }
 
-void StateIntro::handleLogic() {}
+void StateIntro::handle_logic() {}
 
-void StateIntro::handleRender(float predictionRatio) {
-    auto& render = mEngine.getGraphicContext();
+void StateIntro::handle_render(float predictionRatio) {
+    auto& render = mEngine.get_graphic_context();
 
-    Texture& background = mEngine.getResources().getTexture(mBackgroundTexId);
+    Texture& background = mEngine.get_resources().get_texture(mBackgroundTexId);
     render.render(background, 0, 0);
 
-    render.refreshScreen();
+    render.refresh_screen();
 }

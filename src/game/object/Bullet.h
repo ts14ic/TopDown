@@ -7,54 +7,54 @@
 
 class Bullet : public GameObject {
 public:
-    Bullet(Random& random, GameObject const& origin, Weapon const& weap);
+    Bullet(Random& random, GameObject const& origin, Weapon const& weapon);
 
-    float getX() const override;
+    float get_x() const override;
 
-    float getY() const override;
+    float get_y() const override;
 
-    float getAngle() const override;
+    float get_angle() const override;
 
-    float getMaxMovementSpeed() const override;
+    float get_max_movement_speed() const override;
 
-    float getCurrentSpeedX() const override;
+    float get_current_speed_x() const override;
 
-    float getCurrentSpeedY() const override;
+    float get_current_speed_y() const override;
 
-    void setX(float x) override;
+    void set_x(float x) override;
 
-    void setY(float y) override;
+    void set_y(float y) override;
 
-    void setPos(float x, float y) override;
+    void set_position(float x, float y) override;
 
-    void setAngle(float a) override;
+    void set_angle(float a) override;
 
-    void setMaxMovementSpeed(float s) override;
+    void set_max_movement_speed(float s) override;
 
-    void setCurrentSpeedX(float speedX) override;
+    void set_current_speed_x(float speedX) override;
 
-    void setCurrentSpeedY(float speedY) override;
+    void set_current_speed_y(float speedY) override;
 
-    void setCurrentSpeed(float speedX, float speedY) override;
+    void set_current_speed(float speedX, float speedY) override;
 
-    Circle getCircle() const override;
+    Circle get_circle() const override;
 
-    std::string getTexName() const override;
+    std::string get_tex_name() const override;
 
-    int dmg() const;
+    int get_damage() const;
 
     void handle_logic();
 
-    void handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio);
+    void handle_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio);
 
 private:
-    int mDamage;
-    float mX;
-    float mY;
-    float mAngle;
-    float mMaxSpeed;
-    float mCurrentSpeedX;
-    float mCurrentSpeedY;
+    int _damage;
+    float _x;
+    float _y;
+    float _angle;
+    float _max_speed;
+    float _current_speed_x;
+    float _current_speed_y;
 };
 
 std::vector<Bullet>& bullets();

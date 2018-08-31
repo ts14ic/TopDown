@@ -6,16 +6,16 @@
 
 class Damageable : public virtual GameObject {
 public:
-    virtual int hp() const = 0;
+    virtual int get_hp() const = 0;
 
-    virtual int defaultHp() const = 0;
+    virtual int get_default_hp() const = 0;
 
-    virtual int dmg() const = 0;
+    virtual int get_damage() const = 0;
 
     virtual void damage(const Clock& clock, int damageAmount) = 0;
 
-    virtual bool dead() const = 0;
+    virtual bool is_dead() const = 0;
 
 protected:
-    void defaultRenderHealth(GraphicContext& graphicContext, Color const& color, float predictionRatio) const;
+    void default_render_health(GraphicContext &graphic_context, Color const &color, float prediction_ratio) const;
 };

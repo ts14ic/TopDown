@@ -11,69 +11,69 @@ public:
     Zombie(int x, int y);
 
     // GameObject legacy
-    float getX() const override;
+    float get_x() const override;
 
-    float getY() const override;
+    float get_y() const override;
 
-    float getAngle() const override;
+    float get_angle() const override;
 
-    float getMaxMovementSpeed() const override;
+    float get_max_movement_speed() const override;
 
-    float getCurrentSpeedX() const override;
+    float get_current_speed_x() const override;
 
-    float getCurrentSpeedY() const override;
+    float get_current_speed_y() const override;
 
-    void setX(float x) override;
+    void set_x(float x) override;
 
-    void setY(float y) override;
+    void set_y(float y) override;
 
-    void setPos(float x, float y) override;
+    void set_position(float x, float y) override;
 
-    void setAngle(float angle) override;
+    void set_angle(float angle) override;
 
-    void setMaxMovementSpeed(float speed) override;
+    void set_max_movement_speed(float speed) override;
 
-    void setCurrentSpeedX(float speedX) override;
+    void set_current_speed_x(float speedX) override;
 
-    void setCurrentSpeedY(float speedY) override;
+    void set_current_speed_y(float speedY) override;
 
-    void setCurrentSpeed(float speedX, float speedY) override;
+    void set_current_speed(float speedX, float speedY) override;
 
-    Circle getCircle() const override;
+    Circle get_circle() const override;
 
-    std::string getTexName() const override;
+    std::string get_tex_name() const override;
 
     // Damageable legacy
-    int hp() const override;
+    int get_hp() const override;
 
-    int defaultHp() const override;
+    int get_default_hp() const override;
 
-    bool dead() const override;
+    bool is_dead() const override;
 
-    int dmg() const override;
+    int get_damage() const override;
 
-    void damage(const Clock& clock, int d) override;
+    void damage(const Clock &clock, int d) override;
 
     // StateMoon interface
     void set_target(float x, float y, bool ignore = false);
 
     void handle_logic();
 
-    void handleRender(Resources& resources, GraphicContext& graphicContext, AudioContext& audioContext,
-                      float predictionRatio);
+    void handle_render(Resources &resources, GraphicContext &graphicContext, AudioContext &audioContext,
+                       float predictionRatio);
 
 private:
-    float mX = 0.f;
-    float mY = 0.f;
-    float mCurrentSpeedX = 0.f;
-    float mCurrentSpeedY = 0.f;
-    float mAngle = 0.f;
-    float mSpeed = 1.7f;
+    float _x = 0.f;
+    float _y = 0.f;
+    float _current_speed_x = 0.f;
+    float _current_speed_y = 0.f;
+    float _angle = 0.f;
+    float _speed = 1.7f;
 
-    int mCurrentHp = 0;
-    int mAnimationFrame = 0;
+    int _current_hp = 0;
+    int _animation_frame = 0;
 
-    Timer mTimer;
+    Timer _animation_timer;
 
     enum {
         IDLE = 0x0,
@@ -81,7 +81,7 @@ private:
         ATTACKING = 0x2,
         DYING = 0x4
     };
-    int mAiState = IDLE;
+    int _ai_state = IDLE;
 };
 
 std::vector<Zombie>& zombies();

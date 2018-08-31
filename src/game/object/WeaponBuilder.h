@@ -9,56 +9,55 @@ class WeaponBuilder {
 public:
     explicit WeaponBuilder(std::string name);
 
-    WeaponBuilder& maxAmmo(int maxAmmo);
+    WeaponBuilder& max_ammo(int maxAmmo);
 
     WeaponBuilder& length(int length);
 
-    WeaponBuilder& fireCooldown(unsigned cooldown);
+    WeaponBuilder& fire_cooldown(unsigned cooldown);
 
-    WeaponBuilder& reloadCooldown(unsigned cooldown);
+    WeaponBuilder& reload_cooldown(unsigned cooldown);
 
-    WeaponBuilder& projectilesPerShot(int count);
+    WeaponBuilder& projectiles_per_shot(int count);
 
-    WeaponBuilder& projectileDamage(int damage);
+    WeaponBuilder& projectile_damage(int damage);
 
-    WeaponBuilder& projectileSpeed(float speed);
+    WeaponBuilder& projectile_speed(float speed);
 
-    WeaponBuilder& projectileSpread(float spread);
+    WeaponBuilder& projectile_spread(float spread);
 
-    WeaponBuilder& fireSounds(const std::vector<std::string>& fireSounds);
+    WeaponBuilder& fire_sounds(const std::vector<std::string> &fireSounds);
 
     Weapon build();
 
-    std::string getName() const;
+    std::string get_name() const;
 
-    int getMaxAmmo() const;
+    int get_max_ammo() const;
 
-    int getLength() const;
+    int get_length() const;
 
-    unsigned int getFireCooldown() const;
+    unsigned int get_fire_cooldown() const;
 
-    unsigned int getReloadCooldown() const;
+    unsigned int get_reload_cooldown() const;
 
-    int getProjectilesPerShot() const;
+    int get_projectiles_per_shot() const;
 
-    int getProjectileDamage() const;
+    int get_projectile_damage() const;
 
-    float getProjectileSpread() const;
+    float get_projectile_spread() const;
 
-    float getProjectileSpeed() const;
+    float get_projectile_speed() const;
 
-    const std::vector<std::string>& getFireSounds() const;
+    const std::vector<std::string>& get_fire_sounds() const;
 
 private:
-    std::string mName;
-    int mMaxAmmo = 0;
-    int mLength = 0;
-    unsigned mFireCooldown = 0;
-    unsigned mReloadCooldown = 0;
-    int mProjectilesPerShot = 0;
-    int mProjectileDamage = 0;
-    float mProjectileSpread = 0.f;
-    float mProjectileSpeed = 0.f;
-    std::vector<std::string> mFireSounds;
+    std::string _name;
+    int _max_ammo = 0;
+    int _length = 0;
+    unsigned _fire_cooldown = 0;
+    unsigned _reload_cooldown = 0;
+    int _projectiles_per_shot = 0;
+    int _projectile_damage = 0;
+    float _projectile_spread = 0.f;
+    float _projectile_speed = 0.f;
+    std::vector<std::string> _fire_sounds;
 };
-

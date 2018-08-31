@@ -6,7 +6,7 @@ class GameState : public EventHandler {
 public:
     ~GameState() override = 0;
 
-    virtual void handleLogic()  = 0;
+    virtual void handle_logic()  = 0;
 
-    virtual void handleRender(float predictionRatio) = 0;
+    virtual void handle_render(float predictionRatio) = 0;
 };

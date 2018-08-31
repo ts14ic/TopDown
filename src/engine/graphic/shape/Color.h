@@ -6,25 +6,25 @@ public:
 
     Color(int red, int green, int blue, int alpha = 255);
 
-    int getRed() const;
+    int get_red() const;
 
-    int getGreen() const;
+    int get_green() const;
 
-    int getBlue() const;
+    int get_blue() const;
 
-    int getAlpha() const;
+    int get_alpha() const;
 
-    void setRed(int red);
+    void set_red(int red);
 
-    void setGreen(int green);
+    void set_green(int green);
 
-    void setBlue(int blue);
+    void set_blue(int blue);
 
-    void setAlpha(int alpha);
+    void set_alpha(int alpha);
 
 private:
-    int mRed;
-    int mGreen;
-    int mBlue;
-    int mAlpha;
+    int _red;
+    int _green;
+    int _blue;
+    int _alpha;
 };

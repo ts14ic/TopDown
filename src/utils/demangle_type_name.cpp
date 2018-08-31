@@ -1,4 +1,4 @@
-#include "demangleTypeName.h"
+#include "demangle_type_name.h"
 
 #ifdef __GNUG__
 
@@ -7,7 +7,7 @@
 
 #endif // __GNUG__
 
-std::string utils::demangleTypeName(const char* typeName) {
+std::string utils::demangle_type_name(const char *typeName) {
 #ifdef __GNUG__
     int status{};
     std::unique_ptr<char, decltype(&std::free)> res{

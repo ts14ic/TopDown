@@ -12,25 +12,25 @@ public:
 
     MouseEvent();
 
-    Type getType() const;
+    Type get_type() const;
 
-    float getScrollAmount() const;
+    float get_scroll_amount() const;
 
-    float getX() const;
+    float get_x() const;
 
-    float getY() const;
+    float get_y() const;
 
-    void setType(Type type);
+    void set_type(Type type);
 
-    void setScrollAmount(float scrollAmount);
+    void set_scroll_amount(float scrollAmount);
 
-    void setX(float x);
+    void set_x(float x);
 
-    void setY(float y);
+    void set_y(float y);
 
 private:
-    Type mType;
-    float mScrollAmount;
-    float mX;
-    float mY;
+    Type _type;
+    float _scroll_amount;
+    float _x;
+    float _y;
 };

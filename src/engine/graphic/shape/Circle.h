@@ -6,22 +6,22 @@ public:
 
     Circle(float x, float y, float radius);
 
-    float getX() const;
+    float get_x() const;
 
-    void setX(float x);
+    void set_x(float x);
 
-    float getY() const;
+    float get_y() const;
 
-    void setY(float y);
+    void set_y(float y);
 
-    float getRadius() const;
+    float get_radius() const;
 
-    void setRadius(float radius);
+    void set_radius(float radius);
 
 private:
-    float mX;
-    float mY;
-    float mRadius;
+    float _x;
+    float _y;
+    float _radius;
 };
 
-bool circlesCollide(Circle const& a, Circle const& b);
+bool circles_collide(Circle const& lhs, Circle const& rhs);

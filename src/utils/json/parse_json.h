@@ -11,5 +11,5 @@ namespace json {
      * @return Document
      * @throws runtime_error if input is malformed
      */
-    rapidjson::Document parseJson(const std::string& input);
+    rapidjson::Document parse_json(const std::string &input);
 }

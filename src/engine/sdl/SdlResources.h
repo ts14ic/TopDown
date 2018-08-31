@@ -14,23 +14,23 @@ public:
 
     ~SdlResources() override;
 
-    Texture& getTexture(const std::string& name) override;
+    Texture& get_texture(const std::string &name) override;
 
-    Sound& getSound(const std::string& name) override;
+    Sound& get_sound(const std::string &name) override;
 
-    Music& getMusic(const std::string& name) override;
+    Music& get_music(const std::string &name) override;
 
-    const Clock& getClock() override;
+    const Clock& get_clock() override;
 
-    void loadTexture(const std::string& name, const char* path) override;
+    void load_texture(const std::string &name, const char *path) override;
 
-    void loadSound(const std::string& name, const char* path) override;
+    void load_sound(const std::string &name, const char *path) override;
 
-    void loadMusic(const std::string& name, const char* path) override;
+    void load_music(const std::string &name, const char *path) override;
 
-    SDL_Window* getWindow() const;
+    SDL_Window* get_window() const;
 
-    SDL_Renderer* getRenderer() const;
+    SDL_Renderer* get_renderer() const;
 
     struct FailedSdlInitException : public std::runtime_error {
         explicit FailedSdlInitException(const char* message);
@@ -45,11 +45,11 @@ public:
     };
 
 private:
-    void initGraphicsSystem(int width, int height);
+    void init_graphic_system(int width, int height);
 
-    void initAudioSystem();
+    void init_audio_system();
 
-    SdlTexture loadTexture(const char* path);
+    SdlTexture load_texture(const char *path);
 
     struct SdlDeleter {
         void operator()(SDL_Window* p);
@@ -57,9 +57,9 @@ private:
         void operator()(SDL_Renderer* p);
     };
 
-    SdlSound loadSound(const char* path);
+    SdlSound load_sound(const char *path);
 
-    SdlMusic loadMusic(const char* path);
+    SdlMusic load_music(const char *path);
 
     struct FailedToLoadSoundException : public std::runtime_error {
         explicit FailedToLoadSoundException(const char* message);
@@ -70,9 +70,9 @@ private:
     };
 
 private:
-    std::unique_ptr<SDL_Window, SdlDeleter> mWindow;
-    std::unique_ptr<SDL_Renderer, SdlDeleter> mRenderer;
-    std::unordered_map<std::string, SdlSound> mNameToSound;
-    std::unordered_map<std::string, SdlTexture> mNameToTexture;
-    std::unordered_map<std::string, SdlMusic> mNameToMusic;
+    std::unique_ptr<SDL_Window, SdlDeleter> _window;
+    std::unique_ptr<SDL_Renderer, SdlDeleter> _renderer;
+    std::unordered_map<std::string, SdlSound> _name_to_sound;
+    std::unordered_map<std::string, SdlTexture> _name_to_texture;
+    std::unordered_map<std::string, SdlMusic> _name_to_music;
 };

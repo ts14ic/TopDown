@@ -4,14 +4,14 @@
 
 class SdlInputContext : public InputContext {
 public:
-    void pollEvents(EventHandler& eventHandler) override;
+    void poll_events(EventHandler &eventHandler) override;
 
 private:
-    void forwardWindowEvent(WindowEventHandler& eventHandler) override;
+    void forward_window_event(WindowEventHandler &eventHandler) override;
 
-    void forwardMouseEvent(MouseEventHandler& eventHandler) override;
+    void forward_mouse_event(MouseEventHandler &eventHandler) override;
 
-    void forwardKeyboardEvent(KeyboardEventHandler& eventHandler) override;
+    void forward_keyboard_event(KeyboardEventHandler &eventHandler) override;
 
 private:
     WindowEvent mWindowEvent;

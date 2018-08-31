@@ -12,22 +12,22 @@ public:
 
     SdlTexture();
 
-    SdlTexture(std::unique_ptr<SDL_Texture, TextureDeleter> tex, int width, int height);
+    SdlTexture(std::unique_ptr<SDL_Texture, TextureDeleter> texture, int width, int height);
 
     SdlTexture(SdlTexture const&) = delete;
 
     SdlTexture(SdlTexture&&) noexcept;
 
-    bool isLoaded() const override;
+    bool is_loaded() const override;
 
-    int getWidth() const override;
+    int get_width() const override;
 
-    int getHeight() const override;
+    int get_height() const override;
 
-    SDL_Texture* getWrappedTexture() const;
+    SDL_Texture* get_wrapped_texture() const;
 
 private:
-    std::unique_ptr<SDL_Texture, TextureDeleter> mTex;
-    int mWidth = 0;
-    int mHeight = 0;
+    std::unique_ptr<SDL_Texture, TextureDeleter> _texture;
+    int _width = 0;
+    int _height = 0;
 };

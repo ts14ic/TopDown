@@ -1,56 +1,56 @@
 #include "SdlGraphicContext.h"
 
 SdlGraphicContext::SdlGraphicContext(SDL_Window* window, SDL_Renderer* renderer)
-        : mWindow{window}, mRenderer{renderer} {
+        : _window{window}, _renderer{renderer} {
 }
 
-void SdlGraphicContext::refreshScreen() {
-    SDL_RenderPresent(mRenderer);
+void SdlGraphicContext::refresh_screen() {
+    SDL_RenderPresent(_renderer);
 }
 
-void SdlGraphicContext::clearScreen() {
-    SDL_RenderClear(mRenderer);
+void SdlGraphicContext::clear_screen() {
+    SDL_RenderClear(_renderer);
 }
 
 void SdlGraphicContext::render(const Texture& texture, int x, int y) {
-    if(texture.isLoaded()) {
-        SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopy(mRenderer, dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr, &destRect);
+    if(texture.is_loaded()) {
+        SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
+        SDL_RenderCopy(_renderer, dynamic_cast<const SdlTexture &>(texture).get_wrapped_texture(), nullptr, &destRect);
     }
 }
 
 void SdlGraphicContext::render(Texture const& texture, int x, int y, float angle) {
-    if(texture.isLoaded()) {
-        SDL_Rect destRect = {x, y, texture.getWidth(), texture.getHeight()};
-        SDL_RenderCopyEx(mRenderer, dynamic_cast<const SdlTexture&>(texture).getWrappedTexture(), nullptr,
+    if(texture.is_loaded()) {
+        SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
+        SDL_RenderCopyEx(_renderer, dynamic_cast<const SdlTexture &>(texture).get_wrapped_texture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
-void SdlGraphicContext::renderBox(const Box& box, const Color& color) {
+void SdlGraphicContext::render_box(const Box &box, const Color &color) {
     SDL_Rect rect{
-            static_cast<int>(box.getX()),
-            static_cast<int>(box.getY()),
-            static_cast<int>(box.getWidth()),
-            static_cast<int>(box.getHeight())
+            static_cast<int>(box.get_x()),
+            static_cast<int>(box.get_y()),
+            static_cast<int>(box.get_width()),
+            static_cast<int>(box.get_height())
     };
     SDL_SetRenderDrawColor(
-            mRenderer,
-            static_cast<Uint8>(color.getRed()),
-            static_cast<Uint8>(color.getGreen()),
-            static_cast<Uint8>(color.getBlue()),
-            static_cast<Uint8>(color.getAlpha())
+            _renderer,
+            static_cast<Uint8>(color.get_red()),
+            static_cast<Uint8>(color.get_green()),
+            static_cast<Uint8>(color.get_blue()),
+            static_cast<Uint8>(color.get_alpha())
     );
-    SDL_RenderFillRect(mRenderer, &rect);
+    SDL_RenderFillRect(_renderer, &rect);
 }
 
-int SdlGraphicContext::getScreenWidth() {
-    SDL_GetWindowSize(mWindow, &mScreenWidth, &mScreenHeight);
-    return mScreenWidth;
+int SdlGraphicContext::get_screen_width() {
+    SDL_GetWindowSize(_window, &_screen_width, &_screen_height);
+    return _screen_width;
 }
 
-int SdlGraphicContext::getScreenHeight() {
-    SDL_GetWindowSize(mWindow, &mScreenWidth, &mScreenHeight);
-    return mScreenHeight;
+int SdlGraphicContext::get_screen_height() {
+    SDL_GetWindowSize(_window, &_screen_width, &_screen_height);
+    return _screen_height;
 }

@@ -6,31 +6,28 @@ public:
 
     Box(float x, float y, float width, float height);
 
-    float getX() const;
+    float get_x() const;
 
-    float getY() const;
+    float get_y() const;
 
-    float getWidth() const;
+    float get_width() const;
 
-    float getHeight() const;
+    float get_height() const;
 
-    void setX(float x);
+    void set_x(float x);
 
-    void setY(float y);
+    void set_y(float y);
 
-    void setPosition(float x, float y);
+    void set_position(float x, float y);
 
-    void setWidth(float width);
+    void set_width(float width);
 
-    void setHeight(float height);
+    void set_height(float height);
 
-    void setSize(float width, float height);
-
-    void set(float x, float y, float width, float height);
-
+    void set_sizes(float width, float height);
 private:
-    float mX;
-    float mY;
-    float mWidth;
-    float mHeight;
+    float _x;
+    float _y;
+    float _width;
+    float _height;
 };

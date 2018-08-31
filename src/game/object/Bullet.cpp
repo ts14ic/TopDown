@@ -8,79 +8,79 @@ vector<Bullet>& bullets() {
     return ret;
 }
 
-Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weap) {
-    float half = weap.getProjectileSpread() / 2;
-    mAngle = shooter.getAngle() + random.getFloat(-half, half);
-    mX = shooter.getX() + math::cartesianCos(mAngle) * weap.getLength();
-    mY = shooter.getY() + math::cartesianSin(mAngle) * weap.getLength();
+Bullet::Bullet(Random& random, GameObject const& shooter, Weapon const& weapon) {
+    float half = weapon.get_projectile_spread() / 2;
+    _angle = shooter.get_angle() + random.get_float(-half, half);
+    _x = shooter.get_x() + math::cartesian_cos(_angle) * weapon.get_length();
+    _y = shooter.get_y() + math::cartesian_sin(_angle) * weapon.get_length();
 
-    mDamage = weap.getProjectileDamage();
-    mMaxSpeed = weap.getProjectileSpeed();
+    _damage = weapon.get_projectile_damage();
+    _max_speed = weapon.get_projectile_speed();
 }
 
-float Bullet::getX() const { return mX; }
+float Bullet::get_x() const { return _x; }
 
-float Bullet::getY() const { return mY; }
+float Bullet::get_y() const { return _y; }
 
-float Bullet::getAngle() const { return mAngle; }
+float Bullet::get_angle() const { return _angle; }
 
-float Bullet::getMaxMovementSpeed() const { return mMaxSpeed; }
+float Bullet::get_max_movement_speed() const { return _max_speed; }
 
-void Bullet::setX(float x) { mX = x; }
+void Bullet::set_x(float x) { _x = x; }
 
-void Bullet::setY(float y) { mY = y; }
+void Bullet::set_y(float y) { _y = y; }
 
-void Bullet::setAngle(float a) { mAngle = a; }
+void Bullet::set_angle(float a) { _angle = a; }
 
-void Bullet::setMaxMovementSpeed(float s) { mMaxSpeed = s; }
+void Bullet::set_max_movement_speed(float s) { _max_speed = s; }
 
-int Bullet::dmg() const { return mDamage; }
+int Bullet::get_damage() const { return _damage; }
 
-Circle Bullet::getCircle() const { return {mX, mY, 2}; }
+Circle Bullet::get_circle() const { return {_x, _y, 2}; }
 
-std::string Bullet::getTexName() const { return "bullet"; }
+std::string Bullet::get_tex_name() const { return "bullet"; }
 
 void Bullet::handle_logic() {
     {
         // TODO extract speed setting
-        auto movementAngle = getAngle();
+        auto movementAngle = get_angle();
 
-        float speedX = math::cartesianCos(movementAngle) * getMaxMovementSpeed();
-        float speedY = math::cartesianSin(movementAngle) * getMaxMovementSpeed();
+        float speedX = math::cartesian_cos(movementAngle) * get_max_movement_speed();
+        float speedY = math::cartesian_sin(movementAngle) * get_max_movement_speed();
 
-        setCurrentSpeedX(speedX);
-        setCurrentSpeedY(speedY);
+        set_current_speed_x(speedX);
+        set_current_speed_y(speedY);
     }
 
-    defaultMove();
+    default_move();
 }
 
-void Bullet::handleRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio) {
-    defaultRender(resources, graphicContext, predictionRatio);
+void Bullet::handle_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio) {
+    default_render(resources, graphicContext, predictionRatio);
 }
 
-void Bullet::setPos(float x, float y) {
-    setX(x);
-    setY(y);
+void Bullet::set_position(float x, float y) {
+    set_x(x);
+    set_y(y);
 }
 
-float Bullet::getCurrentSpeedX() const {
-    return mCurrentSpeedX;
+float Bullet::get_current_speed_x() const {
+    return _current_speed_x;
 }
 
-float Bullet::getCurrentSpeedY() const {
-    return mCurrentSpeedY;
+float Bullet::get_current_speed_y() const {
+    return _current_speed_y;
 }
 
-void Bullet::setCurrentSpeedX(float speedX) {
-    mCurrentSpeedX = speedX;
+void Bullet::set_current_speed_x(float speedX) {
+    _current_speed_x = speedX;
 }
 
-void Bullet::setCurrentSpeedY(float speedY) {
-    mCurrentSpeedY = speedY;
+void Bullet::set_current_speed_y(float speedY) {
+    _current_speed_y = speedY;
 }
 
-void Bullet::setCurrentSpeed(float speedX, float speedY) {
-    setCurrentSpeedX(speedX);
-    setCurrentSpeedY(speedY);
+void Bullet::set_current_speed(float speedX, float speedY) {
+    set_current_speed_x(speedX);
+    set_current_speed_y(speedY);
 }

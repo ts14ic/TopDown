@@ -2,50 +2,50 @@
 #include "Weapon.h"
 
 WeaponBuilder::WeaponBuilder(std::string name)
-        : mName{std::move(name)} {}
+        : _name{std::move(name)} {}
 
-WeaponBuilder& WeaponBuilder::maxAmmo(int maxAmmo) {
-    mMaxAmmo = maxAmmo;
+WeaponBuilder& WeaponBuilder::max_ammo(int maxAmmo) {
+    _max_ammo = maxAmmo;
     return *this;
 }
 
 WeaponBuilder& WeaponBuilder::length(int length) {
-    mLength = length;
+    _length = length;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::fireCooldown(unsigned cooldown) {
-    mFireCooldown = cooldown;
+WeaponBuilder& WeaponBuilder::fire_cooldown(unsigned cooldown) {
+    _fire_cooldown = cooldown;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::reloadCooldown(unsigned cooldown) {
-    mReloadCooldown = cooldown;
+WeaponBuilder& WeaponBuilder::reload_cooldown(unsigned cooldown) {
+    _reload_cooldown = cooldown;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::projectilesPerShot(int count) {
-    mProjectilesPerShot = count;
+WeaponBuilder& WeaponBuilder::projectiles_per_shot(int count) {
+    _projectiles_per_shot = count;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::projectileDamage(int damage) {
-    mProjectileDamage = damage;
+WeaponBuilder& WeaponBuilder::projectile_damage(int damage) {
+    _projectile_damage = damage;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::projectileSpeed(float speed) {
-    mProjectileSpeed = speed;
+WeaponBuilder& WeaponBuilder::projectile_speed(float speed) {
+    _projectile_speed = speed;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::projectileSpread(float spread) {
-    mProjectileSpread = spread;
+WeaponBuilder& WeaponBuilder::projectile_spread(float spread) {
+    _projectile_spread = spread;
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::fireSounds(const std::vector<std::string>& fireSounds) {
-    mFireSounds = fireSounds;
+WeaponBuilder& WeaponBuilder::fire_sounds(const std::vector<std::string> &fireSounds) {
+    _fire_sounds = fireSounds;
     return *this;
 }
 
@@ -53,42 +53,42 @@ Weapon WeaponBuilder::build() {
     return Weapon(*this);
 }
 
-std::string WeaponBuilder::getName() const {
-    return mName;
+std::string WeaponBuilder::get_name() const {
+    return _name;
 }
 
-int WeaponBuilder::getMaxAmmo() const {
-    return mMaxAmmo;
+int WeaponBuilder::get_max_ammo() const {
+    return _max_ammo;
 }
 
-int WeaponBuilder::getLength() const {
-    return mLength;
+int WeaponBuilder::get_length() const {
+    return _length;
 }
 
-unsigned int WeaponBuilder::getFireCooldown() const {
-    return mFireCooldown;
+unsigned int WeaponBuilder::get_fire_cooldown() const {
+    return _fire_cooldown;
 }
 
-unsigned int WeaponBuilder::getReloadCooldown() const {
-    return mReloadCooldown;
+unsigned int WeaponBuilder::get_reload_cooldown() const {
+    return _reload_cooldown;
 }
 
-int WeaponBuilder::getProjectilesPerShot() const {
-    return mProjectilesPerShot;
+int WeaponBuilder::get_projectiles_per_shot() const {
+    return _projectiles_per_shot;
 }
 
-int WeaponBuilder::getProjectileDamage() const {
-    return mProjectileDamage;
+int WeaponBuilder::get_projectile_damage() const {
+    return _projectile_damage;
 }
 
-float WeaponBuilder::getProjectileSpread() const {
-    return mProjectileSpread;
+float WeaponBuilder::get_projectile_spread() const {
+    return _projectile_spread;
 }
 
-float WeaponBuilder::getProjectileSpeed() const {
-    return mProjectileSpeed;
+float WeaponBuilder::get_projectile_speed() const {
+    return _projectile_speed;
 }
 
-const std::vector<std::string>& WeaponBuilder::getFireSounds() const {
-    return mFireSounds;
+const std::vector<std::string>& WeaponBuilder::get_fire_sounds() const {
+    return _fire_sounds;
 }

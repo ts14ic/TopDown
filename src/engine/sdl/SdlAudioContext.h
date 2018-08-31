@@ -4,7 +4,7 @@
 
 class SdlAudioContext : public AudioContext {
 public:
-    void playSound(const Sound& sound) override;
+    void play_sound(const Sound &sound) override;
 
-    void playMusic(const Music& music) override;
+    void play_music(const Music &music) override;
 };

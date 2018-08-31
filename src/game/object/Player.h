@@ -16,53 +16,53 @@ public:
 
     Player(int x, int y);
 
-    float getX() const override;
+    float get_x() const override;
 
-    float getY() const override;
+    float get_y() const override;
 
-    float getAngle() const override;
+    float get_angle() const override;
 
-    float getMaxMovementSpeed() const override;
+    float get_max_movement_speed() const override;
 
-    float getCurrentSpeedX() const override;
+    float get_current_speed_x() const override;
 
-    float getCurrentSpeedY() const override;
+    float get_current_speed_y() const override;
 
-    void setPos(float x, float y) override;
+    void set_position(float x, float y) override;
 
-    void setX(float x) override;
+    void set_x(float x) override;
 
-    void setY(float y) override;
+    void set_y(float y) override;
 
-    void setAngle(float a) override;
+    void set_angle(float a) override;
 
-    void setMaxMovementSpeed(float movementSpeed) override;
+    void set_max_movement_speed(float movementSpeed) override;
 
-    void setCurrentSpeedX(float speedX) override;
+    void set_current_speed_x(float speedX) override;
 
-    void setCurrentSpeedY(float speedY) override;
+    void set_current_speed_y(float speedY) override;
 
-    void setCurrentSpeed(float speedX, float speedY) override;
+    void set_current_speed(float speedX, float speedY) override;
 
-    Circle getCircle() const override;
+    Circle get_circle() const override;
 
-    std::string getTexName() const override;
+    std::string get_tex_name() const override;
 
-    int hp() const override;
+    int get_hp() const override;
 
-    int defaultHp() const override;
+    int get_default_hp() const override;
 
-    int dmg() const override;
+    int get_damage() const override;
 
-    bool dead() const override;
+    bool is_dead() const override;
 
-    void damage(const Clock& clock, int damageAmount) override;
+    void damage(const Clock &clock, int damageAmount) override;
 
     bool reloading() const;
 
-    void handleKeyEvent(const KeyboardEvent& event) override;
+    void handle_key_event(const KeyboardEvent &event) override;
 
-    void handleMouseEvent(const MouseEvent& event) override;
+    void handle_mouse_event(const MouseEvent &event) override;
 
     void handle_logic(Random& random, Resources& resources, AudioContext& audioContext);
 
@@ -71,28 +71,26 @@ public:
     void addWeapon(Weapon weapon);
 
 private:
-    void selectNextWeapon();
+    void select_next_weapon();
 
-    void selectPreviousWeapon();
+    void select_previous_weapon();
 
-    void selectWeapon(unsigned idx);
+    void select_weapon(unsigned index);
 
-private:
-    void setSpeeds();
+    void update_speeds();
 
-private:
-    float mX = 0;
-    float mY = 0;
-    float mCurrentSpeedX = 0;
-    float mCurrentSpeedY = 0;
-    float mMaxMovementSpeed = 0;
-    float mAngle = 0.0f;
+    float _x = 0;
+    float _y = 0;
+    float _current_speed_x = 0;
+    float _current_speed_y = 0;
+    float _max_movement_speed = 0;
+    float _angle = 0.0f;
 
-    std::vector<Weapon> mWeapons;
-    unsigned mSelectedWeaponIdx = 0;
+    std::vector<Weapon> _weapons;
+    unsigned _selected_weapon_index = 0;
     int _hp = 0;
 
-    Timer mDamageCooldown;
+    Timer _damage_cooldown;
 
     enum InputState {
         UP_PRESSED,
@@ -102,5 +100,5 @@ private:
         TRIGGER_PRESSED,
         LENGTH
     };
-    std::bitset<LENGTH> mInputState;
+    std::bitset<LENGTH> _input_state;
 };

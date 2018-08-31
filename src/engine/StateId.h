@@ -1,6 +1,6 @@
 #pragma once
 
-enum class GState {
+enum class StateId {
     null,
     intro,
     moon,

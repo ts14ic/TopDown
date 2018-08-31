@@ -8,42 +8,42 @@
 
 class GameObject {
 public:
-    virtual float getX() const = 0;
+    virtual float get_x() const = 0;
 
-    virtual float getY() const = 0;
+    virtual float get_y() const = 0;
 
-    virtual float getAngle() const = 0;
+    virtual float get_angle() const = 0;
 
-    virtual float getMaxMovementSpeed() const = 0;
+    virtual float get_max_movement_speed() const = 0;
 
-    virtual float getCurrentSpeedX() const = 0;
+    virtual float get_current_speed_x() const = 0;
 
-    virtual float getCurrentSpeedY() const = 0;
+    virtual float get_current_speed_y() const = 0;
 
-    virtual Circle getCircle() const = 0;
+    virtual Circle get_circle() const = 0;
 
-    virtual std::string getTexName() const = 0;
+    virtual std::string get_tex_name() const = 0;
 
-    virtual void setX(float x) = 0;
+    virtual void set_x(float x) = 0;
 
-    virtual void setY(float y) = 0;
+    virtual void set_y(float y) = 0;
 
-    virtual void setCurrentSpeedX(float speedX) = 0;
+    virtual void set_current_speed_x(float speedX) = 0;
 
-    virtual void setCurrentSpeedY(float speedY) = 0;
+    virtual void set_current_speed_y(float speedY) = 0;
 
-    virtual void setCurrentSpeed(float speedX, float speedY) = 0;
+    virtual void set_current_speed(float speedX, float speedY) = 0;
 
-    virtual void setPos(float x, float y) = 0;
+    virtual void set_position(float x, float y) = 0;
 
-    virtual void setAngle(float angle) = 0;
+    virtual void set_angle(float angle) = 0;
 
-    virtual void setMaxMovementSpeed(float speed) = 0;
+    virtual void set_max_movement_speed(float speed) = 0;
 
 protected:
-    void defaultMove();
+    void default_move();
 
-    void defaultRender(Resources& resources, GraphicContext& graphicContext, float predictionRatio);
+    void default_render(Resources &resources, GraphicContext &graphicContext, float predictionRatio);
 };
 
-bool objectsCollide(GameObject& a, GameObject& b);
+bool objects_collide(GameObject &a, GameObject &b);

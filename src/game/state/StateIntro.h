@@ -8,15 +8,15 @@ class StateIntro : public GameState {
 public:
     explicit StateIntro(Engine& engine);
 
-    void handleWindowEvent(const WindowEvent& event) override;
+    void handle_window_event(const WindowEvent &event) override;
 
-    void handleMouseEvent(const MouseEvent& event) override;
+    void handle_mouse_event(const MouseEvent &event) override;
 
-    void handleKeyEvent(const KeyboardEvent& event) override;
+    void handle_key_event(const KeyboardEvent &event) override;
 
-    void handleLogic() override;
+    void handle_logic() override;
 
-    void handleRender(float predictionRatio) override;
+    void handle_render(float predictionRatio) override;
 
 private:
     Engine& mEngine;

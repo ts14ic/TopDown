@@ -2,10 +2,10 @@
 
 WindowEvent::WindowEvent() = default;
 
-WindowEvent::Type WindowEvent::getType() const {
+WindowEvent::Type WindowEvent::get_type() const {
     return mType;
 }
 
-void WindowEvent::setType(WindowEvent::Type type) {
+void WindowEvent::set_type(WindowEvent::Type type) {
     mType = type;
 }

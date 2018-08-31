@@ -13,45 +13,45 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pullTrigger(Random& random, Resources& resources, AudioContext& audioContext, GameObject const& shooter);
+    void pull_trigger(Random &random, Resources &resources, AudioContext &audioContext, GameObject const &shooter);
 
-    void tryReload(const Clock& clock);
+    void try_reload(const Clock &clock);
 
-    bool isReloading() const;
+    bool is_reloading() const;
 
-    std::string getName() const;
+    std::string get_name() const;
 
-    int getLength() const;
+    int get_length() const;
 
-    int getProjectileDamage() const;
+    int get_projectile_damage() const;
 
-    float getProjectileSpeed() const;
+    float get_projectile_speed() const;
 
-    float getProjectileSpread() const;
-
-private:
-    void startReloading(const Clock& clock);
-
-    void playFireSound(Resources& resources, AudioContext& audioContext);
-
-    void spawnBullets(Random& random, GameObject const& shooter);
+    float get_projectile_spread() const;
 
 private:
-    Timer mFireCooldownTimer;
-    Timer mReloadCooldownTimer;
-    bool mIsReloading = false;
+    void start_reloading(const Clock &clock);
 
-    std::string mName;
-    int mMaxAmmo;
-    int mCurrentAmmo;
-    int mProjectilesPerShot;
-    int mWeaponLength;
-    int mProjectileDamage;
-    float mProjectileSpeed;
-    float mProjectileSpread;
+    void play_fire_sound(Resources &resources, AudioContext &audioContext);
+
+    void spawn_bullets(Random &random, GameObject const &shooter);
+
+private:
+    Timer _fire_cooldown_timer;
+    Timer _reload_cooldown_timer;
+    bool _reloading = false;
+
+    std::string _name;
+    int _max_ammo;
+    int _current_ammo;
+    int _projectiles_per_shot;
+    int _weapon_length;
+    int _projectile_damage;
+    float _projectile_speed;
+    float _projectile_spread;
     // TODO Move sound generation out of this class
-    std::vector<std::string> mFireSounds;
-    unsigned mCurrentFireSound = 0;
-    unsigned mFireCooldown;
-    unsigned mReloadCooldown;
+    std::vector<std::string> _fire_sounds;
+    unsigned _current_fire_sound = 0;
+    unsigned _fire_cooldown;
+    unsigned _reload_cooldown;
 };

@@ -3,97 +3,97 @@
 #include "Bullet.h"
 
 Weapon::Weapon(const WeaponBuilder& builder)
-        : mName{builder.getName()},
-          mMaxAmmo{builder.getMaxAmmo()},
-          mCurrentAmmo{builder.getMaxAmmo()},
-          mProjectilesPerShot{builder.getProjectilesPerShot()},
-          mWeaponLength{builder.getLength()},
-          mProjectileDamage{builder.getProjectileDamage()},
-          mProjectileSpeed{builder.getProjectileSpeed()},
-          mProjectileSpread{builder.getProjectileSpread()},
-          mFireSounds{builder.getFireSounds()},
-          mFireCooldown(builder.getFireCooldown()),
-          mReloadCooldown(builder.getReloadCooldown()) {
-//    mFireCooldownTimer.restart();
+        : _name{builder.get_name()},
+          _max_ammo{builder.get_max_ammo()},
+          _current_ammo{builder.get_max_ammo()},
+          _projectiles_per_shot{builder.get_projectiles_per_shot()},
+          _weapon_length{builder.get_length()},
+          _projectile_damage{builder.get_projectile_damage()},
+          _projectile_speed{builder.get_projectile_speed()},
+          _projectile_spread{builder.get_projectile_spread()},
+          _fire_sounds{builder.get_fire_sounds()},
+          _fire_cooldown(builder.get_fire_cooldown()),
+          _reload_cooldown(builder.get_reload_cooldown()) {
+//    _fire_cooldown_timer.restart();
 }
 
-void Weapon::startReloading(const Clock& clock) {
-    mReloadCooldownTimer.restart(clock);
-    mIsReloading = true;
+void Weapon::start_reloading(const Clock &clock) {
+    _reload_cooldown_timer.restart(clock);
+    _reloading = true;
 }
 
-void Weapon::playFireSound(Resources& resources, AudioContext& audioContext) {
-    if(!mFireSounds.empty()) {
-        if(mCurrentFireSound >= mFireSounds.size()) {
-            mCurrentFireSound = 0;
+void Weapon::play_fire_sound(Resources &resources, AudioContext &audioContext) {
+    if(!_fire_sounds.empty()) {
+        if(_current_fire_sound >= _fire_sounds.size()) {
+            _current_fire_sound = 0;
         }
 
-        audioContext.playSound(resources.getSound(mFireSounds[mCurrentFireSound]));
-        mCurrentFireSound++;
+        audioContext.play_sound(resources.get_sound(_fire_sounds[_current_fire_sound]));
+        _current_fire_sound++;
     }
 }
 
-void Weapon::spawnBullets(Random& random, GameObject const& shooter) {
-    for(int i = 0; i < mProjectilesPerShot; ++i) {
+void Weapon::spawn_bullets(Random &random, GameObject const &shooter) {
+    for(int i = 0; i < _projectiles_per_shot; ++i) {
         Bullet b(random, shooter, *this);
         bullets().push_back(b);
     }
 }
 
-void Weapon::pullTrigger(Random& random, Resources& resources, AudioContext& audioContext, GameObject const& shooter) {
-    const auto& clock = resources.getClock();
-    if(mFireCooldownTimer.haveTicksPassedSinceStart(clock, mFireCooldown) && mCurrentAmmo > 0) {
-        spawnBullets(random, shooter);
+void Weapon::pull_trigger(Random &random, Resources &resources, AudioContext &audioContext, GameObject const &shooter) {
+    const auto& clock = resources.get_clock();
+    if(_fire_cooldown_timer.have_ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
+        spawn_bullets(random, shooter);
 
-        playFireSound(resources, audioContext);
+        play_fire_sound(resources, audioContext);
 
-        --mCurrentAmmo;
-        if(mCurrentAmmo < 1) {
-            startReloading(clock);
+        --_current_ammo;
+        if(_current_ammo < 1) {
+            start_reloading(clock);
         }
 
-        mFireCooldownTimer.restart(clock);
+        _fire_cooldown_timer.restart(clock);
     }
 }
 
-int Weapon::getLength() const {
-    return mWeaponLength;
+int Weapon::get_length() const {
+    return _weapon_length;
 }
 
-int Weapon::getProjectileDamage() const {
-    return mProjectileDamage;
+int Weapon::get_projectile_damage() const {
+    return _projectile_damage;
 }
 
-float Weapon::getProjectileSpeed() const {
-    return mProjectileSpeed;
+float Weapon::get_projectile_speed() const {
+    return _projectile_speed;
 }
 
-float Weapon::getProjectileSpread() const {
-    return mProjectileSpread;
+float Weapon::get_projectile_spread() const {
+    return _projectile_spread;
 }
 
-bool Weapon::isReloading() const {
-    return mIsReloading;
+bool Weapon::is_reloading() const {
+    return _reloading;
 }
 
-void Weapon::tryReload(const Clock& clock) {
-    if(mIsReloading && mReloadCooldownTimer.haveTicksPassedSinceStart(clock, mReloadCooldown)) {
-        mCurrentAmmo = mMaxAmmo;
-        mIsReloading = false;
+void Weapon::try_reload(const Clock &clock) {
+    if(_reloading && _reload_cooldown_timer.have_ticks_passed_since_start(clock, _reload_cooldown)) {
+        _current_ammo = _max_ammo;
+        _reloading = false;
     }
     // TODO add support for shotgun's interrupted reload
     // TODO add support semi-automatic fire
-//    if(mIsReloading && mReloadCooldownTimer.ticksHavePassed(1000)) {
-//        if(mCurrentAmmo == 0) {
-//            mCurrentAmmo++;
-//            mReloadCooldownTimer.restart();
+//    if(_reloading && _reload_cooldown_timer.ticksHavePassed(1000)) {
+//        if(_current_ammo == 0) {
+//            _current_ammo++;
+//            _reload_cooldown_timer.restart();
 //        } else {
-//            mCurrentAmmo++;
-//            mIsReloading = false;
+//            _current_ammo++;
+//            _reloading = false;
 //        }
 //    }
 }
 
-std::string Weapon::getName() const {
-    return mName;
+std::string Weapon::get_name() const {
+    return _name;
 }

@@ -6,107 +6,107 @@
 #include <algorithm>
 
 StateMoon::StateMoon(Engine& engine)
-        : mEngine{engine},
-          mBackgroundTexId{"moon_background"},
-          _levelWidth(engine.getGraphicContext().getScreenWidth()),
-          _levelHeight(engine.getGraphicContext().getScreenHeight()),
-          mEnemySpawnCooldown{} {
-    engine.getResources().loadTexture(mBackgroundTexId, "assets/gfx/test_bg.png");
+        : _engine{engine},
+          _background_tex{"moon_background"},
+          _level_width(engine.get_graphic_context().get_screen_width()),
+          _level_height(engine.get_graphic_context().get_screen_height()),
+          _enemy_spawn_cooldown{} {
+    engine.get_resources().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
     zombies().clear();
     werewolves().clear();
-    mEnemySpawnCooldown.restart(engine.getClock());
+    _enemy_spawn_cooldown.restart(engine.get_clock());
 
-    mPlayer.setPos(_levelWidth / 2, _levelHeight / 2);
+    _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
 
-    parseLevelData();
+    parse_level_data();
 }
 
 StateMoon::StateMoon(const StateMoon& other)
-        : StateMoon{other.mEngine} {
+        : StateMoon{other._engine} {
 }
 
-void StateMoon::handleWindowEvent(const WindowEvent& event) {
+void StateMoon::handle_window_event(const WindowEvent &event) {
 }
 
-void StateMoon::handleMouseEvent(const MouseEvent& event) {
-    if(event.getType() == MouseEvent::Type::Motion) {
-        mMouseX = static_cast<int>(event.getX());
-        mMouseY = static_cast<int>(event.getY());
+void StateMoon::handle_mouse_event(const MouseEvent &event) {
+    if(event.get_type() == MouseEvent::Type::Motion) {
+        _mouse_x = static_cast<int>(event.get_x());
+        _mouse_y = static_cast<int>(event.get_y());
     }
 
-    mPlayer.handleMouseEvent(event);
+    _player.handle_mouse_event(event);
 }
 
-void StateMoon::handleKeyEvent(const KeyboardEvent& event) {
-    mPlayer.handleKeyEvent(event);
+void StateMoon::handle_key_event(const KeyboardEvent &event) {
+    _player.handle_key_event(event);
 }
 
 void StateMoon::restrict_pos(GameObject& o) {
-    if(o.getX() < 0) o.setX(0);
-    else if(o.getX() > _levelWidth) o.setX(_levelWidth);
+    if(o.get_x() < 0) o.set_x(0);
+    else if(o.get_x() > _level_width) o.set_x(_level_width);
 
-    if(o.getY() < 0) o.setY(0);
-    else if(o.getY() > _levelHeight) o.setY(_levelHeight);
+    if(o.get_y() < 0) o.set_y(0);
+    else if(o.get_y() > _level_height) o.set_y(_level_height);
 }
 
 std::pair<int, int> randomPosition(Random& random, int width, int height) {
-    int border = random.getInt(0, 1);
+    int border = random.get_int(0, 1);
     int lx;
     int ly;
     if(border == 0) {
-        lx = random.getInt(0, width);
-        ly = random.getInt(0, 1) * height;
+        lx = random.get_int(0, width);
+        ly = random.get_int(0, 1) * height;
     } else {
-        lx = random.getInt(0, 1) * width;
-        ly = random.getInt(0, height);
+        lx = random.get_int(0, 1) * width;
+        ly = random.get_int(0, height);
     }
     return {lx, ly};
 }
 
-void StateMoon::handleLogic() {
-    if(mEnemySpawnCooldown.haveTicksPassedSinceStart(mEngine.getClock(), 50) &&
+void StateMoon::handle_logic() {
+    if(_enemy_spawn_cooldown.have_ticks_passed_since_start(_engine.get_clock(), 50) &&
        (zombies().size() + werewolves().size() < 7)) {
-        auto position = randomPosition(mEngine.getRandom(), _levelWidth, _levelHeight);
-        int type = mEngine.getRandom().getInt(0, 1);
+        auto position = randomPosition(_engine.get_random(), _level_width, _level_height);
+        int type = _engine.get_random().get_int(0, 1);
         if(type == 0) {
             zombies().emplace_back(position.first, position.second);
         } else {
             werewolves().emplace_back(position.first, position.second);
         }
 
-        mEnemySpawnCooldown.restart(mEngine.getClock());
+        _enemy_spawn_cooldown.restart(_engine.get_clock());
     }
 
-    mPlayer.handle_logic(mEngine.getRandom(), mEngine.getResources(), mEngine.getAudioContext());
+    _player.handle_logic(_engine.get_random(), _engine.get_resources(), _engine.get_audio_context());
 
-    const auto& clock = mEngine.getClock();
-    auto& random = mEngine.getRandom();
+    const auto& clock = _engine.get_clock();
+    auto& random = _engine.get_random();
 
-    int maxWidth = _levelWidth;
-    int maxHeight = _levelHeight;
+    int maxWidth = _level_width;
+    int maxHeight = _level_height;
     // process bullet moving and collisions
     auto removeFrom = std::remove_if(bullets().begin(), bullets().end(),
                                      [maxWidth, maxHeight, &random, &clock](Bullet& b) {
                                          b.handle_logic();
 
-                                         if((b.getX() > maxWidth) || (b.getX() < 0) ||
-                                            (b.getY() > maxHeight) || (b.getY() < 0)) {
+                                         if((b.get_x() > maxWidth) || (b.get_x() < 0) ||
+                                            (b.get_y() > maxHeight) || (b.get_y() < 0)) {
                                              return true;
                                          }
 
                                          for(auto& z : zombies()) {
-                                             if(objectsCollide(b, z) && z.hp() > 0) {
-                                                 z.damage(clock, b.dmg());
+                                             if(objects_collide(b, z) && z.get_hp() > 0) {
+                                                 z.damage(clock, b.get_damage());
                                                  return true;
                                              }
                                          }
                                          for(auto& w : werewolves()) {
-                                             if(objectsCollide(b, w) && w.hp() > 0) {
-                                                 w.damage(clock, b.dmg());
+                                             if(objects_collide(b, w) && w.get_hp() > 0) {
+                                                 w.damage(clock, b.get_damage());
                                                  return true;
                                              }
-                                             if(math::getDistance(b.getX(), b.getY(), w.getX(), w.getY()) < 50) {
+                                             if(math::get_distance(b.get_x(), b.get_y(), w.get_x(), w.get_y()) < 50) {
                                                  w.teleport(clock, random);
                                              }
                                          }
@@ -116,68 +116,68 @@ void StateMoon::handleLogic() {
     bullets().erase(removeFrom, bullets().end());
 
     zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this, &clock](Zombie& z) {
-        z.set_target(mPlayer.getX(), mPlayer.getY());
+        z.set_target(_player.get_x(), _player.get_y());
         z.handle_logic();
 
-        if(objectsCollide(z, mPlayer)) {
-            mPlayer.damage(clock, z.dmg());
+        if(objects_collide(z, _player)) {
+            _player.damage(clock, z.get_damage());
         }
 
-        return z.dead();
+        return z.is_dead();
     }), zombies().end());
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
-        w.set_target(clock, mPlayer.getX(), mPlayer.getY(), false);
-        w.handleLogic(clock);
+        w.set_target(clock, _player.get_x(), _player.get_y(), false);
+        w.handle_logic(clock);
 
-        if(objectsCollide(w, mPlayer)) {
-            mPlayer.damage(clock, w.dmg());
+        if(objects_collide(w, _player)) {
+            _player.damage(clock, w.get_damage());
         }
 
-        return w.dead();
+        return w.is_dead();
     }), werewolves().end());
 
-    restrict_pos(mPlayer);
-    if(mPlayer.dead()) mEngine.requestStateChange(GState::intro);
+    restrict_pos(_player);
+    if(_player.is_dead()) _engine.request_state_change(StateId::intro);
 }
 
-void renderCrosshair(int mouseX, int mouseY, Resources& resources, GraphicContext& graphicContext, Player const& pl,
-                     float predictionRatio) {
-    int x = mouseX - resources.getTexture("crosshair").getWidth() / 2;
-    int y = mouseY - resources.getTexture("crosshair").getHeight() / 2;
+void render_crosshair(int mouseX, int mouseY, Resources &resources, GraphicContext &graphic_context, Player const &player,
+                      float predictionRatio) {
+    int x = mouseX - resources.get_texture("crosshair").get_width() / 2;
+    int y = mouseY - resources.get_texture("crosshair").get_height() / 2;
 
     static float angle = 0.f;
     angle += 5.f * predictionRatio;
     if(angle > 360.f) angle = 5.f;
 
-    graphicContext.render(resources.getTexture(pl.reloading() ? "reload" : "crosshair"), x, y, angle);
+    graphic_context.render(resources.get_texture(player.reloading() ? "reload" : "crosshair"), x, y, angle);
 }
 
-void StateMoon::handleRender(float predictionRatio) {
-    auto& render = mEngine.getGraphicContext();
-    render.clearScreen();
+void StateMoon::handle_render(float predictionRatio) {
+    auto& render = _engine.get_graphic_context();
+    render.clear_screen();
 
-    auto& resources = mEngine.getResources();
-    auto& audio = mEngine.getAudioContext();
-    audio.playMusic(resources.getMusic("weather"));
+    auto& resources = _engine.get_resources();
+    auto& audio = _engine.get_audio_context();
+    audio.play_music(resources.get_music("weather"));
 
-    render.render(resources.getTexture(mBackgroundTexId), 0, 0);
+    render.render(resources.get_texture(_background_tex), 0, 0);
 
-    mPlayer.handleRender(resources, render, predictionRatio);
+    _player.handleRender(resources, render, predictionRatio);
 
     for(auto& z : zombies()) {
-        z.handleRender(resources, render, mEngine.getAudioContext(), predictionRatio);
+        z.handle_render(resources, render, _engine.get_audio_context(), predictionRatio);
     }
 
     for(auto& w : werewolves()) {
-        w.handleRender(resources, render, mEngine.getAudioContext(), predictionRatio);
+        w.handle_render(resources, render, _engine.get_audio_context(), predictionRatio);
     }
 
     for(auto& b : bullets()) {
-        b.handleRender(resources, render, predictionRatio);
+        b.handle_render(resources, render, predictionRatio);
     }
 
-    renderCrosshair(mMouseX, mMouseY, resources, render, mPlayer, predictionRatio);
+    render_crosshair(_mouse_x, _mouse_y, resources, render, _player, predictionRatio);
 
-    render.refreshScreen();
+    render.refresh_screen();
 }
