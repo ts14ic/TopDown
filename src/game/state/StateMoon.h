@@ -31,8 +31,8 @@ private:
     Game& _game;
 
     std::string _background_tex;
-    int const _level_width;
-    int const _level_height;
+    const int _level_width;
+    const int _level_height;
 
     int _mouse_x;
     int _mouse_y;
