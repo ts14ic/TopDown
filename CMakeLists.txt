@@ -53,7 +53,7 @@ set(SOURCE_FILES
         src/engine/sdl/SdlContextInjector.cpp src/engine/sdl/SdlContextInjector.h
         src/engine/graphic/shape/Box.cpp src/engine/graphic/shape/Box.h
         src/engine/graphic/shape/Color.cpp src/engine/graphic/shape/Color.h
-        src/utils/file/readFile.cpp src/utils/file/readFile.h
+        src/utils/file/readFileToString.cpp src/utils/file/readFileToString.h
         src/utils/json/parseJson.cpp src/utils/json/parseJson.h
         src/engine/AudioContext.cpp src/engine/AudioContext.h
         src/engine/sdl/SdlAudioContext.cpp src/engine/sdl/SdlAudioContext.h
