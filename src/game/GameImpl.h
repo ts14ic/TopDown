@@ -11,8 +11,7 @@
 #include <memory>
 #include <engine/Resources.h>
 
-class GameImpl : public Game,
-                      public EventHandler {
+class GameImpl : public Game, public EventHandler {
 public:
     GameImpl(
             std::unique_ptr<Resources> resources,
@@ -41,16 +40,6 @@ public:
     void handle_key_event(const KeyboardEvent &event) override;
 
     void handle_mouse_event(const MouseEvent &event) override;
-
-    void set_input_context(std::unique_ptr<InputContext> inputContext) override;
-
-    void set_graphic_context(std::unique_ptr<GraphicContext> graphicContext) override;
-
-    void set_audio_context(std::unique_ptr<AudioContext> audioContext) override;
-
-    void set_resources(std::unique_ptr<Resources> resources) override;
-
-    void set_random(std::unique_ptr<Random> random) override;
 
 private:
     void change_state();

@@ -95,26 +95,6 @@ const Clock& GameImpl::get_clock() {
     return _resources->get_clock();
 }
 
-void GameImpl::set_input_context(std::unique_ptr<InputContext> inputContext) {
-    _input_context = std::move(inputContext);
-}
-
-void GameImpl::set_graphic_context(std::unique_ptr<GraphicContext> graphicContext) {
-    _graphic_context = std::move(graphicContext);
-}
-
-void GameImpl::set_audio_context(std::unique_ptr<AudioContext> audioContext) {
-    _audio_context = std::move(audioContext);
-}
-
-void GameImpl::set_resources(std::unique_ptr<Resources> resources) {
-    _resources = std::move(resources);
-}
-
-void GameImpl::set_random(std::unique_ptr<Random> random) {
-    _random = std::move(random);
-}
-
 void GameImpl::handle_window_event(const WindowEvent &event) {
     switch(event.get_type()) {
         case WindowEvent::Type::Close: {

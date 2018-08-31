@@ -26,14 +26,4 @@ public:
     virtual Random& get_random() = 0;
 
     virtual const Clock& get_clock() = 0;
-
-    virtual void set_input_context(std::unique_ptr<InputContext> inputContext) = 0;
-
-    virtual void set_graphic_context(std::unique_ptr<GraphicContext> graphicContext) = 0;
-
-    virtual void set_audio_context(std::unique_ptr<AudioContext> audioContext) = 0;
-
-    virtual void set_resources(std::unique_ptr<Resources> resources) = 0;
-
-    virtual void set_random(std::unique_ptr<Random> random) = 0;
 };
