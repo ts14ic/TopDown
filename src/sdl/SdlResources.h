@@ -8,7 +8,7 @@
 #include <SDL_render.h>
 #include <unordered_map>
 
-class SdlResources : public Resources, private SdlClock {
+class SdlResources : public Resources {
 public:
     SdlResources(int width, int height);
 
@@ -75,4 +75,5 @@ private:
     std::unordered_map<std::string, SdlSound> _name_to_sound;
     std::unordered_map<std::string, SdlTexture> _name_to_texture;
     std::unordered_map<std::string, SdlMusic> _name_to_music;
+    SdlClock sdlClock;
 };

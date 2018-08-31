@@ -159,7 +159,7 @@ SDL_Renderer* SdlResources::get_renderer() const {
 }
 
 const Clock& SdlResources::get_clock() {
-    return *this;
+    return sdlClock;
 }
 
 void SdlResources::SdlDeleter::operator()(SDL_Window* p) {
