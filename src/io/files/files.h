@@ -2,7 +2,7 @@
 
 #include <iosfwd>
 
-namespace file {
+namespace files {
     /**
      * Read whole file into a string
      * @param file_path The file location

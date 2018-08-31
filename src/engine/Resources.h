@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Texture.h"
-#include "Sound.h"
-#include "Music.h"
-#include "engine/Clock.h"
+#include "engine/graphic/Texture.h"
+#include "engine/audio/Sound.h"
+#include "engine/audio/Music.h"
+#include "engine/clock/Clock.h"
 #include <iosfwd>
 
 class Resources {

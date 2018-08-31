@@ -1,5 +1,5 @@
 #include "Werewolf.h"
-#include "utils/math/maths.h"
+#include "math/maths.h"
 
 using std::vector;
 

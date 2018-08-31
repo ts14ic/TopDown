@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/resources/Resources.h"
+#include "engine/Resources.h"
 #include "SdlTexture.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"

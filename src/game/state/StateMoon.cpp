@@ -1,11 +1,11 @@
 #include "StateMoon.h"
-#include "utils/math/maths.h"
+#include "math/maths.h"
 #include "game/object/Zombie.h"
 #include "game/object/Werewolf.h"
 #include "game/object/Bullet.h"
 #include <algorithm>
 
-StateMoon::StateMoon(Engine& engine)
+StateMoon::StateMoon(Game& engine)
         : _engine{engine},
           _background_tex{"moon_background"},
           _level_width(engine.get_graphic_context().get_screen_width()),

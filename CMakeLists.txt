@@ -20,15 +20,15 @@ include_directories(
 
 set(SOURCE_FILES
         src/main.cpp
-        src/utils/math/maths.cpp src/utils/math/maths.h
+        src/math/maths.cpp src/math/maths.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parse_level_data.cpp
         src/game/state/GameState.h
-        src/engine/resources/Sound.cpp src/engine/resources/Sound.h
-        src/engine/resources/Music.cpp src/engine/resources/Music.h
-        src/engine/resources/Texture.cpp src/engine/resources/Texture.h
+        src/engine/audio/Sound.cpp src/engine/audio/Sound.h
+        src/engine/audio/Music.cpp src/engine/audio/Music.h
+        src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
         src/engine/graphic/GraphicContext.cpp src/engine/graphic/GraphicContext.h
-        src/engine/DefaultEngine.cpp src/engine/DefaultEngine.h src/engine/DefaultEngine_load_resources.cpp
+        src/game/GameImpl.cpp src/game/GameImpl.h src/game/GameImpl_load_resources.cpp
         src/game/object/GameObject.cpp src/game/object/GameObject.h
         src/game/object/Damageable.h src/game/object/Damageable.cpp
         src/game/object/Player.cpp src/game/object/Player.h
@@ -37,31 +37,31 @@ set(SOURCE_FILES
         src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
         src/game/object/Weapon.h src/game/object/Weapon.cpp
         src/game/object/Bullet.cpp src/game/object/Bullet.h
-        src/engine/resources/Resources.cpp src/engine/resources/Resources.h
-        src/engine/StateId.h
-        src/engine/graphic/shape/Circle.cpp src/engine/graphic/shape/Circle.h
-        src/utils/json/get_value.h src/utils/json/get_value.cpp
-        src/engine/Random.cpp src/engine/Random.h
-        src/utils/demangle_type_name.cpp src/utils/demangle_type_name.h
-        src/engine/Engine.cpp src/engine/Engine.h
-        src/engine/sdl/SdlInputContext.cpp src/engine/sdl/SdlInputContext.h
-        src/utils/random/Mt19937Random.h src/utils/random/Mt19937Random.cpp
-        src/engine/sdl/SdlGraphicContext.cpp src/engine/sdl/SdlGraphicContext.h
-        src/engine/sdl/SdlResources.cpp src/engine/sdl/SdlResources.h
-        src/engine/sdl/SdlTexture.cpp src/engine/sdl/SdlTexture.h
+        src/engine/Resources.cpp src/engine/Resources.h
+        src/game/StateId.h
+        src/engine/graphic/Circle.cpp src/engine/graphic/Circle.h
+        src/io/json/get_value.h src/io/json/get_value.cpp
+        src/engine/random/Random.cpp src/engine/random/Random.h
+        src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
+        src/game/Game.cpp src/game/Game.h
+        src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
+        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
+        src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
+        src/sdl/SdlResources.cpp src/sdl/SdlResources.h
+        src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
         src/engine/ContextInjector.cpp src/engine/ContextInjector.h
-        src/engine/sdl/SdlContextInjector.cpp src/engine/sdl/SdlContextInjector.h
-        src/engine/graphic/shape/Box.cpp src/engine/graphic/shape/Box.h
-        src/engine/graphic/shape/Color.cpp src/engine/graphic/shape/Color.h
-        src/utils/file/read_file_to_string.cpp src/utils/file/read_file_to_string.h
-        src/utils/json/parse_json.cpp src/utils/json/parse_json.h
-        src/engine/AudioContext.cpp src/engine/AudioContext.h
-        src/engine/sdl/SdlAudioContext.cpp src/engine/sdl/SdlAudioContext.h
-        src/engine/sdl/SdlSound.cpp src/engine/sdl/SdlSound.h
-        src/engine/sdl/SdlMusic.cpp src/engine/sdl/SdlMusic.h
-        src/engine/Timer.cpp src/engine/Timer.h
-        src/engine/Clock.cpp src/engine/Clock.h
-        src/engine/sdl/SdlClock.cpp src/engine/sdl/SdlClock.h
+        src/sdl/SdlContextInjector.cpp src/sdl/SdlContextInjector.h
+        src/engine/graphic/Box.cpp src/engine/graphic/Box.h
+        src/engine/graphic/Color.cpp src/engine/graphic/Color.h
+        src/io/files/files.cpp src/io/files/files.h
+        src/io/json/parse_json.cpp src/io/json/parse_json.h
+        src/engine/audio/AudioContext.cpp src/engine/audio/AudioContext.h
+        src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
+        src/sdl/SdlSound.cpp src/sdl/SdlSound.h
+        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
+        src/game/timer/Timer.cpp src/game/timer/Timer.h
+        src/engine/clock/Clock.cpp src/engine/clock/Clock.h
+        src/sdl/SdlClock.cpp src/sdl/SdlClock.h
         src/engine/input/InputContext.cpp src/engine/input/InputContext.h
         src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
         src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
@@ -71,8 +71,8 @@ set(SOURCE_FILES
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
         src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
-        src/engine/sdl/SdlInputContext_transform_sdl_key_code.cpp src/engine/sdl/SdlInputContext_transform_sdl_key_code.h
-        src/utils/abort_handlers.cpp src/utils/abort_handlers.h
+        src/sdl/SdlInputContext_transform_sdl_key_code.cpp src/sdl/SdlInputContext_transform_sdl_key_code.h
+        src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

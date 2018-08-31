@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/resources/Music.h"
+#include "engine/audio/Music.h"
 #include <string>
 #include <memory>
 #include <SDL_mixer.h>

@@ -1,10 +1,10 @@
-#include "DefaultEngine.h"
-#include "utils/file/read_file_to_string.h"
-#include "utils/json/get_value.h"
-#include "utils/json/parse_json.h"
+#include "GameImpl.h"
+#include "io/files/files.h"
+#include "io/json/get_value.h"
+#include "io/json/parse_json.h"
 
-void DefaultEngine::load_resources() {
-    auto doc = json::parse_json(file::read_file_to_string("data/common_media.json"));
+void GameImpl::load_resources() {
+    auto doc = json::parse_json(files::read_file_to_string("data/common_media.json"));
 
     using json::get_value;
     auto texturesMap = get_value<rapidjson::Value::ConstObject>(doc, "/textures");

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/graphic/GraphicContext.h"
-#include "engine/resources/Texture.h"
+#include "engine/graphic/Texture.h"
 #include "SdlTexture.h"
 
 class SdlGraphicContext : public GraphicContext {

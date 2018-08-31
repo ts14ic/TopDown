@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/resources/Texture.h"
-#include "engine/graphic/shape/Box.h"
-#include "engine/graphic/shape/Color.h"
+#include "Texture.h"
+#include "Box.h"
+#include "Color.h"
 
 class GraphicContext {
 public:

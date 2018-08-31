@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Damageable.h"
-#include "engine/Timer.h"
-#include "engine/AudioContext.h"
+#include "game/timer/Timer.h"
+#include "engine/audio/AudioContext.h"
 #include "engine/graphic/GraphicContext.h"
 #include <vector>
 

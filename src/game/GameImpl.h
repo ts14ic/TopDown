@@ -1,20 +1,20 @@
 #pragma once
 
-#include "Engine.h"
+#include "Game.h"
 #include "game/state/GameState.h"
+#include "game/timer/Timer.h"
 #include "engine/ContextInjector.h"
-#include "engine/resources/Resources.h"
-#include "Timer.h"
-#include "Clock.h"
-#include "graphic/GraphicContext.h"
-#include "AudioContext.h"
-#include "Random.h"
+#include "engine/Resources.h"
+#include "engine/clock/Clock.h"
+#include "engine/graphic/GraphicContext.h"
+#include "engine/audio/AudioContext.h"
+#include "engine/random/Random.h"
 #include <memory>
 
-class DefaultEngine : public Engine,
+class GameImpl : public Game,
                       public EventHandler {
 public:
-    DefaultEngine(
+    GameImpl(
             int screen_width, int screen_height,
             ContextInjector* context_injector
     );

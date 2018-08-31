@@ -1,17 +1,17 @@
 #pragma once
 
-#include "input/InputContext.h"
-#include "graphic/GraphicContext.h"
-#include "AudioContext.h"
-#include "resources/Resources.h"
-#include "Random.h"
-#include "Clock.h"
+#include "engine/input/InputContext.h"
+#include "engine/graphic/GraphicContext.h"
+#include "engine/audio/AudioContext.h"
+#include "engine/Resources.h"
+#include "engine/random/Random.h"
+#include "engine/clock/Clock.h"
 #include "StateId.h"
 #include <memory>
 
-class Engine {
+class Game {
 public:
-    virtual ~Engine();
+    virtual ~Game();
 
     virtual void run_loop() = 0;
 

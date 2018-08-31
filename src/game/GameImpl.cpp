@@ -1,4 +1,4 @@
-#include "DefaultEngine.h"
+#include "GameImpl.h"
 #include "game/state/StateIntro.h"
 #include "game/state/StateMoon.h"
 
@@ -6,7 +6,7 @@ constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;
 constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
 
-DefaultEngine::DefaultEngine(
+GameImpl::GameImpl(
         int screen_width,
         int screen_height,
         ContextInjector* context_injector) {
@@ -15,7 +15,7 @@ DefaultEngine::DefaultEngine(
     load_resources();
 }
 
-void DefaultEngine::run_loop() {
+void GameImpl::run_loop() {
     _current_state = std::make_unique<StateIntro>(*this);
 
     const auto& clock = get_clock();
@@ -40,7 +40,7 @@ void DefaultEngine::run_loop() {
     }
 }
 
-void DefaultEngine::change_state() {
+void GameImpl::change_state() {
     if(_next_state_id != StateId::null) {
         if(_next_state_id != StateId::exit) {
             _current_state.reset(nullptr);
@@ -63,53 +63,53 @@ void DefaultEngine::change_state() {
     }
 }
 
-void DefaultEngine::request_state_change(StateId stateId) {
+void GameImpl::request_state_change(StateId stateId) {
     if(_next_state_id != StateId::exit) {
         _next_state_id = stateId;
     }
 }
 
-GraphicContext& DefaultEngine::get_graphic_context() {
+GraphicContext& GameImpl::get_graphic_context() {
     return *_graphic_context;
 }
 
-AudioContext& DefaultEngine::get_audio_context() {
+AudioContext& GameImpl::get_audio_context() {
     return *_audio_context;
 }
 
-Resources& DefaultEngine::get_resources() {
+Resources& GameImpl::get_resources() {
     return *_resources;
 }
 
-Random& DefaultEngine::get_random() {
+Random& GameImpl::get_random() {
     return *_random;
 }
 
-const Clock& DefaultEngine::get_clock() {
+const Clock& GameImpl::get_clock() {
     return _resources->get_clock();
 }
 
-void DefaultEngine::set_input_context(std::unique_ptr<InputContext> inputContext) {
+void GameImpl::set_input_context(std::unique_ptr<InputContext> inputContext) {
     _input_context = std::move(inputContext);
 }
 
-void DefaultEngine::set_graphic_context(std::unique_ptr<GraphicContext> graphicContext) {
+void GameImpl::set_graphic_context(std::unique_ptr<GraphicContext> graphicContext) {
     _graphic_context = std::move(graphicContext);
 }
 
-void DefaultEngine::set_audio_context(std::unique_ptr<AudioContext> audioContext) {
+void GameImpl::set_audio_context(std::unique_ptr<AudioContext> audioContext) {
     _audio_context = std::move(audioContext);
 }
 
-void DefaultEngine::set_resources(std::unique_ptr<Resources> resources) {
+void GameImpl::set_resources(std::unique_ptr<Resources> resources) {
     _resources = std::move(resources);
 }
 
-void DefaultEngine::set_random(std::unique_ptr<Random> random) {
+void GameImpl::set_random(std::unique_ptr<Random> random) {
     _random = std::move(random);
 }
 
-void DefaultEngine::handle_window_event(const WindowEvent &event) {
+void GameImpl::handle_window_event(const WindowEvent &event) {
     switch(event.get_type()) {
         case WindowEvent::Type::Close: {
             request_state_change(StateId::exit);
@@ -123,10 +123,10 @@ void DefaultEngine::handle_window_event(const WindowEvent &event) {
     }
 }
 
-void DefaultEngine::handle_key_event(const KeyboardEvent &event) {
+void GameImpl::handle_key_event(const KeyboardEvent &event) {
     _current_state->handle_key_event(event);
 }
 
-void DefaultEngine::handle_mouse_event(const MouseEvent &event) {
+void GameImpl::handle_mouse_event(const MouseEvent &event) {
     _current_state->handle_mouse_event(event);
 }

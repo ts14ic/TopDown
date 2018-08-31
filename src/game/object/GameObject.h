@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "engine/graphic/shape/Circle.h"
-#include "engine/resources/Resources.h"
+#include "engine/graphic/Circle.h"
+#include "engine/Resources.h"
 #include "engine/graphic/GraphicContext.h"
 
 class GameObject {

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "engine/resources/Sound.h"
+#include "engine/audio/Sound.h"
 #include <memory>
 #include <SDL_mixer.h>
 

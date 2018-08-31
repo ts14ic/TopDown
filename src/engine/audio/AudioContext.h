@@ -1,7 +1,7 @@
 #pragma once
 
-#include "resources/Sound.h"
-#include "resources/Music.h"
+#include "Sound.h"
+#include "Music.h"
 
 class AudioContext {
 public:

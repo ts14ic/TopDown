@@ -3,7 +3,7 @@
 #include "SdlAudioContext.h"
 #include "SdlInputContext.h"
 #include "SdlResources.h"
-#include "utils/random/Mt19937Random.h"
+#include "random/Mt19937Random.h"
 
 std::unique_ptr<SdlGraphicContext> createGraphicContext(SDL_Window* window, SDL_Renderer* renderer) {
     return std::make_unique<SdlGraphicContext>(window, renderer);
@@ -25,7 +25,7 @@ std::unique_ptr<Mt19937Random> createRandom() {
     return std::make_unique<Mt19937Random>();
 }
 
-void SdlContextInjector::inject(Engine& engine, int screenWidth, int screenHeight) {
+void SdlContextInjector::inject(Game& engine, int screenWidth, int screenHeight) {
     auto resources = createResources(screenWidth, screenHeight);
     auto graphic = createGraphicContext(resources->get_window(), resources->get_renderer());
 

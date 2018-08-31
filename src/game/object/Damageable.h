@@ -1,8 +1,8 @@
 #pragma once
 
 #include "GameObject.h"
-#include "engine/Clock.h"
-#include "engine/graphic/shape/Color.h"
+#include "engine/clock/Clock.h"
+#include "engine/graphic/Color.h"
 
 class Damageable : public virtual GameObject {
 public:

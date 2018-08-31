@@ -3,12 +3,12 @@
 #include "GameState.h"
 #include "game/object/Player.h"
 #include "game/object/GameObject.h"
-#include "engine/Engine.h"
-#include "engine/Timer.h"
+#include "game/Game.h"
+#include "game/timer/Timer.h"
 
 class StateMoon : public GameState {
 public:
-    explicit StateMoon(Engine& engine);
+    explicit StateMoon(Game& engine);
 
     StateMoon(const StateMoon& other);
 
@@ -28,7 +28,7 @@ private:
     void parse_level_data();
 
 private:
-    Engine& _engine;
+    Game& _engine;
 
     std::string _background_tex;
     int const _level_width;

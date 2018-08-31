@@ -1,12 +1,12 @@
 #pragma once
 
 #include "GameState.h"
-#include "engine/Engine.h"
+#include "game/Game.h"
 #include <string>
 
 class StateIntro : public GameState {
 public:
-    explicit StateIntro(Engine& engine);
+    explicit StateIntro(Game& engine);
 
     void handle_window_event(const WindowEvent &event) override;
 
@@ -19,7 +19,7 @@ public:
     void handle_render(float predictionRatio) override;
 
 private:
-    Engine& mEngine;
-    std::string mBackgroundTexId;
+    Game& _engine;
+    std::string _background_tex_id;
 };
 
