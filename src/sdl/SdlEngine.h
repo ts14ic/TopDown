@@ -10,7 +10,6 @@
 #include "SdlGraphic.h"
 #include "SdlAudio.h"
 #include "SdlInput.h"
-#include <SDL_render.h>
 #include <unordered_map>
 
 class SdlEngine : public Engine {
