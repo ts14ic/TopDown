@@ -16,9 +16,9 @@ public:
 
     void render_box(const Box& box, const Color& color) override;
 
-    void render(const std::string& texture_name, int x, int y) override;
+    void render_texture(const std::string& texture_name, int x, int y) override;
 
-    void render(const std::string& texture_name, int x, int y, float angle) override;
+    void render_texture(const std::string& texture_name, int x, int y, float angle) override;
 
     int get_screen_width() override;
 

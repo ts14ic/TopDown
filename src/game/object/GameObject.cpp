@@ -18,7 +18,7 @@ void GameObject::default_render(Graphic& graphic, float predictionRatio) {
     auto y = get_y() - texture.get_height() / 2;
     auto predicted_dy = get_current_speed_y() * predictionRatio;
 
-    graphic.render(
+    graphic.render_texture(
             texture.get_name(),
             static_cast<int>(x + predicted_dx),
             static_cast<int>(y + predicted_dy),

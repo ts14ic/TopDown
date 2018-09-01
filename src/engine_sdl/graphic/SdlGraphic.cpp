@@ -138,11 +138,11 @@ void SdlGraphic::load_texture(const std::string& name, const char* path) {
     _name_to_texture.insert(std::make_pair(name, load_texture(path)));
 }
 
-void SdlGraphic::render(const std::string& texture_name, int x, int y) {
+void SdlGraphic::render_texture(const std::string& texture_name, int x, int y) {
     render(_name_to_texture[texture_name], x, y);
 }
 
-void SdlGraphic::render(const std::string& texture_name, int x, int y, float angle) {
+void SdlGraphic::render_texture(const std::string& texture_name, int x, int y, float angle) {
     render(_name_to_texture[texture_name], x, y, angle);
 }
 

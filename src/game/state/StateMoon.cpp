@@ -154,7 +154,7 @@ void render_crosshair(int mouseX, int mouseY, Graphic& graphic, const Player& pl
     angle += 5.f * predictionRatio;
     if (angle > 360.f) angle = 5.f;
 
-    graphic.render(player.reloading() ? "reload" : "crosshair", x, y, angle);
+    graphic.render_texture(player.reloading() ? "reload" : "crosshair", x, y, angle);
 }
 
 void StateMoon::handle_render(float predictionRatio) {
@@ -165,7 +165,7 @@ void StateMoon::handle_render(float predictionRatio) {
     auto& audio = engine.get_audio();
     audio.play_music("weather");
 
-    graphic.render(_background_tex, 0, 0);
+    graphic.render_texture(_background_tex, 0, 0);
 
     _player.handle_render(engine, graphic, predictionRatio);
 
