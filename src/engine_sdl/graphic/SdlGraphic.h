@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/graphic/Graphic.h"
-#include "engine/graphic/Texture.h"
 #include "SdlTexture.h"
 #include <unordered_map>
 
@@ -17,15 +16,17 @@ public:
 
     void render_box(const Box& box, const Color& color) override;
 
-    void render(const Texture& texture, int x, int y) override;
+    void render(const std::string& texture_name, int x, int y) override;
 
-    void render(const Texture& texture, int x, int y, float angle) override;
+    void render(const std::string& texture_name, int x, int y, float angle) override;
 
     int get_screen_width() override;
 
     int get_screen_height() override;
 
-    Texture& get_texture(const std::string& name) override;
+    int get_texture_width(const std::string& name) override;
+
+    int get_texture_height(const std::string& name) override;
 
     void load_texture(const std::string& name, const char* path) override;
 
@@ -34,6 +35,10 @@ public:
     };
 
 private:
+    void render(const SdlTexture& texture, int x, int y);
+
+    void render(const SdlTexture& texture, int x, int y, float angle);
+
     SdlTexture load_texture(const char* path);
 
     struct SdlDeleter {

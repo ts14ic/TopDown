@@ -58,18 +58,18 @@ void SdlGraphic::clear_screen() {
     SDL_RenderClear(_renderer.get());
 }
 
-void SdlGraphic::render(const Texture& texture, int x, int y) {
+void SdlGraphic::render(const SdlTexture& texture, int x, int y) {
     if (texture.is_loaded()) {
         SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
-        SDL_RenderCopy(_renderer.get(), dynamic_cast<const SdlTexture&>(texture).get_wrapped_texture(), nullptr,
+        SDL_RenderCopy(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                        &destRect);
     }
 }
 
-void SdlGraphic::render(const Texture& texture, int x, int y, float angle) {
+void SdlGraphic::render(const SdlTexture& texture, int x, int y, float angle) {
     if (texture.is_loaded()) {
         SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
-        SDL_RenderCopyEx(_renderer.get(), dynamic_cast<const SdlTexture&>(texture).get_wrapped_texture(), nullptr,
+        SDL_RenderCopyEx(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);
     }
@@ -129,12 +129,24 @@ SdlTexture SdlGraphic::load_texture(const char* path) {
     return tex;
 }
 
-Texture& SdlGraphic::get_texture(const std::string& name) {
-    return _name_to_texture[name];
+int SdlGraphic::get_texture_width(const std::string& name) {
+    return _name_to_texture[name].get_width();
+}
+
+int SdlGraphic::get_texture_height(const std::string& name) {
+    return _name_to_texture[name].get_height();
 }
 
 void SdlGraphic::load_texture(const std::string& name, const char* path) {
     _name_to_texture.insert(std::make_pair(name, load_texture(path)));
+}
+
+void SdlGraphic::render(const std::string& texture_name, int x, int y) {
+    render(_name_to_texture[texture_name], x, y);
+}
+
+void SdlGraphic::render(const std::string& texture_name, int x, int y, float angle) {
+    render(_name_to_texture[texture_name], x, y, angle);
 }
 
 SdlGraphic::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)

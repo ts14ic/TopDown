@@ -4,7 +4,7 @@
 #include <memory>
 #include <SDL_render.h>
 
-class SdlTexture : public Texture {
+class SdlTexture {
 public:
     struct TextureDeleter {
         void operator()(SDL_Texture* p);
@@ -18,11 +18,11 @@ public:
 
     SdlTexture(SdlTexture&&) noexcept;
 
-    bool is_loaded() const override;
+    bool is_loaded() const;
 
-    int get_width() const override;
+    int get_width() const;
 
-    int get_height() const override;
+    int get_height() const;
 
     SDL_Texture* get_wrapped_texture() const;
 
