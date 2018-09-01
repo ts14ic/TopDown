@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/input/Input.h"
+#include <SDL_events.h>
 
 class SdlInput : public Input {
 public:
@@ -18,3 +19,5 @@ private:
     MouseEvent mMouseEvent;
     KeyboardEvent mKeyEvent;
 };
+
+int transform_sdl_key_code(SDL_Keycode keyCode);

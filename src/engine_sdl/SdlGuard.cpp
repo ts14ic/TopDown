@@ -4,7 +4,7 @@
 
 SdlGuard::SdlGuard() {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
-    if (0 != SDL_Init(initFlags)) {
+    if (SDL_Init(initFlags) != 0) {
         throw SdlEngine::FailedSdlInitException{SDL_GetError()};
     }
 }

@@ -1,15 +1,12 @@
 #pragma once
 
 #include "engine/Engine.h"
-#include "random/Mt19937Random.h"
-#include "SdlTexture.h"
-#include "SdlSound.h"
-#include "SdlMusic.h"
-#include "SdlClock.h"
+#include "audio/SdlAudio.h"
+#include "clock/SdlClock.h"
+#include "graphic/SdlGraphic.h"
 #include "SdlGuard.h"
-#include "SdlGraphic.h"
-#include "SdlAudio.h"
-#include "SdlInput.h"
+#include "engine_sdl/input/SdlInput.h"
+#include "random/Mt19937Random.h"
 #include <unordered_map>
 
 class SdlEngine : public Engine {

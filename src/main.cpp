@@ -1,9 +1,9 @@
 #include "game/GameImpl.h"
 #include "random/Mt19937Random.h"
-#include "engine_sdl/SdlGraphic.h"
-#include "engine_sdl/SdlInput.h"
+#include "engine_sdl/graphic/SdlGraphic.h"
+#include "engine_sdl/input/SdlInput.h"
 #include "engine_sdl/SdlEngine.h"
-#include "engine_sdl/SdlAudio.h"
+#include "engine_sdl/audio/SdlAudio.h"
 #include "utils/sys/abort_handlers.h"
 
 constexpr int WINDOW_WIDTH = 800;
