@@ -3,13 +3,17 @@
 #include <SDL_mixer.h>
 #include <memory>
 
+struct MusicDeleter {
+    void operator()(Mix_Music* p);
+};
+
+using MusicHandle = std::unique_ptr<Mix_Music, MusicDeleter>;
+
 class SdlMusic {
 public:
     SdlMusic();
 
-    struct MixDeleter;
-
-    explicit SdlMusic(std::unique_ptr<Mix_Music, MixDeleter> music);
+    explicit SdlMusic(MusicHandle music);
 
     SdlMusic(const SdlMusic&) = delete;
 
@@ -19,11 +23,6 @@ public:
 
     Mix_Music* get_wrapped_music() const;
 
-    struct MixDeleter {
-        void operator()(Mix_Music* p);
-    };
-
 private:
-    std::unique_ptr<Mix_Music, MixDeleter> _music;
+    MusicHandle _music;
 };
-

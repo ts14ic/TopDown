@@ -1,14 +1,14 @@
 #include "SdlMusic.h"
 
+void MusicDeleter::operator()(Mix_Music* p) {
+    Mix_FreeMusic(p);
+}
+
 SdlMusic::SdlMusic() = default;
 
 SdlMusic::SdlMusic(SdlMusic&&) noexcept = default;
 
-void SdlMusic::MixDeleter::operator()(Mix_Music* p) {
-    Mix_FreeMusic(p);
-}
-
-SdlMusic::SdlMusic(std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> music)
+SdlMusic::SdlMusic(MusicHandle music)
         : _music{std::move(music)} {
 }
 

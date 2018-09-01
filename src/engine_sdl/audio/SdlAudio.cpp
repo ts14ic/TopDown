@@ -62,11 +62,11 @@ void SdlAudio::load_music(const std::string& name, const char* path) {
 }
 
 SdlMusic SdlAudio::load_music(const char* path) {
-    std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> new_music{Mix_LoadMUS(path)};
-    if (new_music == nullptr) {
+    MusicHandle music_handle{Mix_LoadMUS(path)};
+    if (music_handle == nullptr) {
         throw FailedToLoadMusicException{Mix_GetError()};
     }
-    SdlMusic music{std::move(new_music)};
+    SdlMusic music{std::move(music_handle)};
     SDL_Log("SdlMusic loaded: %s.\n", path);
     return music;
 }
