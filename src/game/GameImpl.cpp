@@ -96,19 +96,19 @@ void GameImpl::handle_mouse_event(const MouseEvent &event) {
 }
 
 void GameImpl::load_resources() {
-    auto doc = json::parse_json(files::read_file_to_string("data/common_media.json"));
+    auto document = json::parse_json(files::read_file_to_string("data/common_media.json"));
 
     using json::get_object;
     using json::get_czstring;
-    for (const auto& entry : get_object(doc, "/textures")) {
+    for (const auto& entry : get_object(document, "/textures")) {
         _engine->get_graphic().load_texture(get_czstring(entry.name), get_czstring(entry.value));
     }
 
-    for (const auto& entry : get_object(doc, "/sounds")) {
+    for (const auto& entry : get_object(document, "/sounds")) {
         _engine->get_audio().load_sound(get_czstring(entry.name), get_czstring(entry.value));
     }
 
-    for (const auto& entry : get_object(doc, "/music")) {
+    for (const auto& entry : get_object(document, "/music")) {
         _engine->get_audio().load_music(get_czstring(entry.name), get_czstring(entry.value));
     }
 }
