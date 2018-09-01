@@ -63,30 +63,30 @@ void Player::handle_key_event(const KeyboardEvent& event) {
         switch (event.get_key()) {
             case KEY_UP:
             case 'w': {
-                _input_state.set(UP_PRESSED);
+                _input_state.set(INPUT_UP_PRESSED);
                 break;
             }
 
             case KEY_DOWN:
             case 's': {
-                _input_state.set(DOWN_PRESSED);
+                _input_state.set(INPUT_DOWN_PRESSED);
                 break;
             }
 
             case KEY_LEFT:
             case 'a': {
-                _input_state.set(LEFT_PRESSED);
+                _input_state.set(INPUT_LEFT_PRESSED);
                 break;
             }
 
             case KEY_RIGHT:
             case 'd': {
-                _input_state.set(RIGHT_PRESSED);
+                _input_state.set(INPUT_RIGHT_PRESSED);
                 break;
             }
 
             case KEY_SPACE: {
-                _input_state.set(TRIGGER_PRESSED);
+                _input_state.set(INPUT_TRIGGER_PRESSED);
                 break;
             }
 
@@ -98,30 +98,30 @@ void Player::handle_key_event(const KeyboardEvent& event) {
         switch (event.get_key()) {
             case KEY_UP:
             case 'w': {
-                _input_state.reset(UP_PRESSED);
+                _input_state.reset(INPUT_UP_PRESSED);
                 break;
             }
 
             case KEY_DOWN:
             case 's': {
-                _input_state.reset(DOWN_PRESSED);
+                _input_state.reset(INPUT_DOWN_PRESSED);
                 break;
             }
 
             case KEY_LEFT:
             case 'a': {
-                _input_state.reset(LEFT_PRESSED);
+                _input_state.reset(INPUT_LEFT_PRESSED);
                 break;
             }
 
             case KEY_RIGHT:
             case 'd': {
-                _input_state.reset(RIGHT_PRESSED);
+                _input_state.reset(INPUT_RIGHT_PRESSED);
                 break;
             }
 
             case KEY_SPACE: {
-                _input_state.reset(TRIGGER_PRESSED);
+                _input_state.reset(INPUT_TRIGGER_PRESSED);
                 break;
             }
 
@@ -160,12 +160,12 @@ void Player::handle_mouse_event(const MousePointEvent& event) {
         }
 
         case MousePointEvent::Type::ButtonUp: {
-            _input_state.reset(TRIGGER_PRESSED);
+            _input_state.reset(INPUT_TRIGGER_PRESSED);
             break;
         }
 
         case MousePointEvent::Type::ButtonDown: {
-            _input_state.set(TRIGGER_PRESSED);
+            _input_state.set(INPUT_TRIGGER_PRESSED);
             break;
         }
     }
@@ -183,7 +183,7 @@ void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
     if (!_weapons.empty()) {
         // TODO don't try to reload on every frame
         _weapons[_selected_weapon_index].try_reload(engine.get_clock());
-        if (_input_state.test(TRIGGER_PRESSED)) {
+        if (_input_state.test(INPUT_TRIGGER_PRESSED)) {
             _weapons[_selected_weapon_index].pull_trigger(random, engine, audio, *this);
         }
     }
@@ -191,8 +191,8 @@ void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
 
 void Player::update_speeds() {
     // TODO extract speed calculations to share between classes
-    int direction_x = _input_state.test(RIGHT_PRESSED) - _input_state.test(LEFT_PRESSED);
-    int direction_y = _input_state.test(DOWN_PRESSED) - _input_state.test(UP_PRESSED);
+    int direction_x = _input_state.test(INPUT_RIGHT_PRESSED) - _input_state.test(INPUT_LEFT_PRESSED);
+    int direction_y = _input_state.test(INPUT_DOWN_PRESSED) - _input_state.test(INPUT_UP_PRESSED);
 
     if (direction_x != 0 || direction_y != 0) {
         auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));

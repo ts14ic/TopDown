@@ -86,12 +86,12 @@ private:
     Timer _damage_cooldown;
 
     enum InputState {
-        UP_PRESSED,
-        DOWN_PRESSED,
-        LEFT_PRESSED,
-        RIGHT_PRESSED,
-        TRIGGER_PRESSED,
-        LENGTH
+        INPUT_UP_PRESSED,
+        INPUT_DOWN_PRESSED,
+        INPUT_LEFT_PRESSED,
+        INPUT_RIGHT_PRESSED,
+        INPUT_TRIGGER_PRESSED,
+        INPUT_LENGTH
     };
-    std::bitset<LENGTH> _input_state;
+    std::bitset<INPUT_LENGTH> _input_state;
 };
