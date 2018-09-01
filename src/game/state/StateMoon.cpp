@@ -144,17 +144,19 @@ void StateMoon::handle_logic() {
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
-void render_crosshair(int mouseX, int mouseY, Graphic& graphic, const Player& player, float predictionRatio) {
-    auto texture = graphic.get_texture("crosshair");
+void render_crosshair(int mouse_x, int mouse_y, Graphic& graphic, const Player& player, float prediction_ratio) {
+    auto texture = graphic.get_texture(player.reloading()
+            ? "reload"
+            : "crosshair");
 
-    int x = mouseX - texture.get_width() / 2;
-    int y = mouseY - texture.get_height() / 2;
+    int x = mouse_x - texture.get_width() / 2;
+    int y = mouse_y - texture.get_height() / 2;
 
     static float angle = 0.f;
-    angle += 5.f * predictionRatio;
+    angle += 5.f * prediction_ratio;
     if (angle > 360.f) angle = 5.f;
 
-    graphic.render_texture(player.reloading() ? "reload" : "crosshair", x, y, angle);
+    graphic.render_texture(texture.get_name(), x, y, angle);
 }
 
 void StateMoon::handle_render(float predictionRatio) {
