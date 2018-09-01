@@ -53,8 +53,8 @@ set(SOURCE_FILES
         src/engine/graphic/Color.cpp src/engine/graphic/Color.h
         src/io/files/files.cpp src/io/files/files.h
         src/io/json/parse_json.cpp src/io/json/parse_json.h
-        src/engine/audio/AudioContext.cpp src/engine/audio/AudioContext.h
-        src/sdl/SdlAudioContext.cpp src/sdl/SdlAudioContext.h
+        src/engine/audio/Audio.cpp src/engine/audio/Audio.h
+        src/sdl/SdlAudio.cpp src/sdl/SdlAudio.h
         src/sdl/SdlSound.cpp src/sdl/SdlSound.h
         src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h

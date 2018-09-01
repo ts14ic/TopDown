@@ -3,7 +3,7 @@
 #include "game/timer/Timer.h"
 #include "game/object/GameObject.h"
 #include "game/object/WeaponBuilder.h"
-#include "engine/audio/AudioContext.h"
+#include "engine/audio/Audio.h"
 #include "engine/Engine.h"
 #include "engine/random/Random.h"
 #include <vector>
@@ -13,7 +13,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pull_trigger(Random& random, Engine& resources, AudioContext& audioContext, const GameObject& shooter);
+    void pull_trigger(Random& random, Engine& resources, Audio& audio, const GameObject& shooter);
 
     void try_reload(const Clock& clock);
 
@@ -32,7 +32,7 @@ public:
 private:
     void start_reloading(const Clock& clock);
 
-    void play_fire_sound(Engine& resources, AudioContext& audioContext);
+    void play_fire_sound(Engine& engine, Audio& audio);
 
     void spawn_bullets(Random& random, const GameObject& shooter);
 

@@ -78,7 +78,7 @@ void StateMoon::handle_logic() {
         _enemy_spawn_cooldown.restart(_game.get_engine().get_clock());
     }
 
-    _player.handle_logic(_game.get_engine().get_random(), _game.get_engine(), _game.get_engine().get_audio_context());
+    _player.handle_logic(_game.get_engine().get_random(), _game.get_engine(), _game.get_engine().get_audio());
 
     const auto& clock = _game.get_engine().get_clock();
     auto& random = _game.get_engine().get_random();
@@ -158,7 +158,7 @@ void StateMoon::handle_render(float predictionRatio) {
     graphic.clear_screen();
 
     auto& resources = _game.get_engine();
-    auto& audio = _game.get_engine().get_audio_context();
+    auto& audio = _game.get_engine().get_audio();
     audio.play_music(resources.get_music("weather"));
 
     graphic.render(resources.get_texture(_background_tex), 0, 0);
@@ -166,11 +166,11 @@ void StateMoon::handle_render(float predictionRatio) {
     _player.handle_render(resources, graphic, predictionRatio);
 
     for (auto& z : zombies()) {
-        z.handle_render(resources, graphic, _game.get_engine().get_audio_context(), predictionRatio);
+        z.handle_render(resources, graphic, _game.get_engine().get_audio(), predictionRatio);
     }
 
     for (auto& w : werewolves()) {
-        w.handle_render(resources, graphic, _game.get_engine().get_audio_context(), predictionRatio);
+        w.handle_render(resources, graphic, _game.get_engine().get_audio(), predictionRatio);
     }
 
     for (auto& b : bullets()) {

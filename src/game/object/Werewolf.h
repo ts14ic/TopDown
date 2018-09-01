@@ -3,7 +3,7 @@
 #include "Damageable.h"
 #include "game/timer/Timer.h"
 #include "engine/random/Random.h"
-#include "engine/audio/AudioContext.h"
+#include "engine/audio/Audio.h"
 #include <vector>
 
 class Werewolf : public Damageable {
@@ -50,7 +50,7 @@ public:
 
     int get_damage() const override;
 
-    void damage(const Clock &clock, int d) override;
+    void damage(const Clock& clock, int d) override;
 
     bool is_dead() const override;
 
@@ -59,9 +59,9 @@ public:
 
     void teleport(const Clock& clock, Random& random);
 
-    void handle_logic(const Clock &clock);
+    void handle_logic(const Clock& clock);
 
-    void handle_render(Engine &resources, GraphicContext &graphic_context, AudioContext &audioContext,
+    void handle_render(Engine& resources, GraphicContext& graphic_context, Audio& audio,
                        float predictionRatio);
 
 private:

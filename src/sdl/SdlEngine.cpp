@@ -81,7 +81,7 @@ GraphicContext& SdlEngine::get_graphic_context() {
     return _graphic;
 }
 
-AudioContext& SdlEngine::get_audio_context() {
+Audio& SdlEngine::get_audio() {
     return _audio;
 }
 

@@ -127,7 +127,7 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
     }
 }
 
-void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context, AudioContext &audioContext,
+void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context, Audio &audio,
                              float predictionRatio) {
     default_render(resources, graphic_context, predictionRatio);
 
@@ -142,7 +142,7 @@ void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context,
     // TODO Wow, wow, wow. Fix all the repetition
     if(_ai_state == ATTACKING) {
         if(_animation_frame == 3 || _animation_frame == 7) {
-            audioContext.play_sound(resources.get_sound("wolf_attack"));
+            audio.play_sound(resources.get_sound("wolf_attack"));
         }
 
         if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
@@ -159,7 +159,7 @@ void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context,
     } else if(_ai_state == TELEPORTING) {
         if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             if(_animation_frame == 2) {
-                audioContext.play_sound(resources.get_sound("wolf_teleport"));
+                audio.play_sound(resources.get_sound("wolf_teleport"));
             }
 
             ++_animation_frame;

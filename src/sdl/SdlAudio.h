@@ -1,11 +1,11 @@
 #pragma once
 
 #include <stdexcept>
-#include "engine/audio/AudioContext.h"
+#include "engine/audio/Audio.h"
 
-class SdlAudioContext : public AudioContext {
+class SdlAudio : public Audio {
 public:
-    SdlAudioContext();
+    SdlAudio();
 
     void play_sound(const Sound& sound) override;
 

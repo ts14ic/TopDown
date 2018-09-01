@@ -7,7 +7,7 @@
 #include "SdlMusic.h"
 #include "SdlClock.h"
 #include "SdlGraphicContext.h"
-#include "SdlAudioContext.h"
+#include "SdlAudio.h"
 #include "SdlInputContext.h"
 #include <SDL_render.h>
 #include <unordered_map>
@@ -20,7 +20,7 @@ public:
 
     GraphicContext& get_graphic_context() override;
 
-    AudioContext& get_audio_context() override;
+    Audio& get_audio() override;
 
     InputContext& get_input_context() override;
 
@@ -62,7 +62,7 @@ private:
 
     Mt19937Random _random;
     SdlGraphicContext _graphic;
-    SdlAudioContext _audio;
+    SdlAudio _audio;
     SdlInputContext _input;
     SdlClock _clock;
 };

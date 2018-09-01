@@ -3,7 +3,7 @@
 #include "sdl/SdlGraphicContext.h"
 #include "sdl/SdlInputContext.h"
 #include "sdl/SdlEngine.h"
-#include "sdl/SdlAudioContext.h"
+#include "sdl/SdlAudio.h"
 #include "utils/sys/abort_handlers.h"
 
 constexpr int WINDOW_WIDTH = 800;

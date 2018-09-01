@@ -64,7 +64,7 @@ public:
 
     void handle_mouse_event(const MouseEvent &event) override;
 
-    void handle_logic(Random& random, Engine& resources, AudioContext& audioContext);
+    void handle_logic(Random& random, Engine& resources, Audio& audio);
 
     void handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio);
 

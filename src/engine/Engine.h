@@ -3,7 +3,7 @@
 #include "engine/graphic/Texture.h"
 #include "engine/random/Random.h"
 #include "engine/audio/Sound.h"
-#include "engine/audio/AudioContext.h"
+#include "engine/audio/Audio.h"
 #include "engine/input/InputContext.h"
 #include "engine/audio/Music.h"
 #include "engine/clock/Clock.h"
@@ -13,7 +13,7 @@ class Engine {
 public:
     virtual GraphicContext& get_graphic_context() = 0;
 
-    virtual AudioContext& get_audio_context() = 0;
+    virtual Audio& get_audio() = 0;
 
     virtual InputContext& get_input_context() = 0;
 

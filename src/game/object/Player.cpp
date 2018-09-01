@@ -33,7 +33,7 @@ void Player::set_y(float y) { _y = y; }
 void Player::set_angle(float a) { _angle = a; }
 
 void Player::set_max_movement_speed(float movementSpeed) {
-    if(std::isgreaterequal(movementSpeed, 0.f)) {
+    if (std::isgreaterequal(movementSpeed, 0.f)) {
         _max_movement_speed = movementSpeed;
     }
 }
@@ -41,7 +41,7 @@ void Player::set_max_movement_speed(float movementSpeed) {
 Circle Player::get_circle() const { return {_x, _y, 30}; }
 
 std::string Player::get_tex_name() const {
-    if(_weapons.empty() || _selected_weapon_index >= _weapons.size()) {
+    if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {
         return "player";
     } else {
         std::ostringstream stream;
@@ -60,8 +60,8 @@ bool Player::is_dead() const {
     return _hp <= 0;
 }
 
-void Player::damage(const Clock &clock, int damageAmount) {
-    if(damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(clock, 500)) {
+void Player::damage(const Clock& clock, int damageAmount) {
+    if (damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(clock, 500)) {
         _hp -= damageAmount;
         _damage_cooldown.restart(clock);
     }
@@ -71,9 +71,9 @@ bool Player::reloading() const {
     return !_weapons.empty() && _weapons[_selected_weapon_index].is_reloading();
 }
 
-void Player::handle_key_event(const KeyboardEvent &event) {
-    if(event.get_type() == KeyboardEvent::Type::KeyDown) {
-        switch(event.get_key()) {
+void Player::handle_key_event(const KeyboardEvent& event) {
+    if (event.get_type() == KeyboardEvent::Type::KeyDown) {
+        switch (event.get_key()) {
             case KEY_UP:
             case 'w': {
                 _input_state.set(UP_PRESSED);
@@ -107,8 +107,8 @@ void Player::handle_key_event(const KeyboardEvent &event) {
                 break;
             }
         }
-    } else if(event.get_type() == KeyboardEvent::Type::KeyUp) {
-        switch(event.get_key()) {
+    } else if (event.get_type() == KeyboardEvent::Type::KeyUp) {
+        switch (event.get_key()) {
             case KEY_UP:
             case 'w': {
                 _input_state.reset(UP_PRESSED);
@@ -140,7 +140,7 @@ void Player::handle_key_event(const KeyboardEvent &event) {
 
             default: {
                 int key = event.get_key();
-                if(key >= '0' && key <= '9') {
+                if (key >= '0' && key <= '9') {
                     auto idx = 9U - ('9' - key);
                     select_weapon(idx);
                 }
@@ -151,8 +151,8 @@ void Player::handle_key_event(const KeyboardEvent &event) {
 }
 
 
-void Player::handle_mouse_event(const MouseEvent &event) {
-    switch(event.get_type()) {
+void Player::handle_mouse_event(const MouseEvent& event) {
+    switch (event.get_type()) {
         case MouseEvent::Type::ScrollUp: {
             select_previous_weapon();
             break;
@@ -180,7 +180,7 @@ void Player::handle_mouse_event(const MouseEvent &event) {
     }
 }
 
-void Player::handle_logic(Random& random, Engine& resources, AudioContext& audioContext) {
+void Player::handle_logic(Random& random, Engine& resources, Audio& audio) {
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
     set_max_movement_speed(_damage_cooldown.ticks_passed_since_start(resources.get_clock(), 500) ? 2.3f : 1.0f);
@@ -189,11 +189,11 @@ void Player::handle_logic(Random& random, Engine& resources, AudioContext& audio
 
     default_move();
 
-    if(!_weapons.empty()) {
+    if (!_weapons.empty()) {
         // TODO don't try to reload on every frame
         _weapons[_selected_weapon_index].try_reload(resources.get_clock());
-        if(_input_state.test(TRIGGER_PRESSED)) {
-            _weapons[_selected_weapon_index].pull_trigger(random, resources, audioContext, *this);
+        if (_input_state.test(TRIGGER_PRESSED)) {
+            _weapons[_selected_weapon_index].pull_trigger(random, resources, audio, *this);
         }
     }
 }
@@ -203,7 +203,7 @@ void Player::update_speeds() {
     int direction_x = _input_state.test(RIGHT_PRESSED) - _input_state.test(LEFT_PRESSED);
     int direction_y = _input_state.test(DOWN_PRESSED) - _input_state.test(UP_PRESSED);
 
-    if(direction_x != 0 || direction_y != 0) {
+    if (direction_x != 0 || direction_y != 0) {
         auto movement_angle = math::get_radian_angle(0, 0, direction_x, direction_y);
 
         float speed_x = math::radian_cos(movement_angle) * get_max_movement_speed();
@@ -215,14 +215,14 @@ void Player::update_speeds() {
     }
 }
 
-void Player::handle_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio) {
+void Player::handle_render(Engine& resources, GraphicContext& graphicContext, float predictionRatio) {
     default_render(resources, graphicContext, predictionRatio);
     default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
 }
 
 void Player::select_next_weapon() {
     auto last = _weapons.size() - 1;
-    if(_selected_weapon_index < last) {
+    if (_selected_weapon_index < last) {
         _selected_weapon_index++;
     } else {
         _selected_weapon_index = static_cast<unsigned>(last);
@@ -231,14 +231,14 @@ void Player::select_next_weapon() {
 
 void Player::select_previous_weapon() {
     auto first = 0u;
-    if(_selected_weapon_index > first) {
+    if (_selected_weapon_index > first) {
         _selected_weapon_index--;
     }
 }
 
 void Player::select_weapon(unsigned index) {
     auto last = _weapons.size() - 1;
-    if(index <= last) {
+    if (index <= last) {
         _selected_weapon_index = index;
     }
 }

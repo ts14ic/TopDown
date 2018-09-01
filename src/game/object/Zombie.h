@@ -2,7 +2,7 @@
 
 #include "Damageable.h"
 #include "game/timer/Timer.h"
-#include "engine/audio/AudioContext.h"
+#include "engine/audio/Audio.h"
 #include "engine/graphic/GraphicContext.h"
 #include <vector>
 
@@ -52,14 +52,14 @@ public:
 
     int get_damage() const override;
 
-    void damage(const Clock &clock, int d) override;
+    void damage(const Clock& clock, int d) override;
 
     // StateMoon interface
     void set_target(float x, float y);
 
     void handle_logic();
 
-    void handle_render(Engine &resources, GraphicContext &graphicContext, AudioContext &audioContext,
+    void handle_render(Engine& resources, GraphicContext& graphicContext, Audio& audio,
                        float predictionRatio);
 
 private:
