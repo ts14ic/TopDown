@@ -9,8 +9,8 @@ void GameObject::default_move() {
     set_y(get_y() + get_current_speed_y());
 }
 
-void GameObject::default_render(Engine& engine, Graphic& graphic, float predictionRatio) {
-    Texture& tex = engine.get_texture(get_tex_name());
+void GameObject::default_render(Graphic& graphic, float predictionRatio) {
+    Texture& tex = graphic.get_texture(get_tex_name());
 
     auto x = get_x() - tex.get_width() / 2;
     auto predicted_dx = get_current_speed_x() * predictionRatio;

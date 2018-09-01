@@ -38,7 +38,7 @@ void StateIntro::handle_logic() {}
 void StateIntro::handle_render(float prediction_ratio) {
     auto& graphic = _game.get_engine().get_graphic();
 
-    Texture& background = _game.get_engine().get_texture(_background_tex_id);
+    Texture& background = graphic.get_texture(_background_tex_id);
     graphic.render(background, 0, 0);
 
     graphic.refresh_screen();

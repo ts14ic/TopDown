@@ -141,43 +141,42 @@ void StateMoon::handle_logic() {
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
-void render_crosshair(int mouseX, int mouseY, Engine& engine, Graphic& graphic_context, const Player& player,
-                      float predictionRatio) {
-    int x = mouseX - engine.get_texture("crosshair").get_width() / 2;
-    int y = mouseY - engine.get_texture("crosshair").get_height() / 2;
+void render_crosshair(int mouseX, int mouseY, Graphic& graphic, const Player& player, float predictionRatio) {
+    int x = mouseX - graphic.get_texture("crosshair").get_width() / 2;
+    int y = mouseY - graphic.get_texture("crosshair").get_height() / 2;
 
     static float angle = 0.f;
     angle += 5.f * predictionRatio;
     if (angle > 360.f) angle = 5.f;
 
-    graphic_context.render(engine.get_texture(player.reloading() ? "reload" : "crosshair"), x, y, angle);
+    graphic.render(graphic.get_texture(player.reloading() ? "reload" : "crosshair"), x, y, angle);
 }
 
 void StateMoon::handle_render(float predictionRatio) {
-    auto& graphic = _game.get_engine().get_graphic();
+    auto& engine = _game.get_engine();
+    auto& graphic = engine.get_graphic();
     graphic.clear_screen();
 
-    auto& engine = _game.get_engine();
-    auto& audio = _game.get_engine().get_audio();
+    auto& audio = engine.get_audio();
     audio.play_music(engine.get_music("weather"));
 
-    graphic.render(engine.get_texture(_background_tex), 0, 0);
+    graphic.render(graphic.get_texture(_background_tex), 0, 0);
 
     _player.handle_render(engine, graphic, predictionRatio);
 
     for (auto& z : zombies()) {
-        z.handle_render(engine, graphic, _game.get_engine().get_audio(), predictionRatio);
+        z.handle_render(engine, graphic, audio, predictionRatio);
     }
 
     for (auto& w : werewolves()) {
-        w.handle_render(engine, graphic, _game.get_engine().get_audio(), predictionRatio);
+        w.handle_render(engine, graphic, audio, predictionRatio);
     }
 
     for (auto& b : bullets()) {
         b.handle_render(engine, graphic, predictionRatio);
     }
 
-    render_crosshair(_mouse_x, _mouse_y, engine, graphic, _player, predictionRatio);
+    render_crosshair(_mouse_x, _mouse_y, graphic, _player, predictionRatio);
 
     graphic.refresh_screen();
 }

@@ -129,7 +129,7 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
 
 void Werewolf::handle_render(Engine &engine, Graphic &graphic_context, Audio &audio,
                              float predictionRatio) {
-    default_render(engine, graphic_context, predictionRatio);
+    default_render(graphic_context, predictionRatio);
 
     if(_current_hp > 0) {
         Box health_box;
