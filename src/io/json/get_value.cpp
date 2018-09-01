@@ -20,6 +20,10 @@ json::check_value(const rapidjson::Value& root, const rapidjson::Pointer& pointe
     return value;
 }
 
-rapidjson::Value::ConstObject json::get_object(const rapidjson::Document& doc, const char* path) {
-    return get_value<rapidjson::Value::ConstObject>(doc, path);
+rapidjson::Value::ConstObject json::get_object(const rapidjson::Value& root, const char* path) {
+    return get_value<rapidjson::Value::ConstObject>(root, path);
+}
+
+const char* json::get_czstring(const rapidjson::Value& root, const char* path) {
+    return get_value<const char*>(root, path);
 }
