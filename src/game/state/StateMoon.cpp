@@ -5,6 +5,7 @@
 #include "game/object/Bullet.h"
 #include "io/json/json.h"
 #include "io/files/files.h"
+#include "game/utils/Point2.h"
 #include <algorithm>
 
 StateMoon::StateMoon(Game& game)
@@ -37,8 +38,8 @@ void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
 
 void StateMoon::handle_mouse_event(const MousePointEvent& event) {
     if (event.get_type() == MousePointEvent::Type::Motion) {
-        _mouse_x = event.get_x();
-        _mouse_y = event.get_y();
+        _mouse_pos.x = event.get_x();
+        _mouse_pos.y = event.get_y();
     }
 
     _player.handle_mouse_event(event);
@@ -56,29 +57,15 @@ void StateMoon::restrict_pos(GameObject& o) {
     else if (o.get_y() > _level_height) o.set_y(_level_height);
 }
 
-std::pair<int, int> randomPosition(Random& random, int width, int height) {
-    int border = random.get_int(0, 1);
-    int lx;
-    int ly;
-    if (border == 0) {
-        lx = random.get_int(0, width);
-        ly = random.get_int(0, 1) * height;
-    } else {
-        lx = random.get_int(0, 1) * width;
-        ly = random.get_int(0, height);
-    }
-    return {lx, ly};
-}
-
 void StateMoon::handle_logic() {
     if (_enemy_spawn_cooldown.ticks_passed_since_start(_game.get_engine().get_clock(), 50) &&
         (zombies().size() + werewolves().size() < 7)) {
-        auto position = randomPosition(_game.get_engine().get_random(), _level_width, _level_height);
+        auto position = make_random_point();
         int type = _game.get_engine().get_random().get_int(0, 1);
         if (type == 0) {
-            zombies().emplace_back(position.first, position.second);
+            zombies().emplace_back(position.x, position.y);
         } else {
-            werewolves().emplace_back(position.first, position.second);
+            werewolves().emplace_back(position.x, position.y);
         }
 
         _enemy_spawn_cooldown.restart(_game.get_engine().get_clock());
@@ -147,6 +134,21 @@ void StateMoon::handle_logic() {
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
+Point2<int> StateMoon::make_random_point() const {
+    Random& random = _game.get_engine().get_random();
+    if (random.get_int(0, 1) == 0) {
+        return make_point(
+                random.get_int(0, _level_width),
+                random.get_int(0, 1) * _level_height
+        );
+    } else {
+        return make_point(
+                random.get_int(0, 1) * _level_width,
+                random.get_int(0, _level_height)
+        );
+    }
+}
+
 void StateMoon::handle_render(float frames_count) {
     auto& engine = _game.get_engine();
     auto& graphic = engine.get_graphic();
@@ -183,8 +185,8 @@ void StateMoon::render_crosshair(float frames_count) {
                                        ? "reload"
                                        : "crosshair");
 
-    int x = _mouse_x - texture.get_width() / 2;
-    int y = _mouse_y - texture.get_height() / 2;
+    int x = _mouse_pos.x - texture.get_width() / 2;
+    int y = _mouse_pos.y - texture.get_height() / 2;
 
     _crosshair_angle += 5.f * frames_count;
     if (_crosshair_angle > 360.f) {

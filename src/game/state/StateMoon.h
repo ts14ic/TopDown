@@ -5,6 +5,7 @@
 #include "game/object/GameObject.h"
 #include "game/Game.h"
 #include "game/timer/Timer.h"
+#include "game/utils/Point2.h"
 
 class StateMoon : public GameState {
 public:
@@ -29,16 +30,17 @@ public:
 private:
     void parse_level_data();
 
+    Point2<int> make_random_point() const;
+
     void render_crosshair(float frames_count);
 
 private:
     Game& _game;
     std::string _background_tex;
     const int _level_width;
-
     const int _level_height;
-    int _mouse_x;
-    int _mouse_y;
+    Point2<int> _mouse_pos;
+
     Player _player;
     float _crosshair_angle;
 
