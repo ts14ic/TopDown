@@ -48,7 +48,7 @@ public:
     bool is_dead() const override;
 
     // StateMoon interface
-    void set_target(const Clock& clock, float x, float y);
+    void set_target(const Clock& clock, Point2<float> position);
 
     void teleport(const Clock& clock, Random& random);
 

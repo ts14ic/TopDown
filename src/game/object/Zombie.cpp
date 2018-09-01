@@ -47,12 +47,12 @@ void Zombie::damage(const Clock& clock, int d) {
     }
 }
 
-void Zombie::set_target(float x, float y) {
+void Zombie::set_target(Point2<float> position) {
     if (_ai_state == DYING) return;
 
-    _angle = math::get_cartesian_angle(_position.x, _position.y, x, y);
+    _angle = math::get_cartesian_angle(_position.x, _position.y, position.x, position.y);
 
-    auto dist = math::get_distance(_position.x, _position.y, x, y);
+    auto dist = math::get_distance(_position.x, _position.y, position.x, position.y);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != MOVING) {
             _ai_state = MOVING;

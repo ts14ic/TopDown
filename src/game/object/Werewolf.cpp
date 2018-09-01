@@ -58,7 +58,7 @@ void Werewolf::damage(const Clock& clock, int d) {
     }
 }
 
-void Werewolf::set_target(const Clock& clock, float x, float y) {
+void Werewolf::set_target(const Clock& clock, Point2<float> position) {
     if (_ai_state == DYING) return;
 
     if (_ai_state == TELEPORTING
@@ -66,9 +66,9 @@ void Werewolf::set_target(const Clock& clock, float x, float y) {
         return;
     }
 
-    set_angle(math::get_cartesian_angle(_position.x, _position.y, x, y));
+    set_angle(math::get_cartesian_angle(_position.x, _position.y, position.x, position.y));
 
-    auto dist = math::get_distance(_position.x, _position.y, x, y);
+    auto dist = math::get_distance(_position.x, _position.y, position.x, position.y);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != MOVING) {
             _ai_state = MOVING;

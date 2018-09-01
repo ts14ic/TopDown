@@ -109,7 +109,7 @@ void StateMoon::handle_logic() {
     bullets().erase(removeFrom, bullets().end());
 
     zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this, &clock](Zombie& z) {
-        z.set_target(_player.get_position().x, _player.get_position().y);
+        z.set_target(_player.get_position());
         z.handle_logic();
 
         if (objects_collide(z, _player)) {
@@ -120,7 +120,7 @@ void StateMoon::handle_logic() {
     }), zombies().end());
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
-        w.set_target(clock, _player.get_position().x, _player.get_position().y);
+        w.set_target(clock, _player.get_position());
         w.handle_logic(clock);
 
         if (objects_collide(w, _player)) {

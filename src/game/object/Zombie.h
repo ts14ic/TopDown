@@ -49,7 +49,7 @@ public:
     void damage(const Clock& clock, int d) override;
 
     // StateMoon interface
-    void set_target(float x, float y);
+    void set_target(Point2<float> position);
 
     void handle_logic();
 
