@@ -24,8 +24,6 @@ set(SOURCE_FILES
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parse_level_data.cpp
         src/game/state/GameState.h
-        src/engine/audio/Sound.cpp src/engine/audio/Sound.h
-        src/engine/audio/Music.cpp src/engine/audio/Music.h
         src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
         src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
         src/game/GameImpl.cpp src/game/GameImpl.h src/game/GameImpl_load_resources.cpp

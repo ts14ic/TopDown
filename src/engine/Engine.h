@@ -1,11 +1,9 @@
 #pragma once
 
-#include "engine/graphic/Texture.h"
-#include "engine/random/Random.h"
-#include "engine/audio/Sound.h"
+#include "engine/graphic/Graphic.h"
 #include "engine/audio/Audio.h"
 #include "engine/input/Input.h"
-#include "engine/audio/Music.h"
+#include "engine/random/Random.h"
 #include "engine/clock/Clock.h"
 #include <iosfwd>
 

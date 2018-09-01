@@ -1,11 +1,9 @@
 #pragma once
 
-#include "engine/audio/Music.h"
-#include <string>
-#include <memory>
 #include <SDL_mixer.h>
+#include <memory>
 
-class SdlMusic : public Music {
+class SdlMusic {
 public:
     SdlMusic();
 
@@ -19,7 +17,7 @@ public:
 
     SdlMusic(SdlMusic&&) noexcept;
 
-    bool is_loaded() const override;
+    bool is_loaded() const;
 
     Mix_Music* get_wrapped_music() const;
 

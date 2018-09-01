@@ -1,11 +1,9 @@
 #pragma once
 
-
-#include "engine/audio/Sound.h"
-#include <memory>
 #include <SDL_mixer.h>
+#include <memory>
 
-class SdlSound : public Sound {
+class SdlSound {
 public:
     struct MixDeleter {
         void operator()(Mix_Chunk* p);
@@ -19,7 +17,7 @@ public:
 
     SdlSound(SdlSound&&) noexcept;
 
-    bool is_loaded() const override;
+    bool is_loaded() const;
 
     Mix_Chunk* get_wrapped_chunk() const;
 
