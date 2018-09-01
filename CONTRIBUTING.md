@@ -18,6 +18,7 @@ The following is a set of guidelines to follow to maintain a consistent codebase
 
 ### Classes
 * Experimental: Prefer get/set/get/set order for properties, instead of get/get/set/set
+* Prefer instance methods to static methods - not developing a library here, a small amount of coupling is allowed
 
 ### Functions/Methods
 * Experimental: Prefer left (west) const  
