@@ -42,16 +42,16 @@ set(SOURCE_FILES
         src/engine/random/Random.cpp src/engine/random/Random.h
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
         src/game/Game.cpp src/game/Game.h
-        src/sdl/SdlInput.cpp src/sdl/SdlInput.h
-        src/sdl/SdlGraphic.cpp src/sdl/SdlGraphic.h
-        src/sdl/SdlEngine.cpp src/sdl/SdlEngine.h
-        src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
-        src/sdl/SdlAudio.cpp src/sdl/SdlAudio.h
-        src/sdl/SdlSound.cpp src/sdl/SdlSound.h
-        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
-        src/sdl/SdlClock.cpp src/sdl/SdlClock.h
-        src/sdl/SdlInputContext_transform_sdl_key_code.cpp src/sdl/SdlInput_transform_sdl_key_code
-        src/sdl/SdlGuard.cpp src/sdl/SdlGuard.h
+        src/engine_sdl/SdlInput.cpp src/engine_sdl/SdlInput.h
+        src/engine_sdl/SdlGraphic.cpp src/engine_sdl/SdlGraphic.h
+        src/engine_sdl/SdlEngine.cpp src/engine_sdl/SdlEngine.h
+        src/engine_sdl/SdlTexture.cpp src/engine_sdl/SdlTexture.h
+        src/engine_sdl/SdlAudio.cpp src/engine_sdl/SdlAudio.h
+        src/engine_sdl/SdlSound.cpp src/engine_sdl/SdlSound.h
+        src/engine_sdl/SdlMusic.cpp src/engine_sdl/SdlMusic.h
+        src/engine_sdl/SdlClock.cpp src/engine_sdl/SdlClock.h
+        src/engine_sdl/SdlInputContext_transform_sdl_key_code.cpp src/engine_sdl/SdlInput_transform_sdl_key_code
+        src/engine_sdl/SdlGuard.cpp src/engine_sdl/SdlGuard.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/engine/graphic/Box.cpp src/engine/graphic/Box.h
         src/engine/graphic/Color.cpp src/engine/graphic/Color.h
