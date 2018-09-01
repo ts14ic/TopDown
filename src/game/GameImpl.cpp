@@ -17,7 +17,6 @@ GameImpl::GameImpl(
 
 void GameImpl::run_loop() {
     _current_state = std::make_unique<StateIntro>(*this);
-
     _engine->get_input().set_event_handler(*this);
 
     const auto& clock = _engine->get_clock();
@@ -45,7 +44,7 @@ void GameImpl::run_loop() {
 void GameImpl::change_state() {
     if(_next_state_id != StateId::null) {
         if(_next_state_id != StateId::exit) {
-            _current_state.reset(nullptr);
+            _current_state = nullptr;
         }
 
         switch(_next_state_id) {
@@ -81,11 +80,6 @@ void GameImpl::handle_window_event(const WindowEvent &event) {
             request_state_change(StateId::exit);
             break;
         }
-
-//        default: {
-//            _current_state->handle_window_event(input);
-//            break;
-//        }
     }
 }
 
