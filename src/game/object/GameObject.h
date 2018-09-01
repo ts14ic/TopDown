@@ -11,7 +11,23 @@ class GameObject {
 public:
     virtual Point2<float> get_position() const = 0;
 
-    virtual Point2<float>& get_position() = 0;
+    virtual void set_position(Point2<float> position) = 0;
+
+    void set_position(float x, float y) {
+        set_position(make_point(x, y));
+    }
+
+    void set_x(float x) {
+        auto position = get_position();
+        position.x = x;
+        set_position(position);
+    }
+
+    void set_y(float y) {
+        auto position = get_position();
+        position.y = y;
+        set_position(position);
+    }
 
     virtual float get_angle() const = 0;
 

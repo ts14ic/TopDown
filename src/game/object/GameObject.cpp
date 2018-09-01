@@ -5,7 +5,7 @@ bool objects_collide(GameObject& a, GameObject& b) {
 }
 
 void GameObject::default_move() {
-    get_position() = make_point(
+    set_position(
             get_position().x + get_current_x_speed(),
             get_position().y + get_current_y_speed()
     );

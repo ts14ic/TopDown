@@ -20,7 +20,7 @@ StateMoon::StateMoon(Game& game)
     werewolves().clear();
     _enemy_spawn_cooldown.restart(game.get_engine().get_clock());
 
-    _player.get_position() = make_point(_level_width / 2.0f, _level_height / 2.0f);
+    _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
 
     parse_level_data();
 }
@@ -50,11 +50,11 @@ void StateMoon::handle_key_event(const KeyboardEvent& event) {
 }
 
 void StateMoon::restrict_pos(GameObject& o) {
-    if (o.get_position().x < 0) o.get_position().x = 0;
-    else if (o.get_position().x > _level_width) o.get_position().x = _level_width;
+    if (o.get_position().x < 0) o.set_x(0);
+    else if (o.get_position().x > _level_width) o.set_x(_level_width);
 
-    if (o.get_position().y < 0) o.get_position().y = 0;
-    else if (o.get_position().y > _level_height) o.get_position().y = _level_height;
+    if (o.get_position().y < 0) o.set_y(0);
+    else if (o.get_position().y > _level_height) o.set_y(_level_height);
 }
 
 void StateMoon::handle_logic() {

@@ -13,7 +13,9 @@ public:
     // GameObject legacy
     Point2<float> get_position() const override { return _position; }
 
-    Point2<float>& get_position() override { return _position; }
+    using GameObject::set_position;
+
+    void set_position(Point2<float> position) override { _position = position; }
 
     float get_angle() const override;
 
