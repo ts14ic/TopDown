@@ -4,7 +4,7 @@
 
 SdlGraphicContext::SdlGraphicContext(int screen_width, int screen_height) {
     Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
-    if(0 != SDL_Init(initFlags)) {
+    if (0 != SDL_Init(initFlags)) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
@@ -17,7 +17,7 @@ SdlGraphicContext::SdlGraphicContext(int screen_width, int screen_height) {
                     SDL_WINDOW_SHOWN
             )
     );
-    if(!_window) {
+    if (!_window) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
@@ -26,12 +26,12 @@ SdlGraphicContext::SdlGraphicContext(int screen_width, int screen_height) {
             SDL_RENDERER_ACCELERATED |
             SDL_RENDERER_PRESENTVSYNC
     ));
-    if(!_renderer) {
+    if (!_renderer) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
     int IMG_flags = IMG_INIT_JPG | IMG_INIT_PNG;
-    if(IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {
+    if (IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {
         throw FailedSdlInitException{IMG_GetError()};
     }
 
@@ -63,22 +63,23 @@ void SdlGraphicContext::clear_screen() {
 }
 
 void SdlGraphicContext::render(const Texture& texture, int x, int y) {
-    if(texture.is_loaded()) {
+    if (texture.is_loaded()) {
         SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
-        SDL_RenderCopy(_renderer.get(), dynamic_cast<const SdlTexture &>(texture).get_wrapped_texture(), nullptr, &destRect);
+        SDL_RenderCopy(_renderer.get(), dynamic_cast<const SdlTexture&>(texture).get_wrapped_texture(), nullptr,
+                       &destRect);
     }
 }
 
 void SdlGraphicContext::render(const Texture& texture, int x, int y, float angle) {
-    if(texture.is_loaded()) {
+    if (texture.is_loaded()) {
         SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
-        SDL_RenderCopyEx(_renderer.get(), dynamic_cast<const SdlTexture &>(texture).get_wrapped_texture(), nullptr,
+        SDL_RenderCopyEx(_renderer.get(), dynamic_cast<const SdlTexture&>(texture).get_wrapped_texture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);
     }
 }
 
-void SdlGraphicContext::render_box(const Box &box, const Color &color) {
+void SdlGraphicContext::render_box(const Box& box, const Color& color) {
     SDL_Rect rect{
             static_cast<int>(box.get_x()),
             static_cast<int>(box.get_y()),
@@ -107,7 +108,7 @@ int SdlGraphicContext::get_screen_height() {
     return _screen_height;
 }
 
-SdlTexture SdlGraphicContext::load_texture(const char *path) {
+SdlTexture SdlGraphicContext::load_texture(const char* path) {
     struct SDLSurfaceDeleter {
         void operator()(SDL_Surface* surf) {
             SDL_FreeSurface(surf);
@@ -115,14 +116,14 @@ SdlTexture SdlGraphicContext::load_texture(const char *path) {
     };
 
     std::unique_ptr<SDL_Surface, SDLSurfaceDeleter> buf{IMG_Load(path)};
-    if(!buf) {
+    if (!buf) {
         throw FailedToLoadTextureException{IMG_GetError()};
     }
 
     std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> new_texture{
             SDL_CreateTextureFromSurface(_renderer.get(), buf.get())
     };
-    if(!new_texture) {
+    if (!new_texture) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 

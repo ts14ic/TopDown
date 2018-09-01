@@ -9,6 +9,6 @@ namespace files {
      * @return File content
      * @throws runtime_error if failed to read the file
      */
-    std::string read_file_to_string(const char *file_path);
+    std::string read_file_to_string(const char* file_path);
 }
 

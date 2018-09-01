@@ -9,7 +9,7 @@
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 600;
 
-int main(int, char *[]) {
+int main(int, char* []) {
     install_abort_handlers();
 
     auto game = GameImpl{
