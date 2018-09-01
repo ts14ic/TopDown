@@ -159,7 +159,7 @@ void render_crosshair(int mouse_x, int mouse_y, Graphic& graphic, const Player& 
     graphic.render_texture(texture.get_name(), x, y, angle);
 }
 
-void StateMoon::handle_render(float predictionRatio) {
+void StateMoon::handle_render(float prediction_ratio) {
     auto& engine = _game.get_engine();
     auto& graphic = engine.get_graphic();
     graphic.clear_screen();
@@ -169,21 +169,21 @@ void StateMoon::handle_render(float predictionRatio) {
 
     graphic.render_texture(_background_tex, 0, 0);
 
-    _player.handle_render(engine, graphic, predictionRatio);
+    _player.handle_render(engine, graphic, prediction_ratio);
 
     for (auto& z : zombies()) {
-        z.handle_render(engine, graphic, audio, predictionRatio);
+        z.handle_render(engine, graphic, audio, prediction_ratio);
     }
 
     for (auto& w : werewolves()) {
-        w.handle_render(engine, graphic, audio, predictionRatio);
+        w.handle_render(engine, graphic, audio, prediction_ratio);
     }
 
     for (auto& b : bullets()) {
-        b.handle_render(engine, graphic, predictionRatio);
+        b.handle_render(engine, graphic, prediction_ratio);
     }
 
-    render_crosshair(_mouse_x, _mouse_y, graphic, _player, predictionRatio);
+    render_crosshair(_mouse_x, _mouse_y, graphic, _player, prediction_ratio);
 
     graphic.refresh_screen();
 }

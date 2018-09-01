@@ -62,7 +62,7 @@ public:
     void handle_logic(const Clock& clock);
 
     void handle_render(Engine& engine, Graphic& graphic_context, Audio& audio,
-                       float predictionRatio);
+                       float prediction_ratio);
 
 private:
     float _x = 0.f;

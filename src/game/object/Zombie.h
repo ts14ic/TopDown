@@ -60,7 +60,7 @@ public:
     void handle_logic();
 
     void handle_render(Engine& engine, Graphic& graphic, Audio& audio,
-                       float predictionRatio);
+                       float prediction_ratio);
 
 private:
     float _x = 0.f;

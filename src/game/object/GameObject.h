@@ -43,7 +43,7 @@ public:
 protected:
     void default_move();
 
-    void default_render(Graphic& graphic, float predictionRatio);
+    void default_render(Graphic& graphic, float prediction_ratio);
 };
 
 bool objects_collide(GameObject& a, GameObject& b);
