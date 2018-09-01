@@ -24,9 +24,9 @@ public:
 
     float get_max_movement_speed() const override;
 
-    float get_current_speed_x() const override;
+    float get_current_x_speed() const override;
 
-    float get_current_speed_y() const override;
+    float get_current_y_speed() const override;
 
     void set_position(float x, float y) override;
 
@@ -38,11 +38,11 @@ public:
 
     void set_max_movement_speed(float movementSpeed) override;
 
-    void set_current_speed_x(float speedX) override;
+    void set_current_x_speed(float x_speed) override;
 
-    void set_current_speed_y(float speedY) override;
+    void set_current_y_speed(float y_speed) override;
 
-    void set_current_speed(float speedX, float speedY) override;
+    void set_current_speed(float x_speed, float y_speed) override;
 
     Circle get_circle() const override;
 
@@ -81,8 +81,8 @@ private:
 
     float _x = 0;
     float _y = 0;
-    float _current_speed_x = 0;
-    float _current_speed_y = 0;
+    float _current_x_speed = 0;
+    float _current_y_speed = 0;
     float _max_movement_speed = 0;
     float _angle = 0.0f;
 

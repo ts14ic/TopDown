@@ -16,9 +16,9 @@ public:
 
     virtual float get_max_movement_speed() const = 0;
 
-    virtual float get_current_speed_x() const = 0;
+    virtual float get_current_x_speed() const = 0;
 
-    virtual float get_current_speed_y() const = 0;
+    virtual float get_current_y_speed() const = 0;
 
     virtual Circle get_circle() const = 0;
 
@@ -28,11 +28,11 @@ public:
 
     virtual void set_y(float y) = 0;
 
-    virtual void set_current_speed_x(float speedX) = 0;
+    virtual void set_current_x_speed(float x_speed) = 0;
 
-    virtual void set_current_speed_y(float speedY) = 0;
+    virtual void set_current_y_speed(float y_speed) = 0;
 
-    virtual void set_current_speed(float speedX, float speedY) = 0;
+    virtual void set_current_speed(float x_speed, float y_speed) = 0;
 
     virtual void set_position(float x, float y) = 0;
 

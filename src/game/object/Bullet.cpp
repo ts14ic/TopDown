@@ -45,11 +45,11 @@ void Bullet::handle_logic() {
         // TODO extract speed setting
         auto movementAngle = get_angle();
 
-        float speedX = math::cartesian_cos(movementAngle) * get_max_movement_speed();
-        float speedY = math::cartesian_sin(movementAngle) * get_max_movement_speed();
+        float x_speed = math::cartesian_cos(movementAngle) * get_max_movement_speed();
+        float y_speed = math::cartesian_sin(movementAngle) * get_max_movement_speed();
 
-        set_current_speed_x(speedX);
-        set_current_speed_y(speedY);
+        set_current_x_speed(x_speed);
+        set_current_y_speed(y_speed);
     }
 
     default_move();
@@ -64,23 +64,23 @@ void Bullet::set_position(float x, float y) {
     set_y(y);
 }
 
-float Bullet::get_current_speed_x() const {
-    return _current_speed_x;
+float Bullet::get_current_x_speed() const {
+    return _current_x_speed;
 }
 
-float Bullet::get_current_speed_y() const {
-    return _current_speed_y;
+float Bullet::get_current_y_speed() const {
+    return _current_y_speed;
 }
 
-void Bullet::set_current_speed_x(float speedX) {
-    _current_speed_x = speedX;
+void Bullet::set_current_x_speed(float x_speed) {
+    _current_x_speed = x_speed;
 }
 
-void Bullet::set_current_speed_y(float speedY) {
-    _current_speed_y = speedY;
+void Bullet::set_current_y_speed(float y_speed) {
+    _current_y_speed = y_speed;
 }
 
-void Bullet::set_current_speed(float speedX, float speedY) {
-    set_current_speed_x(speedX);
-    set_current_speed_y(speedY);
+void Bullet::set_current_speed(float x_speed, float y_speed) {
+    set_current_x_speed(x_speed);
+    set_current_y_speed(y_speed);
 }

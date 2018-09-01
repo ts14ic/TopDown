@@ -17,9 +17,9 @@ public:
 
     float get_max_movement_speed() const override;
 
-    float get_current_speed_x() const override;
+    float get_current_x_speed() const override;
 
-    float get_current_speed_y() const override;
+    float get_current_y_speed() const override;
 
     void set_x(float x) override;
 
@@ -31,11 +31,11 @@ public:
 
     void set_max_movement_speed(float s) override;
 
-    void set_current_speed_x(float speedX) override;
+    void set_current_x_speed(float x_speed) override;
 
-    void set_current_speed_y(float speedY) override;
+    void set_current_y_speed(float y_speed) override;
 
-    void set_current_speed(float speedX, float speedY) override;
+    void set_current_speed(float x_speed, float y_speed) override;
 
     Circle get_circle() const override;
 
@@ -53,8 +53,8 @@ private:
     float _y;
     float _angle;
     float _max_speed;
-    float _current_speed_x;
-    float _current_speed_y;
+    float _current_x_speed;
+    float _current_y_speed;
 };
 
 std::vector<Bullet>& bullets();

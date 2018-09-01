@@ -99,10 +99,10 @@ void Werewolf::handle_logic(const Clock& clock) {
         // TODO extract speed setting
         auto movement_angle = get_angle();
 
-        float speed_x = math::cartesian_cos(movement_angle) * get_max_movement_speed();
-        float speed_y = math::cartesian_sin(movement_angle) * get_max_movement_speed();
+        float x_speed = math::cartesian_cos(movement_angle) * get_max_movement_speed();
+        float y_speed = math::cartesian_sin(movement_angle) * get_max_movement_speed();
 
-        set_current_speed(speed_x, speed_y);
+        set_current_speed(x_speed, y_speed);
         default_move();
     } else {
         set_current_speed(0.f, 0.f);
@@ -183,25 +183,25 @@ void Werewolf::set_position(float x, float y) {
     set_y(y);
 }
 
-float Werewolf::get_current_speed_x() const {
-    return _current_speed_x;
+float Werewolf::get_current_x_speed() const {
+    return _current_x_speed;
 }
 
-float Werewolf::get_current_speed_y() const {
-    return _current_speed_y;
+float Werewolf::get_current_y_speed() const {
+    return _current_y_speed;
 }
 
-void Werewolf::set_current_speed_x(float speedX) {
-    _current_speed_x = speedX;
+void Werewolf::set_current_x_speed(float x_speed) {
+    _current_x_speed = x_speed;
 }
 
-void Werewolf::set_current_speed_y(float speedY) {
-    _current_speed_y = speedY;
+void Werewolf::set_current_y_speed(float y_speed) {
+    _current_y_speed = y_speed;
 }
 
-void Werewolf::set_current_speed(float speedX, float speedY) {
-    set_current_speed_x(speedX);
-    set_current_speed_y(speedY);
+void Werewolf::set_current_speed(float x_speed, float y_speed) {
+    set_current_x_speed(x_speed);
+    set_current_y_speed(y_speed);
 }
 
 vector<Werewolf>& werewolves() {
