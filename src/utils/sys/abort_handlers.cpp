@@ -36,7 +36,7 @@ void print_stack_trace() {
             }
         }
 
-        if (name_start && offset_start && offset_end && (name_start < offset_start)) {
+        if (name_start != nullptr && offset_start && offset_end && (name_start < offset_start)) {
             *name_start++ = '\0';
             *offset_start++ = '\0';
             *offset_end = '\0';

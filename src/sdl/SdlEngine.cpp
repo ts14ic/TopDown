@@ -53,7 +53,7 @@ void SdlEngine::load_music(const std::string& name, const char* path) {
 
 SdlSound SdlEngine::load_sound(const char* path) {
     std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> new_sound{Mix_LoadWAV(path)};
-    if (!new_sound) {
+    if (new_sound == nullptr) {
         throw FailedToLoadSoundException{Mix_GetError()};
     }
 
@@ -65,7 +65,7 @@ SdlSound SdlEngine::load_sound(const char* path) {
 
 SdlMusic SdlEngine::load_music(const char* path) {
     std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> new_music{Mix_LoadMUS(path)};
-    if (!new_music) {
+    if (new_music == nullptr) {
         throw FailedToLoadMusicException{Mix_GetError()};
     }
     SdlMusic music{std::move(new_music)};

@@ -17,7 +17,7 @@ SdlGraphicContext::SdlGraphicContext(int screen_width, int screen_height) {
                     SDL_WINDOW_SHOWN
             )
     );
-    if (!_window) {
+    if (_window == nullptr) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
@@ -26,7 +26,7 @@ SdlGraphicContext::SdlGraphicContext(int screen_width, int screen_height) {
             SDL_RENDERER_ACCELERATED |
             SDL_RENDERER_PRESENTVSYNC
     ));
-    if (!_renderer) {
+    if (_renderer == nullptr) {
         throw FailedSdlInitException{SDL_GetError()};
     }
 
@@ -116,14 +116,14 @@ SdlTexture SdlGraphicContext::load_texture(const char* path) {
     };
 
     std::unique_ptr<SDL_Surface, SDLSurfaceDeleter> buf{IMG_Load(path)};
-    if (!buf) {
+    if (buf == nullptr) {
         throw FailedToLoadTextureException{IMG_GetError()};
     }
 
     std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> new_texture{
             SDL_CreateTextureFromSurface(_renderer.get(), buf.get())
     };
-    if (!new_texture) {
+    if (new_texture == nullptr) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 
