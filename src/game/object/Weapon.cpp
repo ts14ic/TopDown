@@ -42,7 +42,7 @@ void Weapon::spawn_bullets(Random& random, const GameObject& shooter) {
 
 void Weapon::pull_trigger(Random& random, Engine& resources, AudioContext& audioContext, const GameObject& shooter) {
     const auto& clock = resources.get_clock();
-    if (_fire_cooldown_timer.have_ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
+    if (_fire_cooldown_timer.ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
         spawn_bullets(random, shooter);
 
         play_fire_sound(resources, audioContext);
@@ -77,7 +77,7 @@ bool Weapon::is_reloading() const {
 }
 
 void Weapon::try_reload(const Clock& clock) {
-    if (_reloading && _reload_cooldown_timer.have_ticks_passed_since_start(clock, _reload_cooldown)) {
+    if (_reloading && _reload_cooldown_timer.ticks_passed_since_start(clock, _reload_cooldown)) {
         _current_ammo = _max_ammo;
         _reloading = false;
     }

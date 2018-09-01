@@ -65,7 +65,7 @@ std::pair<int, int> randomPosition(Random& random, int width, int height) {
 }
 
 void StateMoon::handle_logic() {
-    if (_enemy_spawn_cooldown.have_ticks_passed_since_start(_game.get_engine().get_clock(), 50) &&
+    if (_enemy_spawn_cooldown.ticks_passed_since_start(_game.get_engine().get_clock(), 50) &&
         (zombies().size() + werewolves().size() < 7)) {
         auto position = randomPosition(_game.get_engine().get_random(), _level_width, _level_height);
         int type = _game.get_engine().get_random().get_int(0, 1);
@@ -127,7 +127,7 @@ void StateMoon::handle_logic() {
     }), zombies().end());
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
-        w.set_target(clock, _player.get_x(), _player.get_y(), false);
+        w.set_target(clock, _player.get_x(), _player.get_y());
         w.handle_logic(clock);
 
         if (objects_collide(w, _player)) {

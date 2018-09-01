@@ -55,7 +55,7 @@ public:
     void damage(const Clock &clock, int d) override;
 
     // StateMoon interface
-    void set_target(float x, float y, bool ignore = false);
+    void set_target(float x, float y);
 
     void handle_logic();
 

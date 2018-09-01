@@ -16,6 +16,6 @@ unsigned long Timer::get_ticks_since_start(const Clock &clock) const {
     return clock.get_current_time() - _start_time;
 }
 
-bool Timer::have_ticks_passed_since_start(const Clock &clock, unsigned long ticks) const {
+bool Timer::ticks_passed_since_start(const Clock& clock, unsigned long ticks) const {
     return get_ticks_since_start(clock) >= ticks;
 }

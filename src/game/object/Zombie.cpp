@@ -55,8 +55,8 @@ void Zombie::damage(const Clock &clock, int d) {
     }
 }
 
-void Zombie::set_target(float x, float y, bool ignore) {
-    if(ignore || _ai_state == DYING) return;
+void Zombie::set_target(float x, float y) {
+    if(_ai_state == DYING) return;
 
     _angle = math::get_cartesian_angle(_x, _y, x, y);
 
@@ -103,13 +103,13 @@ void Zombie::handle_render(Engine &resources, GraphicContext &graphicContext, Au
             audioContext.play_sound(resources.get_sound("zombie_attack"));
         }
 
-        if(_animation_timer.have_ticks_passed_since_start(clock, 100)) {
+        if(_animation_timer.ticks_passed_since_start(clock, 100)) {
             ++_animation_frame;
             if(_animation_frame >= 6) _animation_frame = 0;
             _animation_timer.restart(clock);
         }
     } else if(_ai_state == DYING) {
-        if(_animation_frame < 7 && _animation_timer.have_ticks_passed_since_start(clock, 500)) {
+        if(_animation_frame < 7 && _animation_timer.ticks_passed_since_start(clock, 500)) {
             ++_animation_frame;
             _animation_timer.restart(clock);
         }

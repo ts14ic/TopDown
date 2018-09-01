@@ -61,7 +61,7 @@ bool Player::is_dead() const {
 }
 
 void Player::damage(const Clock &clock, int damageAmount) {
-    if(damageAmount > 0 && _damage_cooldown.have_ticks_passed_since_start(clock, 500)) {
+    if(damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(clock, 500)) {
         _hp -= damageAmount;
         _damage_cooldown.restart(clock);
     }
@@ -183,7 +183,7 @@ void Player::handle_mouse_event(const MouseEvent &event) {
 void Player::handle_logic(Random& random, Engine& resources, AudioContext& audioContext) {
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
-    set_max_movement_speed(_damage_cooldown.have_ticks_passed_since_start(resources.get_clock(), 500) ? 2.3f : 1.0f);
+    set_max_movement_speed(_damage_cooldown.ticks_passed_since_start(resources.get_clock(), 500) ? 2.3f : 1.0f);
 
     update_speeds();
 

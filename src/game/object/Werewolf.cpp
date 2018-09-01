@@ -67,11 +67,12 @@ void Werewolf::damage(const Clock &clock, int d) {
     }
 }
 
-void Werewolf::set_target(const Clock& clock, float x, float y, bool ignore) {
-    if(ignore || _ai_state == DYING) return;
+void Werewolf::set_target(const Clock& clock, float x, float y) {
+    if(_ai_state == DYING) return;
 
-    if(_ai_state == TELEPORTING) {
-        if(!_teleport_cooldown.have_ticks_passed_since_start(clock, 500)) return;
+    if (_ai_state == TELEPORTING
+        && !_teleport_cooldown.ticks_passed_since_start(clock, 500)) {
+        return;
     }
 
     set_angle(math::get_cartesian_angle(_x, _y, x, y));
@@ -107,7 +108,7 @@ void Werewolf::handle_logic(const Clock &clock) {
         set_current_speed(0.f, 0.f);
     }
 
-    if(_ai_state == ATTACKING && _attack_cooldown.have_ticks_passed_since_start(clock, 600)) {
+    if(_ai_state == ATTACKING && _attack_cooldown.ticks_passed_since_start(clock, 600)) {
         _attack_cooldown.restart(clock);
         _ai_state = MOVING;
         _animation_frame = 0;
@@ -117,7 +118,7 @@ void Werewolf::handle_logic(const Clock &clock) {
 void Werewolf::teleport(const Clock& clock, Random& random) {
     if(_ai_state == DYING) return;
 
-    if(_ai_state != TELEPORTING && _teleport_cooldown.have_ticks_passed_since_start(clock, 1000)) {
+    if(_ai_state != TELEPORTING && _teleport_cooldown.ticks_passed_since_start(clock, 1000)) {
         _x += random.get_int(-150, 150);
         _y += random.get_int(-150, 150);
         _ai_state = TELEPORTING;
@@ -144,19 +145,19 @@ void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context,
             audioContext.play_sound(resources.get_sound("wolf_attack"));
         }
 
-        if(_attack_cooldown.have_ticks_passed_since_start(clock, 100)) {
+        if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             ++_animation_frame;
             if(_animation_frame >= 8) _animation_frame = 0;
             _attack_cooldown.restart(clock);
         }
     } else if(_ai_state == MOVING) {
-        if(_attack_cooldown.have_ticks_passed_since_start(clock, 100)) {
+        if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             ++_animation_frame;
             if(_animation_frame >= 6) _animation_frame = 0;
             _attack_cooldown.restart(clock);
         }
     } else if(_ai_state == TELEPORTING) {
-        if(_attack_cooldown.have_ticks_passed_since_start(clock, 100)) {
+        if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             if(_animation_frame == 2) {
                 audioContext.play_sound(resources.get_sound("wolf_teleport"));
             }
@@ -166,7 +167,7 @@ void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context,
             _attack_cooldown.restart(clock);
         }
     } else if(_ai_state == DYING) {
-        if(_animation_frame < 2 && _attack_cooldown.have_ticks_passed_since_start(clock, 500)) {
+        if(_animation_frame < 2 && _attack_cooldown.ticks_passed_since_start(clock, 500)) {
             ++_animation_frame;
             _attack_cooldown.restart(clock);
         }
