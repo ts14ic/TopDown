@@ -46,3 +46,24 @@ void SdlAudio::play_music(const Music& music) {
         Mix_PlayMusic(dynamic_cast<const SdlMusic&>(music).get_wrapped_music(), -1);
     }
 }
+
+Music& SdlAudio::get_music(const std::string& name) {
+    return _name_to_music[name];
+}
+
+void SdlAudio::load_music(const std::string& name, const char* path) {
+    _name_to_music.insert(std::make_pair(name, load_music(path)));
+}
+
+SdlMusic SdlAudio::load_music(const char* path) {
+    std::unique_ptr<Mix_Music, SdlMusic::MixDeleter> new_music{Mix_LoadMUS(path)};
+    if (new_music == nullptr) {
+        throw FailedToLoadMusicException{Mix_GetError()};
+    }
+    SdlMusic music{std::move(new_music)};
+    SDL_Log("SdlMusic loaded: %s.\n", path);
+    return music;
+}
+
+SdlAudio::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
+        : runtime_error(message) {}

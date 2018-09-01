@@ -28,20 +28,7 @@ public:
 
     const Clock& get_clock() override;
 
-    Music& get_music(const std::string& name) override;
-
-    void load_music(const std::string& name, const char* path) override;
-
 private:
-    SdlMusic load_music(const char* path);
-
-    struct FailedToLoadMusicException : public std::runtime_error {
-        explicit FailedToLoadMusicException(const char* message);
-    };
-
-private:
-    std::unordered_map<std::string, SdlMusic> _name_to_music;
-
     Mt19937Random _random;
     SdlGraphic _graphic;
     SdlAudio _audio;

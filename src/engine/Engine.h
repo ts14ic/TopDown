@@ -22,8 +22,4 @@ public:
     virtual Random& get_random() = 0;
 
     virtual const Clock& get_clock() = 0;
-
-    virtual Music& get_music(const std::string& name) = 0;
-
-    virtual void load_music(const std::string& name, const char* path) = 0;
 };
