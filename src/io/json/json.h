@@ -40,7 +40,7 @@ namespace json {
 
     rapidjson::Value::ConstObject get_object(const rapidjson::Value& root, const char* path = SOURCE_SELF);
 
-    const char* get_czstring(const rapidjson::Value& root, const char* path = SOURCE_SELF);
+    const char* get_czstring(const rapidjson::Value& root, const char* source = SOURCE_SELF);
 
     template <typename T>
     std::vector<T> get_values(const rapidjson::Value& root, const char* source = SOURCE_SELF);

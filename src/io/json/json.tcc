@@ -1,5 +1,3 @@
-#include "json.h"
-
 template <class T>
 T json::detail::get_value_casted(const rapidjson::Value& root, const char* source) {
     auto value = get_value(root, source);

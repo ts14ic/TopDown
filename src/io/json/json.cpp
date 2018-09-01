@@ -39,6 +39,6 @@ rapidjson::Value::ConstObject json::get_object(const rapidjson::Value& root, con
     return get_value<rapidjson::Value::ConstObject>(root, path);
 }
 
-const char* json::get_czstring(const rapidjson::Value& root, const char* path) {
-    return get_value<const char*>(root, path);
+const char* json::get_czstring(const rapidjson::Value& root, const char* source) {
+    return get_value<const char*>(root, source);
 }
