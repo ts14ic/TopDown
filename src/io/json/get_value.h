@@ -12,8 +12,8 @@
 #include <vector>
 
 namespace json {
-    struct JsonParseException : public std::runtime_error {
-        explicit JsonParseException(const std::string& message);
+    struct ParseException : public std::runtime_error {
+        explicit ParseException(const std::string& message);
     };
 
     namespace detail {
@@ -27,7 +27,7 @@ namespace json {
             // Despite the docs saying Is<> and Get<> work only on scalars,
             // this also works for ConstArray and ConstObject.
             if (!value->Is<T>()) {
-                throw JsonParseException{
+                throw ParseException{
                         std::string{"Value on "} + source + " is not of type " +
                         utils::demangle_type_name(typeid(T).name())
                 };

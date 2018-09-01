@@ -1,12 +1,14 @@
 #include "get_value.h"
 
-json::JsonParseException::JsonParseException(const std::string& message)
+using namespace std::string_literals;
+
+json::ParseException::ParseException(const std::string& message)
         : runtime_error(message) {}
 
 rapidjson::Pointer get_pointer(const char* source) {
     rapidjson::Pointer pointer{source};
     if (!pointer.IsValid()) {
-        throw json::JsonParseException(std::string{"Invalid pointer: "} + source);
+        throw json::ParseException("Invalid pointer: "s + source);
     }
     return pointer;
 }
@@ -18,7 +20,7 @@ const rapidjson::Value* json::detail::get_value(
     auto pointer = get_pointer(source);
     auto value = pointer.Get(root);
     if (value == nullptr) {
-        throw JsonParseException{std::string{"No value on path: "} + source};
+        throw ParseException{"No value on path: "s + source};
     }
     return value;
 }
