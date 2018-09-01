@@ -24,9 +24,7 @@ public:
 
     int get_screen_height() override;
 
-    int get_texture_width(const std::string& name) override;
-
-    int get_texture_height(const std::string& name) override;
+    Texture get_texture(const std::string& name) override;
 
     void load_texture(const std::string& name, const char* path) override;
 

@@ -129,12 +129,9 @@ SdlTexture SdlGraphic::load_texture(const char* path) {
     return tex;
 }
 
-int SdlGraphic::get_texture_width(const std::string& name) {
-    return _name_to_texture[name].get_width();
-}
-
-int SdlGraphic::get_texture_height(const std::string& name) {
-    return _name_to_texture[name].get_height();
+Texture SdlGraphic::get_texture(const std::string& name) {
+    SdlTexture& sdl_texture = _name_to_texture[name];
+    return Texture{name, sdl_texture.get_width(), sdl_texture.get_height()};
 }
 
 void SdlGraphic::load_texture(const std::string& name, const char* path) {

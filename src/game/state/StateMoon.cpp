@@ -145,8 +145,10 @@ void StateMoon::handle_logic() {
 }
 
 void render_crosshair(int mouseX, int mouseY, Graphic& graphic, const Player& player, float predictionRatio) {
-    int x = mouseX - graphic.get_texture_width("crosshair") / 2;
-    int y = mouseY - graphic.get_texture_height("crosshair") / 2;
+    auto texture = graphic.get_texture("crosshair");
+
+    int x = mouseX - texture.get_width() / 2;
+    int y = mouseY - texture.get_height() / 2;
 
     static float angle = 0.f;
     angle += 5.f * predictionRatio;

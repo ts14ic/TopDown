@@ -2,6 +2,7 @@
 
 #include "Box.h"
 #include "Color.h"
+#include "Texture.h"
 #include <iosfwd>
 
 class Graphic {
@@ -20,9 +21,7 @@ public:
 
     virtual void load_texture(const std::string& name, const char* path) = 0;
 
-    virtual int get_texture_width(const std::string& name) = 0;
-
-    virtual int get_texture_height(const std::string& name) = 0;
+    virtual Texture get_texture(const std::string& name) = 0;
 
     virtual int get_screen_width() = 0;
 

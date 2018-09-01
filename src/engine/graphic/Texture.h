@@ -1,19 +1,21 @@
 #pragma once
 
-class Graphic;
+#include <string>
 
 // TODO Add a fallback texture
 
-/*
- * Texture resource handle
- */
 class Texture {
 public:
-    virtual ~Texture() = 0;
+    Texture(std::string name, int width, int height);
 
-    virtual bool is_loaded() const = 0;
+    const std::string& get_name() const;
 
-    virtual int get_width() const = 0;
+    int get_width() const;
 
-    virtual int get_height() const = 0;
+    int get_height() const;
+
+private:
+    std::string _name;
+    int _width;
+    int _height;
 };
