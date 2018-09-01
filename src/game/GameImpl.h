@@ -27,12 +27,16 @@ public:
 private:
     void change_state();
 
+    void load_config();
+
     void load_resources();
 
-private:
+    unsigned calculate_ms_per_frame(int frames_per_second) const;
+
     // todo add a loop input
     StateId _current_state_id = StateId::null;
     StateId _next_state_id = StateId::null;
     std::unique_ptr<GameState> _current_state;
     std::unique_ptr<Engine> _engine;
+    unsigned _ms_per_frame;
 };

@@ -5,14 +5,19 @@
 #include "io/json/json.h"
 
 constexpr unsigned MS_ONE_SECOND = 1000;
-constexpr unsigned FRAMES_PER_SECOND = 60;
-constexpr unsigned MS_PER_FRAME = MS_ONE_SECOND / FRAMES_PER_SECOND;
+constexpr unsigned DEFAULT_FRAMES_PER_SECOND = 30;
 
 GameImpl::GameImpl(
         std::unique_ptr<Engine> engine
 ) : _engine{std::move(engine)} {
+    _ms_per_frame = calculate_ms_per_frame(DEFAULT_FRAMES_PER_SECOND);
 
+    load_config();
     load_resources();
+}
+
+unsigned GameImpl::calculate_ms_per_frame(int frames_per_second) const {
+    return MS_ONE_SECOND / frames_per_second;
 }
 
 void GameImpl::run_loop() {
@@ -30,14 +35,14 @@ void GameImpl::run_loop() {
 
         _engine->get_input().poll_events();
 
-        while(lag_time >= MS_PER_FRAME) {
+        while(lag_time >= _ms_per_frame) {
             _current_state->handle_logic();
-            lag_time -= MS_PER_FRAME;
+            lag_time -= _ms_per_frame;
         }
 
         change_state();
 
-        _current_state->handle_render(static_cast<float>(lag_time) / MS_PER_FRAME);
+        _current_state->handle_render(static_cast<float>(lag_time) / _ms_per_frame);
     }
 }
 
@@ -95,11 +100,18 @@ void GameImpl::handle_mouse_event(const MousePointEvent& event) {
     _current_state->handle_mouse_event(event);
 }
 
+void GameImpl::load_config() {
+    auto document = json::parse_json(files::read_file_to_string("data/config.json"));
+
+    _ms_per_frame = calculate_ms_per_frame(json::get_uint(document, "/fps"));
+}
+
 void GameImpl::load_resources() {
     auto document = json::parse_json(files::read_file_to_string("data/common_media.json"));
 
     using json::get_object;
     using json::get_czstring;
+
     for (const auto& entry : get_object(document, "/textures")) {
         _engine->get_graphic().load_texture(get_czstring(entry.name), get_czstring(entry.value));
     }
