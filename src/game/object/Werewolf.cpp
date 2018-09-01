@@ -127,7 +127,7 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
     }
 }
 
-void Werewolf::handle_render(Engine &resources, GraphicContext &graphic_context, Audio &audio,
+void Werewolf::handle_render(Engine &resources, Graphic &graphic_context, Audio &audio,
                              float predictionRatio) {
     default_render(resources, graphic_context, predictionRatio);
 

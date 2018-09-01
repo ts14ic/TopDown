@@ -215,9 +215,9 @@ void Player::update_speeds() {
     }
 }
 
-void Player::handle_render(Engine& resources, GraphicContext& graphicContext, float predictionRatio) {
-    default_render(resources, graphicContext, predictionRatio);
-    default_render_health(graphicContext, Color{0, 0x77, 0, 0xFF}, 0);
+void Player::handle_render(Engine& resources, Graphic& graphic, float predictionRatio) {
+    default_render(resources, graphic, predictionRatio);
+    default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 }
 
 void Player::select_next_weapon() {

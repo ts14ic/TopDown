@@ -5,7 +5,7 @@
 #include "game/timer/Timer.h"
 #include "engine/Engine.h"
 #include "engine/clock/Clock.h"
-#include "engine/graphic/GraphicContext.h"
+#include "engine/graphic/Graphic.h"
 #include "engine/audio/Audio.h"
 #include "engine/random/Random.h"
 #include <memory>

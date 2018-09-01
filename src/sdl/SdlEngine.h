@@ -6,7 +6,7 @@
 #include "SdlSound.h"
 #include "SdlMusic.h"
 #include "SdlClock.h"
-#include "SdlGraphicContext.h"
+#include "SdlGraphic.h"
 #include "SdlAudio.h"
 #include "SdlInputContext.h"
 #include <SDL_render.h>
@@ -18,7 +18,7 @@ public:
 
     ~SdlEngine() override;
 
-    GraphicContext& get_graphic_context() override;
+    Graphic& get_graphic() override;
 
     Audio& get_audio() override;
 
@@ -61,7 +61,7 @@ private:
     std::unordered_map<std::string, SdlMusic> _name_to_music;
 
     Mt19937Random _random;
-    SdlGraphicContext _graphic;
+    SdlGraphic _graphic;
     SdlAudio _audio;
     SdlInputContext _input;
     SdlClock _clock;

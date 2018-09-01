@@ -1,7 +1,7 @@
 #include "Damageable.h"
 
 void
-Damageable::default_render_health(GraphicContext& graphic_context, const Color& color, float prediction_ratio) const {
+Damageable::default_render_health(Graphic& graphic_context, const Color& color, float prediction_ratio) const {
     if (get_hp() > 0) {
         Box healthBox;
 

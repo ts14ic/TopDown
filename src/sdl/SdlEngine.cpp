@@ -77,7 +77,7 @@ const Clock& SdlEngine::get_clock() {
     return _clock;
 }
 
-GraphicContext& SdlEngine::get_graphic_context() {
+Graphic& SdlEngine::get_graphic() {
     return _graphic;
 }
 

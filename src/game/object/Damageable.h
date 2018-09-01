@@ -17,5 +17,5 @@ public:
     virtual bool is_dead() const = 0;
 
 protected:
-    void default_render_health(GraphicContext& graphic_context, const Color& color, float prediction_ratio) const;
+    void default_render_health(Graphic& graphic_context, const Color& color, float prediction_ratio) const;
 };

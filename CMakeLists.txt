@@ -27,7 +27,7 @@ set(SOURCE_FILES
         src/engine/audio/Sound.cpp src/engine/audio/Sound.h
         src/engine/audio/Music.cpp src/engine/audio/Music.h
         src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
-        src/engine/graphic/GraphicContext.cpp src/engine/graphic/GraphicContext.h
+        src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
         src/game/GameImpl.cpp src/game/GameImpl.h src/game/GameImpl_load_resources.cpp
         src/game/object/GameObject.cpp src/game/object/GameObject.h
         src/game/object/Damageable.h src/game/object/Damageable.cpp
@@ -46,7 +46,7 @@ set(SOURCE_FILES
         src/game/Game.cpp src/game/Game.h
         src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
-        src/sdl/SdlGraphicContext.cpp src/sdl/SdlGraphicContext.h
+        src/sdl/SdlGraphic.cpp src/sdl/SdlGraphic.h
         src/sdl/SdlEngine.cpp src/sdl/SdlEngine.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
         src/engine/graphic/Box.cpp src/engine/graphic/Box.h

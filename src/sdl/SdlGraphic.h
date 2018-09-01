@@ -1,12 +1,12 @@
 #pragma once
 
-#include "engine/graphic/GraphicContext.h"
+#include "engine/graphic/Graphic.h"
 #include "engine/graphic/Texture.h"
 #include "SdlTexture.h"
 
-class SdlGraphicContext : public GraphicContext {
+class SdlGraphic : public Graphic {
 public:
-    SdlGraphicContext(int screen_width, int screen_height);
+    SdlGraphic(int screen_width, int screen_height);
 
     void refresh_screen() override;
 

@@ -16,7 +16,7 @@ public:
 
     void handle_logic() override;
 
-    void handle_render(float predictionRatio) override;
+    void handle_render(float prediction_ratio) override;
 
 private:
     Game& _game;

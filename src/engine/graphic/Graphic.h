@@ -4,9 +4,9 @@
 #include "Box.h"
 #include "Color.h"
 
-class GraphicContext {
+class Graphic {
 public:
-    virtual ~GraphicContext() = 0;
+    virtual ~Graphic() = 0;
 
     virtual void refresh_screen() = 0;
 

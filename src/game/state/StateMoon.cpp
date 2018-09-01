@@ -8,8 +8,8 @@
 StateMoon::StateMoon(Game& game)
         : _game{game},
           _background_tex{"moon_background"},
-          _level_width(game.get_engine().get_graphic_context().get_screen_width()),
-          _level_height(game.get_engine().get_graphic_context().get_screen_height()),
+          _level_width(game.get_engine().get_graphic().get_screen_width()),
+          _level_height(game.get_engine().get_graphic().get_screen_height()),
           _enemy_spawn_cooldown{} {
     game.get_engine().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
@@ -141,7 +141,7 @@ void StateMoon::handle_logic() {
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
-void render_crosshair(int mouseX, int mouseY, Engine& resources, GraphicContext& graphic_context, const Player& player,
+void render_crosshair(int mouseX, int mouseY, Engine& resources, Graphic& graphic_context, const Player& player,
                       float predictionRatio) {
     int x = mouseX - resources.get_texture("crosshair").get_width() / 2;
     int y = mouseY - resources.get_texture("crosshair").get_height() / 2;
@@ -154,7 +154,7 @@ void render_crosshair(int mouseX, int mouseY, Engine& resources, GraphicContext&
 }
 
 void StateMoon::handle_render(float predictionRatio) {
-    auto& graphic = _game.get_engine().get_graphic_context();
+    auto& graphic = _game.get_engine().get_graphic();
     graphic.clear_screen();
 
     auto& resources = _game.get_engine();

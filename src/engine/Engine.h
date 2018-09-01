@@ -11,7 +11,7 @@
 
 class Engine {
 public:
-    virtual GraphicContext& get_graphic_context() = 0;
+    virtual Graphic& get_graphic() = 0;
 
     virtual Audio& get_audio() = 0;
 

@@ -4,7 +4,7 @@
 
 #include "engine/graphic/Circle.h"
 #include "engine/Engine.h"
-#include "engine/graphic/GraphicContext.h"
+#include "engine/graphic/Graphic.h"
 
 class GameObject {
 public:
@@ -43,7 +43,7 @@ public:
 protected:
     void default_move();
 
-    void default_render(Engine &resources, GraphicContext &graphicContext, float predictionRatio);
+    void default_render(Engine &resources, Graphic &graphic, float predictionRatio);
 };
 
 bool objects_collide(GameObject &a, GameObject &b);
