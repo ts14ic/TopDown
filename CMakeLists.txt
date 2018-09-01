@@ -22,11 +22,11 @@ set(SOURCE_FILES
         src/main.cpp
         src/math/maths.cpp src/math/maths.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
-        src/game/state/StateMoon.cpp src/game/state/StateMoon.h src/game/state/StateMoon_parse_level_data.cpp
+        src/game/state/StateMoon.cpp src/game/state/StateMoon.h
         src/game/state/GameState.h
         src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
         src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
-        src/game/GameImpl.cpp src/game/GameImpl.h src/game/GameImpl_load_resources.cpp
+        src/game/GameImpl.cpp src/game/GameImpl.h
         src/game/object/GameObject.cpp src/game/object/GameObject.h
         src/game/object/Damageable.h src/game/object/Damageable.cpp
         src/game/object/Player.cpp src/game/object/Player.h

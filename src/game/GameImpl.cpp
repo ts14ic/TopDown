@@ -1,6 +1,9 @@
 #include "GameImpl.h"
 #include "game/state/StateIntro.h"
 #include "game/state/StateMoon.h"
+#include "io/files/files.h"
+#include "io/json/get_value.h"
+#include "io/json/parse_json.h"
 
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;
@@ -91,4 +94,24 @@ void GameImpl::handle_key_event(const KeyboardEvent &event) {
 
 void GameImpl::handle_mouse_event(const MouseEvent &event) {
     _current_state->handle_mouse_event(event);
+}
+
+void GameImpl::load_resources() {
+    auto doc = json::parse_json(files::read_file_to_string("data/common_media.json"));
+
+    using json::get_value;
+    auto texturesMap = get_value<rapidjson::Value::ConstObject>(doc, "/textures");
+    for (const auto& entry : texturesMap) {
+        _engine->get_graphic().load_texture(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
+    }
+
+    auto soundsMap = get_value<rapidjson::Value::ConstObject>(doc, "/sounds");
+    for (const auto& entry : soundsMap) {
+        _engine->get_audio().load_sound(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
+    }
+
+    auto musicMap = get_value<rapidjson::Value::ConstObject>(doc, "/music");
+    for (const auto& entry : musicMap) {
+        _engine->get_audio().load_music(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
+    }
 }
