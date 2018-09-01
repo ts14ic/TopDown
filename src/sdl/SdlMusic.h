@@ -7,11 +7,11 @@
 
 class SdlMusic : public Music {
 public:
+    SdlMusic();
+
     struct MixDeleter {
         void operator()(Mix_Music* p);
     };
-
-    SdlMusic();
 
     explicit SdlMusic(std::unique_ptr<Mix_Music, MixDeleter> music);
 

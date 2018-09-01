@@ -5,14 +5,11 @@
 SdlEngine::SdlEngine(
         int screen_width,
         int screen_height
-) : _graphic(screen_width, screen_height) {
+) : _sdl_guard{}, _graphic(screen_width, screen_height) {
 }
 
-SdlEngine::~SdlEngine() {
-    Mix_Quit();
-    IMG_Quit();
-    SDL_Quit();
-}
+SdlEngine::FailedSdlInitException::FailedSdlInitException(const char* message)
+        : runtime_error(message) {}
 
 const Clock& SdlEngine::get_clock() {
     return _clock;

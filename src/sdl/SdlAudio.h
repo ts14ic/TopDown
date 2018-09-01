@@ -10,6 +10,8 @@ class SdlAudio : public Audio {
 public:
     SdlAudio();
 
+    ~SdlAudio() override;
+
     void play_sound(const Sound& sound) override;
 
     Sound& get_sound(const std::string& name) override;

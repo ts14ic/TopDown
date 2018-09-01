@@ -12,6 +12,12 @@ SdlAudio::SdlAudio() {
 SdlAudio::FailedSdlMixerInitException::FailedSdlMixerInitException(const char* message)
         : runtime_error(message) {}
 
+SdlAudio::~SdlAudio() {
+    _name_to_music.clear();
+    _name_to_sound.clear();
+    Mix_Quit();
+}
+
 void SdlAudio::play_sound(const Sound& sound) {
     if (sound.is_loaded()) {
         Mix_PlayChannel(-1, dynamic_cast<const SdlSound&>(sound).get_wrapped_chunk(), 0);

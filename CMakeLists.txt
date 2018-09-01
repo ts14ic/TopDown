@@ -45,21 +45,23 @@ set(SOURCE_FILES
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
         src/game/Game.cpp src/game/Game.h
         src/sdl/SdlInput.cpp src/sdl/SdlInput.h
-        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/sdl/SdlGraphic.cpp src/sdl/SdlGraphic.h
         src/sdl/SdlEngine.cpp src/sdl/SdlEngine.h
         src/sdl/SdlTexture.cpp src/sdl/SdlTexture.h
+        src/sdl/SdlAudio.cpp src/sdl/SdlAudio.h
+        src/sdl/SdlSound.cpp src/sdl/SdlSound.h
+        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
+        src/sdl/SdlClock.cpp src/sdl/SdlClock.h
+        src/sdl/SdlInputContext_transform_sdl_key_code.cpp src/sdl/SdlInput_transform_sdl_key_code
+        src/sdl/SdlGuard.cpp src/sdl/SdlGuard.h
+        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/engine/graphic/Box.cpp src/engine/graphic/Box.h
         src/engine/graphic/Color.cpp src/engine/graphic/Color.h
         src/io/files/files.cpp src/io/files/files.h
         src/io/json/parse_json.cpp src/io/json/parse_json.h
         src/engine/audio/Audio.cpp src/engine/audio/Audio.h
-        src/sdl/SdlAudio.cpp src/sdl/SdlAudio.h
-        src/sdl/SdlSound.cpp src/sdl/SdlSound.h
-        src/sdl/SdlMusic.cpp src/sdl/SdlMusic.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h
-        src/sdl/SdlClock.cpp src/sdl/SdlClock.h
         src/engine/input/Input.cpp src/engine/input/Input.h
         src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
         src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
@@ -69,7 +71,6 @@ set(SOURCE_FILES
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
         src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
-        src/sdl/SdlInputContext_transform_sdl_key_code.cpp src/sdl/SdlInput_transform_sdl_key_code
         src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
         )
 

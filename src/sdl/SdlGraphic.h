@@ -9,6 +9,8 @@ class SdlGraphic : public Graphic {
 public:
     SdlGraphic(int screen_width, int screen_height);
 
+    ~SdlGraphic() override;
+
     void refresh_screen() override;
 
     void clear_screen() override;
@@ -26,10 +28,6 @@ public:
     Texture& get_texture(const std::string& name) override;
 
     void load_texture(const std::string& name, const char* path) override;
-
-    struct FailedSdlInitException : public std::runtime_error {
-        explicit FailedSdlInitException(const char* message);
-    };
 
     struct FailedToLoadTextureException : public std::runtime_error {
         explicit FailedToLoadTextureException(const char* message);

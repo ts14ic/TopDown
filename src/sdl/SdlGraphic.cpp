@@ -1,13 +1,9 @@
 #include "SdlGraphic.h"
+#include "SdlEngine.h"
 #include <SDL_image.h>
 #include <SDL.h>
 
 SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
-    Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
-    if (0 != SDL_Init(initFlags)) {
-        throw FailedSdlInitException{SDL_GetError()};
-    }
-
     _window.reset(
             SDL_CreateWindow(
                     "TopDown - Reborn",
@@ -18,7 +14,7 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
             )
     );
     if (_window == nullptr) {
-        throw FailedSdlInitException{SDL_GetError()};
+        throw SdlEngine::FailedSdlInitException{SDL_GetError()};
     }
 
     _renderer.reset(SDL_CreateRenderer(
@@ -27,12 +23,12 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
             SDL_RENDERER_PRESENTVSYNC
     ));
     if (_renderer == nullptr) {
-        throw FailedSdlInitException{SDL_GetError()};
+        throw SdlEngine::FailedSdlInitException{SDL_GetError()};
     }
 
     int IMG_flags = IMG_INIT_JPG | IMG_INIT_PNG;
     if (IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {
-        throw FailedSdlInitException{IMG_GetError()};
+        throw SdlEngine::FailedSdlInitException{IMG_GetError()};
     }
 
     SDL_ShowCursor(SDL_DISABLE);
@@ -42,8 +38,10 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
     SDL_RenderPresent(_renderer.get());
 }
 
-SdlGraphic::FailedSdlInitException::FailedSdlInitException(const char* message)
-        : runtime_error(message) {}
+SdlGraphic::~SdlGraphic() {
+    _name_to_texture.clear();
+    IMG_Quit();
+}
 
 void SdlGraphic::SdlDeleter::operator()(SDL_Window* p) {
     SDL_DestroyWindow(p);
