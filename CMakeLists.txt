@@ -38,7 +38,7 @@ set(SOURCE_FILES
         src/engine/Engine.cpp src/engine/Engine.h
         src/game/StateId.h
         src/engine/graphic/Circle.cpp src/engine/graphic/Circle.h
-        src/io/json/get_value.h src/io/json/get_value.cpp
+        src/io/json/json.h src/io/json/json.cpp src/io/json/json.tcc
         src/engine/random/Random.cpp src/engine/random/Random.h
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
         src/game/Game.cpp src/game/Game.h
@@ -55,7 +55,6 @@ set(SOURCE_FILES
         src/engine/graphic/Box.cpp src/engine/graphic/Box.h
         src/engine/graphic/Color.cpp src/engine/graphic/Color.h
         src/io/files/files.cpp src/io/files/files.h
-        src/io/json/parse_json.cpp src/io/json/parse_json.h
         src/engine/audio/Audio.cpp src/engine/audio/Audio.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h

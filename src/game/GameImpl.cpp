@@ -2,8 +2,7 @@
 #include "game/state/StateIntro.h"
 #include "game/state/StateMoon.h"
 #include "io/files/files.h"
-#include "io/json/get_value.h"
-#include "io/json/parse_json.h"
+#include "io/json/json.h"
 
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned FRAMES_PER_SECOND = 60;

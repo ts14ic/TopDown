@@ -3,8 +3,7 @@
 #include "game/object/Zombie.h"
 #include "game/object/Werewolf.h"
 #include "game/object/Bullet.h"
-#include "io/json/get_value.h"
-#include "io/json/parse_json.h"
+#include "io/json/json.h"
 #include "io/files/files.h"
 #include <algorithm>
 
