@@ -69,7 +69,6 @@ set(SOURCE_FILES
         src/engine/input/MouseScrollEvent.h src/engine/input/KeyboardKey.h
         src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
         src/engine/input/MousePointEvent.cpp src/engine/input/MousePointEvent.h
-        src/game/object/Crosshair.cpp src/game/object/Crosshair.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

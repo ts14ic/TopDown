@@ -30,6 +30,8 @@ public:
 private:
     void parse_level_data();
 
+    void render_crosshair(float frames_count);
+
 private:
     Game& _game;
     std::string _background_tex;
@@ -39,7 +41,7 @@ private:
     int _mouse_x;
     int _mouse_y;
     Player _player;
-    Crosshair _crosshair;
+    float _crosshair_angle;
 
     Timer _enemy_spawn_cooldown;
 };
