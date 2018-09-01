@@ -30,7 +30,7 @@ float Box::get_width() const {
 }
 
 void Box::set_width(float width) {
-    if(std::isgreaterequal(width, 0)) {
+    if(width >= 0) {
         _width = width;
     }
 }
@@ -40,7 +40,7 @@ float Box::get_height() const {
 }
 
 void Box::set_height(float height) {
-    if(std::isgreaterequal(height, 0)) {
+    if(_width >= 0) {
         _height = height;
     }
 }

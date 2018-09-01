@@ -33,7 +33,7 @@ void Player::set_y(float y) { _y = y; }
 void Player::set_angle(float a) { _angle = a; }
 
 void Player::set_max_movement_speed(float movementSpeed) {
-    if (std::isgreaterequal(movementSpeed, 0.f)) {
+    if (movementSpeed >= 0) {
         _max_movement_speed = movementSpeed;
     }
 }
