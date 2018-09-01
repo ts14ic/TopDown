@@ -74,39 +74,36 @@ void StateMoon::handle_logic() {
 
     _player.handle_logic(random, _game.get_engine(), _game.get_engine().get_audio());
 
-    int maxWidth = _level_width;
-    int maxHeight = _level_height;
     // process bullet moving and collisions
-    auto removeFrom = std::remove_if(bullets().begin(), bullets().end(),
-                                     [maxWidth, maxHeight, &random, &clock](Bullet& b) {
-                                         b.handle_logic();
+    auto remove_from = std::remove_if(bullets().begin(), bullets().end(), [&, this](Bullet& b) {
+        b.handle_logic();
 
-                                         if ((b.get_position().x > maxWidth) || (b.get_position().x < 0) ||
-                                             (b.get_position().y > maxHeight) || (b.get_position().y < 0)) {
-                                             return true;
-                                         }
+        if ((b.get_position().x > _level_width) || (b.get_position().x < 0) ||
+            (b.get_position().y > _level_height) || (b.get_position().y < 0)) {
+            return true;
+        }
 
-                                         for (auto& z : zombies()) {
-                                             if (objects_collide(b, z) && z.get_hp() > 0) {
-                                                 z.damage(clock, b.get_damage());
-                                                 return true;
-                                             }
-                                         }
-                                         for (auto& w : werewolves()) {
-                                             if (objects_collide(b, w) && w.get_hp() > 0) {
-                                                 w.damage(clock, b.get_damage());
-                                                 return true;
-                                             }
-                                             if (math::get_distance(b.get_position(), w.get_position()) < 50) {
-                                                 w.teleport(clock, random);
-                                             }
-                                         }
+        for (auto& z : zombies()) {
+            if (objects_collide(b, z) && z.get_hp() > 0) {
+                z.damage(clock, b.get_damage());
+                return true;
+            }
+        }
+        for (auto& w : werewolves()) {
+            if (objects_collide(b, w) && w.get_hp() > 0) {
+                w.damage(clock, b.get_damage());
+                return true;
+            }
+            if (math::get_distance(b.get_position(), w.get_position()) < 50) {
+                w.teleport(clock, random);
+            }
+        }
 
-                                         return false;
-                                     });
-    bullets().erase(removeFrom, bullets().end());
+        return false;
+    });
+    bullets().erase(remove_from, bullets().end());
 
-    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this, &clock](Zombie& z) {
+    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [&, this](Zombie& z) {
         z.set_target(_player.get_position());
         z.handle_logic();
 
@@ -117,7 +114,7 @@ void StateMoon::handle_logic() {
         return z.is_dead();
     }), zombies().end());
 
-    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
+    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [&, this](Werewolf& w) {
         w.set_target(clock, _player.get_position());
         w.handle_logic(clock);
 
