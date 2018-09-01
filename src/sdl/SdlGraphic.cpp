@@ -4,15 +4,13 @@
 #include <SDL.h>
 
 SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
-    _window.reset(
-            SDL_CreateWindow(
-                    "TopDown - Reborn",
-                    SDL_WINDOWPOS_CENTERED,
-                    SDL_WINDOWPOS_CENTERED,
-                    screen_width, screen_height,
-                    SDL_WINDOW_SHOWN
-            )
-    );
+    _window.reset(SDL_CreateWindow(
+            "TopDown - Reborn",
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            screen_width, screen_height,
+            SDL_WINDOW_SHOWN
+    ));
     if (_window == nullptr) {
         throw SdlEngine::FailedSdlInitException{SDL_GetError()};
     }
