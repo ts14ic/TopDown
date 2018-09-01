@@ -3,8 +3,8 @@
 
 using std::vector;
 
-Werewolf::Werewolf(float x, float y)
-        : _position(x, y) {
+Werewolf::Werewolf(Point2<float> position)
+        : _position{position} {
     _current_hp = Werewolf::get_default_hp();
 }
 
@@ -110,8 +110,10 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
     if (_ai_state == DYING) return;
 
     if (_ai_state != TELEPORTING && _teleport_cooldown.ticks_passed_since_start(clock, 1000)) {
-        _position.x += random.get_int(-150, 150);
-        _position.y += random.get_int(-150, 150);
+        _position = make_point(
+                _position.x + random.get_int(-150, 150),
+                _position.y + random.get_int(-150, 150)
+        );
         _ai_state = TELEPORTING;
         _animation_frame = 0;
         _teleport_cooldown.restart(clock);

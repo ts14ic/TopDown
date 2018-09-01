@@ -15,7 +15,7 @@ class Player : public virtual GameObject,
 public:
     Player();
 
-    Player(int x, int y);
+    explicit Player(Point2<float> position);
 
     Point2<float> get_position() const override { return _position; }
 

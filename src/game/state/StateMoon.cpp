@@ -57,23 +57,22 @@ void StateMoon::restrict_pos(GameObject& o) {
 }
 
 void StateMoon::handle_logic() {
-    if (_enemy_spawn_cooldown.ticks_passed_since_start(_game.get_engine().get_clock(), 50) &&
+    Random& random = _game.get_engine().get_random();
+    const Clock& clock = _game.get_engine().get_clock();
+
+    if (_enemy_spawn_cooldown.ticks_passed_since_start(clock, 50) &&
         (zombies().size() + werewolves().size() < 7)) {
-        auto position = make_random_point();
-        int type = _game.get_engine().get_random().get_int(0, 1);
-        if (type == 0) {
-            zombies().emplace_back(position.x, position.y);
+        auto position = point_cast<float>(make_random_point());
+        if (random.get_int(0, 1) == 0) {
+            zombies().emplace_back(position);
         } else {
-            werewolves().emplace_back(position.x, position.y);
+            werewolves().emplace_back(position);
         }
 
-        _enemy_spawn_cooldown.restart(_game.get_engine().get_clock());
+        _enemy_spawn_cooldown.restart(clock);
     }
 
-    _player.handle_logic(_game.get_engine().get_random(), _game.get_engine(), _game.get_engine().get_audio());
-
-    const auto& clock = _game.get_engine().get_clock();
-    auto& random = _game.get_engine().get_random();
+    _player.handle_logic(random, _game.get_engine(), _game.get_engine().get_audio());
 
     int maxWidth = _level_width;
     int maxHeight = _level_height;
@@ -98,7 +97,8 @@ void StateMoon::handle_logic() {
                                                  w.damage(clock, b.get_damage());
                                                  return true;
                                              }
-                                             if (math::get_distance(b.get_position().x, b.get_position().y, w.get_position().x, w.get_position().y) < 50) {
+                                             if (math::get_distance(b.get_position().x, b.get_position().y,
+                                                                    w.get_position().x, w.get_position().y) < 50) {
                                                  w.teleport(clock, random);
                                              }
                                          }
@@ -183,16 +183,17 @@ void StateMoon::render_crosshair(float frames_count) {
     auto texture = graphic.get_texture(_player.reloading()
                                        ? "reload"
                                        : "crosshair");
-
-    int x = _mouse_pos.x - texture.get_width() / 2;
-    int y = _mouse_pos.y - texture.get_height() / 2;
+    auto render_point = make_point(
+            _mouse_pos.x - texture.get_width() / 2,
+            _mouse_pos.y - texture.get_height() / 2
+    );
 
     _crosshair_angle += 5.f * frames_count;
     if (_crosshair_angle > 360.f) {
         _crosshair_angle = 5.f;
     }
 
-    graphic.render_texture(texture.get_name(), make_point(x, y), _crosshair_angle);
+    graphic.render_texture(texture.get_name(), render_point, _crosshair_angle);
 }
 
 void StateMoon::parse_level_data() {

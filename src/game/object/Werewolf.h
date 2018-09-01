@@ -8,7 +8,7 @@
 
 class Werewolf : public Damageable {
 public:
-    Werewolf(float x, float y);
+    explicit Werewolf(Point2<float> position);
 
     Point2<float> get_position() const override { return _position; }
 

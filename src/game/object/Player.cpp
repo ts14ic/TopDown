@@ -4,10 +4,10 @@
 #include <cmath>
 
 Player::Player()
-        : Player{0, 0} {}
+        : Player{make_point<float>(0, 0)} {}
 
-Player::Player(int x, int y)
-        : _position(x, y) {
+Player::Player(Point2<float> position)
+        : _position{position} {
     _hp = Player::get_default_hp();
 }
 

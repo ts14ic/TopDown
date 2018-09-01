@@ -3,8 +3,8 @@
 
 using std::vector;
 
-Zombie::Zombie(int x, int y)
-        : _position(x, y) {
+Zombie::Zombie(Point2<float> position)
+        : _position{position} {
     _current_hp = Zombie::get_default_hp();
 }
 

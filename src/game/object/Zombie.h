@@ -8,7 +8,7 @@
 
 class Zombie : public Damageable {
 public:
-    Zombie(int x, int y);
+    explicit Zombie(Point2<float> position);
 
     // GameObject legacy
     Point2<float> get_position() const override { return _position; }
