@@ -5,31 +5,30 @@
 #include <memory>
 
 struct TextureDeleter {
-    void operator()(SDL_Texture* p);
+    void operator()(SDL_Texture* p) { SDL_DestroyTexture(p); }
 };
 
 using TextureHandle = std::unique_ptr<SDL_Texture, TextureDeleter>;
 
 class SdlTexture {
 public:
-    SdlTexture();
+    SdlTexture() = default;
 
-    SdlTexture(TextureHandle texture, int width, int height);
+    SdlTexture(TextureHandle texture, Size2<int> size) : _texture{std::move(texture)} {
+        _size = size;
+    }
 
     SdlTexture(const SdlTexture&) = delete;
 
-    SdlTexture(SdlTexture&&) noexcept;
+    SdlTexture(SdlTexture&&) noexcept = default;
 
-    bool is_loaded() const;
+    bool is_loaded() const { return _texture != nullptr; }
 
-    int get_width() const;
+    Size2<int> get_size() const { return _size; }
 
-    int get_height() const;
-
-    SDL_Texture* get_wrapped_texture() const;
+    SDL_Texture* get_wrapped_texture() const { return _texture.get(); }
 
 private:
     TextureHandle _texture;
-    int _width = 0;
-    int _height = 0;
+    Size2<int> _size;
 };

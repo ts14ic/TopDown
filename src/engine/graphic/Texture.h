@@ -1,21 +1,21 @@
 #pragma once
 
+#include "engine/geometry/Size2.h"
 #include <string>
 
 // TODO Add a fallback texture
 
 class Texture {
 public:
-    Texture(std::string name, int width, int height);
+    Texture(std::string name, Size2<int> size) : _name{std::move(name)} {
+        _size = size;
+    }
 
-    const std::string& get_name() const;
+    const std::string& get_name() const { return _name; }
 
-    int get_width() const;
-
-    int get_height() const;
+    Size2<int> get_size() const { return _size; }
 
 private:
     std::string _name;
-    int _width;
-    int _height;
+    Size2<int> _size;
 };

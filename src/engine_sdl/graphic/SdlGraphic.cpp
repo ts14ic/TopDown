@@ -59,7 +59,7 @@ void SdlGraphic::clear_screen() {
 
 void SdlGraphic::render(const SdlTexture& texture, Point2<int> position) {
     if (texture.is_loaded()) {
-        SDL_Rect destRect = {position.x, position.y, texture.get_width(), texture.get_height()};
+        SDL_Rect destRect = {position.x, position.y, texture.get_size().width, texture.get_size().height};
         SDL_RenderCopy(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                        &destRect);
     }
@@ -67,7 +67,7 @@ void SdlGraphic::render(const SdlTexture& texture, Point2<int> position) {
 
 void SdlGraphic::render(const SdlTexture& texture, Point2<int> position, float angle) {
     if (texture.is_loaded()) {
-        SDL_Rect destRect = {position.x, position.y, texture.get_width(), texture.get_height()};
+        SDL_Rect destRect = {position.x, position.y, texture.get_size().width, texture.get_size().height};
         SDL_RenderCopyEx(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);
@@ -122,14 +122,14 @@ SdlTexture SdlGraphic::load_texture(const char* path) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 
-    SdlTexture tex{std::move(texture_handle), surface_handle->w, surface_handle->h};
+    SdlTexture tex{std::move(texture_handle), make_size(surface_handle->w, surface_handle->h)};
     SDL_Log("SdlTexture loaded: %s.\n", path);
     return tex;
 }
 
 Texture SdlGraphic::get_texture(const std::string& name) {
     SdlTexture& sdl_texture = _name_to_texture[name];
-    return Texture{name, sdl_texture.get_width(), sdl_texture.get_height()};
+    return Texture{name, sdl_texture.get_size()};
 }
 
 void SdlGraphic::load_texture(const std::string& name, const char* path) {

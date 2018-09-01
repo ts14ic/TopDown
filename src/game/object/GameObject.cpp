@@ -15,8 +15,8 @@ void GameObject::default_render(Graphic& graphic, float frames_count) {
     auto texture = graphic.get_texture(get_tex_name());
 
     auto point = make_point(
-            get_position().x - texture.get_width() / 2.f,
-            get_position().y - texture.get_height() / 2.f
+            get_position().x - texture.get_size().width / 2.f,
+            get_position().y - texture.get_size().height / 2.f
     );
     point.x += get_current_x_speed() * frames_count;
     point.y += get_current_y_speed() * frames_count;
