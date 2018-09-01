@@ -6,6 +6,7 @@
 #include "engine/Engine.h"
 #include "engine/graphic/Graphic.h"
 #include "engine/geometry/Point2.h"
+#include "engine/geometry/Speed2.h"
 
 class GameObject {
 public:
@@ -37,15 +38,13 @@ public:
 
     virtual void set_max_movement_speed(float speed) = 0;
 
-    virtual float get_current_x_speed() const = 0;
+    virtual Speed2<float> get_current_speed() const = 0;
 
-    virtual void set_current_x_speed(float x_speed) = 0;
+    virtual void set_current_speed(Speed2<float> current_speed) = 0;
 
-    virtual float get_current_y_speed() const = 0;
-
-    virtual void set_current_y_speed(float y_speed) = 0;
-
-    virtual void set_current_speed(float x_speed, float y_speed) = 0;
+    void set_current_speed(float x, float y) {
+        set_current_speed(make_speed(x, y));
+    }
 
     virtual Circle get_circle() const = 0;
 

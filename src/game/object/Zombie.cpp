@@ -66,7 +66,7 @@ void Zombie::set_target(Point2<float> position) {
 
 void Zombie::handle_logic() {
     if (_ai_state == DYING) {
-        set_current_speed(0, 0);
+        set_current_speed(0.f, 0.f);
         return;
     }
 
@@ -74,10 +74,10 @@ void Zombie::handle_logic() {
         // TODO extract speed setting
         auto movementAngle = get_angle();
 
-        float x_speed = math::cartesian_cos(movementAngle) * get_max_movement_speed();
-        float y_speed = math::cartesian_sin(movementAngle) * get_max_movement_speed();
-
-        set_current_speed(x_speed, y_speed);
+        set_current_speed(
+                math::cartesian_cos(movementAngle) * get_max_movement_speed(),
+                math::cartesian_sin(movementAngle) * get_max_movement_speed()
+        );
         default_move();
     } else {
         set_current_speed(0.f, 0.f);
@@ -110,27 +110,6 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 
 bool Zombie::is_dead() const {
     return _ai_state == DYING && _animation_frame == 7;
-}
-
-float Zombie::get_current_x_speed() const {
-    return _current_x_speed;
-}
-
-float Zombie::get_current_y_speed() const {
-    return _current_y_speed;
-}
-
-void Zombie::set_current_x_speed(float x_speed) {
-    _current_x_speed = x_speed;
-}
-
-void Zombie::set_current_y_speed(float y_speed) {
-    _current_y_speed = y_speed;
-}
-
-void Zombie::set_current_speed(float x_speed, float y_speed) {
-    set_current_x_speed(x_speed);
-    set_current_y_speed(y_speed);
 }
 
 vector<Zombie>& zombies() {

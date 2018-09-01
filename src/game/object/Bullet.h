@@ -23,15 +23,11 @@ public:
 
     void set_max_movement_speed(float s) override;
 
-    float get_current_x_speed() const override;
+    Speed2<float> get_current_speed() const override { return _current_speed; }
 
-    void set_current_x_speed(float x_speed) override;
+    using GameObject::set_current_speed;
 
-    float get_current_y_speed() const override;
-
-    void set_current_y_speed(float y_speed) override;
-
-    void set_current_speed(float x_speed, float y_speed) override;
+    void set_current_speed(Speed2<float> current_speed) override { _current_speed = current_speed; }
 
     Circle get_circle() const override;
 
@@ -46,10 +42,9 @@ public:
 private:
     int _damage;
     Point2<float> _position;
+    Speed2<float> _current_speed;
     float _angle;
     float _max_speed;
-    float _current_x_speed;
-    float _current_y_speed;
 };
 
 std::vector<Bullet>& bullets();

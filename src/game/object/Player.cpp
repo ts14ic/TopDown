@@ -197,12 +197,12 @@ void Player::update_speeds() {
     if (direction_x != 0 || direction_y != 0) {
         auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));
 
-        float x_speed = math::radian_cos(movement_angle) * get_max_movement_speed();
-        float y_speed = math::radian_sin(movement_angle) * get_max_movement_speed();
-
-        set_current_speed(x_speed, y_speed);
+        set_current_speed(
+                math::radian_cos(movement_angle) * get_max_movement_speed(),
+                math::radian_sin(movement_angle) * get_max_movement_speed()
+        );
     } else {
-        set_current_speed(0, 0);
+        set_current_speed(0.f, 0.f);
     }
 }
 
@@ -236,25 +236,4 @@ void Player::select_weapon(unsigned index) {
 
 void Player::addWeapon(Weapon weapon) {
     _weapons.emplace_back(weapon);
-}
-
-float Player::get_current_x_speed() const {
-    return _current_x_speed;
-}
-
-float Player::get_current_y_speed() const {
-    return _current_y_speed;
-}
-
-void Player::set_current_x_speed(float x_speed) {
-    _current_x_speed = x_speed;
-}
-
-void Player::set_current_y_speed(float y_speed) {
-    _current_y_speed = y_speed;
-}
-
-void Player::set_current_speed(float x_speed, float y_speed) {
-    set_current_x_speed(x_speed);
-    set_current_y_speed(y_speed);
 }

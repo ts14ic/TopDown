@@ -6,8 +6,8 @@ bool objects_collide(GameObject& a, GameObject& b) {
 
 void GameObject::default_move() {
     set_position(
-            get_position().x + get_current_x_speed(),
-            get_position().y + get_current_y_speed()
+            get_position().x + get_current_speed().x,
+            get_position().y + get_current_speed().y
     );
 }
 
@@ -18,8 +18,8 @@ void GameObject::default_render(Graphic& graphic, float frames_count) {
             get_position().x - texture.get_size().get_width() / 2.f,
             get_position().y - texture.get_size().get_height() / 2.f
     );
-    point.x += get_current_x_speed() * frames_count;
-    point.y += get_current_y_speed() * frames_count;
+    point.x += get_current_speed().x * frames_count;
+    point.y += get_current_speed().y * frames_count;
 
     graphic.render_texture(
             texture.get_name(),

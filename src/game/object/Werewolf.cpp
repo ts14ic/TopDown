@@ -82,7 +82,7 @@ void Werewolf::set_target(const Clock& clock, Point2<float> position) {
 
 void Werewolf::handle_logic(const Clock& clock) {
     if (_ai_state == DYING) {
-        set_current_speed(0, 0);
+        set_current_speed(0.f, 0.f);
         return;
     }
 
@@ -90,10 +90,10 @@ void Werewolf::handle_logic(const Clock& clock) {
         // TODO extract speed setting
         auto movement_angle = get_angle();
 
-        float x_speed = math::cartesian_cos(movement_angle) * get_max_movement_speed();
-        float y_speed = math::cartesian_sin(movement_angle) * get_max_movement_speed();
-
-        set_current_speed(x_speed, y_speed);
+        set_current_speed(
+                math::cartesian_cos(movement_angle) * get_max_movement_speed(),
+                math::cartesian_sin(movement_angle) * get_max_movement_speed()
+        );
         default_move();
     } else {
         set_current_speed(0.f, 0.f);
@@ -172,27 +172,6 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
 
 bool Werewolf::is_dead() const {
     return _ai_state == DYING && _animation_frame == 2;
-}
-
-float Werewolf::get_current_x_speed() const {
-    return _current_x_speed;
-}
-
-float Werewolf::get_current_y_speed() const {
-    return _current_y_speed;
-}
-
-void Werewolf::set_current_x_speed(float x_speed) {
-    _current_x_speed = x_speed;
-}
-
-void Werewolf::set_current_y_speed(float y_speed) {
-    _current_y_speed = y_speed;
-}
-
-void Werewolf::set_current_speed(float x_speed, float y_speed) {
-    set_current_x_speed(x_speed);
-    set_current_y_speed(y_speed);
 }
 
 vector<Werewolf>& werewolves() {
