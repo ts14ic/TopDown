@@ -28,8 +28,6 @@ public:
 
     const Clock& get_clock() override;
 
-    void load_texture(const std::string& name, const char* path) override;
-
     Sound& get_sound(const std::string& name) override;
 
     void load_sound(const std::string& name, const char* path) override;

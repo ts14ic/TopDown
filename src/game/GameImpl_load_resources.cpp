@@ -9,7 +9,7 @@ void GameImpl::load_resources() {
     using json::get_value;
     auto texturesMap = get_value<rapidjson::Value::ConstObject>(doc, "/textures");
     for (const auto& entry : texturesMap) {
-        _engine->load_texture(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
+        _engine->get_graphic().load_texture(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
     }
 
     auto soundsMap = get_value<rapidjson::Value::ConstObject>(doc, "/sounds");

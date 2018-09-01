@@ -11,7 +11,7 @@ StateMoon::StateMoon(Game& game)
           _level_width(game.get_engine().get_graphic().get_screen_width()),
           _level_height(game.get_engine().get_graphic().get_screen_height()),
           _enemy_spawn_cooldown{} {
-    game.get_engine().load_texture(_background_tex, "assets/gfx/test_bg.png");
+    _game.get_engine().get_graphic().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
     zombies().clear();
     werewolves().clear();

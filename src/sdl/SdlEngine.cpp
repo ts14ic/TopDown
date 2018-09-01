@@ -30,10 +30,6 @@ Sound& SdlEngine::get_sound(const std::string& name) {
     return _name_to_sound[name];
 }
 
-void SdlEngine::load_texture(const std::string& name, const char* path) {
-    _graphic.load_texture(name, path);
-}
-
 void SdlEngine::load_sound(const std::string& name, const char* path) {
     _name_to_sound.insert(std::make_pair(name, load_sound(path)));
 }

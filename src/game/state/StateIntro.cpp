@@ -3,7 +3,7 @@
 StateIntro::StateIntro(Game& game)
         : _game{game},
           _background_tex_id{"intro_background"} {
-    game.get_engine().load_texture(_background_tex_id, "assets/gfx/intro_bg.png");
+    _game.get_engine().get_graphic().load_texture(_background_tex_id, "assets/gfx/intro_bg.png");
 }
 
 void StateIntro::handle_window_event(const WindowEvent &event) {
