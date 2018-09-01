@@ -14,15 +14,16 @@ void GameObject::default_move() {
 void GameObject::default_render(Graphic& graphic, float frames_count) {
     auto texture = graphic.get_texture(get_tex_name());
 
-    auto x = get_position().x - texture.get_width() / 2;
-    auto predicted_dx = get_current_x_speed() * frames_count;
-
-    auto y = get_position().y - texture.get_height() / 2;
-    auto predicted_dy = get_current_y_speed() * frames_count;
+    auto point = make_point(
+            get_position().x - texture.get_width() / 2.f,
+            get_position().y - texture.get_height() / 2.f
+    );
+    point.x += get_current_x_speed() * frames_count;
+    point.y += get_current_y_speed() * frames_count;
 
     graphic.render_texture(
             texture.get_name(),
-            make_point(static_cast<int>(x + predicted_dx), static_cast<int>(y + predicted_dy)),
+            point_cast<int>(point),
             get_angle()
     );
 }

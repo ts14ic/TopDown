@@ -22,3 +22,8 @@ template <typename CoordT>
 Point2<CoordT> make_point(CoordT x, CoordT y) {
     return Point2<CoordT>{x, y};
 }
+
+template <typename ToType, typename FromType>
+Point2<ToType> point_cast(Point2<FromType> from) {
+    return make_point(static_cast<ToType>(from.x), static_cast<ToType>(from.y));
+}
