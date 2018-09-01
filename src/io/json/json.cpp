@@ -39,6 +39,18 @@ rapidjson::Value::ConstObject json::get_object(const rapidjson::Value& root, con
     return get_value<rapidjson::Value::ConstObject>(root, path);
 }
 
+rapidjson::Value::ConstArray json::get_array(const rapidjson::Value& root, const char* path) {
+    return get_value<rapidjson::Value::ConstArray>(root, path);
+}
+
 const char* json::get_czstring(const rapidjson::Value& root, const char* source) {
     return get_value<const char*>(root, source);
+}
+
+int json::get_int(const rapidjson::Value& root, const char* source) {
+    return get_value<int>(root, source);
+}
+
+unsigned json::get_uint(const rapidjson::Value& root, const char* source) {
+    return get_value<unsigned>(root, source);
 }

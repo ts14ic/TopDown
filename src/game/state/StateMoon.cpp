@@ -190,23 +190,23 @@ void StateMoon::render_crosshair(float prediction_ratio) const {
 }
 
 void StateMoon::parse_level_data() {
-    auto doc = json::parse_json(files::read_file_to_string("data/levels/moon.json"));
+    using namespace json;
 
-    using json::get_value;
-    auto weapons_array = get_value<rapidjson::Value::ConstArray>(doc, "/player/weapons");
+    auto document = parse_json(files::read_file_to_string("data/levels/moon.json"));
 
-    using json::get_values;
-    for (const auto& weapon : weapons_array) {
-        auto builder = WeaponBuilder{get_value<const char*>(weapon, "/name")}
+    for (const auto& weapon : get_array(document, "/player/weapons")) {
+
+        auto builder = WeaponBuilder{get_czstring(weapon, "/name")}
                 .fire_sounds(get_values<std::string>(weapon, "/fire_sounds"))
-                .max_ammo(get_value<int>(weapon, "/max_ammo"))
-                .projectiles_per_shot(get_value<int>(weapon, "/projectiles_per_shot"))
-                .length(get_value<int>(weapon, "/length"))
-                .projectile_speed(get_value<int>(weapon, "/projectile_speed"))
-                .projectile_damage(get_value<int>(weapon, "/projectile_damage"))
-                .projectile_spread(get_value<int>(weapon, "/projectile_spread"))
-                .fire_cooldown(get_value<unsigned>(weapon, "/fire_cooldown"))
-                .reload_cooldown(get_value<unsigned>(weapon, "/reload_cooldown"));
+                .max_ammo(get_int(weapon, "/max_ammo"))
+                .projectiles_per_shot(get_int(weapon, "/projectiles_per_shot"))
+                .length(get_int(weapon, "/length"))
+                .projectile_speed(get_int(weapon, "/projectile_speed"))
+                .projectile_damage(get_int(weapon, "/projectile_damage"))
+                .projectile_spread(get_int(weapon, "/projectile_spread"))
+                .fire_cooldown(get_uint(weapon, "/fire_cooldown"))
+                .reload_cooldown(get_uint(weapon, "/reload_cooldown"));
+
         _player.addWeapon(builder.build());
     }
 }
