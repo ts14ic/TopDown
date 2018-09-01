@@ -37,20 +37,13 @@ public:
     void load_music(const std::string& name, const char* path) override;
 
 private:
-    SdlSound load_sound(const char* path);
-
     SdlMusic load_music(const char* path);
-
-    struct FailedToLoadSoundException : public std::runtime_error {
-        explicit FailedToLoadSoundException(const char* message);
-    };
 
     struct FailedToLoadMusicException : public std::runtime_error {
         explicit FailedToLoadMusicException(const char* message);
     };
 
 private:
-    std::unordered_map<std::string, SdlSound> _name_to_sound;
     std::unordered_map<std::string, SdlMusic> _name_to_music;
 
     Mt19937Random _random;
