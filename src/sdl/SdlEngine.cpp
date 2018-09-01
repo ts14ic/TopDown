@@ -22,10 +22,6 @@ SdlEngine::~SdlEngine() {
     SDL_Quit();
 }
 
-Texture& SdlEngine::get_texture(const std::string& name) {
-    return _graphic.get_texture(name);
-}
-
 Music& SdlEngine::get_music(const std::string& name) {
     return _name_to_music[name];
 }

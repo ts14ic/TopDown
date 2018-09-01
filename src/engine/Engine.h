@@ -21,8 +21,6 @@ public:
 
     virtual const Clock& get_clock() = 0;
 
-    virtual Texture& get_texture(const std::string& name) = 0;
-
     virtual void load_texture(const std::string& name, const char* path) = 0;
 
     virtual Sound& get_sound(const std::string& name) = 0;

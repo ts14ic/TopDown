@@ -30,8 +30,6 @@ public:
 
     void load_texture(const std::string& name, const char* path) override;
 
-    Texture& get_texture(const std::string& name) override;
-
     Sound& get_sound(const std::string& name) override;
 
     void load_sound(const std::string& name, const char* path) override;
