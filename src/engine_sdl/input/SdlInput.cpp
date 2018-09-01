@@ -1,26 +1,34 @@
 #include "SdlInput.h"
 
-void SdlInput::poll_events(EventHandler& eventHandler) {
+void SdlInput::set_event_handler(EventHandler& eventHandler) {
+    _event_handler = &eventHandler;
+}
+
+void SdlInput::remove_event_handler() {
+    _event_handler = nullptr;
+}
+
+void SdlInput::poll_events() {
     SDL_Event event{};
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT: {
                 _window_event.set_type(WindowEvent::Type::Close);
-                forward_window_event(eventHandler);
+                forward_window_event();
                 break;
             }
 
             case SDL_KEYDOWN: {
                 _key_event.set_type(KeyboardEvent::Type::KeyDown);
                 _key_event.set_key(transform_sdl_key_code(event.key.keysym.sym));
-                forward_keyboard_event(eventHandler);
+                forward_keyboard_event();
                 break;
             }
 
             case SDL_KEYUP: {
                 _key_event.set_type(KeyboardEvent::Type::KeyUp);
                 _key_event.set_key(transform_sdl_key_code(event.key.keysym.sym));
-                forward_keyboard_event(eventHandler);
+                forward_keyboard_event();
                 break;
             }
 
@@ -28,7 +36,7 @@ void SdlInput::poll_events(EventHandler& eventHandler) {
                 _mouse_event.set_type(MouseEvent::Type::Motion);
                 _mouse_event.set_x(event.motion.x);
                 _mouse_event.set_y(event.motion.y);
-                forward_mouse_event(eventHandler);
+                forward_mouse_event();
                 break;
             }
 
@@ -36,7 +44,7 @@ void SdlInput::poll_events(EventHandler& eventHandler) {
                 _mouse_event.set_type(MouseEvent::Type::ButtonUp);
                 _mouse_event.set_x(event.button.x);
                 _mouse_event.set_y(event.button.y);
-                forward_mouse_event(eventHandler);
+                forward_mouse_event();
                 break;
             }
 
@@ -44,7 +52,7 @@ void SdlInput::poll_events(EventHandler& eventHandler) {
                 _mouse_event.set_type(MouseEvent::Type::ButtonDown);
                 _mouse_event.set_x(event.button.x);
                 _mouse_event.set_y(event.button.y);
-                forward_mouse_event(eventHandler);
+                forward_mouse_event();
                 break;
             }
 
@@ -56,7 +64,7 @@ void SdlInput::poll_events(EventHandler& eventHandler) {
                     _mouse_event.set_type(MouseEvent::Type::ScrollDown);
                     _mouse_event.set_scroll_amount(-event.wheel.y);
                 }
-                forward_mouse_event(eventHandler);
+                forward_mouse_event();
                 break;
             }
 
@@ -67,16 +75,22 @@ void SdlInput::poll_events(EventHandler& eventHandler) {
     }
 }
 
-void SdlInput::forward_window_event(WindowEventHandler& eventHandler) {
-    eventHandler.handle_window_event(_window_event);
+void SdlInput::forward_window_event() {
+    if (_event_handler != nullptr) {
+        _event_handler->handle_window_event(_window_event);
+    }
 }
 
-void SdlInput::forward_mouse_event(MouseEventHandler& eventHandler) {
-    eventHandler.handle_mouse_event(_mouse_event);
+void SdlInput::forward_mouse_event() {
+    if (_event_handler != nullptr) {
+        _event_handler->handle_mouse_event(_mouse_event);
+    }
 }
 
-void SdlInput::forward_keyboard_event(KeyboardEventHandler& eventHandler) {
-    eventHandler.handle_key_event(_key_event);
+void SdlInput::forward_keyboard_event() {
+    if (_event_handler != nullptr) {
+        _event_handler->handle_key_event(_key_event);
+    }
 }
 
 KeyboardKey_t transform_sdl_key_code(SDL_Keycode keyCode) {
