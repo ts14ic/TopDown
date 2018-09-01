@@ -5,11 +5,9 @@
 
 class SdlSound {
 public:
-    struct MixDeleter {
-        void operator()(Mix_Chunk* p);
-    };
-
     SdlSound();
+
+    struct MixDeleter;
 
     explicit SdlSound(std::unique_ptr<Mix_Chunk, MixDeleter> chunk);
 
@@ -20,6 +18,10 @@ public:
     bool is_loaded() const;
 
     Mix_Chunk* get_wrapped_chunk() const;
+
+    struct MixDeleter {
+        void operator()(Mix_Chunk* p);
+    };
 
 private:
     std::unique_ptr<Mix_Chunk, MixDeleter> _chunk;

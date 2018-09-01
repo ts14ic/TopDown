@@ -7,9 +7,7 @@ class SdlMusic {
 public:
     SdlMusic();
 
-    struct MixDeleter {
-        void operator()(Mix_Music* p);
-    };
+    struct MixDeleter;
 
     explicit SdlMusic(std::unique_ptr<Mix_Music, MixDeleter> music);
 
@@ -20,6 +18,10 @@ public:
     bool is_loaded() const;
 
     Mix_Music* get_wrapped_music() const;
+
+    struct MixDeleter {
+        void operator()(Mix_Music* p);
+    };
 
 private:
     std::unique_ptr<Mix_Music, MixDeleter> _music;

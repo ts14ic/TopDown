@@ -6,11 +6,9 @@
 
 class SdlTexture {
 public:
-    struct TextureDeleter {
-        void operator()(SDL_Texture* p);
-    };
-
     SdlTexture();
+
+    struct TextureDeleter;
 
     SdlTexture(std::unique_ptr<SDL_Texture, TextureDeleter> texture, int width, int height);
 
@@ -25,6 +23,10 @@ public:
     int get_height() const;
 
     SDL_Texture* get_wrapped_texture() const;
+
+    struct TextureDeleter {
+        void operator()(SDL_Texture* p);
+    };
 
 private:
     std::unique_ptr<SDL_Texture, TextureDeleter> _texture;
