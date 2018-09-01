@@ -1,5 +1,5 @@
 #include "Circle.h"
-#include "math/maths.h"
+#include "maths.h"
 
 bool circles_collide(const Circle& lhs, const Circle& rhs) {
     float distance_between_circles = math::get_distance(

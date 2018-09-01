@@ -20,7 +20,6 @@ include_directories(
 
 set(SOURCE_FILES
         src/main.cpp
-        src/math/maths.cpp src/math/maths.h
         src/io/json/json.h src/io/json/json.cpp src/io/json/json.tcc
         src/io/files/files.cpp src/io/files/files.h
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
@@ -30,6 +29,7 @@ set(SOURCE_FILES
         src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
         src/engine/Engine.cpp src/engine/Engine.h
         src/engine/random/Random.cpp src/engine/random/Random.h
+        src/engine/geometry/maths.cpp src/engine/geometry/maths.h
         src/engine/geometry/Circle.cpp src/engine/geometry/Circle.h
         src/engine/geometry/Box.cpp src/engine/geometry/Box.h
         src/engine/geometry/Color.cpp src/engine/geometry/Color.h
