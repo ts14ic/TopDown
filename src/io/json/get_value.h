@@ -17,11 +17,8 @@ namespace json {
     };
 
     namespace detail {
-        rapidjson::Pointer get_pointer(const char* source);
-
         const rapidjson::Value* get_value(
                 const rapidjson::Value& root,
-                const rapidjson::Pointer& pointer,
                 const char* source
         );
 
@@ -41,8 +38,7 @@ namespace json {
 
     template <typename T>
     T get_value(const rapidjson::Value& root, const char* source) {
-        auto pointer = detail::get_pointer(source);
-        auto value = detail::get_value(root, pointer, source);
+        auto value = detail::get_value(root, source);
         return detail::value_cast<T>(value, source);
     }
 
@@ -52,8 +48,7 @@ namespace json {
 
     template <typename T>
     std::vector<T> get_values(const rapidjson::Value& root, const char* source) {
-        auto pointer = detail::get_pointer(source);
-        auto array_value = detail::get_value(root, pointer, source);
+        auto array_value = detail::get_value(root, source);
         auto array = detail::value_cast<rapidjson::Value::ConstArray>(array_value, source);
 
         std::vector<T> vector;
