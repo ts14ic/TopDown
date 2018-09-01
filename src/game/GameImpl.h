@@ -1,15 +1,10 @@
 #pragma once
 
 #include "Game.h"
-#include "game/state/GameState.h"
-#include "game/timer/Timer.h"
+#include "state/GameState.h"
+#include "timer/Timer.h"
 #include "engine/Engine.h"
-#include "engine/clock/Clock.h"
-#include "engine/graphic/Graphic.h"
-#include "engine/audio/Audio.h"
-#include "engine/random/Random.h"
 #include <memory>
-#include <engine/Engine.h>
 
 class GameImpl : public Game, public EventHandler {
 public:
