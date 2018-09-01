@@ -66,7 +66,7 @@ public:
 
     void handle_logic(Random& random, Engine& engine, Audio& audio);
 
-    void handle_render(Engine &engine, Graphic &graphic, float prediction_ratio);
+    void handle_render(Engine &engine, Graphic &graphic, float frames_count);
 
     void addWeapon(Weapon weapon);
 

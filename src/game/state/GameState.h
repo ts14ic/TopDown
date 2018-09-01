@@ -8,5 +8,5 @@ public:
 
     virtual void handle_logic()  = 0;
 
-    virtual void handle_render(float prediction_ratio) = 0;
+    virtual void handle_render(float frames_count) = 0;
 };

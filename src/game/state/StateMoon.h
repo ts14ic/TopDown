@@ -20,14 +20,14 @@ public:
 
     void handle_logic() override;
 
-    void handle_render(float prediction_ratio) override;
+    void handle_render(float frames_count) override;
 
     void restrict_pos(GameObject&);
 
 private:
     void parse_level_data();
 
-    void render_crosshair(float prediction_ratio) const;
+    void render_crosshair(float frames_count) const;
 
 private:
     Game& _game;

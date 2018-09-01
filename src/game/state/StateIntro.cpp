@@ -35,7 +35,7 @@ void StateIntro::handle_key_event(const KeyboardEvent &event) {
 
 void StateIntro::handle_logic() {}
 
-void StateIntro::handle_render(float prediction_ratio) {
+void StateIntro::handle_render(float frames_count) {
     auto& graphic = _game.get_engine().get_graphic();
 
     graphic.render_texture(_background_tex_id, 0, 0);

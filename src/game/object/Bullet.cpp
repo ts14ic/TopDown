@@ -55,8 +55,8 @@ void Bullet::handle_logic() {
     default_move();
 }
 
-void Bullet::handle_render(Engine& engine, Graphic& graphic, float prediction_ratio) {
-    default_render(graphic, prediction_ratio);
+void Bullet::handle_render(Engine& engine, Graphic& graphic, float frames_count) {
+    default_render(graphic, frames_count);
 }
 
 void Bullet::set_position(float x, float y) {

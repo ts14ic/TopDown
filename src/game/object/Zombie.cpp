@@ -93,8 +93,8 @@ void Zombie::handle_logic() {
 }
 
 void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
-                           float prediction_ratio) {
-    default_render(graphic, prediction_ratio);
+                           float frames_count) {
+    default_render(graphic, frames_count);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 
     const auto& clock = engine.get_clock();

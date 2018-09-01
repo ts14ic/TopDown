@@ -143,7 +143,7 @@ void StateMoon::handle_logic() {
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
-void StateMoon::handle_render(float prediction_ratio) {
+void StateMoon::handle_render(float frames_count) {
     auto& engine = _game.get_engine();
     auto& graphic = engine.get_graphic();
     graphic.clear_screen();
@@ -153,26 +153,26 @@ void StateMoon::handle_render(float prediction_ratio) {
 
     graphic.render_texture(_background_tex, 0, 0);
 
-    _player.handle_render(engine, graphic, prediction_ratio);
+    _player.handle_render(engine, graphic, frames_count);
 
     for (auto& z : zombies()) {
-        z.handle_render(engine, graphic, audio, prediction_ratio);
+        z.handle_render(engine, graphic, audio, frames_count);
     }
 
     for (auto& w : werewolves()) {
-        w.handle_render(engine, graphic, audio, prediction_ratio);
+        w.handle_render(engine, graphic, audio, frames_count);
     }
 
     for (auto& b : bullets()) {
-        b.handle_render(engine, graphic, prediction_ratio);
+        b.handle_render(engine, graphic, frames_count);
     }
 
-    render_crosshair(prediction_ratio);
+    render_crosshair(frames_count);
 
     graphic.refresh_screen();
 }
 
-void StateMoon::render_crosshair(float prediction_ratio) const {
+void StateMoon::render_crosshair(float frames_count) const {
     Graphic& graphic = _game.get_engine().get_graphic();
 
     auto texture = graphic.get_texture(_player.reloading()
@@ -183,7 +183,7 @@ void StateMoon::render_crosshair(float prediction_ratio) const {
     int y = _mouse_y - texture.get_height() / 2;
 
     static float angle = 0.f;
-    angle += 5.f * prediction_ratio;
+    angle += 5.f * frames_count;
     if (angle > 360.f) angle = 5.f;
 
     graphic.render_texture(texture.get_name(), x, y, angle);
