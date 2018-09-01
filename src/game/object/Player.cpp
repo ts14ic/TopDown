@@ -151,30 +151,34 @@ void Player::handle_key_event(const KeyboardEvent& event) {
 }
 
 
-void Player::handle_mouse_event(const MouseEvent& event) {
+void Player::handle_mouse_event(const MouseScrollEvent& event) {
     switch (event.get_type()) {
-        case MouseEvent::Type::ScrollUp: {
+        case MouseScrollEvent::Type::ScrollUp: {
             select_previous_weapon();
             break;
         }
 
-        case MouseEvent::Type::ScrollDown: {
+        case MouseScrollEvent::Type::ScrollDown: {
             select_next_weapon();
             break;
         }
+    }
+}
 
-        case MouseEvent::Type::ButtonDown: {
-            _input_state.set(TRIGGER_PRESSED);
+void Player::handle_mouse_event(const MousePointEvent& event) {
+    switch (event.get_type()) {
+        case MousePointEvent::Type::Motion: {
+            _angle = math::get_cartesian_angle(get_x(), get_y(), event.get_x(), event.get_y());
             break;
         }
 
-        case MouseEvent::Type::ButtonUp: {
+        case MousePointEvent::Type::ButtonUp: {
             _input_state.reset(TRIGGER_PRESSED);
             break;
         }
 
-        case MouseEvent::Type::Motion: {
-            _angle = math::get_cartesian_angle(get_x(), get_y(), event.get_x(), event.get_y());
+        case MousePointEvent::Type::ButtonDown: {
+            _input_state.set(TRIGGER_PRESSED);
             break;
         }
     }

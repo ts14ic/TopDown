@@ -56,17 +56,19 @@ public:
 
     bool is_dead() const override;
 
-    void damage(const Clock &clock, int damageAmount) override;
+    void damage(const Clock& clock, int damageAmount) override;
 
     bool reloading() const;
 
-    void handle_key_event(const KeyboardEvent &event) override;
+    void handle_key_event(const KeyboardEvent& event) override;
 
-    void handle_mouse_event(const MouseEvent &event) override;
+    void handle_mouse_event(const MouseScrollEvent& event) override;
+
+    void handle_mouse_event(const MousePointEvent& event) override;
 
     void handle_logic(Random& random, Engine& engine, Audio& audio);
 
-    void handle_render(Engine &engine, Graphic &graphic, float frames_count);
+    void handle_render(Engine& engine, Graphic& graphic, float frames_count);
 
     void addWeapon(Weapon weapon);
 

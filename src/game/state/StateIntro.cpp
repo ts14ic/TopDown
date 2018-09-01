@@ -9,7 +9,10 @@ StateIntro::StateIntro(Game& game)
 void StateIntro::handle_window_event(const WindowEvent &event) {
 }
 
-void StateIntro::handle_mouse_event(const MouseEvent &event) {
+void StateIntro::handle_mouse_event(const MouseScrollEvent &event) {
+}
+
+void StateIntro::handle_mouse_event(const MousePointEvent& event) {
 }
 
 void StateIntro::handle_key_event(const KeyboardEvent &event) {

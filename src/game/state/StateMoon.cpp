@@ -31,10 +31,14 @@ StateMoon::StateMoon(const StateMoon& other)
 void StateMoon::handle_window_event(const WindowEvent& event) {
 }
 
-void StateMoon::handle_mouse_event(const MouseEvent& event) {
-    if (event.get_type() == MouseEvent::Type::Motion) {
-        _mouse_x = static_cast<int>(event.get_x());
-        _mouse_y = static_cast<int>(event.get_y());
+void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
+    _player.handle_mouse_event(event);
+}
+
+void StateMoon::handle_mouse_event(const MousePointEvent& event) {
+    if (event.get_type() == MousePointEvent::Type::Motion) {
+        _mouse_x = event.get_x();
+        _mouse_y = event.get_y();
     }
 
     _player.handle_mouse_event(event);

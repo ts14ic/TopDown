@@ -14,7 +14,9 @@ public:
 private:
     void forward_window_event(WindowEvent::Type type);
 
-    void forward_mouse_event(MouseEvent mouse_event);
+    void forward_mouse_event(MouseScrollEvent mouse_scroll_event);
+
+    void forward_mouse_event(MousePointEvent mouse_point_event);
 
     void forward_keyboard_event(KeyboardEvent::Type type, KeyboardKey_t key);
 

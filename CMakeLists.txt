@@ -65,10 +65,10 @@ set(SOURCE_FILES
         src/engine/input/EventHandler.h
         src/engine/input/WindowEvent.h src/engine/input/WindowEvent.cpp
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
-        src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
-        src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
+        src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
+        src/engine/input/MouseScrollEvent.h src/engine/input/KeyboardKey.h
         src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
-        )
+        src/engine/input/MousePointEvent.cpp src/engine/input/MousePointEvent.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

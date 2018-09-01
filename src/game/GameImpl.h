@@ -16,11 +16,13 @@ public:
 
     void request_state_change(StateId stateId) override;
 
-    void handle_window_event(const WindowEvent &event) override;
+    void handle_window_event(const WindowEvent& event) override;
 
-    void handle_key_event(const KeyboardEvent &event) override;
+    void handle_key_event(const KeyboardEvent& event) override;
 
-    void handle_mouse_event(const MouseEvent &event) override;
+    void handle_mouse_event(const MouseScrollEvent& event) override;
+
+    void handle_mouse_event(const MousePointEvent& event) override;
 
 private:
     void change_state();

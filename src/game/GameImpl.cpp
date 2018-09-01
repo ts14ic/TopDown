@@ -93,7 +93,11 @@ void GameImpl::handle_key_event(const KeyboardEvent &event) {
     _current_state->handle_key_event(event);
 }
 
-void GameImpl::handle_mouse_event(const MouseEvent &event) {
+void GameImpl::handle_mouse_event(const MouseScrollEvent &event) {
+    _current_state->handle_mouse_event(event);
+}
+
+void GameImpl::handle_mouse_event(const MousePointEvent& event) {
     _current_state->handle_mouse_event(event);
 }
 

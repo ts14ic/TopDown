@@ -28,42 +28,42 @@ void SdlInput::poll_events() {
             }
 
             case SDL_MOUSEMOTION: {
-                forward_mouse_event(MouseEvent{
-                        MouseEvent::Type::Motion,
-                        static_cast<float>(event.motion.x),
-                        static_cast<float>(event.motion.y)
+                forward_mouse_event(MousePointEvent{
+                        MousePointEvent::Type::Motion,
+                        event.motion.x,
+                        event.motion.y
                 });
                 break;
             }
 
             case SDL_MOUSEBUTTONUP: {
-                forward_mouse_event(MouseEvent{
-                        MouseEvent::Type::ButtonUp,
-                        static_cast<float>(event.button.x),
-                        static_cast<float>(event.button.y)
+                forward_mouse_event(MousePointEvent{
+                        MousePointEvent::Type::ButtonUp,
+                        event.button.x,
+                        event.button.y
                 });
                 break;
             }
 
             case SDL_MOUSEBUTTONDOWN: {
-                forward_mouse_event(MouseEvent{
-                        MouseEvent::Type::ButtonDown,
-                        static_cast<float>(event.button.x),
-                        static_cast<float>(event.button.y)
+                forward_mouse_event(MousePointEvent{
+                        MousePointEvent::Type::ButtonDown,
+                        event.button.x,
+                        event.button.y
                 });
                 break;
             }
 
             case SDL_MOUSEWHEEL: {
                 if (event.wheel.y > 0) {
-                    forward_mouse_event(MouseEvent{
-                            MouseEvent::Type::ScrollUp,
-                            static_cast<float>(event.wheel.y)
+                    forward_mouse_event(MouseScrollEvent{
+                            MouseScrollEvent::Type::ScrollUp,
+                            event.wheel.y
                     });
                 } else {
-                    forward_mouse_event(MouseEvent{
-                            MouseEvent::Type::ScrollDown,
-                            static_cast<float>(-event.wheel.y)
+                    forward_mouse_event(MouseScrollEvent{
+                            MouseScrollEvent::Type::ScrollDown,
+                            -event.wheel.y
                     });
                 }
                 break;
@@ -82,9 +82,15 @@ void SdlInput::forward_window_event(WindowEvent::Type type) {
     }
 }
 
-void SdlInput::forward_mouse_event(MouseEvent mouse_event) {
+void SdlInput::forward_mouse_event(MouseScrollEvent mouse_scroll_event) {
     if (_event_handler != nullptr) {
-        _event_handler->handle_mouse_event(mouse_event);
+        _event_handler->handle_mouse_event(mouse_scroll_event);
+    }
+}
+
+void SdlInput::forward_mouse_event(MousePointEvent mouse_point_event) {
+    if (_event_handler != nullptr) {
+        _event_handler->handle_mouse_event(mouse_point_event);
     }
 }
 
