@@ -22,13 +22,13 @@ void Weapon::start_reloading(const Clock& clock) {
     _reloading = true;
 }
 
-void Weapon::play_fire_sound(Engine& engine, Audio& audio) {
+void Weapon::play_fire_sound(Audio& audio) {
     if (!_fire_sounds.empty()) {
         if (_current_fire_sound >= _fire_sounds.size()) {
             _current_fire_sound = 0;
         }
 
-        audio.play_sound(engine.get_sound(_fire_sounds[_current_fire_sound]));
+        audio.play_sound(audio.get_sound(_fire_sounds[_current_fire_sound]));
         _current_fire_sound++;
     }
 }
@@ -45,7 +45,7 @@ void Weapon::pull_trigger(Random& random, Engine& engine, Audio& audio, const Ga
     if (_fire_cooldown_timer.ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
         spawn_bullets(random, shooter);
 
-        play_fire_sound(engine, audio);
+        play_fire_sound(audio);
 
         --_current_ammo;
         if (_current_ammo < 1) {

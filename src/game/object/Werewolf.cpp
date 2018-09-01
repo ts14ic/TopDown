@@ -142,7 +142,7 @@ void Werewolf::handle_render(Engine &engine, Graphic &graphic_context, Audio &au
     // TODO Wow, wow, wow. Fix all the repetition
     if(_ai_state == ATTACKING) {
         if(_animation_frame == 3 || _animation_frame == 7) {
-            audio.play_sound(engine.get_sound("wolf_attack"));
+            audio.play_sound(audio.get_sound("wolf_attack"));
         }
 
         if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
@@ -159,7 +159,7 @@ void Werewolf::handle_render(Engine &engine, Graphic &graphic_context, Audio &au
     } else if(_ai_state == TELEPORTING) {
         if(_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             if(_animation_frame == 2) {
-                audio.play_sound(engine.get_sound("wolf_teleport"));
+                audio.play_sound(audio.get_sound("wolf_teleport"));
             }
 
             ++_animation_frame;

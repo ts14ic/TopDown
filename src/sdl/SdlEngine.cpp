@@ -22,14 +22,6 @@ Music& SdlEngine::get_music(const std::string& name) {
     return _name_to_music[name];
 }
 
-Sound& SdlEngine::get_sound(const std::string& name) {
-    return _audio.get_sound(name);
-}
-
-void SdlEngine::load_sound(const std::string& name, const char* path) {
-    _audio.load_sound(name, path);
-}
-
 void SdlEngine::load_music(const std::string& name, const char* path) {
     _name_to_music.insert(std::make_pair(name, load_music(path)));
 }

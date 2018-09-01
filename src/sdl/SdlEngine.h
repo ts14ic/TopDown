@@ -28,10 +28,6 @@ public:
 
     const Clock& get_clock() override;
 
-    Sound& get_sound(const std::string& name) override;
-
-    void load_sound(const std::string& name, const char* path) override;
-
     Music& get_music(const std::string& name) override;
 
     void load_music(const std::string& name, const char* path) override;

@@ -100,7 +100,7 @@ void Zombie::handle_render(Engine &engine, Graphic &graphic, Audio &audio,
     const auto& clock = engine.get_clock();
     if(_ai_state == ATTACKING) {
         if(_animation_frame == 5) {
-            audio.play_sound(engine.get_sound("zombie_attack"));
+            audio.play_sound(audio.get_sound("zombie_attack"));
         }
 
         if(_animation_timer.ticks_passed_since_start(clock, 100)) {

@@ -32,7 +32,7 @@ public:
 private:
     void start_reloading(const Clock& clock);
 
-    void play_fire_sound(Engine& engine, Audio& audio);
+    void play_fire_sound(Audio& audio);
 
     void spawn_bullets(Random& random, const GameObject& shooter);
 

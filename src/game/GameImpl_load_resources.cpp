@@ -14,7 +14,7 @@ void GameImpl::load_resources() {
 
     auto soundsMap = get_value<rapidjson::Value::ConstObject>(doc, "/sounds");
     for (const auto& entry : soundsMap) {
-        _engine->load_sound(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
+        _engine->get_audio().load_sound(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
     }
 
     auto musicMap = get_value<rapidjson::Value::ConstObject>(doc, "/music");
