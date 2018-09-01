@@ -20,18 +20,6 @@ public:
 
     void load_music(const std::string& name, const char* path) override;
 
-    struct FailedSdlMixerInitException : public std::runtime_error {
-        explicit FailedSdlMixerInitException(const char* message);
-    };
-
-    struct FailedToLoadSoundException : public std::runtime_error {
-        explicit FailedToLoadSoundException(const char* message);
-    };
-
-    struct FailedToLoadMusicException : public std::runtime_error {
-        explicit FailedToLoadMusicException(const char* message);
-    };
-
 private:
     SdlSound load_sound(const char* path);
 

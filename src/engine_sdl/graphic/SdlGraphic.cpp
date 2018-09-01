@@ -143,6 +143,3 @@ void SdlGraphic::render_texture(const std::string& texture_name, int x, int y) {
 void SdlGraphic::render_texture(const std::string& texture_name, int x, int y, float angle) {
     render(_name_to_texture[texture_name], x, y, angle);
 }
-
-SdlGraphic::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
-        : runtime_error(message) {}

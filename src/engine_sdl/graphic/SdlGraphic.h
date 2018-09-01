@@ -37,10 +37,6 @@ public:
 
     void load_texture(const std::string& name, const char* path) override;
 
-    struct FailedToLoadTextureException : public std::runtime_error {
-        explicit FailedToLoadTextureException(const char* message);
-    };
-
 private:
     void render(const SdlTexture& texture, int x, int y);
 

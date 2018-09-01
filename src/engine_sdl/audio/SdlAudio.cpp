@@ -5,12 +5,9 @@
 
 SdlAudio::SdlAudio() {
     if (0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
-        throw FailedSdlMixerInitException{Mix_GetError()};
+        throw FailedAudioInitException{Mix_GetError()};
     }
 }
-
-SdlAudio::FailedSdlMixerInitException::FailedSdlMixerInitException(const char* message)
-        : runtime_error(message) {}
 
 SdlAudio::~SdlAudio() {
     _name_to_music.clear();
@@ -43,9 +40,6 @@ SdlSound SdlAudio::load_sound(const char* path) {
     return sound;
 }
 
-SdlAudio::FailedToLoadSoundException::FailedToLoadSoundException(const char* message)
-        : runtime_error(message) {}
-
 void SdlAudio::play_music(const std::string& name) {
     play_music(_name_to_music[name]);
 }
@@ -69,6 +63,3 @@ SdlMusic SdlAudio::load_music(const char* path) {
     SDL_Log("SdlMusic loaded: %s.\n", path);
     return music;
 }
-
-SdlAudio::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
-        : runtime_error(message) {}
