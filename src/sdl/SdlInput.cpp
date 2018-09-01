@@ -1,7 +1,7 @@
-#include "SdlInputContext.h"
-#include "SdlInputContext_transform_sdl_key_code.h"
+#include "SdlInput.h"
+#include "SdlInput_transform_sdl_key_code"
 
-void SdlInputContext::poll_events(EventHandler &eventHandler) {
+void SdlInput::poll_events(EventHandler &eventHandler) {
     SDL_Event event{};
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
@@ -68,14 +68,14 @@ void SdlInputContext::poll_events(EventHandler &eventHandler) {
     }
 }
 
-void SdlInputContext::forward_window_event(WindowEventHandler &eventHandler) {
+void SdlInput::forward_window_event(WindowEventHandler &eventHandler) {
     eventHandler.handle_window_event(mWindowEvent);
 }
 
-void SdlInputContext::forward_mouse_event(MouseEventHandler &eventHandler) {
+void SdlInput::forward_mouse_event(MouseEventHandler &eventHandler) {
     eventHandler.handle_mouse_event(mMouseEvent);
 }
 
-void SdlInputContext::forward_keyboard_event(KeyboardEventHandler &eventHandler) {
+void SdlInput::forward_keyboard_event(KeyboardEventHandler &eventHandler) {
     eventHandler.handle_key_event(mKeyEvent);
 }

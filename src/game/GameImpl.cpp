@@ -25,7 +25,7 @@ void GameImpl::run_loop() {
         lag_time += new_time - previous_time;
         previous_time = new_time;
 
-        _engine->get_input_context().poll_events(*this);
+        _engine->get_input().poll_events(*this);
 
         while(lag_time >= MS_PER_FRAME) {
             _current_state->handle_logic();

@@ -1,7 +1,7 @@
 #include "game/GameImpl.h"
 #include "random/Mt19937Random.h"
 #include "sdl/SdlGraphic.h"
-#include "sdl/SdlInputContext.h"
+#include "sdl/SdlInput.h"
 #include "sdl/SdlEngine.h"
 #include "sdl/SdlAudio.h"
 #include "utils/sys/abort_handlers.h"

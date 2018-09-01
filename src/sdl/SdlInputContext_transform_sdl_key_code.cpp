@@ -1,4 +1,4 @@
-#include "SdlInputContext_transform_sdl_key_code.h"
+#include "SdlInput_transform_sdl_key_code"
 #include "engine/input/KeyboardKey.h"
 
 KeyboardKey_t transform_sdl_key_code(SDL_Keycode keyCode) {

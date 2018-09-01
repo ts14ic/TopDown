@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/input/InputContext.h"
+#include "engine/input/Input.h"
 
-class SdlInputContext : public InputContext {
+class SdlInput : public Input {
 public:
     void poll_events(EventHandler &eventHandler) override;
 

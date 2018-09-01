@@ -2,9 +2,9 @@
 
 #include "EventHandler.h"
 
-class InputContext {
+class Input {
 public:
-    virtual ~InputContext() = 0;
+    virtual ~Input() = 0;
 
     virtual void poll_events(EventHandler &eventHandler) = 0;
 

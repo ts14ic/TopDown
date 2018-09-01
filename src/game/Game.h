@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/input/InputContext.h"
+#include "engine/input/Input.h"
 #include "engine/graphic/Graphic.h"
 #include "engine/audio/Audio.h"
 #include "engine/Engine.h"

@@ -4,7 +4,7 @@
 #include "engine/random/Random.h"
 #include "engine/audio/Sound.h"
 #include "engine/audio/Audio.h"
-#include "engine/input/InputContext.h"
+#include "engine/input/Input.h"
 #include "engine/audio/Music.h"
 #include "engine/clock/Clock.h"
 #include <iosfwd>
@@ -15,7 +15,7 @@ public:
 
     virtual Audio& get_audio() = 0;
 
-    virtual InputContext& get_input_context() = 0;
+    virtual Input& get_input() = 0;
 
     virtual Random& get_random() = 0;
 

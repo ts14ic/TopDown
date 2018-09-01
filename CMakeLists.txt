@@ -44,7 +44,7 @@ set(SOURCE_FILES
         src/engine/random/Random.cpp src/engine/random/Random.h
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
         src/game/Game.cpp src/game/Game.h
-        src/sdl/SdlInputContext.cpp src/sdl/SdlInputContext.h
+        src/sdl/SdlInput.cpp src/sdl/SdlInput.h
         src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/sdl/SdlGraphic.cpp src/sdl/SdlGraphic.h
         src/sdl/SdlEngine.cpp src/sdl/SdlEngine.h
@@ -60,7 +60,7 @@ set(SOURCE_FILES
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h
         src/sdl/SdlClock.cpp src/sdl/SdlClock.h
-        src/engine/input/InputContext.cpp src/engine/input/InputContext.h
+        src/engine/input/Input.cpp src/engine/input/Input.h
         src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
         src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
         src/engine/input/MouseEventHandler.cpp src/engine/input/MouseEventHandler.h
@@ -69,7 +69,7 @@ set(SOURCE_FILES
         src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
         src/game/state/GameState.cpp src/engine/input/MouseEvent.cpp
         src/engine/input/MouseEvent.h src/engine/input/KeyboardKey.h
-        src/sdl/SdlInputContext_transform_sdl_key_code.cpp src/sdl/SdlInputContext_transform_sdl_key_code.h
+        src/sdl/SdlInputContext_transform_sdl_key_code.cpp src/sdl/SdlInput_transform_sdl_key_code
         src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
         )
 

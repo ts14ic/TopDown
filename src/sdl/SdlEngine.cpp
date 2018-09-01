@@ -89,6 +89,6 @@ Random& SdlEngine::get_random() {
     return _random;
 }
 
-InputContext& SdlEngine::get_input_context() {
+Input& SdlEngine::get_input() {
     return _input;
 }

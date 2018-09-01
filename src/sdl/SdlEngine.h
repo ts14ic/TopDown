@@ -8,7 +8,7 @@
 #include "SdlClock.h"
 #include "SdlGraphic.h"
 #include "SdlAudio.h"
-#include "SdlInputContext.h"
+#include "SdlInput.h"
 #include <SDL_render.h>
 #include <unordered_map>
 
@@ -22,7 +22,7 @@ public:
 
     Audio& get_audio() override;
 
-    InputContext& get_input_context() override;
+    Input& get_input() override;
 
     Random& get_random() override;
 
@@ -63,6 +63,6 @@ private:
     Mt19937Random _random;
     SdlGraphic _graphic;
     SdlAudio _audio;
-    SdlInputContext _input;
+    SdlInput _input;
     SdlClock _clock;
 };

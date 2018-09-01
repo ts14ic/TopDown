@@ -3,7 +3,7 @@
 #include "Damageable.h"
 #include "Weapon.h"
 #include "game/timer/Timer.h"
-#include "engine/input/InputContext.h"
+#include "engine/input/Input.h"
 #include <memory>
 #include <bitset>
 
