@@ -50,9 +50,9 @@ void Zombie::damage(const Clock& clock, int d) {
 void Zombie::set_target(Point2<float> position) {
     if (_ai_state == DYING) return;
 
-    _angle = math::get_cartesian_angle(_position.x, _position.y, position.x, position.y);
+    _angle = math::get_cartesian_angle(_position, position);
 
-    auto dist = math::get_distance(_position.x, _position.y, position.x, position.y);
+    auto dist = math::get_distance(_position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != MOVING) {
             _ai_state = MOVING;

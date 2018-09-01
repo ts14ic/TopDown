@@ -66,9 +66,9 @@ void Werewolf::set_target(const Clock& clock, Point2<float> position) {
         return;
     }
 
-    set_angle(math::get_cartesian_angle(_position.x, _position.y, position.x, position.y));
+    _view_angle = math::get_cartesian_angle(_position, position);
 
-    auto dist = math::get_distance(_position.x, _position.y, position.x, position.y);
+    auto dist = math::get_distance(_position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != MOVING) {
             _ai_state = MOVING;

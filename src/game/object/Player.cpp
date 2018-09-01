@@ -155,7 +155,7 @@ void Player::handle_mouse_event(const MouseScrollEvent& event) {
 void Player::handle_mouse_event(const MousePointEvent& event) {
     switch (event.get_type()) {
         case MousePointEvent::Type::Motion: {
-            _angle = math::get_cartesian_angle(_position.x, _position.y, event.get_position().x, event.get_position().y);
+            _angle = math::get_cartesian_angle(_position, event.get_position());
             break;
         }
 
@@ -195,7 +195,7 @@ void Player::update_speeds() {
     int direction_y = _input_state.test(DOWN_PRESSED) - _input_state.test(UP_PRESSED);
 
     if (direction_x != 0 || direction_y != 0) {
-        auto movement_angle = math::get_radian_angle(0, 0, direction_x, direction_y);
+        auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));
 
         float x_speed = math::radian_cos(movement_angle) * get_max_movement_speed();
         float y_speed = math::radian_sin(movement_angle) * get_max_movement_speed();

@@ -97,8 +97,7 @@ void StateMoon::handle_logic() {
                                                  w.damage(clock, b.get_damage());
                                                  return true;
                                              }
-                                             if (math::get_distance(b.get_position().x, b.get_position().y,
-                                                                    w.get_position().x, w.get_position().y) < 50) {
+                                             if (math::get_distance(b.get_position(), w.get_position()) < 50) {
                                                  w.teleport(clock, random);
                                              }
                                          }

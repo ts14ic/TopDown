@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Point2.h"
+
 namespace math {
     // trigonometry
     extern const double PI;
@@ -15,9 +17,9 @@ namespace math {
 
         double radian_sin(double radian_angle);
 
-        double get_radian_angle(double lhs_x, double lhs_y, double rhs_x, double rhs_y);
+        double get_distance(Point2<double> lhs, Point2<double> rhs);
 
-        double get_distance(double lhs_x, double lhs_y, double rhs_x, double rhs_y);
+        double get_radian_angle(Point2<double> lhs, Point2<double> rhs);
     }
 
     /**
@@ -97,15 +99,16 @@ namespace math {
      * @tparam R Output value type
      * @tparam A Input value type for first point
      * @tparam B Input value type for second point
-     * @param lhs_x First point x coordinate
-     * @param lhs_y First point y coordinate
-     * @param rhs_x Second point x coordinate
-     * @param rhs_y Second point y coordinate
+     * @param lhs First point
+     * @param rhs Second point
      * @return Distance between two points
      */
     template <class R = float, class A, class B>
-    R get_distance(A lhs_x, A lhs_y, B rhs_x, B rhs_y) {
-        return static_cast<R>(detail::get_distance(lhs_x, lhs_y, rhs_x, rhs_y));
+    R get_distance(Point2<A> lhs, Point2<B> rhs) {
+        return static_cast<R>(detail::get_distance(
+                point_cast<double>(lhs),
+                point_cast<double>(rhs)
+        ));
     }
 
     /**
@@ -113,15 +116,16 @@ namespace math {
      * @tparam R Output value type
      * @tparam A Input value type for first point
      * @tparam B Input value type for second point
-     * @param lhs_x First point x coordinate
-     * @param lhs_y First point y coordinate
-     * @param rhs_x Second point x coordinate
-     * @param rhs_y Second point y coordinate
+     * @param lhs First point
+     * @param rhs Second point
      * @return Radian angle between two points
      */
     template <class R = float, class A, class B>
-    R get_radian_angle(A lhs_x, A lhs_y, B rhs_x, B rhs_y) {
-        return static_cast<R>(detail::get_radian_angle(lhs_x, lhs_y, rhs_x, rhs_y));
+    R get_radian_angle(Point2<A> lhs, Point2<B> rhs) {
+        return static_cast<R>(detail::get_radian_angle(
+                point_cast<double>(lhs),
+                point_cast<double>(rhs)
+        ));
     }
 
     /**
@@ -129,14 +133,12 @@ namespace math {
      * @tparam R Output value type
      * @tparam A Input value type for first point
      * @tparam B Input value type for second point
-     * @param lhs_x First point x coordinate
-     * @param lhs_y First point y coordinate
-     * @param rhs_x Second point x coordinate
-     * @param rhs_y Second point y coordinate
+     * @param lhs First point
+     * @param rhs Second point
      * @return Cartesian angle between two points
      */
     template <class R = float, class A, class B>
-    R get_cartesian_angle(A lhs_x, A lhs_y, B rhs_x, B rhs_y) {
-        return to_cartesian(get_radian_angle(lhs_x, lhs_y, rhs_x, rhs_y));
+    R get_cartesian_angle(Point2<A> lhs, Point2<B> rhs) {
+        return to_cartesian(get_radian_angle(lhs, rhs));
     }
 }
