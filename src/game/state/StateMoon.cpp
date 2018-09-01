@@ -144,21 +144,6 @@ void StateMoon::handle_logic() {
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
 }
 
-void render_crosshair(int mouse_x, int mouse_y, Graphic& graphic, const Player& player, float prediction_ratio) {
-    auto texture = graphic.get_texture(player.reloading()
-            ? "reload"
-            : "crosshair");
-
-    int x = mouse_x - texture.get_width() / 2;
-    int y = mouse_y - texture.get_height() / 2;
-
-    static float angle = 0.f;
-    angle += 5.f * prediction_ratio;
-    if (angle > 360.f) angle = 5.f;
-
-    graphic.render_texture(texture.get_name(), x, y, angle);
-}
-
 void StateMoon::handle_render(float prediction_ratio) {
     auto& engine = _game.get_engine();
     auto& graphic = engine.get_graphic();
@@ -183,9 +168,26 @@ void StateMoon::handle_render(float prediction_ratio) {
         b.handle_render(engine, graphic, prediction_ratio);
     }
 
-    render_crosshair(_mouse_x, _mouse_y, graphic, _player, prediction_ratio);
+    render_crosshair(prediction_ratio);
 
     graphic.refresh_screen();
+}
+
+void StateMoon::render_crosshair(float prediction_ratio) const {
+    Graphic& graphic = _game.get_engine().get_graphic();
+
+    auto texture = graphic.get_texture(_player.reloading()
+            ? "reload"
+            : "crosshair");
+
+    int x = _mouse_x - texture.get_width() / 2;
+    int y = _mouse_y - texture.get_height() / 2;
+
+    static float angle = 0.f;
+    angle += 5.f * prediction_ratio;
+    if (angle > 360.f) angle = 5.f;
+
+    graphic.render_texture(texture.get_name(), x, y, angle);
 }
 
 void StateMoon::parse_level_data() {

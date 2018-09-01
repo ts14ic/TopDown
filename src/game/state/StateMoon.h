@@ -12,11 +12,11 @@ public:
 
     StateMoon(const StateMoon& other);
 
-    void handle_window_event(const WindowEvent &event) override;
+    void handle_window_event(const WindowEvent& event) override;
 
-    void handle_mouse_event(const MouseEvent &event) override;
+    void handle_mouse_event(const MouseEvent& event) override;
 
-    void handle_key_event(const KeyboardEvent &event) override;
+    void handle_key_event(const KeyboardEvent& event) override;
 
     void handle_logic() override;
 
@@ -27,15 +27,17 @@ public:
 private:
     void parse_level_data();
 
+    void render_crosshair(float prediction_ratio) const;
+
 private:
     Game& _game;
-
     std::string _background_tex;
     const int _level_width;
-    const int _level_height;
 
+    const int _level_height;
     int _mouse_x;
     int _mouse_y;
     Player _player;
+
     Timer _enemy_spawn_cooldown;
 };
