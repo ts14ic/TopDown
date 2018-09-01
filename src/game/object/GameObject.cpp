@@ -22,8 +22,7 @@ void GameObject::default_render(Graphic& graphic, float frames_count) {
 
     graphic.render_texture(
             texture.get_name(),
-            static_cast<int>(x + predicted_dx),
-            static_cast<int>(y + predicted_dy),
+            make_point(static_cast<int>(x + predicted_dx), static_cast<int>(y + predicted_dy)),
             get_angle()
     );
 }

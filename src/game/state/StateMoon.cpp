@@ -157,7 +157,7 @@ void StateMoon::handle_render(float frames_count) {
     auto& audio = engine.get_audio();
     audio.play_music("weather");
 
-    graphic.render_texture(_background_tex, 0, 0);
+    graphic.render_texture(_background_tex, make_point(0, 0));
 
     _player.handle_render(engine, graphic, frames_count);
 
@@ -193,7 +193,7 @@ void StateMoon::render_crosshair(float frames_count) {
         _crosshair_angle = 5.f;
     }
 
-    graphic.render_texture(texture.get_name(), x, y, _crosshair_angle);
+    graphic.render_texture(texture.get_name(), make_point(x, y), _crosshair_angle);
 }
 
 void StateMoon::parse_level_data() {

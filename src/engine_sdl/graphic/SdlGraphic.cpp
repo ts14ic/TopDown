@@ -57,17 +57,17 @@ void SdlGraphic::clear_screen() {
     SDL_RenderClear(_renderer.get());
 }
 
-void SdlGraphic::render(const SdlTexture& texture, int x, int y) {
+void SdlGraphic::render(const SdlTexture& texture, Point2<int> position) {
     if (texture.is_loaded()) {
-        SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
+        SDL_Rect destRect = {position.x, position.y, texture.get_width(), texture.get_height()};
         SDL_RenderCopy(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                        &destRect);
     }
 }
 
-void SdlGraphic::render(const SdlTexture& texture, int x, int y, float angle) {
+void SdlGraphic::render(const SdlTexture& texture, Point2<int> position, float angle) {
     if (texture.is_loaded()) {
-        SDL_Rect destRect = {x, y, texture.get_width(), texture.get_height()};
+        SDL_Rect destRect = {position.x, position.y, texture.get_width(), texture.get_height()};
         SDL_RenderCopyEx(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);
@@ -136,10 +136,10 @@ void SdlGraphic::load_texture(const std::string& name, const char* path) {
     _name_to_texture.insert(std::make_pair(name, load_texture(path)));
 }
 
-void SdlGraphic::render_texture(const std::string& texture_name, int x, int y) {
-    render(_name_to_texture[texture_name], x, y);
+void SdlGraphic::render_texture(const std::string& texture_name, Point2<int> position) {
+    render(_name_to_texture[texture_name], position);
 }
 
-void SdlGraphic::render_texture(const std::string& texture_name, int x, int y, float angle) {
-    render(_name_to_texture[texture_name], x, y, angle);
+void SdlGraphic::render_texture(const std::string& texture_name, Point2<int> position, float angle) {
+    render(_name_to_texture[texture_name], position, angle);
 }

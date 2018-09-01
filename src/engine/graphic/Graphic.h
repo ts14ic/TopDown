@@ -16,9 +16,9 @@ public:
 
     virtual void render_box(const Box& box, const Color& color) = 0;
 
-    virtual void render_texture(const std::string& texture_name, int x, int y) = 0;
+    virtual void render_texture(const std::string& texture_name, Point2<int> position) = 0;
 
-    virtual void render_texture(const std::string& texture_name, int x, int y, float angle) = 0;
+    virtual void render_texture(const std::string& texture_name, Point2<int> position, float angle) = 0;
 
     virtual void load_texture(const std::string& name, const char* path) = 0;
 
