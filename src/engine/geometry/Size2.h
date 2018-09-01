@@ -3,7 +3,8 @@
 #include <type_traits>
 
 template <typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
-struct Size2 {
+class Size2 {
+public:
     Size2() {
         width = 0;
         height = 0;
@@ -14,6 +15,23 @@ struct Size2 {
         this->height = height;
     }
 
+    SizeT get_width() const {
+        return width;
+    }
+
+    void set_width(SizeT width) {
+        if (width >= 0) this->width = width;
+    }
+
+    SizeT get_height() const {
+        return height;
+    }
+
+    void set_height(SizeT height) {
+        if (height >= 0) { this->height = height;}
+    }
+
+private:
     SizeT width;
     SizeT height;
 };

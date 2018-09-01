@@ -59,7 +59,7 @@ void SdlGraphic::clear_screen() {
 
 void SdlGraphic::render(const SdlTexture& texture, Point2<int> position) {
     if (texture.is_loaded()) {
-        SDL_Rect destRect = {position.x, position.y, texture.get_size().width, texture.get_size().height};
+        SDL_Rect destRect = {position.x, position.y, texture.get_size().get_width(), texture.get_size().get_height()};
         SDL_RenderCopy(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                        &destRect);
     }
@@ -67,7 +67,7 @@ void SdlGraphic::render(const SdlTexture& texture, Point2<int> position) {
 
 void SdlGraphic::render(const SdlTexture& texture, Point2<int> position, float angle) {
     if (texture.is_loaded()) {
-        SDL_Rect destRect = {position.x, position.y, texture.get_size().width, texture.get_size().height};
+        SDL_Rect destRect = {position.x, position.y, texture.get_size().get_width(), texture.get_size().get_height()};
         SDL_RenderCopyEx(_renderer.get(), texture.get_wrapped_texture(), nullptr,
                          &destRect,
                          angle, nullptr, SDL_FLIP_NONE);

@@ -34,6 +34,7 @@ set(SOURCE_FILES
         src/engine/geometry/Box.cpp src/engine/geometry/Box.h
         src/engine/geometry/Color.cpp src/engine/geometry/Color.h
         src/engine/geometry/Point2.h
+        src/engine/geometry/Size2.h
         src/engine/audio/Audio.cpp src/engine/audio/Audio.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h
         src/engine/input/Input.cpp src/engine/input/Input.h
@@ -70,7 +71,7 @@ set(SOURCE_FILES
         src/game/Game.cpp src/game/Game.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
-        src/engine/geometry/Size2.h)
+        )
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

@@ -183,8 +183,8 @@ void StateMoon::render_crosshair(float frames_count) {
                                        ? "reload"
                                        : "crosshair");
     auto render_point = make_point(
-            _mouse_pos.x - texture.get_size().width / 2,
-            _mouse_pos.y - texture.get_size().height / 2
+            _mouse_pos.x - texture.get_size().get_width() / 2,
+            _mouse_pos.y - texture.get_size().get_height() / 2
     );
 
     _crosshair_angle += 5.f * frames_count;
