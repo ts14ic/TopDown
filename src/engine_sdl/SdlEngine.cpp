@@ -8,9 +8,6 @@ SdlEngine::SdlEngine(
 ) : _sdl_guard{}, _graphic(screen_width, screen_height) {
 }
 
-SdlEngine::FailedSdlInitException::FailedSdlInitException(const char* message)
-        : runtime_error(message) {}
-
 const Clock& SdlEngine::get_clock() {
     return _clock;
 }

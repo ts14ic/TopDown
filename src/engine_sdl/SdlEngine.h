@@ -23,9 +23,6 @@ public:
 
     const Clock& get_clock() override;
 
-    struct FailedSdlInitException : public std::runtime_error {
-        explicit FailedSdlInitException(const char* message);
-    };
 private:
     Mt19937Random _random;
 

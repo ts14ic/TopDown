@@ -20,7 +20,7 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
             SDL_WINDOW_SHOWN
     )};
     if (_window == nullptr) {
-        throw SdlEngine::FailedSdlInitException{SDL_GetError()};
+        throw Engine::FailedEngineInitException{SDL_GetError()};
     }
 
     _renderer = RendererHandle{SDL_CreateRenderer(
@@ -29,12 +29,12 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
             SDL_RENDERER_PRESENTVSYNC
     )};
     if (_renderer == nullptr) {
-        throw SdlEngine::FailedSdlInitException{SDL_GetError()};
+        throw Engine::FailedEngineInitException{SDL_GetError()};
     }
 
     int IMG_flags = IMG_INIT_JPG | IMG_INIT_PNG;
     if (IMG_flags != (IMG_Init(IMG_flags) & IMG_flags)) {
-        throw SdlEngine::FailedSdlInitException{IMG_GetError()};
+        throw Engine::FailedEngineInitException{IMG_GetError()};
     }
 
     SDL_ShowCursor(SDL_DISABLE);
