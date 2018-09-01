@@ -21,27 +21,29 @@ include_directories(
 set(SOURCE_FILES
         src/main.cpp
         src/math/maths.cpp src/math/maths.h
-        src/game/state/StateIntro.cpp src/game/state/StateIntro.h
-        src/game/state/StateMoon.cpp src/game/state/StateMoon.h
-        src/game/state/GameState.h
+        src/io/json/json.h src/io/json/json.cpp src/io/json/json.tcc
+        src/io/files/files.cpp src/io/files/files.h
+        src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
+        src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
+        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
         src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
         src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
-        src/game/GameImpl.cpp src/game/GameImpl.h
-        src/game/object/GameObject.cpp src/game/object/GameObject.h
-        src/game/object/Damageable.h src/game/object/Damageable.cpp
-        src/game/object/Player.cpp src/game/object/Player.h
-        src/game/object/Werewolf.cpp src/game/object/Werewolf.h
-        src/game/object/Zombie.cpp src/game/object/Zombie.h
-        src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
-        src/game/object/Weapon.h src/game/object/Weapon.cpp
-        src/game/object/Bullet.cpp src/game/object/Bullet.h
         src/engine/Engine.cpp src/engine/Engine.h
-        src/game/StateId.h
         src/engine/graphic/Circle.cpp src/engine/graphic/Circle.h
-        src/io/json/json.h src/io/json/json.cpp src/io/json/json.tcc
         src/engine/random/Random.cpp src/engine/random/Random.h
-        src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
-        src/game/Game.cpp src/game/Game.h
+        src/engine/graphic/Box.cpp src/engine/graphic/Box.h
+        src/engine/graphic/Color.cpp src/engine/graphic/Color.h
+        src/engine/audio/Audio.cpp src/engine/audio/Audio.h
+        src/engine/clock/Clock.cpp src/engine/clock/Clock.h
+        src/engine/input/Input.cpp src/engine/input/Input.h
+        src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
+        src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
+        src/engine/input/MouseEventHandler.cpp src/engine/input/MouseEventHandler.h
+        src/engine/input/EventHandler.h
+        src/engine/input/WindowEvent.h src/engine/input/WindowEvent.cpp
+        src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
+        src/engine/input/MouseScrollEvent.h src/engine/input/KeyboardKey.h
+        src/engine/input/MousePointEvent.cpp src/engine/input/MousePointEvent.h
         src/engine_sdl/input/SdlInput.cpp src/engine_sdl/input/SdlInput.h
         src/engine_sdl/graphic/SdlGraphic.cpp src/engine_sdl/graphic/SdlGraphic.h
         src/engine_sdl/SdlEngine.cpp src/engine_sdl/SdlEngine.h
@@ -51,24 +53,22 @@ set(SOURCE_FILES
         src/engine_sdl/audio/SdlMusic.cpp src/engine_sdl/audio/SdlMusic.h
         src/engine_sdl/clock/SdlClock.cpp src/engine_sdl/clock/SdlClock.h
         src/engine_sdl/SdlGuard.cpp src/engine_sdl/SdlGuard.h
-        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
-        src/engine/graphic/Box.cpp src/engine/graphic/Box.h
-        src/engine/graphic/Color.cpp src/engine/graphic/Color.h
-        src/io/files/files.cpp src/io/files/files.h
-        src/engine/audio/Audio.cpp src/engine/audio/Audio.h
+        src/game/state/StateIntro.cpp src/game/state/StateIntro.h
+        src/game/state/StateMoon.cpp src/game/state/StateMoon.h
+        src/game/state/GameState.h
+        src/game/GameImpl.cpp src/game/GameImpl.h
+        src/game/object/GameObject.cpp src/game/object/GameObject.h
+        src/game/object/Damageable.h src/game/object/Damageable.cpp
+        src/game/object/Player.cpp src/game/object/Player.h
+        src/game/object/Werewolf.cpp src/game/object/Werewolf.h
+        src/game/object/Zombie.cpp src/game/object/Zombie.h
+        src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
+        src/game/object/Weapon.h src/game/object/Weapon.cpp
+        src/game/object/Bullet.cpp src/game/object/Bullet.h
+        src/game/StateId.h
+        src/game/Game.cpp src/game/Game.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h
-        src/engine/clock/Clock.cpp src/engine/clock/Clock.h
-        src/engine/input/Input.cpp src/engine/input/Input.h
-        src/engine/input/WindowEventHandler.cpp src/engine/input/WindowEventHandler.h
-        src/engine/input/KeyboardEventHandler.cpp src/engine/input/KeyboardEventHandler.h
-        src/engine/input/MouseEventHandler.cpp src/engine/input/MouseEventHandler.h
-        src/engine/input/EventHandler.h
-        src/engine/input/WindowEvent.h src/engine/input/WindowEvent.cpp
-        src/engine/input/KeyboardEvent.cpp src/engine/input/KeyboardEvent.h
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
-        src/engine/input/MouseScrollEvent.h src/engine/input/KeyboardKey.h
-        src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
-        src/engine/input/MousePointEvent.cpp src/engine/input/MousePointEvent.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})
