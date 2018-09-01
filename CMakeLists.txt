@@ -29,10 +29,11 @@ set(SOURCE_FILES
         src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
         src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
         src/engine/Engine.cpp src/engine/Engine.h
-        src/engine/graphic/Circle.cpp src/engine/graphic/Circle.h
         src/engine/random/Random.cpp src/engine/random/Random.h
-        src/engine/graphic/Box.cpp src/engine/graphic/Box.h
-        src/engine/graphic/Color.cpp src/engine/graphic/Color.h
+        src/engine/geometry/Circle.cpp src/engine/geometry/Circle.h
+        src/engine/geometry/Box.cpp src/engine/geometry/Box.h
+        src/engine/geometry/Color.cpp src/engine/geometry/Color.h
+        src/engine/geometry/Point2.h
         src/engine/audio/Audio.cpp src/engine/audio/Audio.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h
         src/engine/input/Input.cpp src/engine/input/Input.h
@@ -69,7 +70,6 @@ set(SOURCE_FILES
         src/game/Game.cpp src/game/Game.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
-        src/game/utils/Point2.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

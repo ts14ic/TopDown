@@ -5,7 +5,7 @@
 #include "game/object/GameObject.h"
 #include "game/Game.h"
 #include "game/timer/Timer.h"
-#include "game/utils/Point2.h"
+#include "engine/geometry/Point2.h"
 
 class StateMoon : public GameState {
 public:

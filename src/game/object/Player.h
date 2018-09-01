@@ -4,7 +4,7 @@
 #include "Weapon.h"
 #include "game/timer/Timer.h"
 #include "engine/input/Input.h"
-#include "game/utils/Point2.h"
+#include "engine/geometry/Point2.h"
 #include <memory>
 #include <bitset>
 

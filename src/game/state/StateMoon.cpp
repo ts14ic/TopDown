@@ -5,7 +5,7 @@
 #include "game/object/Bullet.h"
 #include "io/json/json.h"
 #include "io/files/files.h"
-#include "game/utils/Point2.h"
+#include "engine/geometry/Point2.h"
 #include <algorithm>
 
 StateMoon::StateMoon(Game& game)

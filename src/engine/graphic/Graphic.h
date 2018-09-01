@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Box.h"
-#include "Color.h"
+#include "engine/geometry/Box.h"
+#include "engine/geometry/Color.h"
 #include "Texture.h"
 #include <stdexcept>
 #include <iosfwd>

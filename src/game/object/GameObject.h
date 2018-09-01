@@ -2,10 +2,10 @@
 
 #include <string>
 
-#include "engine/graphic/Circle.h"
+#include "engine/geometry/Circle.h"
 #include "engine/Engine.h"
 #include "engine/graphic/Graphic.h"
-#include "game/utils/Point2.h"
+#include "engine/geometry/Point2.h"
 
 class GameObject {
 public:
