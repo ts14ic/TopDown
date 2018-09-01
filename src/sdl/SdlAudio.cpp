@@ -24,8 +24,8 @@ void SdlAudio::play_sound(const Sound& sound) {
     }
 }
 
-Sound& SdlAudio::get_sound(const std::string& name) {
-    return _name_to_sound[name];
+void SdlAudio::play_sound(const std::string& name) {
+    play_sound(_name_to_sound[name]);
 }
 
 void SdlAudio::load_sound(const std::string& name, const char* path) {
@@ -47,14 +47,14 @@ SdlSound SdlAudio::load_sound(const char* path) {
 SdlAudio::FailedToLoadSoundException::FailedToLoadSoundException(const char* message)
         : runtime_error(message) {}
 
+void SdlAudio::play_music(const std::string& name) {
+    play_music(_name_to_music[name]);
+}
+
 void SdlAudio::play_music(const Music& music) {
     if (music.is_loaded() && Mix_PlayingMusic() == 0) {
         Mix_PlayMusic(dynamic_cast<const SdlMusic&>(music).get_wrapped_music(), -1);
     }
-}
-
-Music& SdlAudio::get_music(const std::string& name) {
-    return _name_to_music[name];
 }
 
 void SdlAudio::load_music(const std::string& name, const char* path) {

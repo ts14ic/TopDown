@@ -12,15 +12,11 @@ public:
 
     ~SdlAudio() override;
 
-    void play_sound(const Sound& sound) override;
-
-    Sound& get_sound(const std::string& name) override;
+    void play_sound(const std::string& name) override;
 
     void load_sound(const std::string& name, const char* path) override;
 
-    void play_music(const Music& music) override;
-
-    Music& get_music(const std::string& name) override;
+    void play_music(const std::string& name) override;
 
     void load_music(const std::string& name, const char* path) override;
 
@@ -39,7 +35,11 @@ public:
 private:
     SdlSound load_sound(const char* path);
 
+    void play_sound(const Sound& sound);
+
     SdlMusic load_music(const char* path);
+
+    void play_music(const Music& music);
 
     std::unordered_map<std::string, SdlSound> _name_to_sound;
     std::unordered_map<std::string, SdlMusic> _name_to_music;

@@ -158,7 +158,7 @@ void StateMoon::handle_render(float predictionRatio) {
     graphic.clear_screen();
 
     auto& audio = engine.get_audio();
-    audio.play_music(audio.get_music("weather"));
+    audio.play_music("weather");
 
     graphic.render(graphic.get_texture(_background_tex), 0, 0);
 

@@ -28,7 +28,7 @@ void Weapon::play_fire_sound(Audio& audio) {
             _current_fire_sound = 0;
         }
 
-        audio.play_sound(audio.get_sound(_fire_sounds[_current_fire_sound]));
+        audio.play_sound(_fire_sounds[_current_fire_sound]);
         _current_fire_sound++;
     }
 }
