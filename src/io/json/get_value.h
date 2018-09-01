@@ -42,6 +42,8 @@ namespace json {
         return check_value_type<T>(value, pointer_path);
     }
 
+    rapidjson::Value::ConstObject get_object(const rapidjson::Document& doc, const char* path);
+
     template <typename T>
     std::vector<T>
     get_values(const rapidjson::Value& root, const char* pointer_path) {

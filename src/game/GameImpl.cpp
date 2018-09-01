@@ -99,19 +99,17 @@ void GameImpl::handle_mouse_event(const MouseEvent &event) {
 void GameImpl::load_resources() {
     auto doc = json::parse_json(files::read_file_to_string("data/common_media.json"));
 
+    using json::get_object;
     using json::get_value;
-    auto texturesMap = get_value<rapidjson::Value::ConstObject>(doc, "/textures");
-    for (const auto& entry : texturesMap) {
+    for (const auto& entry : get_object(doc, "/textures")) {
         _engine->get_graphic().load_texture(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
     }
 
-    auto soundsMap = get_value<rapidjson::Value::ConstObject>(doc, "/sounds");
-    for (const auto& entry : soundsMap) {
+    for (const auto& entry : get_object(doc, "/sounds")) {
         _engine->get_audio().load_sound(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
     }
 
-    auto musicMap = get_value<rapidjson::Value::ConstObject>(doc, "/music");
-    for (const auto& entry : musicMap) {
+    for (const auto& entry : get_object(doc, "/music")) {
         _engine->get_audio().load_music(get_value<const char*>(entry.name, ""), get_value<const char*>(entry.value, ""));
     }
 }
