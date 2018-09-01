@@ -1,5 +1,7 @@
 #pragma once
 
+#include "engine/geometry/Point2.h"
+
 class MousePointEvent {
 public:
     enum class Type {
@@ -8,16 +10,16 @@ public:
         ButtonDown
     };
 
-    MousePointEvent(Type type, int x, int y);
+    MousePointEvent(Type type, Point2<int> position) {
+        _type = type;
+        _position = position;
+    }
 
-    Type get_type() const;
+    Type get_type() const { return _type; }
 
-    int get_x() const;
-
-    int get_y() const;
+    Point2<int> get_position() const { return _position; }
 
 private:
     Type _type;
-    int _x;
-    int _y;
+    Point2<int> _position;
 };

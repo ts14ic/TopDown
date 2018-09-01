@@ -155,7 +155,7 @@ void Player::handle_mouse_event(const MouseScrollEvent& event) {
 void Player::handle_mouse_event(const MousePointEvent& event) {
     switch (event.get_type()) {
         case MousePointEvent::Type::Motion: {
-            _angle = math::get_cartesian_angle(_position.x, _position.y, event.get_x(), event.get_y());
+            _angle = math::get_cartesian_angle(_position.x, _position.y, event.get_position().x, event.get_position().y);
             break;
         }
 

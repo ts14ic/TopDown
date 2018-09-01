@@ -30,8 +30,7 @@ void SdlInput::poll_events() {
             case SDL_MOUSEMOTION: {
                 forward_mouse_event(MousePointEvent{
                         MousePointEvent::Type::Motion,
-                        event.motion.x,
-                        event.motion.y
+                        make_point(event.motion.x, event.motion.y)
                 });
                 break;
             }
@@ -39,8 +38,7 @@ void SdlInput::poll_events() {
             case SDL_MOUSEBUTTONUP: {
                 forward_mouse_event(MousePointEvent{
                         MousePointEvent::Type::ButtonUp,
-                        event.button.x,
-                        event.button.y
+                        make_point(event.button.x, event.button.y)
                 });
                 break;
             }
@@ -48,8 +46,7 @@ void SdlInput::poll_events() {
             case SDL_MOUSEBUTTONDOWN: {
                 forward_mouse_event(MousePointEvent{
                         MousePointEvent::Type::ButtonDown,
-                        event.button.x,
-                        event.button.y
+                        make_point(event.button.x, event.button.y)
                 });
                 break;
             }

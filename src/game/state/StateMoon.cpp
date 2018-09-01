@@ -38,8 +38,7 @@ void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
 
 void StateMoon::handle_mouse_event(const MousePointEvent& event) {
     if (event.get_type() == MousePointEvent::Type::Motion) {
-        _mouse_pos.x = event.get_x();
-        _mouse_pos.y = event.get_y();
+        _mouse_pos = event.get_position();
     }
 
     _player.handle_mouse_event(event);
