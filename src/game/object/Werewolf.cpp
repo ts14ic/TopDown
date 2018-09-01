@@ -125,7 +125,7 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
     if (_current_hp > 0) {
         Box health_box;
         health_box.set_sizes(1.66f * _current_hp, 5);
-        health_box.set_position(
+        health_box.set_left_top(
                 _position.x - health_box.get_width() / 2,
                 _position.y - get_circle().get_radius()
         );

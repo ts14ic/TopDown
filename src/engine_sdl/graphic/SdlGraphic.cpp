@@ -76,8 +76,8 @@ void SdlGraphic::render(const SdlTexture& texture, int x, int y, float angle) {
 
 void SdlGraphic::render_box(const Box& box, const Color& color) {
     SDL_Rect rect{
-            static_cast<int>(box.get_x()),
-            static_cast<int>(box.get_y()),
+            static_cast<int>(box.get_left_top().x),
+            static_cast<int>(box.get_left_top().y),
             static_cast<int>(box.get_width()),
             static_cast<int>(box.get_height())
     };
