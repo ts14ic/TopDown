@@ -1,19 +1,14 @@
 #include "KeyboardEvent.h"
 
-KeyboardEvent::KeyboardEvent() = default;
+KeyboardEvent::KeyboardEvent(Type type, KeyboardKey_t key) {
+    _type = type;
+    _key = key;
+}
 
 KeyboardEvent::Type KeyboardEvent::get_type() const {
     return _type;
 }
 
-void KeyboardEvent::set_type(KeyboardEvent::Type type) {
-    _type = type;
-}
-
 KeyboardKey_t KeyboardEvent::get_key() const {
     return _key;
-}
-
-void KeyboardEvent::set_key(KeyboardKey_t key) {
-    _key = key;
 }

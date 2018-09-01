@@ -12,15 +12,12 @@ public:
     void remove_event_handler() override;
 
 private:
-    void forward_window_event();
+    void forward_window_event(WindowEvent::Type type);
 
-    void forward_mouse_event();
+    void forward_mouse_event(MouseEvent mouse_event);
 
-    void forward_keyboard_event();
+    void forward_keyboard_event(KeyboardEvent::Type type, KeyboardKey_t key);
 
-    WindowEvent _window_event;
-    MouseEvent _mouse_event;
-    KeyboardEvent _key_event;
     EventHandler* _event_handler;
 };
 

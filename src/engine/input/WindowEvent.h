@@ -6,12 +6,10 @@ public:
         Close,
     };
 
-    WindowEvent();
+    explicit WindowEvent(Type type);
 
     Type get_type() const;
 
-    void set_type(Type type);
-
 private:
-    Type mType;
+    Type _type;
 };

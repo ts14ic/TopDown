@@ -1,11 +1,9 @@
 #include "WindowEvent.h"
 
-WindowEvent::WindowEvent() = default;
-
-WindowEvent::Type WindowEvent::get_type() const {
-    return mType;
+WindowEvent::WindowEvent(Type type) {
+    _type = type;
 }
 
-void WindowEvent::set_type(WindowEvent::Type type) {
-    mType = type;
+WindowEvent::Type WindowEvent::get_type() const {
+    return _type;
 }
