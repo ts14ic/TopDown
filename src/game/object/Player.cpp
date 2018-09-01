@@ -11,23 +11,11 @@ Player::Player(int x, int y)
     _hp = Player::get_default_hp();
 }
 
-void Player::set_position(float x, float y) {
-    _position = make_point(x, y);
-}
-
-float Player::get_x() const { return _position.x; }
-
-float Player::get_y() const { return _position.y; }
-
 float Player::get_angle() const { return _angle; }
 
 float Player::get_max_movement_speed() const {
     return _max_movement_speed;
 }
-
-void Player::set_x(float x) { _position.x = x; }
-
-void Player::set_y(float y) { _position.y = y; }
 
 void Player::set_angle(float a) { _angle = a; }
 
@@ -167,7 +155,7 @@ void Player::handle_mouse_event(const MouseScrollEvent& event) {
 void Player::handle_mouse_event(const MousePointEvent& event) {
     switch (event.get_type()) {
         case MousePointEvent::Type::Motion: {
-            _angle = math::get_cartesian_angle(get_x(), get_y(), event.get_x(), event.get_y());
+            _angle = math::get_cartesian_angle(_position.x, _position.y, event.get_x(), event.get_y());
             break;
         }
 

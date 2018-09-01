@@ -11,29 +11,23 @@ public:
     Zombie(int x, int y);
 
     // GameObject legacy
-    float get_x() const override;
+    Point2<float> get_position() const override { return _position; }
 
-    float get_y() const override;
+    Point2<float>& get_position() override { return _position; }
 
     float get_angle() const override;
 
-    float get_max_movement_speed() const override;
-
-    float get_current_x_speed() const override;
-
-    float get_current_y_speed() const override;
-
-    void set_x(float x) override;
-
-    void set_y(float y) override;
-
-    void set_position(float x, float y) override;
-
     void set_angle(float angle) override;
+
+    float get_max_movement_speed() const override;
 
     void set_max_movement_speed(float speed) override;
 
+    float get_current_x_speed() const override;
+
     void set_current_x_speed(float x_speed) override;
+
+    float get_current_y_speed() const override;
 
     void set_current_y_speed(float y_speed) override;
 
@@ -63,8 +57,7 @@ public:
                        float frames_count);
 
 private:
-    float _x = 0.f;
-    float _y = 0.f;
+    Point2<float> _position;
     float _current_x_speed = 0.f;
     float _current_y_speed = 0.f;
     float _angle = 0.f;

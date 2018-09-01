@@ -5,17 +5,19 @@ bool objects_collide(GameObject& a, GameObject& b) {
 }
 
 void GameObject::default_move() {
-    set_x(get_x() + get_current_x_speed());
-    set_y(get_y() + get_current_y_speed());
+    get_position() = make_point(
+            get_position().x + get_current_x_speed(),
+            get_position().y + get_current_y_speed()
+    );
 }
 
 void GameObject::default_render(Graphic& graphic, float frames_count) {
     auto texture = graphic.get_texture(get_tex_name());
 
-    auto x = get_x() - texture.get_width() / 2;
+    auto x = get_position().x - texture.get_width() / 2;
     auto predicted_dx = get_current_x_speed() * frames_count;
 
-    auto y = get_y() - texture.get_height() / 2;
+    auto y = get_position().y - texture.get_height() / 2;
     auto predicted_dy = get_current_y_speed() * frames_count;
 
     graphic.render_texture(

@@ -4,18 +4,9 @@
 using std::vector;
 
 Werewolf::Werewolf(float x, float y)
-        : _x{x}, _y{y} {
+        : _position(x, y) {
     _current_hp = Werewolf::get_default_hp();
 }
-
-// GameObject legacy
-float Werewolf::get_x() const { return _x; }
-
-float Werewolf::get_y() const { return _y; }
-
-void Werewolf::set_x(float x) { _x = x; }
-
-void Werewolf::set_y(float y) { _y = y; }
 
 float Werewolf::get_angle() const { return _view_angle; }
 
@@ -25,7 +16,7 @@ void Werewolf::set_angle(float a) { _view_angle = a; }
 
 void Werewolf::set_max_movement_speed(float s) { _max_movement_speed = s; }
 
-Circle Werewolf::get_circle() const { return {_x, _y, 25}; }
+Circle Werewolf::get_circle() const { return {_position.x, _position.y, 25}; }
 
 int Werewolf::get_hp() const { return _current_hp; }
 
@@ -75,9 +66,9 @@ void Werewolf::set_target(const Clock& clock, float x, float y) {
         return;
     }
 
-    set_angle(math::get_cartesian_angle(_x, _y, x, y));
+    set_angle(math::get_cartesian_angle(_position.x, _position.y, x, y));
 
-    auto dist = math::get_distance(_x, _y, x, y);
+    auto dist = math::get_distance(_position.x, _position.y, x, y);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != MOVING) {
             _ai_state = MOVING;
@@ -119,8 +110,8 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
     if (_ai_state == DYING) return;
 
     if (_ai_state != TELEPORTING && _teleport_cooldown.ticks_passed_since_start(clock, 1000)) {
-        _x += random.get_int(-150, 150);
-        _y += random.get_int(-150, 150);
+        _position.x += random.get_int(-150, 150);
+        _position.y += random.get_int(-150, 150);
         _ai_state = TELEPORTING;
         _animation_frame = 0;
         _teleport_cooldown.restart(clock);
@@ -134,7 +125,10 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
     if (_current_hp > 0) {
         Box health_box;
         health_box.set_sizes(1.66f * _current_hp, 5);
-        health_box.set_position(_x - health_box.get_width() / 2, _y - get_circle().get_radius());
+        health_box.set_position(
+                _position.x - health_box.get_width() / 2,
+                _position.y - get_circle().get_radius()
+        );
         graphic_context.render_box(health_box, Color{0x55, 0, 0x33});
     }
 
@@ -176,11 +170,6 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
 
 bool Werewolf::is_dead() const {
     return _ai_state == DYING && _animation_frame == 2;
-}
-
-void Werewolf::set_position(float x, float y) {
-    set_x(x);
-    set_y(y);
 }
 
 float Werewolf::get_current_x_speed() const {

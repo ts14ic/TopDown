@@ -20,7 +20,7 @@ StateMoon::StateMoon(Game& game)
     werewolves().clear();
     _enemy_spawn_cooldown.restart(game.get_engine().get_clock());
 
-    _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
+    _player.get_position() = make_point(_level_width / 2.0f, _level_height / 2.0f);
 
     parse_level_data();
 }
@@ -50,11 +50,11 @@ void StateMoon::handle_key_event(const KeyboardEvent& event) {
 }
 
 void StateMoon::restrict_pos(GameObject& o) {
-    if (o.get_x() < 0) o.set_x(0);
-    else if (o.get_x() > _level_width) o.set_x(_level_width);
+    if (o.get_position().x < 0) o.get_position().x = 0;
+    else if (o.get_position().x > _level_width) o.get_position().x = _level_width;
 
-    if (o.get_y() < 0) o.set_y(0);
-    else if (o.get_y() > _level_height) o.set_y(_level_height);
+    if (o.get_position().y < 0) o.get_position().y = 0;
+    else if (o.get_position().y > _level_height) o.get_position().y = _level_height;
 }
 
 void StateMoon::handle_logic() {
@@ -83,8 +83,8 @@ void StateMoon::handle_logic() {
                                      [maxWidth, maxHeight, &random, &clock](Bullet& b) {
                                          b.handle_logic();
 
-                                         if ((b.get_x() > maxWidth) || (b.get_x() < 0) ||
-                                             (b.get_y() > maxHeight) || (b.get_y() < 0)) {
+                                         if ((b.get_position().x > maxWidth) || (b.get_position().x < 0) ||
+                                             (b.get_position().y > maxHeight) || (b.get_position().y < 0)) {
                                              return true;
                                          }
 
@@ -99,7 +99,7 @@ void StateMoon::handle_logic() {
                                                  w.damage(clock, b.get_damage());
                                                  return true;
                                              }
-                                             if (math::get_distance(b.get_x(), b.get_y(), w.get_x(), w.get_y()) < 50) {
+                                             if (math::get_distance(b.get_position().x, b.get_position().y, w.get_position().x, w.get_position().y) < 50) {
                                                  w.teleport(clock, random);
                                              }
                                          }
@@ -109,7 +109,7 @@ void StateMoon::handle_logic() {
     bullets().erase(removeFrom, bullets().end());
 
     zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [this, &clock](Zombie& z) {
-        z.set_target(_player.get_x(), _player.get_y());
+        z.set_target(_player.get_position().x, _player.get_position().y);
         z.handle_logic();
 
         if (objects_collide(z, _player)) {
@@ -120,7 +120,7 @@ void StateMoon::handle_logic() {
     }), zombies().end());
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [this, &clock](Werewolf& w) {
-        w.set_target(clock, _player.get_x(), _player.get_y());
+        w.set_target(clock, _player.get_position().x, _player.get_position().y);
         w.handle_logic(clock);
 
         if (objects_collide(w, _player)) {

@@ -4,17 +4,9 @@
 using std::vector;
 
 Zombie::Zombie(int x, int y)
-        : _x(x), _y(y) {
+        : _position(x, y) {
     _current_hp = Zombie::get_default_hp();
 }
-
-float Zombie::get_x() const { return _x; }
-
-float Zombie::get_y() const { return _y; }
-
-void Zombie::set_x(float x) { _x = x; }
-
-void Zombie::set_y(float y) { _y = y; }
 
 float Zombie::get_angle() const { return _angle; }
 
@@ -24,7 +16,7 @@ void Zombie::set_angle(float a) { _angle = a; }
 
 void Zombie::set_max_movement_speed(float s) { _speed = s; }
 
-Circle Zombie::get_circle() const { return {_x, _y, 25}; }
+Circle Zombie::get_circle() const { return {_position.x, _position.y, 25}; }
 
 int Zombie::get_hp() const { return _current_hp; }
 
@@ -58,9 +50,9 @@ void Zombie::damage(const Clock& clock, int d) {
 void Zombie::set_target(float x, float y) {
     if (_ai_state == DYING) return;
 
-    _angle = math::get_cartesian_angle(_x, _y, x, y);
+    _angle = math::get_cartesian_angle(_position.x, _position.y, x, y);
 
-    auto dist = math::get_distance(_x, _y, x, y);
+    auto dist = math::get_distance(_position.x, _position.y, x, y);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != MOVING) {
             _ai_state = MOVING;
@@ -118,11 +110,6 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 
 bool Zombie::is_dead() const {
     return _ai_state == DYING && _animation_frame == 7;
-}
-
-void Zombie::set_position(float x, float y) {
-    set_x(x);
-    set_y(y);
 }
 
 float Zombie::get_current_x_speed() const {
