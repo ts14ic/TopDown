@@ -4,6 +4,15 @@
 #include "SdlTexture.h"
 #include <unordered_map>
 
+struct SdlDeleter {
+    void operator()(SDL_Window* p);
+
+    void operator()(SDL_Renderer* p);
+};
+
+using WindowHandle = std::unique_ptr<SDL_Window, SdlDeleter>;
+using RendererHandle = std::unique_ptr<SDL_Renderer, SdlDeleter>;
+
 class SdlGraphic : public Graphic {
 public:
     SdlGraphic(int screen_width, int screen_height);
@@ -39,13 +48,7 @@ private:
 
     SdlTexture load_texture(const char* path);
 
-    struct SdlDeleter {
-        void operator()(SDL_Window* p);
-
-        void operator()(SDL_Renderer* p);
-    };
-
     std::unordered_map<std::string, SdlTexture> _name_to_texture;
-    std::unique_ptr<SDL_Window, SdlDeleter> _window;
-    std::unique_ptr<SDL_Renderer, SdlDeleter> _renderer;
+    WindowHandle _window;
+    RendererHandle _renderer;
 };
