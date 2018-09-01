@@ -7,18 +7,17 @@ Player::Player()
         : Player{0, 0} {}
 
 Player::Player(int x, int y)
-        : _x(x), _y(y) {
+        : _position(x, y) {
     _hp = Player::get_default_hp();
 }
 
 void Player::set_position(float x, float y) {
-    _x = x;
-    _y = y;
+    _position = make_point(x, y);
 }
 
-float Player::get_x() const { return _x; }
+float Player::get_x() const { return _position.x; }
 
-float Player::get_y() const { return _y; }
+float Player::get_y() const { return _position.y; }
 
 float Player::get_angle() const { return _angle; }
 
@@ -26,9 +25,9 @@ float Player::get_max_movement_speed() const {
     return _max_movement_speed;
 }
 
-void Player::set_x(float x) { _x = x; }
+void Player::set_x(float x) { _position.x = x; }
 
-void Player::set_y(float y) { _y = y; }
+void Player::set_y(float y) { _position.y = y; }
 
 void Player::set_angle(float a) { _angle = a; }
 
@@ -38,7 +37,7 @@ void Player::set_max_movement_speed(float movementSpeed) {
     }
 }
 
-Circle Player::get_circle() const { return {_x, _y, 30}; }
+Circle Player::get_circle() const { return {_position.x, _position.y, 30}; }
 
 std::string Player::get_tex_name() const {
     if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {

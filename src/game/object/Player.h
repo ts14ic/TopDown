@@ -4,6 +4,7 @@
 #include "Weapon.h"
 #include "game/timer/Timer.h"
 #include "engine/input/Input.h"
+#include "game/utils/Point2.h"
 #include <memory>
 #include <bitset>
 
@@ -81,8 +82,7 @@ private:
 
     void update_speeds();
 
-    float _x = 0;
-    float _y = 0;
+    Point2<float> _position;
     float _current_x_speed = 0;
     float _current_y_speed = 0;
     float _max_movement_speed = 0;
