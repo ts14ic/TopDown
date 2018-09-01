@@ -13,6 +13,9 @@ The following is a set of guidelines to follow to maintain a consistent codebase
 * Experimental: Use forward declarations only where needed (e.g. cyclic dependencies)  
      This is a tiny project, and the modules may fix the issue in the future, if it arises
 
+### Conditionals
+* Don't use implicit boolean tests (e.g. compare to `nullptr` or `0` explicitly)
+
 ### Classes
 * Experimental: Prefer get/set/get/set order for properties, instead of get/get/set/set
 
