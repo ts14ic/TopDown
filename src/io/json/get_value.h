@@ -12,6 +12,8 @@
 #include <vector>
 
 namespace json {
+    const auto SOURCE_SELF = "";
+
     struct ParseException : public std::runtime_error {
         explicit ParseException(const std::string& message);
     };
@@ -37,17 +39,17 @@ namespace json {
     }
 
     template <typename T>
-    T get_value(const rapidjson::Value& root, const char* source) {
+    T get_value(const rapidjson::Value& root, const char* source = SOURCE_SELF) {
         auto value = detail::get_value(root, source);
         return detail::value_cast<T>(value, source);
     }
 
-    rapidjson::Value::ConstObject get_object(const rapidjson::Value& root, const char* path);
+    rapidjson::Value::ConstObject get_object(const rapidjson::Value& root, const char* path = SOURCE_SELF);
 
-    const char* get_czstring(const rapidjson::Value& root, const char* path);
+    const char* get_czstring(const rapidjson::Value& root, const char* path = SOURCE_SELF);
 
     template <typename T>
-    std::vector<T> get_values(const rapidjson::Value& root, const char* source) {
+    std::vector<T> get_values(const rapidjson::Value& root, const char* source = SOURCE_SELF) {
         auto array_value = detail::get_value(root, source);
         auto array = detail::value_cast<rapidjson::Value::ConstArray>(array_value, source);
 

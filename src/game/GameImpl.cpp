@@ -102,14 +102,14 @@ void GameImpl::load_resources() {
     using json::get_object;
     using json::get_czstring;
     for (const auto& entry : get_object(doc, "/textures")) {
-        _engine->get_graphic().load_texture(get_czstring(entry.name, ""), get_czstring(entry.value, ""));
+        _engine->get_graphic().load_texture(get_czstring(entry.name), get_czstring(entry.value));
     }
 
     for (const auto& entry : get_object(doc, "/sounds")) {
-        _engine->get_audio().load_sound(get_czstring(entry.name, ""), get_czstring(entry.value, ""));
+        _engine->get_audio().load_sound(get_czstring(entry.name), get_czstring(entry.value));
     }
 
     for (const auto& entry : get_object(doc, "/music")) {
-        _engine->get_audio().load_music(get_czstring(entry.name, ""), get_czstring(entry.value, ""));
+        _engine->get_audio().load_music(get_czstring(entry.name), get_czstring(entry.value));
     }
 }
