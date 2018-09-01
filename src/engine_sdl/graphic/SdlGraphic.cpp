@@ -104,28 +104,27 @@ int SdlGraphic::get_screen_height() {
     return _screen_height;
 }
 
-SdlTexture SdlGraphic::load_texture(const char* path) {
-    struct SDLSurfaceDeleter {
-        void operator()(SDL_Surface* surf) {
-            SDL_FreeSurface(surf);
-        }
-    };
+struct SurfaceDeleter {
+    void operator()(SDL_Surface* surf) {
+        SDL_FreeSurface(surf);
+    }
+};
 
-    std::unique_ptr<SDL_Surface, SDLSurfaceDeleter> buf{IMG_Load(path)};
-    if (buf == nullptr) {
+using SurfaceHandle = std::unique_ptr<SDL_Surface, SurfaceDeleter>;
+
+SdlTexture SdlGraphic::load_texture(const char* path) {
+    SurfaceHandle surface_handle{IMG_Load(path)};
+    if (surface_handle == nullptr) {
         throw FailedToLoadTextureException{IMG_GetError()};
     }
 
-    std::unique_ptr<SDL_Texture, SdlTexture::TextureDeleter> new_texture{
-            SDL_CreateTextureFromSurface(_renderer.get(), buf.get())
-    };
-    if (new_texture == nullptr) {
+    TextureHandle texture_handle{SDL_CreateTextureFromSurface(_renderer.get(), surface_handle.get())};
+    if (texture_handle == nullptr) {
         throw FailedToLoadTextureException{SDL_GetError()};
     }
 
-    SdlTexture tex{std::move(new_texture), buf->w, buf->h};
+    SdlTexture tex{std::move(texture_handle), surface_handle->w, surface_handle->h};
     SDL_Log("SdlTexture loaded: %s.\n", path);
-
     return tex;
 }
 

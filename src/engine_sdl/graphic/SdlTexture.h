@@ -1,16 +1,20 @@
 #pragma once
 
 #include "engine/graphic/Texture.h"
-#include <memory>
 #include <SDL_render.h>
+#include <memory>
+
+struct TextureDeleter {
+    void operator()(SDL_Texture* p);
+};
+
+using TextureHandle = std::unique_ptr<SDL_Texture, TextureDeleter>;
 
 class SdlTexture {
 public:
     SdlTexture();
 
-    struct TextureDeleter;
-
-    SdlTexture(std::unique_ptr<SDL_Texture, TextureDeleter> texture, int width, int height);
+    SdlTexture(TextureHandle texture, int width, int height);
 
     SdlTexture(const SdlTexture&) = delete;
 
@@ -24,12 +28,8 @@ public:
 
     SDL_Texture* get_wrapped_texture() const;
 
-    struct TextureDeleter {
-        void operator()(SDL_Texture* p);
-    };
-
 private:
-    std::unique_ptr<SDL_Texture, TextureDeleter> _texture;
+    TextureHandle _texture;
     int _width = 0;
     int _height = 0;
 };
