@@ -92,15 +92,15 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(Engine &resources, Graphic &graphic, Audio &audio,
+void Zombie::handle_render(Engine &engine, Graphic &graphic, Audio &audio,
                            float predictionRatio) {
-    default_render(resources, graphic, predictionRatio);
+    default_render(engine, graphic, predictionRatio);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 
-    const auto& clock = resources.get_clock();
+    const auto& clock = engine.get_clock();
     if(_ai_state == ATTACKING) {
         if(_animation_frame == 5) {
-            audio.play_sound(resources.get_sound("zombie_attack"));
+            audio.play_sound(engine.get_sound("zombie_attack"));
         }
 
         if(_animation_timer.ticks_passed_since_start(clock, 100)) {

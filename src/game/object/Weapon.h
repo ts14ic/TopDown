@@ -13,7 +13,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pull_trigger(Random& random, Engine& resources, Audio& audio, const GameObject& shooter);
+    void pull_trigger(Random& random, Engine& engine, Audio& audio, const GameObject& shooter);
 
     void try_reload(const Clock& clock);
 

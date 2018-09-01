@@ -64,9 +64,9 @@ public:
 
     void handle_mouse_event(const MouseEvent &event) override;
 
-    void handle_logic(Random& random, Engine& resources, Audio& audio);
+    void handle_logic(Random& random, Engine& engine, Audio& audio);
 
-    void handle_render(Engine &resources, Graphic &graphic, float predictionRatio);
+    void handle_render(Engine &engine, Graphic &graphic, float predictionRatio);
 
     void addWeapon(Weapon weapon);
 

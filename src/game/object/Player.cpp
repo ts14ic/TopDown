@@ -180,10 +180,10 @@ void Player::handle_mouse_event(const MouseEvent& event) {
     }
 }
 
-void Player::handle_logic(Random& random, Engine& resources, Audio& audio) {
+void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
-    set_max_movement_speed(_damage_cooldown.ticks_passed_since_start(resources.get_clock(), 500) ? 2.3f : 1.0f);
+    set_max_movement_speed(_damage_cooldown.ticks_passed_since_start(engine.get_clock(), 500) ? 2.3f : 1.0f);
 
     update_speeds();
 
@@ -191,9 +191,9 @@ void Player::handle_logic(Random& random, Engine& resources, Audio& audio) {
 
     if (!_weapons.empty()) {
         // TODO don't try to reload on every frame
-        _weapons[_selected_weapon_index].try_reload(resources.get_clock());
+        _weapons[_selected_weapon_index].try_reload(engine.get_clock());
         if (_input_state.test(TRIGGER_PRESSED)) {
-            _weapons[_selected_weapon_index].pull_trigger(random, resources, audio, *this);
+            _weapons[_selected_weapon_index].pull_trigger(random, engine, audio, *this);
         }
     }
 }
@@ -215,8 +215,8 @@ void Player::update_speeds() {
     }
 }
 
-void Player::handle_render(Engine& resources, Graphic& graphic, float predictionRatio) {
-    default_render(resources, graphic, predictionRatio);
+void Player::handle_render(Engine& engine, Graphic& graphic, float predictionRatio) {
+    default_render(engine, graphic, predictionRatio);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 }
 

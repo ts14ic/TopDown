@@ -40,12 +40,12 @@ void Weapon::spawn_bullets(Random& random, const GameObject& shooter) {
     }
 }
 
-void Weapon::pull_trigger(Random& random, Engine& resources, Audio& audio, const GameObject& shooter) {
-    const auto& clock = resources.get_clock();
+void Weapon::pull_trigger(Random& random, Engine& engine, Audio& audio, const GameObject& shooter) {
+    const auto& clock = engine.get_clock();
     if (_fire_cooldown_timer.ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
         spawn_bullets(random, shooter);
 
-        play_fire_sound(resources, audio);
+        play_fire_sound(engine, audio);
 
         --_current_ammo;
         if (_current_ammo < 1) {
