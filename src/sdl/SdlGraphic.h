@@ -3,6 +3,7 @@
 #include "engine/graphic/Graphic.h"
 #include "engine/graphic/Texture.h"
 #include "SdlTexture.h"
+#include <unordered_map>
 
 class SdlGraphic : public Graphic {
 public:
@@ -22,7 +23,9 @@ public:
 
     int get_screen_height() override;
 
-    SdlTexture load_texture(const char* path);
+    Texture& get_texture(const std::string& name) override;
+
+    void load_texture(const std::string& name, const char* path) override;
 
     struct FailedSdlInitException : public std::runtime_error {
         explicit FailedSdlInitException(const char* message);
@@ -33,12 +36,15 @@ public:
     };
 
 private:
+    SdlTexture load_texture(const char* path);
+
     struct SdlDeleter {
         void operator()(SDL_Window* p);
 
         void operator()(SDL_Renderer* p);
     };
 
+    std::unordered_map<std::string, SdlTexture> _name_to_texture;
     std::unique_ptr<SDL_Window, SdlDeleter> _window;
     std::unique_ptr<SDL_Renderer, SdlDeleter> _renderer;
 };

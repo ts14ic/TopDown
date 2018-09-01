@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Box.h"
 #include "Color.h"
+#include <iosfwd>
 
 class Graphic {
 public:
@@ -17,6 +18,10 @@ public:
     virtual void render(const Texture& texture, int x, int y) = 0;
 
     virtual void render(const Texture& texture, int x, int y, float angle) = 0;
+
+    virtual void load_texture(const std::string& name, const char* path) = 0;
+
+    virtual Texture& get_texture(const std::string& name) = 0;
 
     virtual int get_screen_width() = 0;
 

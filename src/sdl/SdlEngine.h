@@ -41,8 +41,6 @@ public:
     void load_music(const std::string& name, const char* path) override;
 
 private:
-    SdlTexture load_texture(const char* path);
-
     SdlSound load_sound(const char* path);
 
     SdlMusic load_music(const char* path);
@@ -57,7 +55,6 @@ private:
 
 private:
     std::unordered_map<std::string, SdlSound> _name_to_sound;
-    std::unordered_map<std::string, SdlTexture> _name_to_texture;
     std::unordered_map<std::string, SdlMusic> _name_to_music;
 
     Mt19937Random _random;

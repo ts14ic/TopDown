@@ -133,5 +133,13 @@ SdlTexture SdlGraphic::load_texture(const char* path) {
     return tex;
 }
 
+Texture& SdlGraphic::get_texture(const std::string& name) {
+    return _name_to_texture[name];
+}
+
+void SdlGraphic::load_texture(const std::string& name, const char* path) {
+    _name_to_texture.insert(std::make_pair(name, load_texture(path)));
+}
+
 SdlGraphic::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
         : runtime_error(message) {}

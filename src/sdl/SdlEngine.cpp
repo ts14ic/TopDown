@@ -15,7 +15,6 @@ SdlEngine::SdlEngine(
 }
 
 SdlEngine::~SdlEngine() {
-    _name_to_texture.clear();
     _name_to_music.clear();
     _name_to_sound.clear();
     Mix_Quit();
@@ -24,7 +23,7 @@ SdlEngine::~SdlEngine() {
 }
 
 Texture& SdlEngine::get_texture(const std::string& name) {
-    return _name_to_texture[name];
+    return _graphic.get_texture(name);
 }
 
 Music& SdlEngine::get_music(const std::string& name) {
@@ -36,11 +35,7 @@ Sound& SdlEngine::get_sound(const std::string& name) {
 }
 
 void SdlEngine::load_texture(const std::string& name, const char* path) {
-    _name_to_texture.insert(std::make_pair(name, load_texture(path)));
-}
-
-SdlTexture SdlEngine::load_texture(const char* path) {
-    return _graphic.load_texture(path);
+    _graphic.load_texture(name, path);
 }
 
 void SdlEngine::load_sound(const std::string& name, const char* path) {
