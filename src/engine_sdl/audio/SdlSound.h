@@ -3,13 +3,17 @@
 #include <SDL_mixer.h>
 #include <memory>
 
+struct ChunkDeleter {
+    void operator()(Mix_Chunk* p);
+};
+
+using ChunkHandle = std::unique_ptr<Mix_Chunk, ChunkDeleter>;
+
 class SdlSound {
 public:
     SdlSound();
 
-    struct MixDeleter;
-
-    explicit SdlSound(std::unique_ptr<Mix_Chunk, MixDeleter> chunk);
+    explicit SdlSound(ChunkHandle chunk);
 
     SdlSound(const SdlSound&) = delete;
 
@@ -19,10 +23,6 @@ public:
 
     Mix_Chunk* get_wrapped_chunk() const;
 
-    struct MixDeleter {
-        void operator()(Mix_Chunk* p);
-    };
-
 private:
-    std::unique_ptr<Mix_Chunk, MixDeleter> _chunk;
+    ChunkHandle _chunk;
 };

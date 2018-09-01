@@ -33,14 +33,13 @@ void SdlAudio::load_sound(const std::string& name, const char* path) {
 }
 
 SdlSound SdlAudio::load_sound(const char* path) {
-    std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> new_sound{Mix_LoadWAV(path)};
-    if (new_sound == nullptr) {
+    ChunkHandle chunk_handle{Mix_LoadWAV(path)};
+    if (chunk_handle == nullptr) {
         throw FailedToLoadSoundException{Mix_GetError()};
     }
 
-    SdlSound sound{std::move(new_sound)};
+    SdlSound sound{std::move(chunk_handle)};
     SDL_Log("SdlSound loaded: %s.\n", path);
-
     return sound;
 }
 
