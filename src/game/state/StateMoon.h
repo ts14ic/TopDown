@@ -5,6 +5,7 @@
 #include "game/object/GameObject.h"
 #include "game/Game.h"
 #include "game/timer/Timer.h"
+#include "game/object/Crosshair.h"
 
 class StateMoon : public GameState {
 public:
@@ -29,8 +30,6 @@ public:
 private:
     void parse_level_data();
 
-    void render_crosshair(float frames_count) const;
-
 private:
     Game& _game;
     std::string _background_tex;
@@ -40,6 +39,7 @@ private:
     int _mouse_x;
     int _mouse_y;
     Player _player;
+    Crosshair _crosshair;
 
     Timer _enemy_spawn_cooldown;
 };

@@ -171,26 +171,15 @@ void StateMoon::handle_render(float frames_count) {
         b.handle_render(engine, graphic, frames_count);
     }
 
-    render_crosshair(frames_count);
+    _crosshair.handle_render(
+            _game.get_engine().get_graphic(),
+            _player.reloading() ? Crosshair::RenderType::RELOADING : Crosshair::RenderType::NORMAL,
+            _mouse_x,
+            _mouse_y,
+            frames_count
+    );
 
     graphic.refresh_screen();
-}
-
-void StateMoon::render_crosshair(float frames_count) const {
-    Graphic& graphic = _game.get_engine().get_graphic();
-
-    auto texture = graphic.get_texture(_player.reloading()
-            ? "reload"
-            : "crosshair");
-
-    int x = _mouse_x - texture.get_width() / 2;
-    int y = _mouse_y - texture.get_height() / 2;
-
-    static float angle = 0.f;
-    angle += 5.f * frames_count;
-    if (angle > 360.f) angle = 5.f;
-
-    graphic.render_texture(texture.get_name(), x, y, angle);
 }
 
 void StateMoon::parse_level_data() {
