@@ -29,7 +29,7 @@ void Bullet::set_max_movement_speed(float s) { _max_speed = s; }
 
 int Bullet::get_damage() const { return _damage; }
 
-Circle Bullet::get_circle() const { return {_position.x, _position.y, 2}; }
+Circle Bullet::get_circle() const { return {_position, 2}; }
 
 std::string Bullet::get_tex_name() const { return "bullet"; }
 

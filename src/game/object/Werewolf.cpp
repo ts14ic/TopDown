@@ -16,7 +16,7 @@ void Werewolf::set_angle(float a) { _view_angle = a; }
 
 void Werewolf::set_max_movement_speed(float s) { _max_movement_speed = s; }
 
-Circle Werewolf::get_circle() const { return {_position.x, _position.y, 25}; }
+Circle Werewolf::get_circle() const { return {_position, 25}; }
 
 int Werewolf::get_hp() const { return _current_hp; }
 

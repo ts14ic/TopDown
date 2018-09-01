@@ -25,7 +25,7 @@ void Player::set_max_movement_speed(float movementSpeed) {
     }
 }
 
-Circle Player::get_circle() const { return {_position.x, _position.y, 30}; }
+Circle Player::get_circle() const { return {_position, 30}; }
 
 std::string Player::get_tex_name() const {
     if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {

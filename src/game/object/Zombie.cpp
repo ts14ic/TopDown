@@ -16,7 +16,7 @@ void Zombie::set_angle(float a) { _angle = a; }
 
 void Zombie::set_max_movement_speed(float s) { _speed = s; }
 
-Circle Zombie::get_circle() const { return {_position.x, _position.y, 25}; }
+Circle Zombie::get_circle() const { return {_position, 25}; }
 
 int Zombie::get_hp() const { return _current_hp; }
 
