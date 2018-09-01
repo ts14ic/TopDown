@@ -35,11 +35,11 @@ public:
 private:
     SdlSound load_sound(const char* path);
 
-    void play_sound(const Sound& sound);
+    void play_sound(const SdlSound& sound);
 
     SdlMusic load_music(const char* path);
 
-    void play_music(const Music& music);
+    void play_music(const SdlMusic& music);
 
     std::unordered_map<std::string, SdlSound> _name_to_sound;
     std::unordered_map<std::string, SdlMusic> _name_to_music;

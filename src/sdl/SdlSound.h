@@ -24,5 +24,5 @@ public:
     Mix_Chunk* get_wrapped_chunk() const;
 
 private:
-    std::unique_ptr<Mix_Chunk, MixDeleter> mChunk;
+    std::unique_ptr<Mix_Chunk, MixDeleter> _chunk;
 };

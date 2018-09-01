@@ -18,9 +18,9 @@ SdlAudio::~SdlAudio() {
     Mix_Quit();
 }
 
-void SdlAudio::play_sound(const Sound& sound) {
+void SdlAudio::play_sound(const SdlSound& sound) {
     if (sound.is_loaded()) {
-        Mix_PlayChannel(-1, dynamic_cast<const SdlSound&>(sound).get_wrapped_chunk(), 0);
+        Mix_PlayChannel(-1, sound.get_wrapped_chunk(), 0);
     }
 }
 
@@ -51,9 +51,9 @@ void SdlAudio::play_music(const std::string& name) {
     play_music(_name_to_music[name]);
 }
 
-void SdlAudio::play_music(const Music& music) {
+void SdlAudio::play_music(const SdlMusic& music) {
     if (music.is_loaded() && Mix_PlayingMusic() == 0) {
-        Mix_PlayMusic(dynamic_cast<const SdlMusic&>(music).get_wrapped_music(), -1);
+        Mix_PlayMusic(music.get_wrapped_music(), -1);
     }
 }
 

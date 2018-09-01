@@ -3,7 +3,7 @@
 SdlSound::SdlSound() = default;
 
 SdlSound::SdlSound(std::unique_ptr<Mix_Chunk, SdlSound::MixDeleter> chunk)
-        : mChunk{std::move(chunk)} {
+        : _chunk{std::move(chunk)} {
 
 }
 
@@ -14,9 +14,9 @@ void SdlSound::MixDeleter::operator()(Mix_Chunk* p) {
 }
 
 bool SdlSound::is_loaded() const {
-    return mChunk != nullptr;
+    return _chunk != nullptr;
 }
 
 Mix_Chunk* SdlSound::get_wrapped_chunk() const {
-    return mChunk.get();
+    return _chunk.get();
 }
