@@ -5,7 +5,6 @@
 #include "game/object/GameObject.h"
 #include "game/Game.h"
 #include "game/timer/Timer.h"
-#include "game/object/Crosshair.h"
 
 class StateMoon : public GameState {
 public:
