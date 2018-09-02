@@ -165,7 +165,7 @@ void StateMoon::handle_render(float frames_count) {
 
     graphic.render_texture(_background_tex, make_point(0, 0));
 
-    _player.handle_render(engine, graphic, frames_count);
+    _player.handle_render(graphic, frames_count);
 
     for (auto& z : zombies()) {
         z.handle_render(engine, graphic, audio, frames_count);

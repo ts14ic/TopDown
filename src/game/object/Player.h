@@ -49,7 +49,7 @@ public:
 
     void handle_logic(Engine& engine);
 
-    void handle_render(Engine& engine, Graphic& graphic, float frames_count);
+    void handle_render(Graphic& graphic, float frames_count);
 
 private:
     void update_speeds();
