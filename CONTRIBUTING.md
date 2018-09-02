@@ -9,8 +9,8 @@ Feel free to fix code that violates the guidelines.
 ### Naming
 * PascalCase for type names
 * ALL_CAPS for constants
-* snake_case for everything else
 * _snake_case_with_underscore for private class fields
+* snake_case for everything else
 
 ### Headers
 * Experimental: Use forward declarations only where needed (e.g. cyclic dependencies)  
