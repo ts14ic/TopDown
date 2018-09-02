@@ -33,123 +33,16 @@ void Player::take_damage(const Clock& clock, int damageAmount) {
     }
 }
 
-void Player::handle_key_event(const KeyboardEvent& event) {
-    if (event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
-        switch (event.get_key()) {
-            case KEY_UP:
-            case 'w': {
-                _input_state.set(INPUT_UP_PRESSED);
-                break;
-            }
-
-            case KEY_DOWN:
-            case 's': {
-                _input_state.set(INPUT_DOWN_PRESSED);
-                break;
-            }
-
-            case KEY_LEFT:
-            case 'a': {
-                _input_state.set(INPUT_LEFT_PRESSED);
-                break;
-            }
-
-            case KEY_RIGHT:
-            case 'd': {
-                _input_state.set(INPUT_RIGHT_PRESSED);
-                break;
-            }
-
-            case KEY_SPACE: {
-                _input_state.set(INPUT_TRIGGER_PRESSED);
-                break;
-            }
-
-            default: {
-                break;
-            }
-        }
-    } else if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
-        switch (event.get_key()) {
-            case KEY_UP:
-            case 'w': {
-                _input_state.reset(INPUT_UP_PRESSED);
-                break;
-            }
-
-            case KEY_DOWN:
-            case 's': {
-                _input_state.reset(INPUT_DOWN_PRESSED);
-                break;
-            }
-
-            case KEY_LEFT:
-            case 'a': {
-                _input_state.reset(INPUT_LEFT_PRESSED);
-                break;
-            }
-
-            case KEY_RIGHT:
-            case 'd': {
-                _input_state.reset(INPUT_RIGHT_PRESSED);
-                break;
-            }
-
-            case KEY_SPACE: {
-                _input_state.reset(INPUT_TRIGGER_PRESSED);
-                break;
-            }
-
-            default: {
-                int key = event.get_key();
-                if (key >= '0' && key <= '9') {
-                    auto index = 9U - ('9' - key);
-                    _weapons.select_by_index(index);
-                }
-                break;
-            }
-        }
-    }
-}
-
-
-void Player::handle_mouse_event(const MouseScrollEvent& event) {
-    switch (event.get_type()) {
-        case MouseScrollEvent::Type::SCROLL_UP: {
-            _weapons.select_previous();
-            break;
-        }
-
-        case MouseScrollEvent::Type::SCROLL_DOWN: {
-            _weapons.select_next();
-            break;
-        }
-    }
-}
-
-void Player::handle_mouse_event(const MousePointEvent& event) {
-    switch (event.get_type()) {
-        case MousePointEvent::Type::MOTION: {
-            _transform.angle = math::get_cartesian_angle(_transform.position, event.get_position());
-            break;
-        }
-
-        case MousePointEvent::Type::BUTTON_UP: {
-            _input_state.reset(INPUT_TRIGGER_PRESSED);
-            break;
-        }
-
-        case MousePointEvent::Type::BUTTON_DOWN: {
-            _input_state.set(INPUT_TRIGGER_PRESSED);
-            break;
-        }
-    }
-}
-
 void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
+    if (_input.mouse_moved()) {
+        _transform.angle = math::get_cartesian_angle(_transform.position, _input.pop_mouse_position());
+    }
+
+    handle_weapon_selection();
+
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
-    set_max_movement_speed(_damage_cooldown.ticks_passed_since_start(engine.get_clock(), 500) ? 2.3f : 1.0f);
+    _speed.max_speed = _damage_cooldown.ticks_passed_since_start(engine.get_clock(), 500) ? 2.3f : 1.0f;
 
     update_speeds();
 
@@ -158,15 +51,28 @@ void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
     // TODO don't try to reload on every frame
     _weapons.try_reload_selected(engine.get_clock());
 
-    if (_input_state.test(INPUT_TRIGGER_PRESSED)) {
-        _weapons.pull_trigger(engine, *this);
+    if (_input.is_held(PlayerInput::HOLD_TRIGGER)) {
+        _weapons.fire_from_selected(engine, *this);
+    }
+}
+
+void Player::handle_weapon_selection() {
+    while (_input.has_quick_actions()) {
+        auto action = _input.pop_quick_action();
+        if (action == PlayerInput::QUICK_NEXT_WEAPON) {
+            _weapons.select_next();
+        } else if (action == PlayerInput::QUICK_PREVIOUS_WEAPON) {
+            _weapons.select_previous();
+        } else if (PlayerInput::is_digit(action)) {
+            _weapons.select_by_index(PlayerInput::to_digit(action));
+        }
     }
 }
 
 void Player::update_speeds() {
     // TODO extract speed calculations to share between classes
-    int direction_x = _input_state.test(INPUT_RIGHT_PRESSED) - _input_state.test(INPUT_LEFT_PRESSED);
-    int direction_y = _input_state.test(INPUT_DOWN_PRESSED) - _input_state.test(INPUT_UP_PRESSED);
+    int direction_x = _input.is_held(PlayerInput::HOLD_RIGHT) - _input.is_held(PlayerInput::HOLD_LEFT);
+    int direction_y = _input.is_held(PlayerInput::HOLD_DOWN) - _input.is_held(PlayerInput::HOLD_UP);
 
     if (direction_x != 0 || direction_y != 0) {
         auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));

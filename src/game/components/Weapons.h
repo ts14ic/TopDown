@@ -24,7 +24,7 @@ public:
 
     void try_reload_selected(const Clock& clock);
 
-    void pull_trigger(Engine& engine, GameObject& shooter);
+    void fire_from_selected(Engine& engine, GameObject& shooter);
 
 private:
     Weapon& get_selected_mut() { return _weapons[_selected_weapon_index]; }

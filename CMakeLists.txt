@@ -80,7 +80,10 @@ set(SOURCE_FILES
         src/game/mixins/HasHitpoints.h
         src/game/mixins/HasTexture.h
         src/game/components/Weapons.h src/game/components/Weapons.cpp
-        src/game/mixins/HasWeapons.h)
+        src/game/mixins/HasWeapons.h
+        src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
+        src/game/mixins/HasPlayerInput.h src/game/mixins/HasPlayerInput.cpp
+        )
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

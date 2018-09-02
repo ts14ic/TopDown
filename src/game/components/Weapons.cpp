@@ -29,7 +29,7 @@ void Weapons::try_reload_selected(const Clock& clock) {
     }
 }
 
-void Weapons::pull_trigger(Engine& engine, GameObject& shooter) {
+void Weapons::fire_from_selected(Engine& engine, GameObject& shooter) {
     if (!empty()) {
         get_selected_mut().pull_trigger(engine.get_random(), engine, engine.get_audio(), shooter);
     }
