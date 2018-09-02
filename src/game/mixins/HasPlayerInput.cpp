@@ -1,92 +1,76 @@
 #include "HasPlayerInput.h"
 
 void HasPlayerInput::handle_key_event(const KeyboardEvent& event) {
+    PlayerInput::HoldAction action = key_to_hold_action(event);
     if (event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
-        switch (event.get_key()) {
-            case KEY_UP:
-            case 'w': {
-                hold(PlayerInput::HOLD_UP);
-                break;
-            }
-
-            case KEY_DOWN:
-            case 's': {
-                hold(PlayerInput::HOLD_DOWN);
-                break;
-            }
-
-            case KEY_LEFT:
-            case 'a': {
-                hold(PlayerInput::HOLD_LEFT);
-                break;
-            }
-
-            case KEY_RIGHT:
-            case 'd': {
-                hold(PlayerInput::HOLD_RIGHT);
-                break;
-            }
-
-            case KEY_SPACE: {
-                hold(PlayerInput::HOLD_TRIGGER);
-                break;
-            }
-
-            default: {
-                break;
-            }
-        }
+        hold(action);
     } else if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
-        switch (event.get_key()) {
-            case KEY_UP:
-            case 'w': {
-                release(PlayerInput::HOLD_UP);
-                break;
-            }
+        release(action);
+    }
 
-            case KEY_DOWN:
-            case 's': {
-                release(PlayerInput::HOLD_DOWN);
-                break;
-            }
+    activate(key_to_quick_action(event));
+}
 
-            case KEY_LEFT:
-            case 'a': {
-                release(PlayerInput::HOLD_LEFT);
-                break;
-            }
+PlayerInput::HoldAction HasPlayerInput::key_to_hold_action(const KeyboardEvent& event) const {
+    switch (event.get_key()) {
+        case KEY_UP:
+        case 'w': {
+            return PlayerInput::HOLD_UP;
+        }
 
-            case KEY_RIGHT:
-            case 'd': {
-                release(PlayerInput::HOLD_RIGHT);
-                break;
-            }
+        case KEY_DOWN:
+        case 's': {
+            return PlayerInput::HOLD_DOWN;
+        }
 
-            case KEY_SPACE: {
-                release(PlayerInput::HOLD_TRIGGER);
-                break;
-            }
+        case KEY_LEFT:
+        case 'a': {
+            return PlayerInput::HOLD_LEFT;
+        }
 
-            case ',': {
-                activate(PlayerInput::QUICK_PREVIOUS_WEAPON);
-                break;
-            }
+        case KEY_RIGHT:
+        case 'd': {
+            return PlayerInput::HOLD_RIGHT;
+        }
 
-            case '.': {
-                activate(PlayerInput::PlayerInput::QUICK_NEXT_WEAPON);
-                break;
-            }
+        case KEY_SPACE: {
+            return PlayerInput::HOLD_TRIGGER;
+        }
 
-            default: {
+        default: {
+            return PlayerInput::HOLD_NONE;
+        }
+    }
+}
+
+PlayerInput::QuickAction HasPlayerInput::key_to_quick_action(const KeyboardEvent& event) const {
+    switch (event.get_key()) {
+        case ',': {
+            if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
+                return PlayerInput::QUICK_PREVIOUS_WEAPON;
+            }
+            break;
+        }
+
+        case '.': {
+            if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
+                return PlayerInput::PlayerInput::QUICK_NEXT_WEAPON;
+            }
+            break;
+        }
+
+        default: {
+            if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
                 int key = event.get_key();
                 if (key >= '0' && key <= '9') {
                     auto action = PlayerInput::QUICK_9 - ('9' - key);
-                    activate(static_cast<PlayerInput::QuickAction>(action));
+                    return static_cast<PlayerInput::QuickAction>(action);
                 }
-                break;
             }
+            break;
         }
     }
+    return PlayerInput::QUICK_NONE;
 }
 
 void HasPlayerInput::handle_mouse_event(const MouseScrollEvent& event) {

@@ -18,6 +18,10 @@ public:
     void handle_mouse_event(const MousePointEvent& event) override;
 
 private:
+    PlayerInput::HoldAction key_to_hold_action(const KeyboardEvent& event) const;
+
+    PlayerInput::QuickAction key_to_quick_action(const KeyboardEvent& event) const;
+
     void hold(PlayerInput::HoldAction action);
 
     void release(PlayerInput::HoldAction action);

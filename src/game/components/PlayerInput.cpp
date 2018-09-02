@@ -28,7 +28,9 @@ bool PlayerInput::is_held(PlayerInput::HoldAction action) {
 }
 
 void PlayerInput::activate(PlayerInput::QuickAction action) {
-    _quick_actions.set(action);
+    if (action != QUICK_NONE) {
+        _quick_actions.set(action);
+    }
 }
 
 bool PlayerInput::has_quick_actions() const {
