@@ -16,12 +16,8 @@ Bullet::Bullet(Random& random, const GameObject& shooter, const Weapon& weapon) 
             shooter.get_position().y + math::cartesian_sin(_transform.angle) * weapon.get_length()
     );
     _damage = weapon.get_projectile_damage();
-    _max_speed = weapon.get_projectile_speed();
+    _speed.max_speed = weapon.get_projectile_speed();
 }
-
-float Bullet::get_max_movement_speed() const { return _max_speed; }
-
-void Bullet::set_max_movement_speed(float s) { _max_speed = s; }
 
 int Bullet::get_damage() const { return _damage; }
 

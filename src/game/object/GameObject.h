@@ -3,6 +3,7 @@
 #include <string>
 
 #include <game/components/Transform.h>
+#include <game/components/Speed.h>
 #include <engine/geometry/Circle.h>
 #include <engine/Engine.h>
 #include <engine/graphic/Graphic.h>
@@ -14,6 +15,14 @@ public:
     virtual Transform get_transform() const = 0;
 
     virtual void set_transform(Transform transform) = 0;
+
+    virtual Speed get_speed() const = 0;
+
+    virtual void set_speed(Speed speed) = 0;
+
+    virtual Circle get_circle() const = 0;
+
+    virtual std::string get_tex_name() const = 0;
 
     Point2<float> get_position() const {
         return get_transform().position;
@@ -51,21 +60,29 @@ public:
         set_transform(transform);
     }
 
-    virtual float get_max_movement_speed() const = 0;
+    float get_max_movement_speed() const {
+        return get_speed().max_speed;
+    }
 
-    virtual void set_max_movement_speed(float speed) = 0;
+    void set_max_movement_speed(float max_speed) {
+        Speed speed = get_speed();
+        speed.max_speed = max_speed;
+        set_speed(speed);
+    }
 
-    virtual Speed2<float> get_current_speed() const = 0;
+    Speed2<float> get_current_speed() const {
+        return get_speed().current_speed;
+    }
 
-    virtual void set_current_speed(Speed2<float> current_speed) = 0;
+    void set_current_speed(Speed2<float> current_speed) {
+        Speed speed = get_speed();
+        speed.current_speed = current_speed;
+        set_speed(speed);
+    }
 
     void set_current_speed(float x, float y) {
         set_current_speed(make_speed(x, y));
     }
-
-    virtual Circle get_circle() const = 0;
-
-    virtual std::string get_tex_name() const = 0;
 
 protected:
     void default_move();

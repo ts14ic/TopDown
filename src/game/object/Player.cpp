@@ -11,16 +11,6 @@ Player::Player(Point2<float> position)
     _hp = Player::get_default_hp();
 }
 
-float Player::get_max_movement_speed() const {
-    return _max_movement_speed;
-}
-
-void Player::set_max_movement_speed(float movementSpeed) {
-    if (movementSpeed >= 0) {
-        _max_movement_speed = movementSpeed;
-    }
-}
-
 Circle Player::get_circle() const { return {_transform.position, 30}; }
 
 std::string Player::get_tex_name() const {

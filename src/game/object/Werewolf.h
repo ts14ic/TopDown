@@ -14,15 +14,9 @@ public:
 
     void set_transform(Transform transform) override { _transform = transform; }
 
-    float get_max_movement_speed() const override;
+    Speed get_speed() const override { return _speed; }
 
-    void set_max_movement_speed(float s) override;
-
-    Speed2<float> get_current_speed() const override { return _current_speed; }
-
-    using GameObject::set_current_speed;
-
-    void set_current_speed(Speed2<float> current_speed) override { _current_speed = current_speed; }
+    void set_speed(Speed speed) override { _speed = speed; }
 
     Circle get_circle() const override;
 
@@ -51,8 +45,7 @@ public:
 
 private:
     Transform _transform;
-    Speed2<float> _current_speed;
-    float _max_movement_speed = 2.5f;
+    Speed _speed = Speed{2.5f};
 
     int _current_hp;
 

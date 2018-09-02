@@ -8,10 +8,6 @@ Werewolf::Werewolf(Point2<float> position)
     _current_hp = Werewolf::get_default_hp();
 }
 
-float Werewolf::get_max_movement_speed() const { return _max_movement_speed; }
-
-void Werewolf::set_max_movement_speed(float s) { _max_movement_speed = s; }
-
 Circle Werewolf::get_circle() const { return {_transform.position, 25}; }
 
 int Werewolf::get_hp() const { return _current_hp; }
