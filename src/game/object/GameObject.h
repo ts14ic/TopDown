@@ -8,7 +8,6 @@
 #include <engine/Engine.h>
 #include <engine/graphic/Graphic.h>
 #include <engine/geometry/Point2.h>
-#include <engine/geometry/Speed2.h>
 
 class GameObject {
 public:

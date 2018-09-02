@@ -1,6 +1,6 @@
 #pragma once
 
-#include <engine/geometry/Speed2.h>
+#include <game/components/Speed2.h>
 
 struct Speed {
     Speed() {
