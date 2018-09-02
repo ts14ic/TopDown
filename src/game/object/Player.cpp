@@ -23,7 +23,7 @@ std::string Player::get_tex_name() const {
 int Player::get_damage() const { return 0; }
 
 bool Player::is_dead() const {
-    return _hitpoints.current_hp <= 0;
+    return !has_hp();
 }
 
 void Player::damage(const Clock& clock, int damageAmount) {

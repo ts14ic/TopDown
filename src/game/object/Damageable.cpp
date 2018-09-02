@@ -1,7 +1,7 @@
 #include "Damageable.h"
 
 void Damageable::default_render_health(Graphic& graphic_context, const Color& color, float frames_count) const {
-    if (get_hp() > 0) {
+    if (has_hp()) {
         Box healthBox;
 
         healthBox.set_size(50.f * get_hp() / get_default_hp(), 5.f);

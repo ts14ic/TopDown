@@ -27,7 +27,7 @@ std::string Zombie::get_tex_name() const {
 void Zombie::damage(const Clock& clock, int damage_dealt) {
     if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
 
-    if (_hitpoints.current_hp <= 0 && _ai_state != AI_DYING) {
+    if (!has_hp() && _ai_state != AI_DYING) {
         _ai_state = AI_DYING;
         _animation_frame = 0;
     }

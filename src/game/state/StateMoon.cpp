@@ -90,18 +90,18 @@ void StateMoon::handle_logic() {
         }
 
         for (auto& zombie : zombies()) {
-            if (objects_collide(bullet, zombie) && zombie.get_hp() > 0) {
+            if (objects_collide(bullet, zombie) && zombie.has_hp()) {
                 zombie.damage(clock, bullet.get_damage());
                 return true;
             }
         }
-        for (auto& w : werewolves()) {
-            if (objects_collide(bullet, w) && w.get_hp() > 0) {
-                w.damage(clock, bullet.get_damage());
+        for (auto& werewolf : werewolves()) {
+            if (objects_collide(bullet, werewolf) && werewolf.has_hp()) {
+                werewolf.damage(clock, bullet.get_damage());
                 return true;
             }
-            if (math::get_distance(bullet.get_position(), w.get_position()) < 50) {
-                w.teleport(clock, random);
+            if (math::get_distance(bullet.get_position(), werewolf.get_position()) < 50) {
+                werewolf.teleport(clock, random);
             }
         }
 

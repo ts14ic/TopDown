@@ -10,6 +10,8 @@ public:
 
     int get_hp() const { return get_hitpoints().current_hp; }
 
+    bool has_hp() const { return get_hp() > 0; }
+
     void set_hp(int hp) {
         Hitpoints hitpoints = get_hitpoints();
         hitpoints.current_hp = hp;
