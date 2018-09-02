@@ -1,7 +1,7 @@
 # Contributing to TopDown
 The following is a set of guidelines to follow when contributing to TopDown.
 
-## Style guides
+## Coding guides
 The following is a set of guidelines to follow to maintain a consistent codebase.  
 Feel free to propose a different guideline, or ignore one if it is for the best.  
 Feel free to fix code that violates the guidelines.  
