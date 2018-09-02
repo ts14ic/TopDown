@@ -108,26 +108,33 @@ void HasPlayerInput::handle_mouse_event(const MousePointEvent& event) {
     }
 }
 
+template <typename Mutator>
+void mutate_input(HasPlayerInput* self, Mutator&& mutator) {
+    auto input = self->get_player_input();
+    mutator(input);
+    self->set_player_input(input);
+}
+
 void HasPlayerInput::press(PlayerInput::HoldAction action) {
-    auto input = get_player_input();
-    input.press(action);
-    set_player_input(input);
+    mutate_input(this, [=](PlayerInput& input) {
+        input.press(action);
+    });
 }
 
 void HasPlayerInput::release(PlayerInput::HoldAction action) {
-    auto input = get_player_input();
-    input.release(action);
-    set_player_input(input);
+    mutate_input(this, [=](PlayerInput& input) {
+        input.release(action);
+    });
 }
 
 void HasPlayerInput::tap(PlayerInput::QuickAction action) {
-    auto input = get_player_input();
-    input.tap(action);
-    set_player_input(input);
+    mutate_input(this, [=](PlayerInput& input) {
+        input.tap(action);
+    });
 }
 
 void HasPlayerInput::move_mouse(Point2<int> mouse_position) {
-    auto input = get_player_input();
-    input.move_mouse(mouse_position);
-    set_player_input(input);
+    mutate_input(this, [=](PlayerInput& input) {
+        input.move_mouse(mouse_position);
+    });
 }
