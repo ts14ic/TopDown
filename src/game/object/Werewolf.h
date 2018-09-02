@@ -10,15 +10,9 @@ class Werewolf : public Damageable {
 public:
     explicit Werewolf(Point2<float> position);
 
-    Point2<float> get_position() const override { return _position; }
+    Transform get_transform() const override { return _transform; }
 
-    using GameObject::set_position;
-
-    void set_position(Point2<float> position) override { _position = position; }
-
-    float get_angle() const override;
-
-    void set_angle(float a) override;
+    void set_transform(Transform transform) override { _transform = transform; }
 
     float get_max_movement_speed() const override;
 
@@ -56,10 +50,9 @@ public:
                        float frames_count);
 
 private:
-    Point2<float> _position;
+    Transform _transform;
     Speed2<float> _current_speed;
     float _max_movement_speed = 2.5f;
-    float _view_angle = 0.f;
 
     int _current_hp;
 

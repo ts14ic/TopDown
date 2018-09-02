@@ -10,26 +10,22 @@ vector<Bullet>& bullets() {
 
 Bullet::Bullet(Random& random, const GameObject& shooter, const Weapon& weapon) {
     float half = weapon.get_projectile_spread() / 2;
-    _angle = shooter.get_angle() + random.get_float(-half, half);
-    _position = make_point(
-            shooter.get_position().x + math::cartesian_cos(_angle) * weapon.get_length(),
-            shooter.get_position().y + math::cartesian_sin(_angle) * weapon.get_length()
+    _transform.angle = shooter.get_angle() + random.get_float(-half, half);
+    _transform.position = make_point(
+            shooter.get_position().x + math::cartesian_cos(_transform.angle) * weapon.get_length(),
+            shooter.get_position().y + math::cartesian_sin(_transform.angle) * weapon.get_length()
     );
     _damage = weapon.get_projectile_damage();
     _max_speed = weapon.get_projectile_speed();
 }
 
-float Bullet::get_angle() const { return _angle; }
-
 float Bullet::get_max_movement_speed() const { return _max_speed; }
-
-void Bullet::set_angle(float a) { _angle = a; }
 
 void Bullet::set_max_movement_speed(float s) { _max_speed = s; }
 
 int Bullet::get_damage() const { return _damage; }
 
-Circle Bullet::get_circle() const { return {_position, 2}; }
+Circle Bullet::get_circle() const { return {_transform.position, 2}; }
 
 std::string Bullet::get_tex_name() const { return "bullet"; }
 

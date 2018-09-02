@@ -7,17 +7,13 @@ Player::Player()
         : Player{make_point<float>(0, 0)} {}
 
 Player::Player(Point2<float> position)
-        : _position{position} {
+        : _transform{position, 0.0f} {
     _hp = Player::get_default_hp();
 }
-
-float Player::get_angle() const { return _angle; }
 
 float Player::get_max_movement_speed() const {
     return _max_movement_speed;
 }
-
-void Player::set_angle(float a) { _angle = a; }
 
 void Player::set_max_movement_speed(float movementSpeed) {
     if (movementSpeed >= 0) {
@@ -25,7 +21,7 @@ void Player::set_max_movement_speed(float movementSpeed) {
     }
 }
 
-Circle Player::get_circle() const { return {_position, 30}; }
+Circle Player::get_circle() const { return {_transform.position, 30}; }
 
 std::string Player::get_tex_name() const {
     if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {
@@ -155,7 +151,7 @@ void Player::handle_mouse_event(const MouseScrollEvent& event) {
 void Player::handle_mouse_event(const MousePointEvent& event) {
     switch (event.get_type()) {
         case MousePointEvent::Type::MOTION: {
-            _angle = math::get_cartesian_angle(_position, event.get_position());
+            _transform.angle = math::get_cartesian_angle(_transform.position, event.get_position());
             break;
         }
 

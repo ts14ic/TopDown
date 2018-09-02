@@ -4,19 +4,15 @@
 using std::vector;
 
 Werewolf::Werewolf(Point2<float> position)
-        : _position{position} {
+        : _transform{position, 0.0f} {
     _current_hp = Werewolf::get_default_hp();
 }
 
-float Werewolf::get_angle() const { return _view_angle; }
-
 float Werewolf::get_max_movement_speed() const { return _max_movement_speed; }
-
-void Werewolf::set_angle(float a) { _view_angle = a; }
 
 void Werewolf::set_max_movement_speed(float s) { _max_movement_speed = s; }
 
-Circle Werewolf::get_circle() const { return {_position, 25}; }
+Circle Werewolf::get_circle() const { return {_transform.position, 25}; }
 
 int Werewolf::get_hp() const { return _current_hp; }
 
@@ -66,9 +62,9 @@ void Werewolf::set_target(const Clock& clock, Point2<float> position) {
         return;
     }
 
-    _view_angle = math::get_cartesian_angle(_position, position);
+    _transform.angle = math::get_cartesian_angle(_transform.position, position);
 
-    auto dist = math::get_distance(_position, position);
+    auto dist = math::get_distance(_transform.position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != AI_MOVING) {
             _ai_state = AI_MOVING;
@@ -110,9 +106,9 @@ void Werewolf::teleport(const Clock& clock, Random& random) {
     if (_ai_state == AI_DYING) return;
 
     if (_ai_state != AI_TELEPORTING && _teleport_cooldown.ticks_passed_since_start(clock, 1000)) {
-        _position = make_point(
-                _position.x + random.get_int(-150, 150),
-                _position.y + random.get_int(-150, 150)
+        _transform.position = make_point(
+                _transform.position.x + random.get_int(-150, 150),
+                _transform.position.y + random.get_int(-150, 150)
         );
         _ai_state = AI_TELEPORTING;
         _animation_frame = 0;
@@ -128,8 +124,8 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
         Box health_box;
         health_box.set_size(1.66f * _current_hp, 5);
         health_box.set_left_top(
-                _position.x - health_box.get_width() / 2,
-                _position.y - get_circle().get_radius()
+                _transform.position.x - health_box.get_width() / 2,
+                _transform.position.y - get_circle().get_radius()
         );
         graphic_context.render_box(health_box, Color{0x55, 0, 0x33});
     }

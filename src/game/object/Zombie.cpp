@@ -4,19 +4,15 @@
 using std::vector;
 
 Zombie::Zombie(Point2<float> position)
-        : _position{position} {
+        : _transform{position, 0.0f} {
     _current_hp = Zombie::get_default_hp();
 }
 
-float Zombie::get_angle() const { return _angle; }
-
 float Zombie::get_max_movement_speed() const { return _speed; }
-
-void Zombie::set_angle(float a) { _angle = a; }
 
 void Zombie::set_max_movement_speed(float s) { _speed = s; }
 
-Circle Zombie::get_circle() const { return {_position, 25}; }
+Circle Zombie::get_circle() const { return {_transform.position, 25}; }
 
 int Zombie::get_hp() const { return _current_hp; }
 
@@ -50,9 +46,9 @@ void Zombie::damage(const Clock& clock, int d) {
 void Zombie::set_target(Point2<float> position) {
     if (_ai_state == AI_DYING) return;
 
-    _angle = math::get_cartesian_angle(_position, position);
+    _transform.angle = math::get_cartesian_angle(_transform.position, position);
 
-    auto dist = math::get_distance(_position, position);
+    auto dist = math::get_distance(_transform.position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
         if (_ai_state != AI_MOVING) {
             _ai_state = AI_MOVING;

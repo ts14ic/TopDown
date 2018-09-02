@@ -17,15 +17,9 @@ public:
 
     explicit Player(Point2<float> position);
 
-    Point2<float> get_position() const override { return _position; }
+    Transform get_transform() const override { return _transform; }
 
-    using GameObject::set_position;
-
-    void set_position(Point2<float> position) override { _position = position; }
-
-    float get_angle() const override;
-
-    void set_angle(float a) override;
+    void set_transform(Transform transform) override { _transform = transform; }
 
     float get_max_movement_speed() const override;
 
@@ -74,10 +68,9 @@ private:
 
     void update_speeds();
 
-    Point2<float> _position;
+    Transform _transform;
     Speed2<float> _current_speed;
     float _max_movement_speed = 0;
-    float _angle = 0.0f;
 
     std::vector<Weapon> _weapons;
     unsigned _selected_weapon_index = 0;

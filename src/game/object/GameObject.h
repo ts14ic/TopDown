@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include <game/components/Transform.h>
 #include <engine/geometry/Circle.h>
 #include <engine/Engine.h>
 #include <engine/graphic/Graphic.h>
@@ -10,9 +11,19 @@
 
 class GameObject {
 public:
-    virtual Point2<float> get_position() const = 0;
+    virtual Transform get_transform() const = 0;
 
-    virtual void set_position(Point2<float> position) = 0;
+    virtual void set_transform(Transform transform) = 0;
+
+    Point2<float> get_position() const {
+        return get_transform().position;
+    }
+
+    void set_position(Point2<float> position) {
+        Transform transform = get_transform();
+        transform.position = position;
+        set_transform(transform);
+    }
 
     void set_position(float x, float y) {
         set_position(make_point(x, y));
@@ -30,9 +41,15 @@ public:
         set_position(position);
     }
 
-    virtual float get_angle() const = 0;
+    float get_angle() const {
+        return get_transform().angle;
+    }
 
-    virtual void set_angle(float angle) = 0;
+    void set_angle(float angle) {
+        Transform transform = get_transform();
+        transform.angle = angle;
+        set_transform(transform);
+    }
 
     virtual float get_max_movement_speed() const = 0;
 

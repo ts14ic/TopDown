@@ -72,7 +72,7 @@ set(SOURCE_FILES
         src/game/Game.cpp src/game/Game.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
-        )
+        src/game/components/Transform.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
