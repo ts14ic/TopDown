@@ -60,15 +60,6 @@ private:
 
     void update_speeds();
 
-    Transform _transform;
-    Speed _speed;
-    Hitpoints _hitpoints;
-
-    std::vector<Weapon> _weapons;
-    unsigned _selected_weapon_index = 0;
-
-    Timer _damage_cooldown;
-
     enum InputState {
         INPUT_UP_PRESSED,
         INPUT_DOWN_PRESSED,
@@ -77,5 +68,12 @@ private:
         INPUT_TRIGGER_PRESSED,
         INPUT_LENGTH
     };
+
+    Transform _transform;
+    Speed _speed;
+    Hitpoints _hitpoints;
+    Timer _damage_cooldown;
+    std::vector<Weapon> _weapons;
+    unsigned _selected_weapon_index = 0;
     std::bitset<INPUT_LENGTH> _input_state;
 };

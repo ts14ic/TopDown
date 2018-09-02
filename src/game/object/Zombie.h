@@ -42,20 +42,18 @@ public:
                        float frames_count);
 
 private:
-    Transform _transform;
-    Speed _speed = Speed{1.7f};
-    Hitpoints _hitpoints;
-
-    int _animation_frame = 0;
-
-    Timer _animation_timer;
-
     enum AiState {
         AI_IDLE = 0x0,
         AI_MOVING = 0x1,
         AI_ATTACKING = 0x2,
         AI_DYING = 0x4
     };
+
+    Transform _transform;
+    Speed _speed = Speed{1.7f};
+    Hitpoints _hitpoints;
+    int _animation_frame = 0;
+    Timer _animation_timer;
     int _ai_state = AI_IDLE;
 };
 
