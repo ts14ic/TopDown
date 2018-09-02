@@ -77,6 +77,7 @@ set(SOURCE_FILES
         src/game/components/Speed.h
         src/game/object/HasSpeed.h
         src/game/components/Hitpoints.h
+        src/game/object/HasHitpoints.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})
