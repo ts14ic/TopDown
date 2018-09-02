@@ -24,6 +24,8 @@ public:
     // Damageable legacy
     Hitpoints get_hitpoints() const override { return _hitpoints; }
 
+    void set_hitpoints(Hitpoints hitpoints) override { _hitpoints = hitpoints; }
+
     int get_damage() const override;
 
     void damage(const Clock& clock, int damage_dealt) override;

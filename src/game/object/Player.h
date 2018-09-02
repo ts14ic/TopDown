@@ -25,9 +25,11 @@ public:
 
     void set_speed(Speed speed) override { _speed = speed; }
 
-    std::string get_tex_name() const override;
-
     Hitpoints get_hitpoints() const override { return _hitpoints; }
+
+    void set_hitpoints(Hitpoints hitpoints) override { _hitpoints = hitpoints; }
+
+    std::string get_tex_name() const override;
 
     int get_damage() const override;
 
