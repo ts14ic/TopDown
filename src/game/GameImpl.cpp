@@ -28,7 +28,7 @@ void GameImpl::run_loop() {
     auto previous_time = clock.get_current_time();
     auto lag_time = 0UL;
 
-    while (_current_state_id != StateId::exit) {
+    while (_current_state_id != StateId::EXIT) {
         auto new_time = clock.get_current_time();
         lag_time += new_time - previous_time;
         previous_time = new_time;
@@ -47,17 +47,17 @@ void GameImpl::run_loop() {
 }
 
 void GameImpl::change_state() {
-    if (_next_state_id != StateId::null) {
-        if (_next_state_id != StateId::exit) {
+    if (_next_state_id != StateId::NONE) {
+        if (_next_state_id != StateId::EXIT) {
             _current_state = nullptr;
         }
 
         switch (_next_state_id) {
-            case StateId::intro:
+            case StateId::INTRO:
                 _current_state = std::make_unique<StateIntro>(*this);
                 break;
 
-            case StateId::moon:
+            case StateId::MOON:
                 _current_state = std::make_unique<StateMoon>(*this);
                 break;
 
@@ -65,12 +65,12 @@ void GameImpl::change_state() {
         }
 
         _current_state_id = _next_state_id;
-        _next_state_id = StateId::null;
+        _next_state_id = StateId::NONE;
     }
 }
 
 void GameImpl::request_state_change(StateId stateId) {
-    if (_next_state_id != StateId::exit) {
+    if (_next_state_id != StateId::EXIT) {
         _next_state_id = stateId;
     }
 }
@@ -81,8 +81,8 @@ Engine& GameImpl::get_engine() {
 
 void GameImpl::handle_window_event(const WindowEvent& event) {
     switch (event.get_type()) {
-        case WindowEvent::Type::Close: {
-            request_state_change(StateId::exit);
+        case WindowEvent::Type::CLOSE: {
+            request_state_change(StateId::EXIT);
             break;
         }
     }

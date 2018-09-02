@@ -3,8 +3,8 @@
 class MouseScrollEvent {
 public:
     enum class Type {
-        ScrollDown,
-        ScrollUp,
+        SCROLL_DOWN,
+        SCROLL_UP,
     };
 
     MouseScrollEvent(Type type, int scroll);

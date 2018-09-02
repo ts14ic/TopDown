@@ -34,8 +34,8 @@ private:
     unsigned calculate_ms_per_frame(int frames_per_second) const;
 
     // todo add a loop input
-    StateId _current_state_id = StateId::null;
-    StateId _next_state_id = StateId::null;
+    StateId _current_state_id = StateId::NONE;
+    StateId _next_state_id = StateId::NONE;
     std::unique_ptr<GameState> _current_state;
     std::unique_ptr<Engine> _engine;
     unsigned _ms_per_frame;

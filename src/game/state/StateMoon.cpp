@@ -37,7 +37,7 @@ void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
 }
 
 void StateMoon::handle_mouse_event(const MousePointEvent& event) {
-    if (event.get_type() == MousePointEvent::Type::Motion) {
+    if (event.get_type() == MousePointEvent::Type::MOTION) {
         _mouse_pos = event.get_position();
     }
 
@@ -132,7 +132,7 @@ void StateMoon::handle_logic() {
     }), werewolves().end());
 
     restrict_pos(_player);
-    if (_player.is_dead()) _game.request_state_change(StateId::intro);
+    if (_player.is_dead()) _game.request_state_change(StateId::INTRO);
 }
 
 bool StateMoon::position_out_of_level_area(Point2<float> position) const {

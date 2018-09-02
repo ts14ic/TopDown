@@ -1,10 +1,10 @@
 #pragma once
 
 enum class StateId {
-    null,
-    intro,
-    moon,
-    score,
-    exit
+    NONE,
+    INTRO,
+    MOON,
+    SCORE,
+    EXIT
 };
 

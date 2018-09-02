@@ -5,8 +5,8 @@
 class KeyboardEvent {
 public:
     enum class Type {
-        KeyDown,
-        KeyUp,
+        KEY_DOWN,
+        KEY_UP,
     };
 
     KeyboardEvent(Type type, KeyboardKey_t key);

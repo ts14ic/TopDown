@@ -59,7 +59,7 @@ bool Player::reloading() const {
 }
 
 void Player::handle_key_event(const KeyboardEvent& event) {
-    if (event.get_type() == KeyboardEvent::Type::KeyDown) {
+    if (event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
         switch (event.get_key()) {
             case KEY_UP:
             case 'w': {
@@ -94,7 +94,7 @@ void Player::handle_key_event(const KeyboardEvent& event) {
                 break;
             }
         }
-    } else if (event.get_type() == KeyboardEvent::Type::KeyUp) {
+    } else if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
         switch (event.get_key()) {
             case KEY_UP:
             case 'w': {
@@ -140,12 +140,12 @@ void Player::handle_key_event(const KeyboardEvent& event) {
 
 void Player::handle_mouse_event(const MouseScrollEvent& event) {
     switch (event.get_type()) {
-        case MouseScrollEvent::Type::ScrollUp: {
+        case MouseScrollEvent::Type::SCROLL_UP: {
             select_previous_weapon();
             break;
         }
 
-        case MouseScrollEvent::Type::ScrollDown: {
+        case MouseScrollEvent::Type::SCROLL_DOWN: {
             select_next_weapon();
             break;
         }
@@ -154,17 +154,17 @@ void Player::handle_mouse_event(const MouseScrollEvent& event) {
 
 void Player::handle_mouse_event(const MousePointEvent& event) {
     switch (event.get_type()) {
-        case MousePointEvent::Type::Motion: {
+        case MousePointEvent::Type::MOTION: {
             _angle = math::get_cartesian_angle(_position, event.get_position());
             break;
         }
 
-        case MousePointEvent::Type::ButtonUp: {
+        case MousePointEvent::Type::BUTTON_UP: {
             _input_state.reset(INPUT_TRIGGER_PRESSED);
             break;
         }
 
-        case MousePointEvent::Type::ButtonDown: {
+        case MousePointEvent::Type::BUTTON_DOWN: {
             _input_state.set(INPUT_TRIGGER_PRESSED);
             break;
         }

@@ -16,16 +16,16 @@ void StateIntro::handle_mouse_event(const MousePointEvent& event) {
 }
 
 void StateIntro::handle_key_event(const KeyboardEvent &event) {
-    if(event.get_type() == KeyboardEvent::Type::KeyDown) {
+    if(event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
         switch(event.get_key()) {
             case 'q': {
-                _game.request_state_change(StateId::exit);
+                _game.request_state_change(StateId::EXIT);
                 break;
             }
 
             case KEY_ESCAPE:
             case KEY_ENTER: {
-                _game.request_state_change(StateId::moon);
+                _game.request_state_change(StateId::MOON);
                 break;
             }
 

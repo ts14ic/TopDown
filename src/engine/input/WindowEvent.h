@@ -3,7 +3,7 @@
 class WindowEvent {
 public:
     enum class Type {
-        Close,
+        CLOSE,
     };
 
     explicit WindowEvent(Type type);

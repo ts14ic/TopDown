@@ -65,13 +65,13 @@ private:
 
     Timer _animation_timer;
 
-    enum {
-        IDLE = 0x0,
-        MOVING = 0x1,
-        ATTACKING = 0x2,
-        DYING = 0x4
+    enum AiState {
+        AI_IDLE = 0x0,
+        AI_MOVING = 0x1,
+        AI_ATTACKING = 0x2,
+        AI_DYING = 0x4
     };
-    int _ai_state = IDLE;
+    int _ai_state = AI_IDLE;
 };
 
 std::vector<Zombie>& zombies();

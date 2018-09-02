@@ -13,23 +13,23 @@ void SdlInput::poll_events() {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT: {
-                forward_window_event(WindowEvent::Type::Close);
+                forward_window_event(WindowEvent::Type::CLOSE);
                 break;
             }
 
             case SDL_KEYDOWN: {
-                forward_keyboard_event(KeyboardEvent::Type::KeyDown, transform_sdl_key_code(event.key.keysym.sym));
+                forward_keyboard_event(KeyboardEvent::Type::KEY_DOWN, transform_sdl_key_code(event.key.keysym.sym));
                 break;
             }
 
             case SDL_KEYUP: {
-                forward_keyboard_event(KeyboardEvent::Type::KeyUp, transform_sdl_key_code(event.key.keysym.sym));
+                forward_keyboard_event(KeyboardEvent::Type::KEY_UP, transform_sdl_key_code(event.key.keysym.sym));
                 break;
             }
 
             case SDL_MOUSEMOTION: {
                 forward_mouse_event(MousePointEvent{
-                        MousePointEvent::Type::Motion,
+                        MousePointEvent::Type::MOTION,
                         make_point(event.motion.x, event.motion.y)
                 });
                 break;
@@ -37,7 +37,7 @@ void SdlInput::poll_events() {
 
             case SDL_MOUSEBUTTONUP: {
                 forward_mouse_event(MousePointEvent{
-                        MousePointEvent::Type::ButtonUp,
+                        MousePointEvent::Type::BUTTON_UP,
                         make_point(event.button.x, event.button.y)
                 });
                 break;
@@ -45,7 +45,7 @@ void SdlInput::poll_events() {
 
             case SDL_MOUSEBUTTONDOWN: {
                 forward_mouse_event(MousePointEvent{
-                        MousePointEvent::Type::ButtonDown,
+                        MousePointEvent::Type::BUTTON_DOWN,
                         make_point(event.button.x, event.button.y)
                 });
                 break;
@@ -54,12 +54,12 @@ void SdlInput::poll_events() {
             case SDL_MOUSEWHEEL: {
                 if (event.wheel.y > 0) {
                     forward_mouse_event(MouseScrollEvent{
-                            MouseScrollEvent::Type::ScrollUp,
+                            MouseScrollEvent::Type::SCROLL_UP,
                             event.wheel.y
                     });
                 } else {
                     forward_mouse_event(MouseScrollEvent{
-                            MouseScrollEvent::Type::ScrollDown,
+                            MouseScrollEvent::Type::SCROLL_DOWN,
                             -event.wheel.y
                     });
                 }

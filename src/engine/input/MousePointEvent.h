@@ -5,9 +5,9 @@
 class MousePointEvent {
 public:
     enum class Type {
-        Motion,
-        ButtonUp,
-        ButtonDown
+        MOTION,
+        BUTTON_UP,
+        BUTTON_DOWN
     };
 
     MousePointEvent(Type type, Point2<int> position) {

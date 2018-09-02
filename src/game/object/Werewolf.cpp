@@ -23,7 +23,7 @@ int Werewolf::get_hp() const { return _current_hp; }
 int Werewolf::get_default_hp() const { return 30; }
 
 int Werewolf::get_damage() const {
-    if (_ai_state == ATTACKING && (_animation_frame == 3 || _animation_frame == 7))
+    if (_ai_state == AI_ATTACKING && (_animation_frame == 3 || _animation_frame == 7))
         return 10;
     else return 0;
 }
@@ -31,13 +31,13 @@ int Werewolf::get_damage() const {
 std::string Werewolf::get_tex_name() const {
     std::string name = "wolf";
 
-    if (_ai_state == ATTACKING) {
+    if (_ai_state == AI_ATTACKING) {
         name += "_attack";
         name += std::to_string(_animation_frame);
-    } else if (_ai_state == TELEPORTING) {
+    } else if (_ai_state == AI_TELEPORTING) {
         name += "_teleport";
         name += std::to_string(_animation_frame);
-    } else if (_ai_state == DYING) {
+    } else if (_ai_state == AI_DYING) {
         name += "_teleport";
         name += std::to_string(_animation_frame);
     } else {
@@ -49,19 +49,19 @@ std::string Werewolf::get_tex_name() const {
 }
 
 void Werewolf::damage(const Clock& clock, int d) {
-    if (_ai_state == TELEPORTING) d /= 2;
+    if (_ai_state == AI_TELEPORTING) d /= 2;
 
     if (d > 0) _current_hp -= d;
-    if (_current_hp <= 0 && _ai_state != DYING) {
-        _ai_state = DYING;
+    if (_current_hp <= 0 && _ai_state != AI_DYING) {
+        _ai_state = AI_DYING;
         _animation_frame = 0;
     }
 }
 
 void Werewolf::set_target(const Clock& clock, Point2<float> position) {
-    if (_ai_state == DYING) return;
+    if (_ai_state == AI_DYING) return;
 
-    if (_ai_state == TELEPORTING
+    if (_ai_state == AI_TELEPORTING
         && !_teleport_cooldown.ticks_passed_since_start(clock, 500)) {
         return;
     }
@@ -70,23 +70,23 @@ void Werewolf::set_target(const Clock& clock, Point2<float> position) {
 
     auto dist = math::get_distance(_position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
-        if (_ai_state != MOVING) {
-            _ai_state = MOVING;
+        if (_ai_state != AI_MOVING) {
+            _ai_state = AI_MOVING;
             _animation_frame = 0;
         }
-    } else if (_ai_state != ATTACKING) {
-        _ai_state = ATTACKING;
+    } else if (_ai_state != AI_ATTACKING) {
+        _ai_state = AI_ATTACKING;
         _animation_frame = 0;
     }
 }
 
 void Werewolf::handle_logic(const Clock& clock) {
-    if (_ai_state == DYING) {
+    if (_ai_state == AI_DYING) {
         set_current_speed(0.f, 0.f);
         return;
     }
 
-    if (_ai_state == MOVING) {
+    if (_ai_state == AI_MOVING) {
         // TODO extract speed setting
         auto movement_angle = get_angle();
 
@@ -99,22 +99,22 @@ void Werewolf::handle_logic(const Clock& clock) {
         set_current_speed(0.f, 0.f);
     }
 
-    if (_ai_state == ATTACKING && _attack_cooldown.ticks_passed_since_start(clock, 600)) {
+    if (_ai_state == AI_ATTACKING && _attack_cooldown.ticks_passed_since_start(clock, 600)) {
         _attack_cooldown.restart(clock);
-        _ai_state = MOVING;
+        _ai_state = AI_MOVING;
         _animation_frame = 0;
     }
 }
 
 void Werewolf::teleport(const Clock& clock, Random& random) {
-    if (_ai_state == DYING) return;
+    if (_ai_state == AI_DYING) return;
 
-    if (_ai_state != TELEPORTING && _teleport_cooldown.ticks_passed_since_start(clock, 1000)) {
+    if (_ai_state != AI_TELEPORTING && _teleport_cooldown.ticks_passed_since_start(clock, 1000)) {
         _position = make_point(
                 _position.x + random.get_int(-150, 150),
                 _position.y + random.get_int(-150, 150)
         );
-        _ai_state = TELEPORTING;
+        _ai_state = AI_TELEPORTING;
         _animation_frame = 0;
         _teleport_cooldown.restart(clock);
     }
@@ -136,7 +136,7 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
 
     const auto& clock = engine.get_clock();
     // TODO Wow, wow, wow. Fix all the repetition
-    if (_ai_state == ATTACKING) {
+    if (_ai_state == AI_ATTACKING) {
         if (_animation_frame == 3 || _animation_frame == 7) {
             audio.play_sound("wolf_attack");
         }
@@ -146,13 +146,13 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
             if (_animation_frame >= 8) _animation_frame = 0;
             _attack_cooldown.restart(clock);
         }
-    } else if (_ai_state == MOVING) {
+    } else if (_ai_state == AI_MOVING) {
         if (_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             ++_animation_frame;
             if (_animation_frame >= 6) _animation_frame = 0;
             _attack_cooldown.restart(clock);
         }
-    } else if (_ai_state == TELEPORTING) {
+    } else if (_ai_state == AI_TELEPORTING) {
         if (_attack_cooldown.ticks_passed_since_start(clock, 100)) {
             if (_animation_frame == 2) {
                 audio.play_sound("wolf_teleport");
@@ -162,7 +162,7 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
             if (_animation_frame > 2) _animation_frame = 0;
             _attack_cooldown.restart(clock);
         }
-    } else if (_ai_state == DYING) {
+    } else if (_ai_state == AI_DYING) {
         if (_animation_frame < 2 && _attack_cooldown.ticks_passed_since_start(clock, 500)) {
             ++_animation_frame;
             _attack_cooldown.restart(clock);
@@ -171,7 +171,7 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
 }
 
 bool Werewolf::is_dead() const {
-    return _ai_state == DYING && _animation_frame == 2;
+    return _ai_state == AI_DYING && _animation_frame == 2;
 }
 
 vector<Werewolf>& werewolves() {
