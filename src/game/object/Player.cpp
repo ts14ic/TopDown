@@ -33,7 +33,7 @@ void Player::take_damage(const Clock& clock, int damageAmount) {
     }
 }
 
-void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
+void Player::handle_logic(Engine& engine) {
     if (_input.mouse_moved()) {
         _transform.angle = math::get_cartesian_angle(_transform.position, _input.pop_mouse_position());
     }

@@ -79,7 +79,7 @@ void StateMoon::handle_logic() {
         _enemy_spawn_cooldown.restart(clock);
     }
 
-    _player.handle_logic(random, _game.get_engine(), _game.get_engine().get_audio());
+    _player.handle_logic(_game.get_engine());
 
     // process bullet moving and collisions
     auto remove_from = std::remove_if(bullets().begin(), bullets().end(), [&, this](Bullet& bullet) {

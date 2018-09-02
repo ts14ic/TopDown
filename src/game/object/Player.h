@@ -47,7 +47,7 @@ public:
 
     void take_damage(const Clock& clock, int damageAmount) override;
 
-    void handle_logic(Random& random, Engine& engine, Audio& audio);
+    void handle_logic(Engine& engine);
 
     void handle_render(Engine& engine, Graphic& graphic, float frames_count);
 
