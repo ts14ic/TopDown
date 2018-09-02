@@ -49,7 +49,7 @@ public:
 
     void handle_render(Engine& engine, Graphic& graphic, float frames_count);
 
-    void addWeapon(Weapon weapon);
+    void add_weapon(Weapon weapon);
 
 private:
     void select_next_weapon();

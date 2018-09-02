@@ -213,6 +213,6 @@ void Player::select_weapon(unsigned index) {
     }
 }
 
-void Player::addWeapon(Weapon weapon) {
+void Player::add_weapon(Weapon weapon) {
     _weapons.emplace_back(weapon);
 }

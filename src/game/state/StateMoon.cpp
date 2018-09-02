@@ -221,6 +221,6 @@ void StateMoon::parse_level_data() {
                 .fire_cooldown(get_uint(weapon, "/fire_cooldown"))
                 .reload_cooldown(get_uint(weapon, "/reload_cooldown"));
 
-        _player.addWeapon(builder.build());
+        _player.add_weapon(builder.build());
     }
 }
