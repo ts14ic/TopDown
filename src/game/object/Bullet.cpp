@@ -15,13 +15,12 @@ Bullet::Bullet(Random& random, const GameObject& shooter, const Weapon& weapon) 
             shooter.get_position().x + math::cartesian_cos(_transform.angle) * weapon.get_length(),
             shooter.get_position().y + math::cartesian_sin(_transform.angle) * weapon.get_length()
     );
+    _transform.radius = 2.0f;
     _damage = weapon.get_projectile_damage();
     _speed.max_speed = weapon.get_projectile_speed();
 }
 
 int Bullet::get_damage() const { return _damage; }
-
-Circle Bullet::get_circle() const { return {_transform.position, 2}; }
 
 std::string Bullet::get_tex_name() const { return "bullet"; }
 

@@ -19,8 +19,6 @@ public:
 
     virtual void set_speed(Speed speed) = 0;
 
-    virtual Circle get_circle() const = 0;
-
     virtual std::string get_tex_name() const = 0;
 
     Point2<float> get_position() const {
@@ -57,6 +55,11 @@ public:
         Transform transform = get_transform();
         transform.angle = angle;
         set_transform(transform);
+    }
+
+    Circle get_circle() const {
+        Transform transform = get_transform();
+        return Circle{transform.position, transform.radius};
     }
 
     float get_max_movement_speed() const {

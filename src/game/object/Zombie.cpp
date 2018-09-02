@@ -4,11 +4,9 @@
 using std::vector;
 
 Zombie::Zombie(Point2<float> position)
-        : _transform{position, 0.0f} {
+        : _transform{Transform{position, 0.0f, 25.0f}} {
     _current_hp = Zombie::get_default_hp();
 }
-
-Circle Zombie::get_circle() const { return {_transform.position, 25}; }
 
 int Zombie::get_hp() const { return _current_hp; }
 

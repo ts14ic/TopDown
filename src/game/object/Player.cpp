@@ -7,11 +7,9 @@ Player::Player()
         : Player{make_point<float>(0, 0)} {}
 
 Player::Player(Point2<float> position)
-        : _transform{position, 0.0f} {
+        : _transform{Transform{position, 0.0f, 30.0f}} {
     _hp = Player::get_default_hp();
 }
-
-Circle Player::get_circle() const { return {_transform.position, 30}; }
 
 std::string Player::get_tex_name() const {
     if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {

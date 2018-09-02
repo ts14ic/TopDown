@@ -4,11 +4,9 @@
 using std::vector;
 
 Werewolf::Werewolf(Point2<float> position)
-        : _transform{position, 0.0f} {
+        : _transform{Transform{position, 0.0f, 25.0f}} {
     _current_hp = Werewolf::get_default_hp();
 }
-
-Circle Werewolf::get_circle() const { return {_transform.position, 25}; }
 
 int Werewolf::get_hp() const { return _current_hp; }
 

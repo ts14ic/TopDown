@@ -19,8 +19,6 @@ public:
 
     void set_speed(Speed speed) override { _speed = speed; }
 
-    Circle get_circle() const override;
-
     std::string get_tex_name() const override;
 
     // Damageable legacy
