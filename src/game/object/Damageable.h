@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include "HasHitpoints.h"
+#include <game/mixins/HasHitpoints.h>
 #include <engine/clock/Clock.h>
 #include <engine/geometry/Color.h>
 

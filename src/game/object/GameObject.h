@@ -1,7 +1,7 @@
 #pragma once
 
-#include "HasTransform.h"
-#include "HasSpeed.h"
+#include <game/mixins/HasTransform.h>
+#include <game/mixins/HasSpeed.h>
 #include <engine/graphic/Graphic.h>
 #include <iosfwd>
 
