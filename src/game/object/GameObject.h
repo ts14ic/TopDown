@@ -2,12 +2,10 @@
 
 #include <game/mixins/HasTransform.h>
 #include <game/mixins/HasSpeed.h>
+#include <game/mixins/HasTexture.h>
 #include <engine/graphic/Graphic.h>
-#include <iosfwd>
 
-class GameObject : public HasTransform, public HasSpeed {
-public:
-    virtual std::string get_tex_name() const = 0;
+class GameObject : public HasTransform, public HasSpeed, public HasTexture {
 protected:
     void default_move();
 

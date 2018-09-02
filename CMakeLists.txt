@@ -78,6 +78,7 @@ set(SOURCE_FILES
         src/game/mixins/HasSpeed.h
         src/game/components/Hitpoints.h
         src/game/mixins/HasHitpoints.h
+        src/game/mixins/HasTexture.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})
