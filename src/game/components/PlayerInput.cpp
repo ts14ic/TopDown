@@ -11,7 +11,7 @@ Point2<int> PlayerInput::pop_mouse_position() {
     return position;
 }
 
-void PlayerInput::hold(PlayerInput::HoldAction action) {
+void PlayerInput::press(PlayerInput::HoldAction action) {
     if (action != HOLD_NONE) {
         _hold_actions.set(action);
     }
@@ -27,7 +27,7 @@ bool PlayerInput::is_held(PlayerInput::HoldAction action) {
     return action != HOLD_NONE && _hold_actions.test(action);
 }
 
-void PlayerInput::activate(PlayerInput::QuickAction action) {
+void PlayerInput::tap(PlayerInput::QuickAction action) {
     if (action != QUICK_NONE) {
         _quick_actions.set(action);
     }

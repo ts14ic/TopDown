@@ -24,7 +24,7 @@ public:
         HOLD_ACTIONS_COUNT
     };
 
-    void hold(HoldAction action);
+    void press(HoldAction action);
 
     void release(HoldAction action);
 
@@ -50,7 +50,7 @@ public:
         QUICK_LAST_ACTION = QUICK_PREVIOUS_WEAPON,
     };
 
-    void activate(QuickAction action);
+    void tap(QuickAction action);
 
     bool has_quick_actions() const;
 
