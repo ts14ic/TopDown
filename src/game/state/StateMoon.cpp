@@ -48,12 +48,19 @@ void StateMoon::handle_key_event(const KeyboardEvent& event) {
     _player.handle_key_event(event);
 }
 
-void StateMoon::restrict_pos(GameObject& o) {
-    if (o.get_position().x < 0) o.set_x(0);
-    else if (o.get_position().x > _level_width) o.set_x(_level_width);
+void StateMoon::restrict_pos(GameObject& object) {
+    if (object.get_position().x < 0) {
+        object.set_x(0);
+    } else if (object.get_position().x > _level_width) {
+        object.set_x(_level_width);
+    }
 
-    if (o.get_position().y < 0) o.set_y(0);
-    else if (o.get_position().y > _level_height) o.set_y(_level_height);
+    if (object.get_position().y < 0) {
+        object.set_y(0);
+    }
+    else if (object.get_position().y > _level_height) {
+        object.set_y(_level_height);
+    }
 }
 
 void StateMoon::handle_logic() {
@@ -75,26 +82,25 @@ void StateMoon::handle_logic() {
     _player.handle_logic(random, _game.get_engine(), _game.get_engine().get_audio());
 
     // process bullet moving and collisions
-    auto remove_from = std::remove_if(bullets().begin(), bullets().end(), [&, this](Bullet& b) {
-        b.handle_logic();
+    auto remove_from = std::remove_if(bullets().begin(), bullets().end(), [&, this](Bullet& bullet) {
+        bullet.handle_logic();
 
-        if ((b.get_position().x > _level_width) || (b.get_position().x < 0) ||
-            (b.get_position().y > _level_height) || (b.get_position().y < 0)) {
+        if (position_out_of_level_area(bullet.get_position())) {
             return true;
         }
 
-        for (auto& z : zombies()) {
-            if (objects_collide(b, z) && z.get_hp() > 0) {
-                z.damage(clock, b.get_damage());
+        for (auto& zombie : zombies()) {
+            if (objects_collide(bullet, zombie) && zombie.get_hp() > 0) {
+                zombie.damage(clock, bullet.get_damage());
                 return true;
             }
         }
         for (auto& w : werewolves()) {
-            if (objects_collide(b, w) && w.get_hp() > 0) {
-                w.damage(clock, b.get_damage());
+            if (objects_collide(bullet, w) && w.get_hp() > 0) {
+                w.damage(clock, bullet.get_damage());
                 return true;
             }
-            if (math::get_distance(b.get_position(), w.get_position()) < 50) {
+            if (math::get_distance(bullet.get_position(), w.get_position()) < 50) {
                 w.teleport(clock, random);
             }
         }
@@ -127,6 +133,11 @@ void StateMoon::handle_logic() {
 
     restrict_pos(_player);
     if (_player.is_dead()) _game.request_state_change(StateId::intro);
+}
+
+bool StateMoon::position_out_of_level_area(Point2<float> position) const {
+    return (position.x > _level_width) || (position.x < 0) ||
+           (position.y > _level_height) || (position.y < 0);
 }
 
 Point2<int> StateMoon::make_random_point() const {

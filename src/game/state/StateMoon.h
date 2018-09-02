@@ -32,6 +32,8 @@ private:
 
     Point2<int> make_random_point() const;
 
+    bool position_out_of_level_area(Point2<float> position) const;
+
     void render_crosshair(float frames_count);
 
 private:
