@@ -12,7 +12,7 @@ unsigned long Timer::get_start_time() const {
     return _start_time;
 }
 
-unsigned long Timer::get_ticks_since_start(const Clock &clock) const {
+unsigned long Timer::get_ticks_since_start(const Clock& clock) const {
     return clock.get_current_time() - _start_time;
 }
 
