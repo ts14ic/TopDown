@@ -1,7 +1,7 @@
 #pragma once
 
-#include <bitset>
 #include <engine/geometry/Point2.h>
+#include <bitset>
 
 class PlayerInput {
 public:
