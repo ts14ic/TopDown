@@ -26,7 +26,7 @@ bool Player::is_dead() const {
     return !has_hp();
 }
 
-void Player::damage(const Clock& clock, int damageAmount) {
+void Player::take_damage(const Clock& clock, int damageAmount) {
     if (damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(clock, 500)) {
         _hitpoints.current_hp -= damageAmount;
         _damage_cooldown.restart(clock);

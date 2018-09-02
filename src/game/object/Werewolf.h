@@ -28,7 +28,7 @@ public:
 
     int get_damage() const override;
 
-    void damage(const Clock& clock, int damage_dealt) override;
+    void take_damage(const Clock& clock, int damage_dealt) override;
 
     bool is_dead() const override;
 

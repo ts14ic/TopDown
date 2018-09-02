@@ -33,7 +33,7 @@ std::string Werewolf::get_tex_name() const {
     return name;
 }
 
-void Werewolf::damage(const Clock& clock, int damage_dealt) {
+void Werewolf::take_damage(const Clock& clock, int damage_dealt) {
     if (_ai_state == AI_TELEPORTING) damage_dealt /= 2;
 
     if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;

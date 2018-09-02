@@ -35,7 +35,7 @@ public:
 
     bool is_dead() const override;
 
-    void damage(const Clock& clock, int damageAmount) override;
+    void take_damage(const Clock& clock, int damageAmount) override;
 
     bool reloading() const;
 

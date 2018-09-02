@@ -9,7 +9,7 @@ class Damageable : public virtual GameObject, public HasHitpoints {
 public:
     virtual int get_damage() const = 0;
 
-    virtual void damage(const Clock& clock, int damageAmount) = 0;
+    virtual void take_damage(const Clock& clock, int damageAmount) = 0;
 
     virtual bool is_dead() const = 0;
 

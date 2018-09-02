@@ -91,13 +91,13 @@ void StateMoon::handle_logic() {
 
         for (auto& zombie : zombies()) {
             if (objects_collide(bullet, zombie) && zombie.has_hp()) {
-                zombie.damage(clock, bullet.get_damage());
+                zombie.take_damage(clock, bullet.get_damage());
                 return true;
             }
         }
         for (auto& werewolf : werewolves()) {
             if (objects_collide(bullet, werewolf) && werewolf.has_hp()) {
-                werewolf.damage(clock, bullet.get_damage());
+                werewolf.take_damage(clock, bullet.get_damage());
                 return true;
             }
             if (math::get_distance(bullet.get_position(), werewolf.get_position()) < 50) {
@@ -114,7 +114,7 @@ void StateMoon::handle_logic() {
         z.handle_logic();
 
         if (objects_collide(z, _player)) {
-            _player.damage(clock, z.get_damage());
+            _player.take_damage(clock, z.get_damage());
         }
 
         return z.is_dead();
@@ -125,7 +125,7 @@ void StateMoon::handle_logic() {
         w.handle_logic(clock);
 
         if (objects_collide(w, _player)) {
-            _player.damage(clock, w.get_damage());
+            _player.take_damage(clock, w.get_damage());
         }
 
         return w.is_dead();
