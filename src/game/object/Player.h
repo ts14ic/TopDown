@@ -2,6 +2,7 @@
 
 #include "Damageable.h"
 #include "Weapon.h"
+#include <game/components/Weapons.h>
 #include <game/timer/Timer.h>
 #include <engine/input/Input.h>
 #include <engine/geometry/Point2.h>
@@ -39,6 +40,8 @@ public:
 
     bool reloading() const;
 
+    void add_weapon(Weapon weapon);
+
     void handle_key_event(const KeyboardEvent& event) override;
 
     void handle_mouse_event(const MouseScrollEvent& event) override;
@@ -49,15 +52,7 @@ public:
 
     void handle_render(Engine& engine, Graphic& graphic, float frames_count);
 
-    void add_weapon(Weapon weapon);
-
 private:
-    void select_next_weapon();
-
-    void select_previous_weapon();
-
-    void select_weapon(unsigned index);
-
     void update_speeds();
 
     enum InputState {
@@ -71,9 +66,8 @@ private:
 
     Transform _transform;
     Speed _speed;
+    Weapons _weapons;
     Hitpoints _hitpoints;
     Timer _damage_cooldown;
-    std::vector<Weapon> _weapons;
-    unsigned _selected_weapon_index = 0;
     std::bitset<INPUT_LENGTH> _input_state;
 };

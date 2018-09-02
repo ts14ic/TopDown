@@ -11,12 +11,12 @@ Player::Player(Point2<float> position)
           _hitpoints{Hitpoints{100}} {}
 
 std::string Player::get_tex_name() const {
-    if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {
-        return "player";
-    } else {
+    if (_weapons.any_selected()) {
         std::ostringstream stream;
-        stream << "player_" << _weapons[_selected_weapon_index].get_name();
+        stream << "player_" << _weapons.get_selected_name();
         return stream.str();
+    } else {
+        return "player";
     }
 }
 
@@ -34,7 +34,7 @@ void Player::take_damage(const Clock& clock, int damageAmount) {
 }
 
 bool Player::reloading() const {
-    return !_weapons.empty() && _weapons[_selected_weapon_index].is_reloading();
+    return _weapons.is_selected_reloading();
 }
 
 void Player::handle_key_event(const KeyboardEvent& event) {
@@ -107,8 +107,8 @@ void Player::handle_key_event(const KeyboardEvent& event) {
             default: {
                 int key = event.get_key();
                 if (key >= '0' && key <= '9') {
-                    auto idx = 9U - ('9' - key);
-                    select_weapon(idx);
+                    auto index = 9U - ('9' - key);
+                    _weapons.select_by_index(index);
                 }
                 break;
             }
@@ -120,12 +120,12 @@ void Player::handle_key_event(const KeyboardEvent& event) {
 void Player::handle_mouse_event(const MouseScrollEvent& event) {
     switch (event.get_type()) {
         case MouseScrollEvent::Type::SCROLL_UP: {
-            select_previous_weapon();
+            _weapons.select_previous();
             break;
         }
 
         case MouseScrollEvent::Type::SCROLL_DOWN: {
-            select_next_weapon();
+            _weapons.select_next();
             break;
         }
     }
@@ -159,12 +159,11 @@ void Player::handle_logic(Random& random, Engine& engine, Audio& audio) {
 
     default_move();
 
-    if (!_weapons.empty()) {
-        // TODO don't try to reload on every frame
-        _weapons[_selected_weapon_index].try_reload(engine.get_clock());
-        if (_input_state.test(INPUT_TRIGGER_PRESSED)) {
-            _weapons[_selected_weapon_index].pull_trigger(random, engine, audio, *this);
-        }
+    // TODO don't try to reload on every frame
+    _weapons.try_reload_selected(engine.get_clock());
+
+    if (_input_state.test(INPUT_TRIGGER_PRESSED)) {
+        _weapons.pull_trigger(engine, *this);
     }
 }
 
@@ -190,29 +189,6 @@ void Player::handle_render(Engine& engine, Graphic& graphic, float frames_count)
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 }
 
-void Player::select_next_weapon() {
-    auto last = _weapons.size() - 1;
-    if (_selected_weapon_index < last) {
-        _selected_weapon_index++;
-    } else {
-        _selected_weapon_index = static_cast<unsigned>(last);
-    }
-}
-
-void Player::select_previous_weapon() {
-    auto first = 0u;
-    if (_selected_weapon_index > first) {
-        _selected_weapon_index--;
-    }
-}
-
-void Player::select_weapon(unsigned index) {
-    auto last = _weapons.size() - 1;
-    if (index <= last) {
-        _selected_weapon_index = index;
-    }
-}
-
 void Player::add_weapon(Weapon weapon) {
-    _weapons.emplace_back(weapon);
+    _weapons.add(weapon);
 }

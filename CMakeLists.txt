@@ -79,6 +79,7 @@ set(SOURCE_FILES
         src/game/components/Hitpoints.h
         src/game/mixins/HasHitpoints.h
         src/game/mixins/HasTexture.h
+        src/game/components/Weapons.h src/game/components/Weapons.cpp
         )
 
 add_executable(TopDown ${SOURCE_FILES})
