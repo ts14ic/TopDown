@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 #include "Weapon.h"
-#include "engine/random/Random.h"
+#include <engine/random/Random.h>
 #include <vector>
 
 class Bullet : public GameObject {

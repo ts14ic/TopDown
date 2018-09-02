@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/geometry/Size2.h"
+#include <engine/geometry/Size2.h>
 #include <string>
 
 // TODO Add a fallback texture

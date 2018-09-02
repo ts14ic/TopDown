@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/input/EventHandler.h"
+#include <engine/input/EventHandler.h>
 
 class GameState : public EventHandler {
 public:

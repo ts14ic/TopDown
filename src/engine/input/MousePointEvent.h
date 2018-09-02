@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/geometry/Point2.h"
+#include <engine/geometry/Point2.h>
 
 class MousePointEvent {
 public:

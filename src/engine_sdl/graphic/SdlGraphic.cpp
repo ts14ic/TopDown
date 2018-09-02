@@ -1,5 +1,5 @@
 #include "SdlGraphic.h"
-#include "engine_sdl/SdlEngine.h"
+#include <engine/Engine.h>
 #include <SDL_image.h>
 #include <SDL.h>
 

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Damageable.h"
-#include "game/timer/Timer.h"
-#include "engine/random/Random.h"
-#include "engine/audio/Audio.h"
+#include <game/timer/Timer.h>
+#include <engine/random/Random.h>
+#include <engine/audio/Audio.h>
 #include <vector>
 
 class Werewolf : public Damageable {

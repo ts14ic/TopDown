@@ -1,11 +1,11 @@
 #pragma once
 
-#include "game/timer/Timer.h"
-#include "game/object/GameObject.h"
-#include "game/object/WeaponBuilder.h"
-#include "engine/audio/Audio.h"
-#include "engine/Engine.h"
-#include "engine/random/Random.h"
+#include "GameObject.h"
+#include "WeaponBuilder.h"
+#include <game/timer/Timer.h>
+#include <engine/audio/Audio.h>
+#include <engine/Engine.h>
+#include <engine/random/Random.h>
 #include <vector>
 #include <string>
 

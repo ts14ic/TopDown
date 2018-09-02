@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/clock/Clock.h"
+#include <engine/clock/Clock.h>
 
 class SdlClock : public Clock {
 public:

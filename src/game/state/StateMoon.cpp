@@ -1,11 +1,11 @@
 #include "StateMoon.h"
-#include "engine/geometry/maths.h"
-#include "game/object/Zombie.h"
-#include "game/object/Werewolf.h"
-#include "game/object/Bullet.h"
-#include "io/json/json.h"
-#include "io/files/files.h"
-#include "engine/geometry/Point2.h"
+#include <game/object/Zombie.h>
+#include <game/object/Werewolf.h>
+#include <game/object/Bullet.h>
+#include <engine/geometry/maths.h>
+#include <engine/geometry/Point2.h>
+#include <io/json/json.h>
+#include <io/files/files.h>
 #include <algorithm>
 
 StateMoon::StateMoon(Game& game)

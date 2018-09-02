@@ -1,7 +1,7 @@
-#include <SDL_log.h>
 #include "SdlAudio.h"
 #include "SdlSound.h"
 #include "SdlMusic.h"
+#include <SDL_log.h>
 
 SdlAudio::SdlAudio() {
     if (0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {

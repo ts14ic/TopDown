@@ -2,9 +2,9 @@
 
 #include "Damageable.h"
 #include "Weapon.h"
-#include "game/timer/Timer.h"
-#include "engine/input/Input.h"
-#include "engine/geometry/Point2.h"
+#include <game/timer/Timer.h>
+#include <engine/input/Input.h>
+#include <engine/geometry/Point2.h>
 #include <memory>
 #include <bitset>
 

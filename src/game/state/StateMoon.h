@@ -1,11 +1,11 @@
 #pragma once
 
 #include "GameState.h"
-#include "game/object/Player.h"
-#include "game/object/GameObject.h"
-#include "game/Game.h"
-#include "game/timer/Timer.h"
-#include "engine/geometry/Point2.h"
+#include <game/object/Player.h>
+#include <game/object/GameObject.h>
+#include <game/Game.h>
+#include <game/timer/Timer.h>
+#include <engine/geometry/Point2.h>
 
 class StateMoon : public GameState {
 public:

@@ -1,12 +1,7 @@
 #pragma once
 
-#include "engine/input/Input.h"
-#include "engine/graphic/Graphic.h"
-#include "engine/audio/Audio.h"
-#include "engine/Engine.h"
-#include "engine/random/Random.h"
-#include "engine/clock/Clock.h"
 #include "StateId.h"
+#include <engine/Engine.h>
 #include <memory>
 
 class Game {

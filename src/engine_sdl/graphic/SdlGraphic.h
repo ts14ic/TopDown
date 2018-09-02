@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/graphic/Graphic.h"
 #include "SdlTexture.h"
+#include <engine/graphic/Graphic.h>
 #include <unordered_map>
 
 struct SdlDeleter {

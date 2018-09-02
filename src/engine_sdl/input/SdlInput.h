@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/input/Input.h"
+#include <engine/input/Input.h>
 #include <SDL_events.h>
 
 class SdlInput : public Input {

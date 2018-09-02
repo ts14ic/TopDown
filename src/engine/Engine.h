@@ -1,10 +1,10 @@
 #pragma once
 
-#include "engine/graphic/Graphic.h"
-#include "engine/audio/Audio.h"
-#include "engine/input/Input.h"
-#include "engine/random/Random.h"
-#include "engine/clock/Clock.h"
+#include "graphic/Graphic.h"
+#include "audio/Audio.h"
+#include "input/Input.h"
+#include "random/Random.h"
+#include "clock/Clock.h"
 #include <iosfwd>
 
 class Engine {

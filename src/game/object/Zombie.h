@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Damageable.h"
-#include "game/timer/Timer.h"
-#include "engine/audio/Audio.h"
-#include "engine/graphic/Graphic.h"
+#include <game/timer/Timer.h>
+#include <engine/audio/Audio.h>
+#include <engine/graphic/Graphic.h>
 #include <vector>
 
 class Zombie : public Damageable {
