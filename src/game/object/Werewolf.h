@@ -4,6 +4,7 @@
 #include <game/timer/Timer.h>
 #include <engine/random/Random.h>
 #include <engine/audio/Audio.h>
+#include <engine/Engine.h>
 #include <vector>
 
 class Werewolf : public Damageable {

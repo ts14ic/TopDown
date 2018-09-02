@@ -4,6 +4,7 @@
 #include <game/timer/Timer.h>
 #include <engine/audio/Audio.h>
 #include <engine/graphic/Graphic.h>
+#include <engine/Engine.h>
 #include <vector>
 
 class Zombie : public Damageable {

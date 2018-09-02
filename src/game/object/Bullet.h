@@ -5,7 +5,7 @@
 #include <engine/random/Random.h>
 #include <vector>
 
-class Bullet : public GameObject {
+class Bullet : public virtual GameObject {
 public:
     Bullet(Random& random, const GameObject& origin, const Weapon& weapon);
 
