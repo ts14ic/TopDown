@@ -187,7 +187,7 @@ void StateMoon::handle_render(float frames_count) {
 void StateMoon::render_crosshair(float frames_count) {
     Graphic& graphic = _game.get_engine().get_graphic();
 
-    auto texture = graphic.get_texture(_player.reloading()
+    auto texture = graphic.get_texture(_player.is_reloading()
                                        ? "reload"
                                        : "crosshair");
     auto render_point = make_point(

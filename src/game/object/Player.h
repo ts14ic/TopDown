@@ -2,7 +2,7 @@
 
 #include "Damageable.h"
 #include "Weapon.h"
-#include <game/components/Weapons.h>
+#include <game/mixins/HasWeapons.h>
 #include <game/timer/Timer.h>
 #include <engine/input/Input.h>
 #include <engine/geometry/Point2.h>
@@ -11,6 +11,7 @@
 
 class Player : public virtual GameObject,
                public Damageable,
+               public HasWeapons,
                public KeyboardEventHandler,
                public MouseEventHandler {
 public:
@@ -32,15 +33,15 @@ public:
 
     std::string get_tex_name() const override;
 
+    Weapons get_weapons() const override { return _weapons; }
+
+    void set_weapons(Weapons weapons) override { _weapons = weapons; }
+
     int get_damage() const override;
 
     bool is_dead() const override;
 
     void take_damage(const Clock& clock, int damageAmount) override;
-
-    bool reloading() const;
-
-    void add_weapon(Weapon weapon);
 
     void handle_key_event(const KeyboardEvent& event) override;
 

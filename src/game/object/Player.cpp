@@ -33,10 +33,6 @@ void Player::take_damage(const Clock& clock, int damageAmount) {
     }
 }
 
-bool Player::reloading() const {
-    return _weapons.is_selected_reloading();
-}
-
 void Player::handle_key_event(const KeyboardEvent& event) {
     if (event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
         switch (event.get_key()) {
@@ -187,8 +183,4 @@ void Player::update_speeds() {
 void Player::handle_render(Engine& engine, Graphic& graphic, float frames_count) {
     default_render(graphic, frames_count);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
-}
-
-void Player::add_weapon(Weapon weapon) {
-    _weapons.add(weapon);
 }
