@@ -109,25 +109,25 @@ void HasPlayerInput::handle_mouse_event(const MousePointEvent& event) {
 }
 
 void HasPlayerInput::press(PlayerInput::HoldAction action) {
-    PlayerInput input = get_player_input();
+    auto input = get_player_input();
     input.press(action);
     set_player_input(input);
 }
 
 void HasPlayerInput::release(PlayerInput::HoldAction action) {
-    PlayerInput input = get_player_input();
+    auto input = get_player_input();
     input.release(action);
     set_player_input(input);
 }
 
 void HasPlayerInput::tap(PlayerInput::QuickAction action) {
-    PlayerInput input = get_player_input();
+    auto input = get_player_input();
     input.tap(action);
     set_player_input(input);
 }
 
 void HasPlayerInput::move_mouse(Point2<int> mouse_position) {
-    PlayerInput input = get_player_input();
+    auto input = get_player_input();
     input.move_mouse(mouse_position);
     set_player_input(input);
 }
