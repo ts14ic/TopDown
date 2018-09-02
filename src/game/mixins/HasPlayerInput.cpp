@@ -1,19 +1,19 @@
 #include "HasPlayerInput.h"
 
-PlayerInput::HoldAction key_to_hold_action(const KeyboardEvent& event);
+PlayerInput::HoldAction event_to_hold_action(const KeyboardEvent& event);
 
-PlayerInput::QuickAction key_to_quick_action(const KeyboardEvent& event);
+PlayerInput::QuickAction event_to_quick_action(const KeyboardEvent& event);
 
 void HasPlayerInput::handle_key_event(const KeyboardEvent& event) {
     if (KeyboardEvent::is_key_down(event)) {
-        press(key_to_hold_action(event));
+        press(event_to_hold_action(event));
     } else if (KeyboardEvent::is_key_up(event)) {
-        release(key_to_hold_action(event));
-        tap(key_to_quick_action(event));
+        release(event_to_hold_action(event));
+        tap(event_to_quick_action(event));
     }
 }
 
-PlayerInput::HoldAction key_to_hold_action(const KeyboardEvent& event) {
+PlayerInput::HoldAction event_to_hold_action(const KeyboardEvent& event) {
     switch (event.get_key()) {
         case KEY_UP:
         case 'w': {
@@ -45,7 +45,7 @@ PlayerInput::HoldAction key_to_hold_action(const KeyboardEvent& event) {
     }
 }
 
-PlayerInput::QuickAction key_to_quick_action(const KeyboardEvent& event) {
+PlayerInput::QuickAction event_to_quick_action(const KeyboardEvent& event) {
     switch (event.get_key()) {
         case ',': {
             if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
