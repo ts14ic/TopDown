@@ -4,13 +4,8 @@
 using std::vector;
 
 Werewolf::Werewolf(Point2<float> position)
-        : _transform{Transform{position, 0.0f, 25.0f}} {
-    _current_hp = Werewolf::get_default_hp();
-}
-
-int Werewolf::get_hp() const { return _current_hp; }
-
-int Werewolf::get_default_hp() const { return 30; }
+        : _transform{Transform{position, 0.0f, 25.0f}},
+          _hitpoints{Hitpoints{30}} {}
 
 int Werewolf::get_damage() const {
     if (_ai_state == AI_ATTACKING && (_animation_frame == 3 || _animation_frame == 7))
@@ -38,11 +33,11 @@ std::string Werewolf::get_tex_name() const {
     return name;
 }
 
-void Werewolf::damage(const Clock& clock, int d) {
-    if (_ai_state == AI_TELEPORTING) d /= 2;
+void Werewolf::damage(const Clock& clock, int damage_dealt) {
+    if (_ai_state == AI_TELEPORTING) damage_dealt /= 2;
 
-    if (d > 0) _current_hp -= d;
-    if (_current_hp <= 0 && _ai_state != AI_DYING) {
+    if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
+    if (_hitpoints.current_hp <= 0 && _ai_state != AI_DYING) {
         _ai_state = AI_DYING;
         _animation_frame = 0;
     }
@@ -114,9 +109,9 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
                              float frames_count) {
     default_render(graphic_context, frames_count);
 
-    if (_current_hp > 0) {
+    if (_hitpoints.current_hp > 0) {
         Box health_box;
-        health_box.set_size(1.66f * _current_hp, 5);
+        health_box.set_size(1.66f * _hitpoints.current_hp, 5);
         health_box.set_left_top(
                 _transform.position.x - health_box.get_width() / 2,
                 _transform.position.y - get_circle().get_radius()

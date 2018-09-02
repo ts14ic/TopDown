@@ -4,13 +4,9 @@
 using std::vector;
 
 Zombie::Zombie(Point2<float> position)
-        : _transform{Transform{position, 0.0f, 25.0f}} {
-    _current_hp = Zombie::get_default_hp();
+        : _transform{Transform{position, 0.0f, 25.0f}},
+          _hitpoints{Hitpoints{50}} {
 }
-
-int Zombie::get_hp() const { return _current_hp; }
-
-int Zombie::get_default_hp() const { return 50; }
 
 int Zombie::get_damage() const { if (_ai_state == AI_ATTACKING && _animation_frame == 5) return 15; else return 0; }
 
@@ -28,10 +24,10 @@ std::string Zombie::get_tex_name() const {
     return name;
 }
 
-void Zombie::damage(const Clock& clock, int d) {
-    if (d > 0) _current_hp -= d;
+void Zombie::damage(const Clock& clock, int damage_dealt) {
+    if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
 
-    if (_current_hp <= 0 && _ai_state != AI_DYING) {
+    if (_hitpoints.current_hp <= 0 && _ai_state != AI_DYING) {
         _ai_state = AI_DYING;
         _animation_frame = 0;
     }

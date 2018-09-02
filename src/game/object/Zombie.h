@@ -22,15 +22,13 @@ public:
     std::string get_tex_name() const override;
 
     // Damageable legacy
-    int get_hp() const override;
-
-    int get_default_hp() const override;
+    Hitpoints get_hitpoints() const override { return _hitpoints; }
 
     bool is_dead() const override;
 
     int get_damage() const override;
 
-    void damage(const Clock& clock, int d) override;
+    void damage(const Clock& clock, int damage_dealt) override;
 
     // StateMoon interface
     void set_target(Point2<float> position);
@@ -43,8 +41,8 @@ public:
 private:
     Transform _transform;
     Speed _speed = Speed{1.7f};
+    Hitpoints _hitpoints;
 
-    int _current_hp = 0;
     int _animation_frame = 0;
 
     Timer _animation_timer;

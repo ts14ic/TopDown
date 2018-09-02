@@ -7,9 +7,8 @@ Player::Player()
         : Player{make_point<float>(0, 0)} {}
 
 Player::Player(Point2<float> position)
-        : _transform{Transform{position, 0.0f, 30.0f}} {
-    _hp = Player::get_default_hp();
-}
+        : _transform{Transform{position, 0.0f, 30.0f}},
+          _hitpoints{Hitpoints{100}} {}
 
 std::string Player::get_tex_name() const {
     if (_weapons.empty() || _selected_weapon_index >= _weapons.size()) {
@@ -21,19 +20,15 @@ std::string Player::get_tex_name() const {
     }
 }
 
-int Player::get_hp() const { return _hp; }
-
-int Player::get_default_hp() const { return 100; }
-
 int Player::get_damage() const { return 0; }
 
 bool Player::is_dead() const {
-    return _hp <= 0;
+    return _hitpoints.current_hp <= 0;
 }
 
 void Player::damage(const Clock& clock, int damageAmount) {
     if (damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(clock, 500)) {
-        _hp -= damageAmount;
+        _hitpoints.current_hp -= damageAmount;
         _damage_cooldown.restart(clock);
     }
 }

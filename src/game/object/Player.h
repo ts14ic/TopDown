@@ -27,9 +27,7 @@ public:
 
     std::string get_tex_name() const override;
 
-    int get_hp() const override;
-
-    int get_default_hp() const override;
+    Hitpoints get_hitpoints() const override { return _hitpoints; }
 
     int get_damage() const override;
 
@@ -62,10 +60,10 @@ private:
 
     Transform _transform;
     Speed _speed;
+    Hitpoints _hitpoints;
 
     std::vector<Weapon> _weapons;
     unsigned _selected_weapon_index = 0;
-    int _hp = 0;
 
     Timer _damage_cooldown;
 

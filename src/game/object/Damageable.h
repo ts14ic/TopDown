@@ -1,14 +1,17 @@
 #pragma once
 
 #include "GameObject.h"
+#include <game/components/Hitpoints.h>
 #include <engine/clock/Clock.h>
 #include <engine/geometry/Color.h>
 
 class Damageable : public virtual GameObject {
 public:
-    virtual int get_hp() const = 0;
+    virtual Hitpoints get_hitpoints() const = 0;
 
-    virtual int get_default_hp() const = 0;
+    int get_hp() const { return get_hitpoints().current_hp; }
+
+    int get_default_hp() const { return get_hitpoints().default_hp; };
 
     virtual int get_damage() const = 0;
 

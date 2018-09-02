@@ -74,7 +74,7 @@ set(SOURCE_FILES
         src/game/components/Transform.h
         src/game/components/Speed2.h
         src/game/components/Speed.h
-        )
+        src/game/components/Hitpoints.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
