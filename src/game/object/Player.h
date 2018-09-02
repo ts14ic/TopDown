@@ -5,8 +5,6 @@
 #include <game/mixins/HasPlayerInput.h>
 #include <game/mixins/HasWeapons.h>
 #include <game/timer/Timer.h>
-#include <engine/input/Input.h>
-#include <engine/geometry/Point2.h>
 #include <memory>
 #include <bitset>
 
