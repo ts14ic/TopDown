@@ -2,9 +2,9 @@
 
 void HasPlayerInput::handle_key_event(const KeyboardEvent& event) {
     PlayerInput::HoldAction action = key_to_hold_action(event);
-    if (event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
+    if (KeyboardEvent::is_key_down(event)) {
         hold(action);
-    } else if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
+    } else if (KeyboardEvent::is_key_up(event)) {
         release(action);
     }
 
