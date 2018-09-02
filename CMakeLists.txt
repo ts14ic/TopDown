@@ -75,6 +75,7 @@ set(SOURCE_FILES
         src/game/object/HasTransform.h
         src/game/components/Speed2.h
         src/game/components/Speed.h
+        src/game/object/HasSpeed.h
         src/game/components/Hitpoints.h
         )
 
