@@ -1,4 +1,5 @@
 #include "HasPlayerInput.h"
+#include <unordered_map>
 
 PlayerInput::HoldAction event_to_hold_action(const KeyboardEvent& event);
 
@@ -14,65 +15,42 @@ void HasPlayerInput::handle_key_event(const KeyboardEvent& event) {
 }
 
 PlayerInput::HoldAction event_to_hold_action(const KeyboardEvent& event) {
-    switch (event.get_key()) {
-        case KEY_UP:
-        case 'w': {
-            return PlayerInput::HOLD_UP;
-        }
-
-        case KEY_DOWN:
-        case 's': {
-            return PlayerInput::HOLD_DOWN;
-        }
-
-        case KEY_LEFT:
-        case 'a': {
-            return PlayerInput::HOLD_LEFT;
-        }
-
-        case KEY_RIGHT:
-        case 'd': {
-            return PlayerInput::HOLD_RIGHT;
-        }
-
-        case KEY_SPACE: {
-            return PlayerInput::HOLD_TRIGGER;
-        }
-
-        default: {
-            return PlayerInput::HOLD_NONE;
-        }
-    }
+    static std::unordered_map<int, PlayerInput::HoldAction> ACTIONS_MAP{
+            {KEY_UP, PlayerInput::HOLD_UP},
+            {'w', PlayerInput::HOLD_UP},
+            {KEY_DOWN, PlayerInput::HOLD_DOWN},
+            {'s', PlayerInput::HOLD_DOWN},
+            {KEY_LEFT, PlayerInput::HOLD_LEFT},
+            {'a', PlayerInput::HOLD_LEFT},
+            {KEY_RIGHT, PlayerInput::HOLD_RIGHT},
+            {'d', PlayerInput::HOLD_RIGHT},
+            {KEY_SPACE, PlayerInput::HOLD_TRIGGER}
+    };
+    auto action = ACTIONS_MAP.find(event.get_key());
+    return action != ACTIONS_MAP.end()
+           ? action->second
+           : PlayerInput::HOLD_NONE;
 }
 
 PlayerInput::QuickAction event_to_quick_action(const KeyboardEvent& event) {
-    switch (event.get_key()) {
-        case ',': {
-            if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
-                return PlayerInput::QUICK_PREVIOUS_WEAPON;
-            }
-            break;
-        }
-
-        case '.': {
-            if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
-                return PlayerInput::PlayerInput::QUICK_NEXT_WEAPON;
-            }
-            break;
-        }
-
-        default: {
-            if (event.get_type() == KeyboardEvent::Type::KEY_UP) {
-                int key = event.get_key();
-                if (key >= '0' && key <= '9') {
-                    auto action = PlayerInput::QUICK_9 - ('9' - key);
-                    return static_cast<PlayerInput::QuickAction>(action);
-                }
-            }
-            break;
-        }
-    }
-    return PlayerInput::QUICK_NONE;
+    static std::unordered_map<int, PlayerInput::QuickAction> ACTIONS_MAP{
+            {'0', PlayerInput::QUICK_0},
+            {'1', PlayerInput::QUICK_1},
+            {'2', PlayerInput::QUICK_2},
+            {'3', PlayerInput::QUICK_3},
+            {'4', PlayerInput::QUICK_4},
+            {'5', PlayerInput::QUICK_5},
+            {'6', PlayerInput::QUICK_6},
+            {'7', PlayerInput::QUICK_7},
+            {'8', PlayerInput::QUICK_8},
+            {'9', PlayerInput::QUICK_9},
+            {',', PlayerInput::QUICK_PREVIOUS_WEAPON},
+            {'.', PlayerInput::QUICK_NEXT_WEAPON},
+    };
+    auto action = ACTIONS_MAP.find(event.get_key());
+    return action != ACTIONS_MAP.end()
+           ? action->second
+           : PlayerInput::QUICK_NONE;
 }
 
 void HasPlayerInput::handle_mouse_event(const MouseScrollEvent& event) {
