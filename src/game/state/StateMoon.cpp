@@ -109,26 +109,26 @@ void StateMoon::handle_logic() {
     });
     bullets().erase(remove_from, bullets().end());
 
-    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [&, this](Zombie& z) {
-        z.set_target(_player.get_position());
-        z.handle_logic();
+    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [&, this](Zombie& zombie) {
+        zombie.set_target(_player.get_position());
+        zombie.handle_logic();
 
-        if (objects_collide(z, _player)) {
-            _player.take_damage(clock, z.get_melee_damage());
+        if (objects_collide(zombie, _player)) {
+            _player.take_damage(clock, zombie.get_melee_damage());
         }
 
-        return z.is_dead();
+        return zombie.is_dead();
     }), zombies().end());
 
-    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [&, this](Werewolf& w) {
-        w.set_target(clock, _player.get_position());
-        w.handle_logic(clock);
+    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [&, this](Werewolf& werewolf) {
+        werewolf.set_target(clock, _player.get_position());
+        werewolf.handle_logic(clock);
 
-        if (objects_collide(w, _player)) {
-            _player.take_damage(clock, w.get_melee_damage());
+        if (objects_collide(werewolf, _player)) {
+            _player.take_damage(clock, werewolf.get_melee_damage());
         }
 
-        return w.is_dead();
+        return werewolf.is_dead();
     }), werewolves().end());
 
     restrict_pos(_player);
@@ -167,12 +167,12 @@ void StateMoon::handle_render(float frames_count) {
 
     _player.handle_render(graphic, frames_count);
 
-    for (auto& z : zombies()) {
-        z.handle_render(engine, graphic, audio, frames_count);
+    for (auto& zombie : zombies()) {
+        zombie.handle_render(engine, graphic, audio, frames_count);
     }
 
-    for (auto& w : werewolves()) {
-        w.handle_render(engine, graphic, audio, frames_count);
+    for (auto& werewolf : werewolves()) {
+        werewolf.handle_render(engine, graphic, audio, frames_count);
     }
 
     for (auto& b : bullets()) {
