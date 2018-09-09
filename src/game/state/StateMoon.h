@@ -11,8 +11,6 @@ class StateMoon : public GameState {
 public:
     explicit StateMoon(Game& game);
 
-    StateMoon(const StateMoon& other);
-
     void handle_window_event(const WindowEvent& event) override;
 
     void handle_mouse_event(const MouseScrollEvent& event) override;

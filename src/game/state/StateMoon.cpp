@@ -25,10 +25,6 @@ StateMoon::StateMoon(Game& game)
     parse_level_data();
 }
 
-StateMoon::StateMoon(const StateMoon& other)
-        : StateMoon{other._game} {
-}
-
 void StateMoon::handle_window_event(const WindowEvent& event) {
 }
 
