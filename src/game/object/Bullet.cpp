@@ -20,7 +20,7 @@ Bullet::Bullet(Random& random, const GameObject& shooter, const Weapon& weapon) 
     _speed.max_speed = weapon.get_projectile_speed();
 }
 
-int Bullet::get_damage() const { return _damage; }
+int Bullet::get_melee_damage() const { return _damage; }
 
 std::string Bullet::get_tex_name() const { return "bullet"; }
 

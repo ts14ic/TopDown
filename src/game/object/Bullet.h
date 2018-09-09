@@ -2,10 +2,11 @@
 
 #include "GameObject.h"
 #include "Weapon.h"
+#include <game/mixins/HasMeleeDamage.h>
 #include <engine/random/Random.h>
 #include <vector>
 
-class Bullet : public virtual GameObject {
+class Bullet : public virtual GameObject, public HasMeleeDamage {
 public:
     Bullet(Random& random, const GameObject& origin, const Weapon& weapon);
 
@@ -19,7 +20,7 @@ public:
 
     std::string get_tex_name() const override;
 
-    int get_damage() const;
+    int get_melee_damage() const override;
 
     void handle_logic();
 
