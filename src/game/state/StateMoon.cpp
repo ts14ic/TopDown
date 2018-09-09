@@ -75,10 +75,10 @@ void StateMoon::handle_logic() {
         _enemy_spawn_cooldown.restart(clock);
     }
 
-    _player.handle_logic(_game.get_engine());
+    _player.handle_logic(_game.get_engine(), _bullets);
 
     // process bullet moving and collisions
-    auto remove_from = std::remove_if(bullets().begin(), bullets().end(), [&, this](Bullet& bullet) {
+    auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
         bullet.handle_logic();
 
         if (position_out_of_level_area(bullet.get_position())) {
@@ -103,7 +103,7 @@ void StateMoon::handle_logic() {
 
         return false;
     });
-    bullets().erase(remove_from, bullets().end());
+    _bullets.erase(remove_from, _bullets.end());
 
     zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [&, this](Zombie& zombie) {
         zombie.set_target(_player.get_position());
@@ -171,7 +171,7 @@ void StateMoon::handle_render(float frames_count) {
         werewolf.handle_render(engine, graphic, audio, frames_count);
     }
 
-    for (auto& b : bullets()) {
+    for (auto& b : _bullets) {
         b.handle_render(engine, graphic, frames_count);
     }
 

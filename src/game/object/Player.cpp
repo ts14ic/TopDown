@@ -31,7 +31,7 @@ void Player::take_damage(const Clock& clock, int damageAmount) {
     }
 }
 
-void Player::handle_logic(Engine& engine) {
+void Player::handle_logic(Engine& engine, std::vector<Bullet>& bullets) {
     if (_input.mouse_moved()) {
         _transform.angle = math::get_cartesian_angle(_transform.position, _input.pop_mouse_position());
     }
@@ -50,7 +50,7 @@ void Player::handle_logic(Engine& engine) {
     _weapons.try_reload_selected(engine.get_clock());
 
     if (_input.is_held(PlayerInput::HOLD_TRIGGER)) {
-        _weapons.fire_from_selected(engine, *this);
+        _weapons.fire_from_selected(engine, *this, bullets);
     }
 }
 

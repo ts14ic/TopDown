@@ -42,6 +42,7 @@ private:
     Point2<int> _mouse_pos;
 
     Player _player;
+    std::vector<Bullet> _bullets;
     float _crosshair_angle;
 
     Timer _enemy_spawn_cooldown;

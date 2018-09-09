@@ -9,11 +9,13 @@
 #include <vector>
 #include <string>
 
+class Bullet;
+
 class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pull_trigger(Random& random, Engine& engine, Audio& audio, const GameObject& shooter);
+    void pull_trigger(Engine& engine, const GameObject& shooter, std::vector<Bullet>& bullets);
 
     void try_reload(const Clock& clock);
 
@@ -34,7 +36,7 @@ private:
 
     void play_fire_sound(Audio& audio);
 
-    void spawn_bullets(Random& random, const GameObject& shooter);
+    void spawn_bullets(Random& random, const GameObject& shooter, std::vector<Bullet>& bullets);
 
 private:
     Timer _fire_cooldown_timer;

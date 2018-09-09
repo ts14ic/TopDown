@@ -31,6 +31,3 @@ private:
     Speed _speed;
     int _damage;
 };
-
-std::vector<Bullet>& bullets();
-

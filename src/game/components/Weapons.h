@@ -1,5 +1,6 @@
 #pragma once
 
+#include <game/object/Bullet.h>
 #include <game/object/Weapon.h>
 #include <vector>
 #include <string>
@@ -24,7 +25,7 @@ public:
 
     void try_reload_selected(const Clock& clock);
 
-    void fire_from_selected(Engine& engine, GameObject& shooter);
+    void fire_from_selected(Engine& engine, GameObject& shooter, std::vector<Bullet>& bullets);
 
 private:
     Weapon& get_selected_mut() { return _weapons[_selected_weapon_index]; }

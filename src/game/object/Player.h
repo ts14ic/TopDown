@@ -2,6 +2,7 @@
 
 #include "Damageable.h"
 #include "Weapon.h"
+#include "Bullet.h"
 #include <game/mixins/HasPlayerInput.h>
 #include <game/mixins/HasWeapons.h>
 #include <game/timer/Timer.h>
@@ -43,7 +44,7 @@ public:
 
     void take_damage(const Clock& clock, int damageAmount) override;
 
-    void handle_logic(Engine& engine);
+    void handle_logic(Engine& engine, std::vector<Bullet>& bullets);
 
     void handle_render(Graphic& graphic, float frames_count);
 

@@ -3,11 +3,6 @@
 
 using std::vector;
 
-vector<Bullet>& bullets() {
-    static vector<Bullet> ret;
-    return ret;
-}
-
 Bullet::Bullet(Random& random, const GameObject& shooter, const Weapon& weapon) {
     float half = weapon.get_projectile_spread() / 2;
     _transform.angle = shooter.get_angle() + random.get_float(-half, half);
