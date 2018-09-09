@@ -20,8 +20,6 @@ std::string Player::get_tex_name() const {
     }
 }
 
-int Player::get_damage() const { return 0; }
-
 bool Player::is_dead() const {
     return !has_hp();
 }

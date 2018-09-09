@@ -2,12 +2,13 @@
 
 #include "Damageable.h"
 #include <game/timer/Timer.h>
+#include <game/mixins/HasMeleeDamage.h>
 #include <engine/random/Random.h>
 #include <engine/audio/Audio.h>
 #include <engine/Engine.h>
 #include <vector>
 
-class Werewolf : public Damageable {
+class Werewolf : public Damageable, public HasMeleeDamage {
 public:
     explicit Werewolf(Point2<float> position);
 
@@ -26,7 +27,7 @@ public:
 
     void set_hitpoints(Hitpoints hitpoints) override { _hitpoints = hitpoints; }
 
-    int get_damage() const override;
+    int get_melee_damage() const override;
 
     void take_damage(const Clock& clock, int damage_dealt) override;
 

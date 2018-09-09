@@ -7,7 +7,7 @@ Werewolf::Werewolf(Point2<float> position)
         : _transform{Transform{position, 0.0f, 25.0f}},
           _hitpoints{Hitpoints{30}} {}
 
-int Werewolf::get_damage() const {
+int Werewolf::get_melee_damage() const {
     if (_ai_state == AI_ATTACKING && (_animation_frame == 3 || _animation_frame == 7))
         return 10;
     else return 0;

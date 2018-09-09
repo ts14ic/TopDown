@@ -39,8 +39,6 @@ public:
 
     void set_player_input(PlayerInput input) override { _input = input; }
 
-    int get_damage() const override;
-
     bool is_dead() const override;
 
     void take_damage(const Clock& clock, int damageAmount) override;

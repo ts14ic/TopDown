@@ -2,12 +2,13 @@
 
 #include "Damageable.h"
 #include <game/timer/Timer.h>
+#include <game/mixins/HasMeleeDamage.h>
 #include <engine/audio/Audio.h>
 #include <engine/graphic/Graphic.h>
 #include <engine/Engine.h>
 #include <vector>
 
-class Zombie : public Damageable {
+class Zombie : public Damageable, public HasMeleeDamage {
 public:
     explicit Zombie(Point2<float> position);
 
@@ -29,7 +30,7 @@ public:
 
     bool is_dead() const override;
 
-    int get_damage() const override;
+    int get_melee_damage() const override;
 
     void take_damage(const Clock& clock, int damage_dealt) override;
 

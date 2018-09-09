@@ -114,7 +114,7 @@ void StateMoon::handle_logic() {
         z.handle_logic();
 
         if (objects_collide(z, _player)) {
-            _player.take_damage(clock, z.get_damage());
+            _player.take_damage(clock, z.get_melee_damage());
         }
 
         return z.is_dead();
@@ -125,7 +125,7 @@ void StateMoon::handle_logic() {
         w.handle_logic(clock);
 
         if (objects_collide(w, _player)) {
-            _player.take_damage(clock, w.get_damage());
+            _player.take_damage(clock, w.get_melee_damage());
         }
 
         return w.is_dead();

@@ -8,7 +8,7 @@ Zombie::Zombie(Point2<float> position)
           _hitpoints{Hitpoints{50}} {
 }
 
-int Zombie::get_damage() const { if (_ai_state == AI_ATTACKING && _animation_frame == 5) return 15; else return 0; }
+int Zombie::get_melee_damage() const { if (_ai_state == AI_ATTACKING && _animation_frame == 5) return 15; else return 0; }
 
 std::string Zombie::get_tex_name() const {
     std::string name = "zombie";
