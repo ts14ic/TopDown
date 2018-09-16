@@ -97,8 +97,3 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 bool Zombie::is_dead() const {
     return _ai_state == AI_DYING && _animation_frame == 7;
 }
-
-vector<Zombie>& zombies() {
-    static vector<Zombie> ret;
-    return ret;
-}

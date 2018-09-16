@@ -57,5 +57,3 @@ private:
     Timer _animation_timer;
     int _ai_state = AI_IDLE;
 };
-
-std::vector<Zombie>& zombies();

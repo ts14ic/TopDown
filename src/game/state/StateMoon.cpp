@@ -16,7 +16,7 @@ StateMoon::StateMoon(Game& game)
           _enemy_spawn_cooldown{} {
     _game.get_engine().get_graphic().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
-    zombies().clear();
+    _zombies.clear();
     werewolves().clear();
     _enemy_spawn_cooldown.restart(game.get_engine().get_clock());
 
@@ -64,10 +64,10 @@ void StateMoon::handle_logic() {
     const Clock& clock = _game.get_engine().get_clock();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(clock, 50) &&
-        (zombies().size() + werewolves().size() < 7)) {
+        (_zombies.size() + werewolves().size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
-            zombies().emplace_back(position);
+            _zombies.emplace_back(position);
         } else {
             werewolves().emplace_back(position);
         }
@@ -85,7 +85,7 @@ void StateMoon::handle_logic() {
             return true;
         }
 
-        for (auto& zombie : zombies()) {
+        for (auto& zombie : _zombies) {
             if (objects_collide(bullet, zombie) && zombie.has_hp()) {
                 zombie.take_damage(clock, bullet.get_melee_damage());
                 return true;
@@ -105,7 +105,7 @@ void StateMoon::handle_logic() {
     });
     _bullets.erase(remove_from, _bullets.end());
 
-    zombies().erase(std::remove_if(zombies().begin(), zombies().end(), [&, this](Zombie& zombie) {
+    _zombies.erase(std::remove_if(_zombies.begin(), _zombies.end(), [&, this](Zombie& zombie) {
         zombie.set_target(_player.get_position());
         zombie.handle_logic();
 
@@ -114,7 +114,7 @@ void StateMoon::handle_logic() {
         }
 
         return zombie.is_dead();
-    }), zombies().end());
+    }), _zombies.end());
 
     werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [&, this](Werewolf& werewolf) {
         werewolf.set_target(clock, _player.get_position());
@@ -163,7 +163,7 @@ void StateMoon::handle_render(float frames_count) {
 
     _player.handle_render(graphic, frames_count);
 
-    for (auto& zombie : zombies()) {
+    for (auto& zombie : _zombies) {
         zombie.handle_render(engine, graphic, audio, frames_count);
     }
 

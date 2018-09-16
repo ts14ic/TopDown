@@ -3,6 +3,7 @@
 #include "GameState.h"
 #include <game/object/Player.h>
 #include <game/object/GameObject.h>
+#include <game/object/Zombie.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
 #include <engine/geometry/Point2.h>
@@ -43,6 +44,7 @@ private:
 
     Player _player;
     std::vector<Bullet> _bullets;
+    std::vector<Zombie> _zombies;
     float _crosshair_angle;
 
     Timer _enemy_spawn_cooldown;
