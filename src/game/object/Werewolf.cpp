@@ -158,8 +158,3 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic_context, Audio& au
 bool Werewolf::is_dead() const {
     return _ai_state == AI_DYING && _animation_frame == 2;
 }
-
-vector<Werewolf>& werewolves() {
-    static vector<Werewolf> ret;
-    return ret;
-}

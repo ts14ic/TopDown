@@ -60,5 +60,3 @@ private:
     Timer _teleport_cooldown;
     int _ai_state = AI_IDLE;
 };
-
-std::vector<Werewolf>& werewolves();

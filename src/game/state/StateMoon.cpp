@@ -16,8 +16,6 @@ StateMoon::StateMoon(Game& game)
           _enemy_spawn_cooldown{} {
     _game.get_engine().get_graphic().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
-    _zombies.clear();
-    werewolves().clear();
     _enemy_spawn_cooldown.restart(game.get_engine().get_clock());
 
     _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
@@ -64,12 +62,12 @@ void StateMoon::handle_logic() {
     const Clock& clock = _game.get_engine().get_clock();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(clock, 50) &&
-        (_zombies.size() + werewolves().size() < 7)) {
+        (_zombies.size() + _werewolves.size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
             _zombies.emplace_back(position);
         } else {
-            werewolves().emplace_back(position);
+            _werewolves.emplace_back(position);
         }
 
         _enemy_spawn_cooldown.restart(clock);
@@ -91,7 +89,7 @@ void StateMoon::handle_logic() {
                 return true;
             }
         }
-        for (auto& werewolf : werewolves()) {
+        for (auto& werewolf : _werewolves) {
             if (objects_collide(bullet, werewolf) && werewolf.has_hp()) {
                 werewolf.take_damage(clock, bullet.get_melee_damage());
                 return true;
@@ -116,7 +114,7 @@ void StateMoon::handle_logic() {
         return zombie.is_dead();
     }), _zombies.end());
 
-    werewolves().erase(std::remove_if(werewolves().begin(), werewolves().end(), [&, this](Werewolf& werewolf) {
+    _werewolves.erase(std::remove_if(_werewolves.begin(), _werewolves.end(), [&, this](Werewolf& werewolf) {
         werewolf.set_target(clock, _player.get_position());
         werewolf.handle_logic(clock);
 
@@ -125,7 +123,7 @@ void StateMoon::handle_logic() {
         }
 
         return werewolf.is_dead();
-    }), werewolves().end());
+    }), _werewolves.end());
 
     restrict_pos(_player);
     if (_player.is_dead()) _game.request_state_change(StateId::INTRO);
@@ -167,7 +165,7 @@ void StateMoon::handle_render(float frames_count) {
         zombie.handle_render(engine, graphic, audio, frames_count);
     }
 
-    for (auto& werewolf : werewolves()) {
+    for (auto& werewolf : _werewolves) {
         werewolf.handle_render(engine, graphic, audio, frames_count);
     }
 
