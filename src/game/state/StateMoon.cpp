@@ -77,6 +77,66 @@ void StateMoon::handle_logic() {
     _player.handle_logic(get_engine(), _bullets);
 
     handle_bullet_logic();
+    handle_zombie_logic();
+    handle_werewolf_logic();
+
+    restrict_pos(_player);
+    if (_player.is_dead()) _game.request_state_change(StateId::INTRO);
+}
+
+void StateMoon::handle_bullet_logic() {
+    const auto& clock = get_engine().get_clock();
+    auto& random = get_engine().get_random();
+
+    auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
+        Transform transform = bullet.get_transform();
+        Speed speed = bullet.get_speed();
+        auto bullet_damage = bullet.get_melee_damage();
+
+        // TODO extract speed setting
+        speed.current_speed = {
+                math::cartesian_cos(transform.angle) * speed.max_speed,
+                math::cartesian_sin(transform.angle) * speed.max_speed
+        };
+        transform.position = {
+                transform.position.x + speed.current_speed.x,
+                transform.position.y + speed.current_speed.y
+        };
+
+        if (position_out_of_level_area(transform.position)) {
+            Log::d("bullet of level area, destroying");
+            return true;
+        }
+
+        for (auto& zombie : _zombies) {
+            if (circles_collide(transform.get_circle(), zombie.get_circle())
+                && zombie.get_hp()) {
+                zombie.take_damage(clock, bullet_damage);
+                Log::d("zombie takes %d damage, bullet destroyed", bullet_damage);
+                return true;
+            }
+        }
+        for (auto& werewolf : _werewolves) {
+            if (circles_collide(transform.get_circle(), werewolf.get_circle())
+                && werewolf.has_hp()) {
+                werewolf.take_damage(clock, bullet_damage);
+                Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
+                return true;
+            }
+            if (math::get_distance(transform.position, werewolf.get_position()) < 50) {
+                werewolf.teleport(clock, random);
+            }
+        }
+
+        bullet.set_current_speed(speed.current_speed);
+        bullet.set_position(transform.position);
+        return false;
+    });
+    _bullets.erase(remove_from, _bullets.end());
+}
+
+void StateMoon::handle_zombie_logic() {
+    const auto& clock = get_engine().get_clock();
 
     _zombies.erase(std::remove_if(_zombies.begin(), _zombies.end(), [&, this](Zombie& zombie) {
         zombie.set_target(_player.get_position());
@@ -88,6 +148,10 @@ void StateMoon::handle_logic() {
 
         return zombie.is_dead();
     }), _zombies.end());
+}
+
+void StateMoon::handle_werewolf_logic() {
+    const auto& clock = get_engine().get_clock();
 
     _werewolves.erase(std::remove_if(_werewolves.begin(), _werewolves.end(), [&, this](Werewolf& werewolf) {
         werewolf.set_target(clock, _player.get_position());
@@ -99,9 +163,6 @@ void StateMoon::handle_logic() {
 
         return werewolf.is_dead();
     }), _werewolves.end());
-
-    restrict_pos(_player);
-    if (_player.is_dead()) _game.request_state_change(StateId::INTRO);
 }
 
 bool StateMoon::position_out_of_level_area(Point2<float> position) const {
@@ -170,57 +231,6 @@ void StateMoon::render_crosshair(float frames_count) {
     }
 
     graphic.render_texture(texture.get_name(), render_point, _crosshair_angle);
-}
-
-void StateMoon::handle_bullet_logic() {
-    const auto& clock = get_engine().get_clock();
-    auto& random = get_engine().get_random();
-
-    auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
-        Transform transform = bullet.get_transform();
-        Speed speed = bullet.get_speed();
-        auto bullet_damage = bullet.get_melee_damage();
-
-        // TODO extract speed setting
-        speed.current_speed = {
-                math::cartesian_cos(transform.angle) * speed.max_speed,
-                math::cartesian_sin(transform.angle) * speed.max_speed
-        };
-        transform.position = {
-                transform.position.x + speed.current_speed.x,
-                transform.position.y + speed.current_speed.y
-        };
-
-        if (position_out_of_level_area(transform.position)) {
-            Log::d("bullet of level area, destroying");
-            return true;
-        }
-
-        for (auto& zombie : _zombies) {
-            if (circles_collide(transform.get_circle(), zombie.get_circle())
-                    && zombie.get_hp()) {
-                zombie.take_damage(clock, bullet_damage);
-                Log::d("zombie takes %d damage, bullet destroyed", bullet_damage);
-                return true;
-            }
-        }
-        for (auto& werewolf : _werewolves) {
-            if (circles_collide(transform.get_circle(), werewolf.get_circle())
-                    && werewolf.has_hp()) {
-                werewolf.take_damage(clock, bullet_damage);
-                Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
-                return true;
-            }
-            if (math::get_distance(transform.position, werewolf.get_position()) < 50) {
-                werewolf.teleport(clock, random);
-            }
-        }
-
-        bullet.set_current_speed(speed.current_speed);
-        bullet.set_position(transform.position);
-        return false;
-    });
-    _bullets.erase(remove_from, _bullets.end());
 }
 
 void StateMoon::parse_level_data() {
