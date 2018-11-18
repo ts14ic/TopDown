@@ -24,7 +24,7 @@ set(SOURCE_FILES
         src/io/files/files.cpp src/io/files/files.h
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
         src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
-        src/random/Mt19937Random.h src/random/Mt19937Random.cpp
+        src/engine_std/Mt19937Random.h src/engine_std/Mt19937Random.cpp
         src/engine/graphic/Texture.cpp src/engine/graphic/Texture.h
         src/engine/graphic/Graphic.cpp src/engine/graphic/Graphic.h
         src/engine/Engine.cpp src/engine/Engine.h
@@ -83,7 +83,11 @@ set(SOURCE_FILES
         src/game/mixins/HasWeapons.h
         src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
         src/game/mixins/HasPlayerInput.h src/game/mixins/HasPlayerInput.cpp
-        src/game/mixins/HasMeleeDamage.h)
+        src/game/mixins/HasMeleeDamage.h
+        src/engine/log/Log.cpp src/engine/log/Log.h
+        src/engine/log/Logger.h
+        src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h
+        )
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
