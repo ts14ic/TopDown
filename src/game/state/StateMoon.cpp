@@ -4,6 +4,7 @@
 #include <game/object/Bullet.h>
 #include <engine/geometry/maths.h>
 #include <engine/geometry/Point2.h>
+#include <engine/log/Log.h>
 #include <io/json/json.h>
 #include <io/files/files.h>
 #include <algorithm>
@@ -191,6 +192,7 @@ void StateMoon::handle_bullet_logic() {
         };
 
         if (position_out_of_level_area(transform.position)) {
+            Log::d("bullet of level area, destroying");
             return true;
         }
 
@@ -198,6 +200,7 @@ void StateMoon::handle_bullet_logic() {
             if (circles_collide(transform.get_circle(), zombie.get_circle())
                     && zombie.get_hp()) {
                 zombie.take_damage(clock, bullet_damage);
+                Log::d("zombie takes %d damage, bullet destroyed", bullet_damage);
                 return true;
             }
         }
@@ -205,6 +208,7 @@ void StateMoon::handle_bullet_logic() {
             if (circles_collide(transform.get_circle(), werewolf.get_circle())
                     && werewolf.has_hp()) {
                 werewolf.take_damage(clock, bullet_damage);
+                Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 return true;
             }
             if (math::get_distance(transform.position, werewolf.get_position()) < 50) {
