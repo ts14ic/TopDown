@@ -176,37 +176,44 @@ void StateMoon::handle_bullet_logic() {
     auto& random = get_engine().get_random();
 
     auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
-        // TODO extract speed setting
-        auto movement_angle = bullet.get_angle();
-        bullet.set_current_speed(
-                math::cartesian_cos(movement_angle) * bullet.get_max_movement_speed(),
-                math::cartesian_sin(movement_angle) * bullet.get_max_movement_speed()
-        );
-        bullet.set_position(
-                bullet.get_position().x + bullet.get_current_speed().x,
-                bullet.get_position().y + bullet.get_current_speed().y
-        );
+        Transform transform = bullet.get_transform();
+        Speed speed = bullet.get_speed();
+        auto bullet_damage = bullet.get_melee_damage();
 
-        if (position_out_of_level_area(bullet.get_position())) {
+        // TODO extract speed setting
+        speed.current_speed = {
+                math::cartesian_cos(transform.angle) * speed.max_speed,
+                math::cartesian_sin(transform.angle) * speed.max_speed
+        };
+        transform.position = {
+                transform.position.x + speed.current_speed.x,
+                transform.position.y + speed.current_speed.y
+        };
+
+        if (position_out_of_level_area(transform.position)) {
             return true;
         }
 
         for (auto& zombie : _zombies) {
-            if (objects_collide(bullet, zombie) && zombie.has_hp()) {
-                zombie.take_damage(clock, bullet.get_melee_damage());
+            if (circles_collide(transform.get_circle(), zombie.get_circle())
+                    && zombie.get_hp()) {
+                zombie.take_damage(clock, bullet_damage);
                 return true;
             }
         }
         for (auto& werewolf : _werewolves) {
-            if (objects_collide(bullet, werewolf) && werewolf.has_hp()) {
-                werewolf.take_damage(clock, bullet.get_melee_damage());
+            if (circles_collide(transform.get_circle(), werewolf.get_circle())
+                    && werewolf.has_hp()) {
+                werewolf.take_damage(clock, bullet_damage);
                 return true;
             }
-            if (math::get_distance(bullet.get_position(), werewolf.get_position()) < 50) {
+            if (math::get_distance(transform.position, werewolf.get_position()) < 50) {
                 werewolf.teleport(clock, random);
             }
         }
 
+        bullet.set_current_speed(speed.current_speed);
+        bullet.set_position(transform.position);
         return false;
     });
     _bullets.erase(remove_from, _bullets.end());
