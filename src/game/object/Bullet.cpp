@@ -19,20 +19,6 @@ int Bullet::get_melee_damage() const { return _damage; }
 
 std::string Bullet::get_tex_name() const { return "bullet"; }
 
-void Bullet::handle_logic() {
-    {
-        // TODO extract speed setting
-        auto movement_angle = get_angle();
-
-        set_current_speed(
-                math::cartesian_cos(movement_angle) * get_max_movement_speed(),
-                math::cartesian_sin(movement_angle) * get_max_movement_speed()
-        );
-    }
-
-    default_move();
-}
-
 void Bullet::handle_render(Engine& engine, Graphic& graphic, float frames_count) {
     default_render(graphic, frames_count);
 }

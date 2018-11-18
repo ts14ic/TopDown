@@ -22,8 +22,6 @@ public:
 
     int get_melee_damage() const override;
 
-    void handle_logic();
-
     void handle_render(Engine& engine, Graphic& graphic, float frames_count);
 
 private:

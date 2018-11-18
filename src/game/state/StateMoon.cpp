@@ -176,7 +176,16 @@ void StateMoon::handle_bullet_logic() {
     auto& random = get_engine().get_random();
 
     auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
-        bullet.handle_logic();
+        // TODO extract speed setting
+        auto movement_angle = bullet.get_angle();
+        bullet.set_current_speed(
+                math::cartesian_cos(movement_angle) * bullet.get_max_movement_speed(),
+                math::cartesian_sin(movement_angle) * bullet.get_max_movement_speed()
+        );
+        bullet.set_position(
+                bullet.get_position().x + bullet.get_current_speed().x,
+                bullet.get_position().y + bullet.get_current_speed().y
+        );
 
         if (position_out_of_level_area(bullet.get_position())) {
             return true;
