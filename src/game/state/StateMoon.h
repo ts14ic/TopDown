@@ -27,6 +27,10 @@ public:
     void restrict_pos(GameObject&);
 
 private:
+    Engine& get_engine() const {
+        return _game.get_engine();
+    }
+
     void parse_level_data();
 
     Point2<int> make_random_point() const;

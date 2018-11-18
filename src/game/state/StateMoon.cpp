@@ -14,9 +14,9 @@ StateMoon::StateMoon(Game& game)
           _level_width(game.get_engine().get_graphic().get_screen_width()),
           _level_height(game.get_engine().get_graphic().get_screen_height()),
           _enemy_spawn_cooldown{} {
-    _game.get_engine().get_graphic().load_texture(_background_tex, "assets/gfx/test_bg.png");
+    get_engine().get_graphic().load_texture(_background_tex, "assets/gfx/test_bg.png");
 
-    _enemy_spawn_cooldown.restart(game.get_engine().get_clock());
+    _enemy_spawn_cooldown.restart(get_engine().get_clock());
 
     _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
 
@@ -58,8 +58,8 @@ void StateMoon::restrict_pos(GameObject& object) {
 }
 
 void StateMoon::handle_logic() {
-    Random& random = _game.get_engine().get_random();
-    const Clock& clock = _game.get_engine().get_clock();
+    Random& random = get_engine().get_random();
+    const Clock& clock = get_engine().get_clock();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(clock, 50) &&
         (_zombies.size() + _werewolves.size() < 7)) {
@@ -73,7 +73,7 @@ void StateMoon::handle_logic() {
         _enemy_spawn_cooldown.restart(clock);
     }
 
-    _player.handle_logic(_game.get_engine(), _bullets);
+    _player.handle_logic(get_engine(), _bullets);
 
     // process bullet moving and collisions
     auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
@@ -135,7 +135,7 @@ bool StateMoon::position_out_of_level_area(Point2<float> position) const {
 }
 
 Point2<int> StateMoon::make_random_point() const {
-    Random& random = _game.get_engine().get_random();
+    Random& random = get_engine().get_random();
     if (!random.get_bool()) {
         return make_point(
                 random.get_int(0, _level_width),
@@ -150,7 +150,7 @@ Point2<int> StateMoon::make_random_point() const {
 }
 
 void StateMoon::handle_render(float frames_count) {
-    auto& engine = _game.get_engine();
+    auto& engine = get_engine();
     auto& graphic = engine.get_graphic();
     graphic.clear_screen();
 
@@ -179,7 +179,7 @@ void StateMoon::handle_render(float frames_count) {
 }
 
 void StateMoon::render_crosshair(float frames_count) {
-    Graphic& graphic = _game.get_engine().get_graphic();
+    Graphic& graphic = get_engine().get_graphic();
 
     auto texture = graphic.get_texture(_player.is_reloading()
                                        ? "reload"
