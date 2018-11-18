@@ -83,7 +83,11 @@ set(SOURCE_FILES
         src/game/mixins/HasWeapons.h
         src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
         src/game/mixins/HasPlayerInput.h src/game/mixins/HasPlayerInput.cpp
-        src/game/mixins/HasMeleeDamage.h)
+        src/game/mixins/HasMeleeDamage.h
+        src/engine/log/Log.cpp src/engine/log/Log.h
+        src/engine/log/Logger.h
+        src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h
+        )
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown
