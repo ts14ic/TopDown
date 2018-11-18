@@ -31,6 +31,8 @@ private:
         return _game.get_engine();
     }
 
+    void handle_bullet_logic();
+
     void parse_level_data();
 
     Point2<int> make_random_point() const;

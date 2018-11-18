@@ -75,33 +75,7 @@ void StateMoon::handle_logic() {
 
     _player.handle_logic(get_engine(), _bullets);
 
-    // process bullet moving and collisions
-    auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
-        bullet.handle_logic();
-
-        if (position_out_of_level_area(bullet.get_position())) {
-            return true;
-        }
-
-        for (auto& zombie : _zombies) {
-            if (objects_collide(bullet, zombie) && zombie.has_hp()) {
-                zombie.take_damage(clock, bullet.get_melee_damage());
-                return true;
-            }
-        }
-        for (auto& werewolf : _werewolves) {
-            if (objects_collide(bullet, werewolf) && werewolf.has_hp()) {
-                werewolf.take_damage(clock, bullet.get_melee_damage());
-                return true;
-            }
-            if (math::get_distance(bullet.get_position(), werewolf.get_position()) < 50) {
-                werewolf.teleport(clock, random);
-            }
-        }
-
-        return false;
-    });
-    _bullets.erase(remove_from, _bullets.end());
+    handle_bullet_logic();
 
     _zombies.erase(std::remove_if(_zombies.begin(), _zombies.end(), [&, this](Zombie& zombie) {
         zombie.set_target(_player.get_position());
@@ -195,6 +169,38 @@ void StateMoon::render_crosshair(float frames_count) {
     }
 
     graphic.render_texture(texture.get_name(), render_point, _crosshair_angle);
+}
+
+void StateMoon::handle_bullet_logic() {
+    const auto& clock = get_engine().get_clock();
+    auto& random = get_engine().get_random();
+
+    auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
+        bullet.handle_logic();
+
+        if (position_out_of_level_area(bullet.get_position())) {
+            return true;
+        }
+
+        for (auto& zombie : _zombies) {
+            if (objects_collide(bullet, zombie) && zombie.has_hp()) {
+                zombie.take_damage(clock, bullet.get_melee_damage());
+                return true;
+            }
+        }
+        for (auto& werewolf : _werewolves) {
+            if (objects_collide(bullet, werewolf) && werewolf.has_hp()) {
+                werewolf.take_damage(clock, bullet.get_melee_damage());
+                return true;
+            }
+            if (math::get_distance(bullet.get_position(), werewolf.get_position()) < 50) {
+                werewolf.teleport(clock, random);
+            }
+        }
+
+        return false;
+    });
+    _bullets.erase(remove_from, _bullets.end());
 }
 
 void StateMoon::parse_level_data() {
