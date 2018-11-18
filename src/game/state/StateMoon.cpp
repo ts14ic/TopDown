@@ -74,14 +74,17 @@ void StateMoon::handle_logic() {
         _enemy_spawn_cooldown.restart(clock);
     }
 
-    _player.handle_logic(get_engine(), _bullets);
-
+    handle_player_logic();
     handle_bullet_logic();
     handle_zombie_logic();
     handle_werewolf_logic();
 
     restrict_pos(_player);
     if (_player.is_dead()) _game.request_state_change(StateId::INTRO);
+}
+
+void StateMoon::handle_player_logic() {
+    _player.handle_logic(get_engine(), _bullets);
 }
 
 void StateMoon::handle_bullet_logic() {
