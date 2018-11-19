@@ -87,6 +87,7 @@ set(SOURCE_FILES
         src/engine/log/Log.cpp src/engine/log/Log.h
         src/engine/log/Logger.h
         src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h
+        src/game/components/ZombieAi.cpp src/game/components/ZombieAi.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

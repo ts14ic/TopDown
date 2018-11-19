@@ -2,6 +2,7 @@
 
 #include "Damageable.h"
 #include <game/timer/Timer.h>
+#include <game/components/ZombieAi.h>
 #include <game/mixins/HasMeleeDamage.h>
 #include <engine/audio/Audio.h>
 #include <engine/graphic/Graphic.h>
@@ -43,17 +44,10 @@ public:
                        float frames_count);
 
 private:
-    enum AiState {
-        AI_IDLE = 0x0,
-        AI_MOVING = 0x1,
-        AI_ATTACKING = 0x2,
-        AI_DYING = 0x4
-    };
-
+    ZombieAi _zombie_ai;
     Transform _transform;
     Speed _speed = Speed{1.7f};
     Hitpoints _hitpoints;
     int _animation_frame = 0;
     Timer _animation_timer;
-    int _ai_state = AI_IDLE;
 };
