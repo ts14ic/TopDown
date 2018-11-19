@@ -9,7 +9,7 @@ Zombie::Zombie(Point2<float> position)
 }
 
 int Zombie::get_melee_damage() const {
-    if (_zombie_ai.is_attacking() && _animation_frame == 5)
+    if (_zombie_ai.is_attacking() && _animation.get_frame() == 5)
         return 15;
     else
         return 0;
@@ -20,10 +20,10 @@ std::string Zombie::get_tex_name() const {
 
     if (_zombie_ai.is_attacking()) {
         name += "_attack";
-        name += std::to_string(_animation_frame);
+        name += std::to_string(_animation.get_frame());
     } else if (_zombie_ai.is_dying()) {
         name += "_death";
-        name += std::to_string(_animation_frame);
+        name += std::to_string(_animation.get_frame());
     }
 
     return name;
@@ -34,7 +34,7 @@ void Zombie::take_damage(const Clock& clock, int damage_dealt) {
 
     if (!has_hp() && !_zombie_ai.is_dying()) {
         _zombie_ai.set_state(ZombieAi::AI_DYING);
-        _animation_frame = 0;
+        _animation.reset_frame();
     }
 }
 
@@ -47,11 +47,11 @@ void Zombie::set_target(Point2<float> position) {
     if (dist > get_circle().get_radius() * 1.7f) {
         if (!_zombie_ai.is_moving()) {
             _zombie_ai.set_state(ZombieAi::AI_MOVING);
-            _animation_frame = 0;
+            _animation.reset_frame();
         }
     } else if (!_zombie_ai.is_attacking()) {
         _zombie_ai.set_state(ZombieAi::AI_ATTACKING);
-        _animation_frame = 0;
+        _animation.reset_frame();
     }
 }
 
@@ -82,24 +82,26 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 
     const auto& clock = engine.get_clock();
     if (_zombie_ai.is_attacking()) {
-        if (_animation_frame == 5) {
+        if (_animation.get_frame() == 5) {
             audio.play_sound("zombie_attack");
         }
 
-        if (_animation_timer.ticks_passed_since_start(clock, 100)) {
-            ++_animation_frame;
-            if (_animation_frame >= 6) _animation_frame = 0;
-            _animation_timer.restart(clock);
+        if (_animation.get_timer().ticks_passed_since_start(clock, 100)) {
+            _animation.next_frame();
+            if (_animation.get_frame() >= 6) {
+                _animation.reset_frame();
+            }
+            _animation.reset_timer(clock);
         }
     } else if (_zombie_ai.is_dying()) {
-        if (_animation_frame < 7 && _animation_timer.ticks_passed_since_start(clock, 500)) {
-            ++_animation_frame;
-            _animation_timer.restart(clock);
+        if (_animation.get_frame() < 7 && _animation.get_timer().ticks_passed_since_start(clock, 500)) {
+            _animation.next_frame();
+            _animation.reset_timer(clock);
         }
     }
 }
 
 bool Zombie::is_dead() const {
     return _zombie_ai.is_dying()
-           && _animation_frame == 7;
+           && _animation.get_frame() == 7;
 }

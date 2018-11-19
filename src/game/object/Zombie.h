@@ -8,6 +8,7 @@
 #include <engine/graphic/Graphic.h>
 #include <engine/Engine.h>
 #include <vector>
+#include <game/components/ZombieAnimation.h>
 
 class Zombie : public Damageable, public HasMeleeDamage {
 public:
@@ -44,10 +45,9 @@ public:
                        float frames_count);
 
 private:
-    ZombieAi _zombie_ai;
     Transform _transform;
     Speed _speed = Speed{1.7f};
     Hitpoints _hitpoints;
-    int _animation_frame = 0;
-    Timer _animation_timer;
+    ZombieAi _zombie_ai;
+    ZombieAnimation _animation;
 };
