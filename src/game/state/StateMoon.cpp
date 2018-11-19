@@ -113,7 +113,7 @@ void StateMoon::handle_bullet_logic() {
 
         for (auto& zombie : _zombies) {
             if (circles_collide(transform.get_circle(), zombie.get_circle())
-                && zombie.get_hp()) {
+                && zombie.get_hp() > 0) {
                 zombie.take_damage(clock, bullet_damage);
                 Log::d("zombie takes %d damage, bullet destroyed", bullet_damage);
                 return true;
@@ -121,7 +121,7 @@ void StateMoon::handle_bullet_logic() {
         }
         for (auto& werewolf : _werewolves) {
             if (circles_collide(transform.get_circle(), werewolf.get_circle())
-                && werewolf.has_hp()) {
+                && werewolf.has_hp() > 0) {
                 werewolf.take_damage(clock, bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 return true;
