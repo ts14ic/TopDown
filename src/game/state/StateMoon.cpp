@@ -44,18 +44,21 @@ void StateMoon::handle_key_event(const KeyboardEvent& event) {
 }
 
 void StateMoon::restrict_pos(GameObject& object) {
-    if (object.get_position().x < 0) {
-        object.set_x(0);
-    } else if (object.get_position().x > _level_width) {
-        object.set_x(_level_width);
+    Transform transform = object.get_transform();
+
+    if (transform.position.x < 0) {
+        transform.position.x = 0;
+    } else if (transform.position.x > _level_width) {
+        transform.position.x = _level_width;
     }
 
-    if (object.get_position().y < 0) {
-        object.set_y(0);
+    if (transform.position.y < 0) {
+        transform.position.y = 0;
+    } else if (transform.position.y > _level_height) {
+        transform.position.y = _level_height;
     }
-    else if (object.get_position().y > _level_height) {
-        object.set_y(_level_height);
-    }
+
+    object.set_transform(transform);
 }
 
 void StateMoon::handle_logic() {
