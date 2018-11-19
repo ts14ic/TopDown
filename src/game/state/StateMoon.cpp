@@ -212,7 +212,7 @@ void StateMoon::handle_render(float frames_count) {
     }
 
     for (auto& b : _bullets) {
-        b.handle_render(engine, graphic, frames_count);
+        b.handle_render(graphic, frames_count);
     }
 
     render_crosshair(frames_count);

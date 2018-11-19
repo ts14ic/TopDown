@@ -19,6 +19,6 @@ int Bullet::get_melee_damage() const { return _damage; }
 
 std::string Bullet::get_tex_name() const { return "bullet"; }
 
-void Bullet::handle_render(Engine& engine, Graphic& graphic, float frames_count) {
+void Bullet::handle_render(Graphic& graphic, float frames_count) {
     default_render(graphic, frames_count);
 }

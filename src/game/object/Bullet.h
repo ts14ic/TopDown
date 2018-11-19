@@ -22,7 +22,7 @@ public:
 
     int get_melee_damage() const override;
 
-    void handle_render(Engine& engine, Graphic& graphic, float frames_count);
+    void handle_render(Graphic& graphic, float frames_count);
 
 private:
     Transform _transform;
