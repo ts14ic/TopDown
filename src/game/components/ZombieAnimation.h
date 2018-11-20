@@ -38,20 +38,19 @@ public:
     }
 
     bool is_last_frame() const {
-        return _frame + 1 == _current.frames;
+        return _frame + 1 >= _current.frames;
     }
 
     void next_frame() {
         if (_current.animation_type == AnimationType::STATIC) {
             return;
         }
-        if (!is_last_frame()) {
+        if (is_last_frame()) {
+            if (_current.animation_type == REPEATABLE) {
+                _frame = 0;
+            }
+        } else {
             ++_frame;
-
-        } // Else we are on last frame. If it's a repeatable animation...
-        else if (_current.animation_type == REPEATABLE) {
-            // ... reset the frame
-            _frame = 0;
         }
     }
 
