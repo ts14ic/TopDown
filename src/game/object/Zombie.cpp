@@ -83,5 +83,5 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
 }
 
 bool Zombie::is_dead() const {
-    return _ai.is_dying() && _animation.is_last_frame();
+    return _ai.is_dying() && _animation.is_animation_ended();
 }

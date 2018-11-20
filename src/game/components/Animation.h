@@ -43,6 +43,17 @@ public:
         return _frame + 1 >= _current_preset.frame_durations.size();
     }
 
+    bool is_animation_ended() const {
+        bool is_last_frame = this->is_last_frame();
+        bool frame_ended;
+        if (_current_preset.type != animation::AnimationType::STATIC) {
+            frame_ended = _timer.ticks_passed_since_start(_current_preset.frame_durations[_frame]);
+        } else {
+            frame_ended = true;
+        }
+        return is_last_frame && frame_ended;
+    }
+
     void next_frame() {
         if (_current_preset.type == animation::AnimationType::STATIC) {
             return;
@@ -62,7 +73,9 @@ public:
         }
         if (_timer.ticks_passed_since_start(_current_preset.frame_durations[_frame])) {
             next_frame();
-            _timer.restart();
+            if (not (_current_preset.type == animation::AnimationType::ONESHOT and is_last_frame())) {
+                _timer.restart();
+            }
         }
     }
 
