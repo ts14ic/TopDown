@@ -7,11 +7,11 @@ using std::vector;
 Zombie::Zombie(Point2<float> position)
         : _transform{Transform{position, 0.0f, 25.0f}},
           _hitpoints{Hitpoints{50}} {
-    _animation.set_state(animation::ZOMBIE_MOVING);
+    _sprite.set_state(animation::ZOMBIE_MOVING);
 }
 
 int Zombie::get_melee_damage() const {
-    if (_ai.is_attacking() && _animation.is_last_frame()) {
+    if (_ai.is_attacking() && _sprite.is_last_frame()) {
         return 15;
     } else {
         return 0;
@@ -19,7 +19,7 @@ int Zombie::get_melee_damage() const {
 }
 
 std::string Zombie::get_tex_name() const {
-    return _animation.get_tex_name();
+    return _sprite.get_tex_name();
 }
 
 void Zombie::take_damage(int damage_dealt) {
@@ -29,7 +29,7 @@ void Zombie::take_damage(int damage_dealt) {
 
     if (!has_hp() && !_ai.is_dying()) {
         _ai.set_state(ZombieAi::AI_DYING);
-        _animation.set_state(animation::ZOMBIE_DYING);
+        _sprite.set_state(animation::ZOMBIE_DYING);
     }
 }
 
@@ -44,11 +44,11 @@ void Zombie::set_target(Point2<float> position) {
     if (dist > get_circle().get_radius() * 1.7f) {
         if (!_ai.is_moving()) {
             _ai.set_state(ZombieAi::AI_MOVING);
-            _animation.set_state(animation::ZOMBIE_MOVING);
+            _sprite.set_state(animation::ZOMBIE_MOVING);
         }
     } else if (!_ai.is_attacking()) {
         _ai.set_state(ZombieAi::AI_ATTACKING);
-        _animation.set_state(animation::ZOMBIE_ATTACKING);
+        _sprite.set_state(animation::ZOMBIE_ATTACKING);
     }
 }
 
@@ -76,13 +76,13 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
     default_render(engine.get_graphic(), frames_count);
     default_render_health(engine.get_graphic(), Color{0, 0x77, 0, 0xFF}, 0);
 
-    if (_ai.is_attacking() && _animation.is_last_frame()) {
+    if (_ai.is_attacking() && _sprite.is_last_frame()) {
         engine.get_audio().play_sound("zombie_attack");
     }
 
-    _animation.forward_time();
+    _sprite.forward_time();
 }
 
 bool Zombie::is_dead() const {
-    return _ai.is_dying() && _animation.is_animation_ended();
+    return _ai.is_dying() && _sprite.is_animation_ended();
 }

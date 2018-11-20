@@ -7,11 +7,11 @@
 #include <vector>
 
 namespace animation {
-    class State {
+    class Animation {
     public:
-        virtual ~State() = 0;
+        virtual ~Animation() = 0;
 
-        virtual std::unique_ptr<State> clone() const = 0;
+        virtual std::unique_ptr<Animation> clone() const = 0;
 
         virtual std::string get_tex_name() const = 0;
 
@@ -26,11 +26,11 @@ namespace animation {
         virtual void forward_time() = 0;
     };
 
-    class StaticState : public State {
+    class StaticAnimation : public Animation {
     public:
-        explicit StaticState(std::string name);
+        explicit StaticAnimation(std::string name);
 
-        ~StaticState() override;
+        ~StaticAnimation() override;
 
         std::string get_tex_name() const override;
 
@@ -44,17 +44,17 @@ namespace animation {
 
         void forward_time() override;
 
-        std::unique_ptr<State> clone() const override;
+        std::unique_ptr<Animation> clone() const override;
 
     private:
         std::string _name;
     };
 
-    class OneshotState : public State {
+    class OneshotAnimation : public Animation {
     public:
-        OneshotState(std::string name, std::vector<std::size_t> frame_durations);
+        OneshotAnimation(std::string name, std::vector<std::size_t> frame_durations);
 
-        ~OneshotState() override;
+        ~OneshotAnimation() override;
 
         std::string get_tex_name() const override;
 
@@ -68,35 +68,7 @@ namespace animation {
 
         void forward_time() override;
 
-        std::unique_ptr<State> clone() const override;
-
-    public:
-    private:
-        std::string _name;
-        std::size_t _frame;
-        std::vector<std::size_t> _frame_durations;
-        Timer _timer;
-    };
-
-    class RepeatableState : public State {
-    public:
-        RepeatableState(std::string name, std::vector<std::size_t> frame_durations);
-
-        ~RepeatableState() override;
-
-        std::string get_tex_name() const override;
-
-        bool is_last_frame() const override;
-
-        bool is_frame_ended() const override;
-
-        bool is_animation_ended() const override;
-
-        void next_frame() override;
-
-        void forward_time() override;
-
-        std::unique_ptr<State> clone() const override;
+        std::unique_ptr<Animation> clone() const override;
 
     public:
     private:
@@ -106,41 +78,61 @@ namespace animation {
         Timer _timer;
     };
 
-    extern const StaticState ZOMBIE_MOVING;
-    extern const RepeatableState ZOMBIE_ATTACKING;
-    extern const OneshotState ZOMBIE_DYING;
-
-    class Animation {
+    class RepeatableAnimation : public Animation {
     public:
-        void set_state(const animation::State& state) {
-            _state = state.clone();
-        }
+        RepeatableAnimation(std::string name, std::vector<std::size_t> frame_durations);
 
-        std::string get_tex_name() const {
-            return _state->get_tex_name();
-        }
+        ~RepeatableAnimation() override;
 
-        bool is_last_frame() const {
-            return _state->is_last_frame();
-        }
+        std::string get_tex_name() const override;
 
-        bool is_frame_ended() const {
-            return _state->is_frame_ended();
-        }
+        bool is_last_frame() const override;
 
-        bool is_animation_ended() const {
-            return _state->is_animation_ended();
-        }
+        bool is_frame_ended() const override;
 
-        void next_frame() {
-            _state->next_frame();
-        }
+        bool is_animation_ended() const override;
 
-        void forward_time() {
-            _state->forward_time();
-        }
+        void next_frame() override;
 
+        void forward_time() override;
+
+        std::unique_ptr<Animation> clone() const override;
+
+    public:
     private:
-        std::unique_ptr<animation::State> _state;
+        std::string _name;
+        std::size_t _frame;
+        std::vector<std::size_t> _frame_durations;
+        Timer _timer;
     };
+
+    extern const StaticAnimation ZOMBIE_MOVING;
+    extern const RepeatableAnimation ZOMBIE_ATTACKING;
+    extern const OneshotAnimation ZOMBIE_DYING;
 }
+
+class Sprite {
+public:
+    void set_state(const animation::Animation& state) {
+        _animation = state.clone();
+    }
+
+    std::string get_tex_name() const {
+        return _animation->get_tex_name();
+    }
+
+    bool is_last_frame() const {
+        return _animation->is_last_frame();
+    }
+
+    bool is_animation_ended() const {
+        return _animation->is_animation_ended();
+    }
+
+    void forward_time() {
+        _animation->forward_time();
+    }
+
+private:
+    std::unique_ptr<animation::Animation> _animation;
+};

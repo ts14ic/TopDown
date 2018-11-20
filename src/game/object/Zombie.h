@@ -8,7 +8,7 @@
 #include <engine/graphic/Graphic.h>
 #include <engine/Engine.h>
 #include <vector>
-#include <game/components/Animation.h>
+#include <game/components/Sprite.h>
 
 class Zombie : public Damageable, public HasMeleeDamage {
 public:
@@ -48,5 +48,5 @@ private:
     Speed _speed = Speed{1.7f};
     Hitpoints _hitpoints;
     ZombieAi _ai;
-    animation::Animation _animation;
+    Sprite _sprite;
 };
