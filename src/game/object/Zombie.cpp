@@ -1,5 +1,6 @@
 #include "Zombie.h"
 #include <engine/geometry/maths.h>
+#include <engine/log/Log.h>
 
 using std::vector;
 
@@ -16,17 +17,7 @@ int Zombie::get_melee_damage() const {
 }
 
 std::string Zombie::get_tex_name() const {
-    std::string name = "zombie";
-
-    if (_zombie_ai.is_attacking()) {
-        name += "_attack";
-        name += std::to_string(_animation.get_frame());
-    } else if (_zombie_ai.is_dying()) {
-        name += "_death";
-        name += std::to_string(_animation.get_frame());
-    }
-
-    return name;
+    return _animation.get_tex_name();
 }
 
 void Zombie::take_damage(const Clock& clock, int damage_dealt) {
@@ -34,11 +25,11 @@ void Zombie::take_damage(const Clock& clock, int damage_dealt) {
 
     if (!has_hp() && !_zombie_ai.is_dying()) {
         _zombie_ai.set_state(ZombieAi::AI_DYING);
-        _animation.reset_frame();
+        _animation.set_animation(ZombieAnimation::DYING, clock);
     }
 }
 
-void Zombie::set_target(Point2<float> position) {
+void Zombie::set_target(Point2<float> position, const Clock& clock) {
     if (_zombie_ai.is_dying()) return;
 
     _transform.angle = math::get_cartesian_angle(_transform.position, position);
@@ -47,11 +38,11 @@ void Zombie::set_target(Point2<float> position) {
     if (dist > get_circle().get_radius() * 1.7f) {
         if (!_zombie_ai.is_moving()) {
             _zombie_ai.set_state(ZombieAi::AI_MOVING);
-            _animation.reset_frame();
+            _animation.set_animation(ZombieAnimation::MOVING, clock);
         }
     } else if (!_zombie_ai.is_attacking()) {
         _zombie_ai.set_state(ZombieAi::AI_ATTACKING);
-        _animation.reset_frame();
+        _animation.set_animation(ZombieAnimation::ATTACKING, clock);
     }
 }
 

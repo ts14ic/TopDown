@@ -145,7 +145,7 @@ void StateMoon::handle_zombie_logic() {
     const auto& clock = get_engine().get_clock();
 
     _zombies.erase(std::remove_if(_zombies.begin(), _zombies.end(), [&, this](Zombie& zombie) {
-        zombie.set_target(_player.get_position());
+        zombie.set_target(_player.get_position(), clock);
         zombie.handle_logic();
 
         if (objects_collide(zombie, _player)) {
