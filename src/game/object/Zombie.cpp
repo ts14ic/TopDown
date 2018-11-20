@@ -71,30 +71,14 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
     default_render(graphic, frames_count);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 
-    const auto& clock = engine.get_clock();
-    if (_zombie_ai.is_attacking()) {
-        if (_animation.is_last_frame()) {
-            audio.play_sound("zombie_attack");
-        }
-
-        if (_animation.ticks_passed_since_start(clock, _animation.get_animation_speed())) {
-            _animation.next_frame();
-            if (_animation.get_frame() >= _animation.get_frames_count()) {
-                _animation.reset_frame();
-            }
-            _animation.reset_timer(clock);
-        }
-    } else if (_zombie_ai.is_dying()) {
-        if (_animation.ticks_passed_since_start(clock, _animation.get_animation_speed())) {
-            if (_animation.get_frame() < _animation.get_frames_count()) {
-                _animation.next_frame();
-                _animation.reset_timer(clock);
-            }
-        }
+    if (_zombie_ai.is_attacking() && _animation.is_last_frame()) {
+        audio.play_sound("zombie_attack");
     }
+
+    _animation.tick(engine.get_clock());
 }
 
 bool Zombie::is_dead() const {
     return _zombie_ai.is_dying()
-           && _animation.get_frame() == 7;
+           && _animation.is_last_frame();
 }
