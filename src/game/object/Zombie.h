@@ -48,5 +48,5 @@ private:
     Speed _speed = Speed{1.7f};
     Hitpoints _hitpoints;
     ZombieAi _ai;
-    Animation _animation;
+    animation::Animation _animation;
 };

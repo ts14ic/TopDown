@@ -28,7 +28,7 @@ void Zombie::take_damage(int damage_dealt) {
 
     if (!has_hp() && !_ai.is_dying()) {
         _ai.set_state(ZombieAi::AI_DYING);
-        _animation.set_preset(animation::ZOMBIE_DYING);
+        _animation.set_state(animation::ZOMBIE_DYING);
     }
 }
 
@@ -43,11 +43,11 @@ void Zombie::set_target(Point2<float> position) {
     if (dist > get_circle().get_radius() * 1.7f) {
         if (!_ai.is_moving()) {
             _ai.set_state(ZombieAi::AI_MOVING);
-            _animation.set_preset(animation::ZOMBIE_MOVING);
+            _animation.set_state(animation::ZOMBIE_MOVING);
         }
     } else if (!_ai.is_attacking()) {
         _ai.set_state(ZombieAi::AI_ATTACKING);
-        _animation.set_preset(animation::ZOMBIE_ATTACKING);
+        _animation.set_state(animation::ZOMBIE_ATTACKING);
     }
 }
 
