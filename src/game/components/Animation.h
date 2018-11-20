@@ -7,84 +7,140 @@
 #include <vector>
 
 namespace animation {
-    enum class AnimationType {
-        STATIC,
-        ONESHOT,
-        REPEATABLE,
+    class State {
+    public:
+        virtual ~State() = 0;
+
+        virtual std::unique_ptr<State> clone() const = 0;
+
+        virtual std::string get_tex_name() const = 0;
+
+        virtual bool is_last_frame() const = 0;
+
+        virtual bool is_frame_ended() const = 0;
+
+        virtual bool is_animation_ended() const = 0;
+
+        virtual void next_frame() = 0;
+
+        virtual void forward_time() = 0;
     };
 
-    struct State {
-        std::string name;
-        std::vector<std::size_t> frame_durations;
-        AnimationType type = AnimationType::REPEATABLE;
-        std::size_t frame = 0;
-        Timer timer;
+    class StaticState : public State {
+    public:
+        explicit StaticState(std::string name);
+
+        ~StaticState() override;
+
+        std::string get_tex_name() const override;
+
+        bool is_last_frame() const override;
+
+        bool is_frame_ended() const override;
+
+        bool is_animation_ended() const override;
+
+        void next_frame() override;
+
+        void forward_time() override;
+
+        std::unique_ptr<State> clone() const override;
+
+    private:
+        std::string _name;
     };
 
-    extern const State ZOMBIE_MOVING;
-    extern const State ZOMBIE_ATTACKING;
-    extern const State ZOMBIE_DYING;
+    class OneshotState : public State {
+    public:
+        OneshotState(std::string name, std::vector<std::size_t> frame_durations);
+
+        ~OneshotState() override;
+
+        std::string get_tex_name() const override;
+
+        bool is_last_frame() const override;
+
+        bool is_frame_ended() const override;
+
+        bool is_animation_ended() const override;
+
+        void next_frame() override;
+
+        void forward_time() override;
+
+        std::unique_ptr<State> clone() const override;
+
+    public:
+    private:
+        std::string _name;
+        std::size_t _frame;
+        std::vector<std::size_t> _frame_durations;
+        Timer _timer;
+    };
+
+    class RepeatableState : public State {
+    public:
+        RepeatableState(std::string name, std::vector<std::size_t> frame_durations);
+
+        ~RepeatableState() override;
+
+        std::string get_tex_name() const override;
+
+        bool is_last_frame() const override;
+
+        bool is_frame_ended() const override;
+
+        bool is_animation_ended() const override;
+
+        void next_frame() override;
+
+        void forward_time() override;
+
+        std::unique_ptr<State> clone() const override;
+
+    public:
+    private:
+        std::string _name;
+        std::size_t _frame;
+        std::vector<std::size_t> _frame_durations;
+        Timer _timer;
+    };
+
+    extern const StaticState ZOMBIE_MOVING;
+    extern const RepeatableState ZOMBIE_ATTACKING;
+    extern const OneshotState ZOMBIE_DYING;
 
     class Animation {
     public:
-        void set_state(animation::State state) {
-            _state = std::move(state);
-            _state.frame = 0;
-            _state.timer.restart();
+        void set_state(const animation::State& state) {
+            _state = state.clone();
         }
 
         std::string get_tex_name() const {
-            if (_state.type == animation::AnimationType::STATIC) {
-                return _state.name;
-            }
-            return _state.name + std::to_string(_state.frame);
+            return _state->get_tex_name();
         }
 
         bool is_last_frame() const {
-            return _state.frame + 1 >= _state.frame_durations.size();
+            return _state->is_last_frame();
         }
 
         bool is_frame_ended() const {
-            if (_state.type == animation::AnimationType::STATIC) {
-                return true;
-            }
-            return _state.timer.ticks_passed_since_start(_state.frame_durations[_state.frame]);
+            return _state->is_frame_ended();
         }
 
         bool is_animation_ended() const {
-            return is_last_frame() && is_frame_ended();
+            return _state->is_animation_ended();
         }
 
         void next_frame() {
-            if (_state.type == animation::AnimationType::STATIC) {
-                return;
-            }
-            if (is_last_frame()) {
-                if (_state.type == animation::AnimationType::REPEATABLE) {
-                    _state.frame = 0;
-                }
-            } else {
-                ++_state.frame;
-            }
+            _state->next_frame();
         }
 
         void forward_time() {
-            if (_state.type == animation::AnimationType::STATIC) {
-                return;
-            }
-            if (is_frame_ended()) {
-                next_frame();
-                if (not (_state.type == animation::AnimationType::ONESHOT and is_last_frame())) {
-                    _state.timer.restart();
-                }
-            }
+            _state->forward_time();
         }
 
     private:
-        animation::State _state = animation::ZOMBIE_MOVING;
+        std::unique_ptr<animation::State> _state;
     };
 }
-
-bool operator==(const animation::State& lhs, const animation::State& rhs);
-
-bool operator!=(const animation::State& lhs, const animation::State& rhs);

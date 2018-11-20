@@ -7,6 +7,7 @@ using std::vector;
 Zombie::Zombie(Point2<float> position)
         : _transform{Transform{position, 0.0f, 25.0f}},
           _hitpoints{Hitpoints{50}} {
+    _animation.set_state(animation::ZOMBIE_MOVING);
 }
 
 int Zombie::get_melee_damage() const {
