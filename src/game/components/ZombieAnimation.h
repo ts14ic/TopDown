@@ -10,7 +10,7 @@ public:
     struct Animation {
         std::string name;
         int frames = 0;
-        int speed = 0;
+        std::size_t speed = 0;
     };
 
     static const Animation MOVING;
@@ -28,6 +28,14 @@ public:
             return _current.name;
         }
         return _current.name + std::to_string(_frame);
+    }
+
+    std::size_t get_animation_speed() const {
+        return _current.speed;
+    }
+
+    int get_frames_count() const {
+        return _current.frames;
     }
 
     int get_frame() const {
