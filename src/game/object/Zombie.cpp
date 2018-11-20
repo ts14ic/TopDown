@@ -73,7 +73,7 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 
     const auto& clock = engine.get_clock();
     if (_zombie_ai.is_attacking()) {
-        if (_animation.get_frame() == 5) {
+        if (_animation.is_last_frame()) {
             audio.play_sound("zombie_attack");
         }
 
