@@ -10,7 +10,7 @@ Zombie::Zombie(Point2<float> position)
 }
 
 int Zombie::get_melee_damage() const {
-    if (_zombie_ai.is_attacking() && _animation.is_last_frame())
+    if (_ai.is_attacking() && _animation.is_last_frame())
         return 15;
     else
         return 0;
@@ -23,36 +23,36 @@ std::string Zombie::get_tex_name() const {
 void Zombie::take_damage(const Clock& clock, int damage_dealt) {
     if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
 
-    if (!has_hp() && !_zombie_ai.is_dying()) {
-        _zombie_ai.set_state(ZombieAi::AI_DYING);
+    if (!has_hp() && !_ai.is_dying()) {
+        _ai.set_state(ZombieAi::AI_DYING);
         _animation.set_animation(ZombieAnimation::DYING, clock);
     }
 }
 
 void Zombie::set_target(Point2<float> position, const Clock& clock) {
-    if (_zombie_ai.is_dying()) return;
+    if (_ai.is_dying()) return;
 
     _transform.angle = math::get_cartesian_angle(_transform.position, position);
 
     auto dist = math::get_distance(_transform.position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
-        if (!_zombie_ai.is_moving()) {
-            _zombie_ai.set_state(ZombieAi::AI_MOVING);
+        if (!_ai.is_moving()) {
+            _ai.set_state(ZombieAi::AI_MOVING);
             _animation.set_animation(ZombieAnimation::MOVING, clock);
         }
-    } else if (!_zombie_ai.is_attacking()) {
-        _zombie_ai.set_state(ZombieAi::AI_ATTACKING);
+    } else if (!_ai.is_attacking()) {
+        _ai.set_state(ZombieAi::AI_ATTACKING);
         _animation.set_animation(ZombieAnimation::ATTACKING, clock);
     }
 }
 
 void Zombie::handle_logic() {
-    if (_zombie_ai.is_dying()) {
+    if (_ai.is_dying()) {
         set_current_speed(0.f, 0.f);
         return;
     }
 
-    if (_zombie_ai.is_moving()) {
+    if (_ai.is_moving()) {
         // TODO extract speed setting
         auto movementAngle = get_angle();
 
@@ -71,7 +71,7 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
     default_render(graphic, frames_count);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 
-    if (_zombie_ai.is_attacking() && _animation.is_last_frame()) {
+    if (_ai.is_attacking() && _animation.is_last_frame()) {
         audio.play_sound("zombie_attack");
     }
 
@@ -79,6 +79,6 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 }
 
 bool Zombie::is_dead() const {
-    return _zombie_ai.is_dying()
+    return _ai.is_dying()
            && _animation.is_last_frame();
 }

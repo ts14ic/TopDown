@@ -48,6 +48,6 @@ private:
     Transform _transform;
     Speed _speed = Speed{1.7f};
     Hitpoints _hitpoints;
-    ZombieAi _zombie_ai;
+    ZombieAi _ai;
     ZombieAnimation _animation;
 };
