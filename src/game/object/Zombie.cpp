@@ -71,13 +71,12 @@ void Zombie::handle_logic() {
     }
 }
 
-void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
-                           float frames_count) {
-    default_render(graphic, frames_count);
-    default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
+void Zombie::handle_render(Engine& engine, float frames_count) {
+    default_render(engine.get_graphic(), frames_count);
+    default_render_health(engine.get_graphic(), Color{0, 0x77, 0, 0xFF}, 0);
 
     if (_ai.is_attacking() && _animation.is_last_frame()) {
-        audio.play_sound("zombie_attack");
+        engine.get_audio().play_sound("zombie_attack");
     }
 
     _animation.forward_time(engine.get_clock());

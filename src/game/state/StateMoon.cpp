@@ -204,7 +204,7 @@ void StateMoon::handle_render(float frames_count) {
     _player.handle_render(graphic, frames_count);
 
     for (auto& zombie : _zombies) {
-        zombie.handle_render(engine, graphic, audio, frames_count);
+        zombie.handle_render(engine, frames_count);
     }
 
     for (auto& werewolf : _werewolves) {

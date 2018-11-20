@@ -41,8 +41,7 @@ public:
 
     void handle_logic();
 
-    void handle_render(Engine& engine, Graphic& graphic, Audio& audio,
-                       float frames_count);
+    void handle_render(Engine& engine, float frames_count);
 
 private:
     Transform _transform;
