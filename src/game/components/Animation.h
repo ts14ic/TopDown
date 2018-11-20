@@ -43,15 +43,15 @@ public:
         return _frame + 1 >= _current_preset.frame_durations.size();
     }
 
-    bool is_animation_ended() const {
-        bool is_last_frame = this->is_last_frame();
-        bool frame_ended;
-        if (_current_preset.type != animation::AnimationType::STATIC) {
-            frame_ended = _timer.ticks_passed_since_start(_current_preset.frame_durations[_frame]);
-        } else {
-            frame_ended = true;
+    bool is_frame_ended() const {
+        if (_current_preset.type == animation::AnimationType::STATIC) {
+            return true;
         }
-        return is_last_frame && frame_ended;
+        return _timer.ticks_passed_since_start(_current_preset.frame_durations[_frame]);
+    }
+
+    bool is_animation_ended() const {
+        return is_last_frame() && is_frame_ended();
     }
 
     void next_frame() {
@@ -71,7 +71,7 @@ public:
         if (_current_preset.type == animation::AnimationType::STATIC) {
             return;
         }
-        if (_timer.ticks_passed_since_start(_current_preset.frame_durations[_frame])) {
+        if (is_frame_ended()) {
             next_frame();
             if (not (_current_preset.type == animation::AnimationType::ONESHOT and is_last_frame())) {
                 _timer.restart();
