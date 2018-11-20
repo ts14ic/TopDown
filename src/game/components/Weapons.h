@@ -23,7 +23,7 @@ public:
 
     bool is_selected_reloading() const;
 
-    void try_reload_selected(const Clock& clock);
+    void try_reload_selected();
 
     void fire_from_selected(Engine& engine, GameObject& shooter, std::vector<Bullet>& bullets);
 

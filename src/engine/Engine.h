@@ -19,8 +19,6 @@ public:
 
     virtual Random& get_random() = 0;
 
-    virtual const Clock& get_clock() = 0;
-
     struct FailedEngineInitException : public std::runtime_error {
         explicit FailedEngineInitException(const char* message);
     };

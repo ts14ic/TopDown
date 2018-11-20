@@ -24,12 +24,11 @@ void GameImpl::run_loop() {
     _current_state = std::make_unique<StateIntro>(*this);
     _engine->get_input().set_event_handler(*this);
 
-    const auto& clock = _engine->get_clock();
-    auto previous_time = clock.get_current_time();
+    auto previous_time = Clock::get_current_time();
     auto lag_time = 0UL;
 
     while (_current_state_id != StateId::EXIT) {
-        auto new_time = clock.get_current_time();
+        auto new_time = Clock::get_current_time();
         lag_time += new_time - previous_time;
         previous_time = new_time;
 

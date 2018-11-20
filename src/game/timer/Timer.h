@@ -6,14 +6,14 @@ class Timer {
 public:
     Timer();
 
-    void restart(const Clock& clock);
+    void restart();
 
-    unsigned long get_start_time() const;
+    std::size_t get_start_time() const;
 
-    unsigned long get_ticks_since_start(const Clock& clock) const;
+    std::size_t get_ticks_since_start() const;
 
-    bool ticks_passed_since_start(const Clock& clock, unsigned long ticks) const;
+    bool ticks_passed_since_start(std::size_t ticks) const;
 
 private:
-    unsigned long _start_time;
+    std::size_t _start_time;
 };

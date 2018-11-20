@@ -17,8 +17,8 @@ Weapon::Weapon(const WeaponBuilder& builder)
 //    _fire_cooldown_timer.restart();
 }
 
-void Weapon::start_reloading(const Clock& clock) {
-    _reload_cooldown_timer.restart(clock);
+void Weapon::start_reloading() {
+    _reload_cooldown_timer.restart();
     _reloading = true;
 }
 
@@ -41,21 +41,20 @@ void Weapon::spawn_bullets(Random& random, const GameObject& shooter, std::vecto
 }
 
 void Weapon::pull_trigger(Engine& engine, const GameObject& shooter, std::vector<Bullet>& bullets) {
-    const auto& clock = engine.get_clock();
     auto& random = engine.get_random();
     auto& audio = engine.get_audio();
 
-    if (_fire_cooldown_timer.ticks_passed_since_start(clock, _fire_cooldown) && _current_ammo > 0) {
+    if (_fire_cooldown_timer.ticks_passed_since_start(_fire_cooldown) && _current_ammo > 0) {
         spawn_bullets(random, shooter, bullets);
 
         play_fire_sound(audio);
 
         --_current_ammo;
         if (_current_ammo < 1) {
-            start_reloading(clock);
+            start_reloading();
         }
 
-        _fire_cooldown_timer.restart(clock);
+        _fire_cooldown_timer.restart();
     }
 }
 
@@ -79,8 +78,8 @@ bool Weapon::is_reloading() const {
     return _reloading;
 }
 
-void Weapon::try_reload(const Clock& clock) {
-    if (_reloading && _reload_cooldown_timer.ticks_passed_since_start(clock, _reload_cooldown)) {
+void Weapon::try_reload() {
+    if (_reloading && _reload_cooldown_timer.ticks_passed_since_start(_reload_cooldown)) {
         _current_ammo = _max_ammo;
         _reloading = false;
     }

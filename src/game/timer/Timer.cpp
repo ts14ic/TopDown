@@ -4,18 +4,18 @@ Timer::Timer()
         : _start_time{} {
 }
 
-void Timer::restart(const Clock& clock) {
-    _start_time = clock.get_current_time();
+void Timer::restart() {
+    _start_time = Clock::get_current_time();
 }
 
-unsigned long Timer::get_start_time() const {
+std::size_t Timer::get_start_time() const {
     return _start_time;
 }
 
-unsigned long Timer::get_ticks_since_start(const Clock& clock) const {
-    return clock.get_current_time() - _start_time;
+std::size_t Timer::get_ticks_since_start() const {
+    return Clock::get_current_time() - _start_time;
 }
 
-bool Timer::ticks_passed_since_start(const Clock& clock, unsigned long ticks) const {
-    return get_ticks_since_start(clock) >= ticks;
+bool Timer::ticks_passed_since_start(std::size_t ticks) const {
+    return get_ticks_since_start() >= ticks;
 }

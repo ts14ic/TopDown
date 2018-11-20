@@ -17,7 +17,7 @@ public:
 
     void pull_trigger(Engine& engine, const GameObject& shooter, std::vector<Bullet>& bullets);
 
-    void try_reload(const Clock& clock);
+    void try_reload();
 
     bool is_reloading() const;
 
@@ -32,7 +32,7 @@ public:
     float get_projectile_spread() const;
 
 private:
-    void start_reloading(const Clock& clock);
+    void start_reloading();
 
     void play_fire_sound(Audio& audio);
 

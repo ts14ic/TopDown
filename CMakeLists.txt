@@ -53,7 +53,7 @@ set(SOURCE_FILES
         src/engine_sdl/audio/SdlAudio.cpp src/engine_sdl/audio/SdlAudio.h
         src/engine_sdl/audio/SdlSound.cpp src/engine_sdl/audio/SdlSound.h
         src/engine_sdl/audio/SdlMusic.cpp src/engine_sdl/audio/SdlMusic.h
-        src/engine_sdl/clock/SdlClock.cpp src/engine_sdl/clock/SdlClock.h
+        src/engine_sdl/clock/SdlClockEngine.cpp src/engine_sdl/clock/SdlClockEngine.h
         src/engine_sdl/SdlGuard.cpp src/engine_sdl/SdlGuard.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h
@@ -87,7 +87,7 @@ set(SOURCE_FILES
         src/engine/log/Log.cpp src/engine/log/Log.h
         src/engine/log/Logger.h
         src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h
-        )
+        src/engine/clock/ClockEngine.cpp src/engine/clock/ClockEngine.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

@@ -29,18 +29,18 @@ public:
 
     int get_melee_damage() const override;
 
-    void take_damage(const Clock& clock, int damage_dealt) override;
+    void take_damage(int damage_dealt) override;
 
     bool is_dead() const override;
 
     // StateMoon interface
-    void set_target(const Clock& clock, Point2<float> position);
+    void set_target(Point2<float> position);
 
-    void teleport(const Clock& clock, Random& random);
+    void teleport(Random& random);
 
-    void handle_logic(const Clock& clock);
+    void handle_logic();
 
-    void handle_render(Engine& engine, Graphic& graphic_context, Audio& audio,
+    void handle_render(Engine& engine, Graphic& graphic, Audio& audio,
                        float frames_count);
 
 private:

@@ -7,10 +7,10 @@
 
 class Damageable : public virtual GameObject, public HasHitpoints {
 public:
-    virtual void take_damage(const Clock& clock, int damageAmount) = 0;
+    virtual void take_damage(int damageAmount) = 0;
 
     virtual bool is_dead() const = 0;
 
 protected:
-    void default_render_health(Graphic& graphic_context, const Color& color, float frames_count) const;
+    void default_render_health(Graphic& graphic, const Color& color, float frames_count) const;
 };

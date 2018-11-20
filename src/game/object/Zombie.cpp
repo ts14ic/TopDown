@@ -24,7 +24,7 @@ std::string Zombie::get_tex_name() const {
     return name;
 }
 
-void Zombie::take_damage(const Clock& clock, int damage_dealt) {
+void Zombie::take_damage(int damage_dealt) {
     if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
 
     if (!has_hp() && _ai_state != AI_DYING) {
@@ -75,21 +75,20 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
     default_render(graphic, frames_count);
     default_render_health(graphic, Color{0, 0x77, 0, 0xFF}, 0);
 
-    const auto& clock = engine.get_clock();
     if (_ai_state == AI_ATTACKING) {
         if (_animation_frame == 5) {
             audio.play_sound("zombie_attack");
         }
 
-        if (_animation_timer.ticks_passed_since_start(clock, 100)) {
+        if (_animation_timer.ticks_passed_since_start(100)) {
             ++_animation_frame;
             if (_animation_frame >= 6) _animation_frame = 0;
-            _animation_timer.restart(clock);
+            _animation_timer.restart();
         }
     } else if (_ai_state == AI_DYING) {
-        if (_animation_frame < 7 && _animation_timer.ticks_passed_since_start(clock, 500)) {
+        if (_animation_frame < 7 && _animation_timer.ticks_passed_since_start(500)) {
             ++_animation_frame;
-            _animation_timer.restart(clock);
+            _animation_timer.restart();
         }
     }
 }

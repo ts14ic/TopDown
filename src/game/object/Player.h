@@ -42,7 +42,7 @@ public:
 
     bool is_dead() const override;
 
-    void take_damage(const Clock& clock, int damageAmount) override;
+    void take_damage(int damage_amount) override;
 
     void handle_logic(Engine& engine, std::vector<Bullet>& bullets);
 

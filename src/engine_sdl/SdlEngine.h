@@ -2,7 +2,7 @@
 
 #include "SdlGuard.h"
 #include "audio/SdlAudio.h"
-#include "clock/SdlClock.h"
+#include "engine_sdl/clock/SdlClockEngine.h"
 #include "graphic/SdlGraphic.h"
 #include "input/SdlInput.h"
 #include <engine_std/Mt19937Random.h>
@@ -22,8 +22,6 @@ public:
 
     Random& get_random() override;
 
-    const Clock& get_clock() override;
-
     ~SdlEngine() override;
 
 private:
@@ -34,5 +32,4 @@ private:
     SdlGraphic _graphic;
     SdlAudio _audio;
     SdlInput _input;
-    SdlClock _clock;
 };
