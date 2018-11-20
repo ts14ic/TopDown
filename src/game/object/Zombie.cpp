@@ -10,7 +10,7 @@ Zombie::Zombie(Point2<float> position)
 }
 
 int Zombie::get_melee_damage() const {
-    if (_zombie_ai.is_attacking() && _animation.get_frame() == 5)
+    if (_zombie_ai.is_attacking() && _animation.is_last_frame())
         return 15;
     else
         return 0;

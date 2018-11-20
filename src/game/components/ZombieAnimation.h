@@ -34,6 +34,10 @@ public:
         return _frame;
     }
 
+    bool is_last_frame() const {
+        return _frame == _current.frames - 1;
+    }
+
     void next_frame() {
         ++_frame;
     }
