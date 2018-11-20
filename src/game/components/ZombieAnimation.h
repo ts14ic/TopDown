@@ -4,6 +4,7 @@
 
 #include <game/timer/Timer.h>
 #include <string>
+#include <vector>
 
 class ZombieAnimation {
 public:
@@ -15,8 +16,7 @@ public:
 
     struct Animation {
         std::string name;
-        int frames = 0;
-        std::size_t speed = 0;
+        std::vector<std::size_t> frame_speeds;
         AnimationType type = REPEATABLE;
     };
 
@@ -38,7 +38,7 @@ public:
     }
 
     bool is_last_frame() const {
-        return _frame + 1 >= _current_animation.frames;
+        return _frame + 1 >= _current_animation.frame_speeds.size();
     }
 
     void next_frame() {
@@ -58,14 +58,14 @@ public:
         if (_current_animation.type == AnimationType::STATIC) {
             return;
         }
-        if (_timer.ticks_passed_since_start(clock, _current_animation.speed)) {
+        if (_timer.ticks_passed_since_start(clock, _current_animation.frame_speeds[_frame])) {
             next_frame();
             _timer.restart(clock);
         }
     }
 
 private:
-    int _frame = 0;
+    std::size_t _frame = 0;
     Timer _timer;
     Animation _current_animation = MOVING;
 };
