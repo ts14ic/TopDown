@@ -16,7 +16,7 @@ public:
 
     struct Animation {
         std::string name;
-        std::vector<std::size_t> frame_speeds;
+        std::vector<std::size_t> frame_durations;
         AnimationType type = REPEATABLE;
     };
 
@@ -38,7 +38,7 @@ public:
     }
 
     bool is_last_frame() const {
-        return _frame + 1 >= _current_animation.frame_speeds.size();
+        return _frame + 1 >= _current_animation.frame_durations.size();
     }
 
     void next_frame() {
@@ -58,7 +58,7 @@ public:
         if (_current_animation.type == AnimationType::STATIC) {
             return;
         }
-        if (_timer.ticks_passed_since_start(_current_animation.frame_speeds[_frame])) {
+        if (_timer.ticks_passed_since_start(_current_animation.frame_durations[_frame])) {
             next_frame();
             _timer.restart();
         }

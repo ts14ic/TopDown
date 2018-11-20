@@ -2,17 +2,17 @@
 
 const ZombieAnimation::Animation ZombieAnimation::MOVING{
         "zombie",
-        /*frame speeds: none*/{},
+        /*frame durations: none*/{},
         AnimationType::STATIC
 };
 const ZombieAnimation::Animation ZombieAnimation::ATTACKING{
         "zombie_attack",
-        /*frame speeds*/{150, 125, 100, 75, 50, 25},
+        /*frame durations*/{150, 125, 100, 75, 50, 25},
         AnimationType::REPEATABLE
 };
 const ZombieAnimation::Animation ZombieAnimation::DYING{
         "zombie_death",
-        /*frame speeds*/{75, 100, 130, 160, 190, 210, 240, 300},
+        /*frame durations*/{75, 100, 130, 160, 190, 210, 240, 300},
         AnimationType::ONESHOT
 };
 
