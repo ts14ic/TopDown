@@ -59,11 +59,11 @@ void Zombie::handle_logic() {
 
     if (_ai.is_moving()) {
         // TODO extract speed setting
-        auto movementAngle = get_angle();
+        auto movement_angle = get_angle();
 
         set_current_speed(
-                math::cartesian_cos(movementAngle) * get_max_movement_speed(),
-                math::cartesian_sin(movementAngle) * get_max_movement_speed()
+                math::cartesian_cos(movement_angle) * get_max_movement_speed(),
+                math::cartesian_sin(movement_angle) * get_max_movement_speed()
         );
         default_move();
     } else {
@@ -83,6 +83,5 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
 }
 
 bool Zombie::is_dead() const {
-    return _ai.is_dying()
-           && _animation.is_last_frame();
+    return _ai.is_dying() && _animation.is_last_frame();
 }
