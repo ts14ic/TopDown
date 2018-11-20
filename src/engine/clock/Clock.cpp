@@ -1,4 +1,5 @@
 #include "Clock.h"
+#include <cassert>
 
 static std::unique_ptr<ClockEngine> CLOCK_ENGINE;
 
@@ -11,5 +12,6 @@ void Clock::uninstall_clock_engine() {
 }
 
 std::size_t Clock::get_current_time() {
+    assert(CLOCK_ENGINE != nullptr && "must install a clock engine");
     return CLOCK_ENGINE->get_current_time();
 }
