@@ -17,7 +17,7 @@ public:
         std::string name;
         int frames = 0;
         std::size_t speed = 0;
-        AnimationType animation_type = REPEATABLE;
+        AnimationType type = REPEATABLE;
     };
 
     static const Animation MOVING;
@@ -25,28 +25,28 @@ public:
     static const Animation DYING;
 
     void set_animation(Animation animation, const Clock& clock) {
-        _current = std::move(animation);
+        _current_animation = std::move(animation);
         _frame = 0;
         _timer.restart(clock);
     }
 
     std::string get_tex_name() const {
-        if (_current.animation_type == AnimationType::STATIC) {
-            return _current.name;
+        if (_current_animation.type == AnimationType::STATIC) {
+            return _current_animation.name;
         }
-        return _current.name + std::to_string(_frame);
+        return _current_animation.name + std::to_string(_frame);
     }
 
     bool is_last_frame() const {
-        return _frame + 1 >= _current.frames;
+        return _frame + 1 >= _current_animation.frames;
     }
 
     void next_frame() {
-        if (_current.animation_type == AnimationType::STATIC) {
+        if (_current_animation.type == AnimationType::STATIC) {
             return;
         }
         if (is_last_frame()) {
-            if (_current.animation_type == REPEATABLE) {
+            if (_current_animation.type == REPEATABLE) {
                 _frame = 0;
             }
         } else {
@@ -55,10 +55,10 @@ public:
     }
 
     void forward_time(const Clock& clock) {
-        if (_current.animation_type == AnimationType::STATIC) {
+        if (_current_animation.type == AnimationType::STATIC) {
             return;
         }
-        if (_timer.ticks_passed_since_start(clock, _current.speed)) {
+        if (_timer.ticks_passed_since_start(clock, _current_animation.speed)) {
             next_frame();
             _timer.restart(clock);
         }
@@ -67,7 +67,7 @@ public:
 private:
     int _frame = 0;
     Timer _timer;
-    Animation _current = MOVING;
+    Animation _current_animation = MOVING;
 };
 
 bool operator==(const ZombieAnimation::Animation& lhs, const ZombieAnimation::Animation& rhs);
