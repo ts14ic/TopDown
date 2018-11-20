@@ -1,6 +1,7 @@
 #pragma once
 
 #include <game/timer/Timer.h>
+#include <cstddef>
 
 class ZombieAnimation {
 public:
@@ -16,8 +17,8 @@ public:
         _frame = 0;
     }
 
-    Timer get_timer() const {
-        return _timer;
+    bool ticks_passed_since_start(const Clock& clock, std::size_t ticks) const {
+        return _timer.ticks_passed_since_start(clock, ticks);
     }
 
     void reset_timer(const Clock& clock) {

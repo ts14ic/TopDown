@@ -86,7 +86,7 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
             audio.play_sound("zombie_attack");
         }
 
-        if (_animation.get_timer().ticks_passed_since_start(clock, 100)) {
+        if (_animation.ticks_passed_since_start(clock, 100)) {
             _animation.next_frame();
             if (_animation.get_frame() >= 6) {
                 _animation.reset_frame();
@@ -94,7 +94,7 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
             _animation.reset_timer(clock);
         }
     } else if (_zombie_ai.is_dying()) {
-        if (_animation.get_frame() < 7 && _animation.get_timer().ticks_passed_since_start(clock, 500)) {
+        if (_animation.get_frame() < 7 && _animation.ticks_passed_since_start(clock, 500)) {
             _animation.next_frame();
             _animation.reset_timer(clock);
         }
