@@ -54,7 +54,7 @@ public:
         }
     }
 
-    void tick(const Clock& clock) {
+    void forward_time(const Clock& clock) {
         if (_current.animation_type == AnimationType::STATIC) {
             return;
         }

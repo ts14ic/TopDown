@@ -75,7 +75,7 @@ void Zombie::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
         audio.play_sound("zombie_attack");
     }
 
-    _animation.tick(engine.get_clock());
+    _animation.forward_time(engine.get_clock());
 }
 
 bool Zombie::is_dead() const {
