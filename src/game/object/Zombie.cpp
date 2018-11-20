@@ -10,10 +10,11 @@ Zombie::Zombie(Point2<float> position)
 }
 
 int Zombie::get_melee_damage() const {
-    if (_ai.is_attacking() && _animation.is_last_frame())
+    if (_ai.is_attacking() && _animation.is_last_frame()) {
         return 15;
-    else
+    } else {
         return 0;
+    }
 }
 
 std::string Zombie::get_tex_name() const {
@@ -21,7 +22,9 @@ std::string Zombie::get_tex_name() const {
 }
 
 void Zombie::take_damage(const Clock& clock, int damage_dealt) {
-    if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
+    if (damage_dealt > 0) {
+        _hitpoints.current_hp -= damage_dealt;
+    }
 
     if (!has_hp() && !_ai.is_dying()) {
         _ai.set_state(ZombieAi::AI_DYING);
@@ -30,7 +33,9 @@ void Zombie::take_damage(const Clock& clock, int damage_dealt) {
 }
 
 void Zombie::set_target(Point2<float> position, const Clock& clock) {
-    if (_ai.is_dying()) return;
+    if (_ai.is_dying()) {
+        return;
+    }
 
     _transform.angle = math::get_cartesian_angle(_transform.position, position);
 
