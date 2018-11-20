@@ -23,9 +23,9 @@ void Weapons::select_by_index(unsigned index) {
     }
 }
 
-void Weapons::try_reload_selected(const Clock& clock) {
+void Weapons::try_reload_selected() {
     if (!empty()) {
-        _weapons[_selected_weapon_index].try_reload(clock);
+        _weapons[_selected_weapon_index].try_reload();
     }
 }
 

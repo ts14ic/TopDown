@@ -1,8 +1,15 @@
 #pragma once
 
+#include "ClockEngine.h"
+#include <memory>
+
 class Clock {
 public:
-    virtual ~Clock() = 0;
+    Clock() = delete;
 
-    virtual unsigned long get_current_time() const = 0;
+    static void install_clock_engine(std::unique_ptr<ClockEngine> clock_engine);
+
+    static void uninstall_clock_engine();
+
+    static std::size_t get_current_time();
 };

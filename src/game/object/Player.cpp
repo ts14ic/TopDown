@@ -24,10 +24,10 @@ bool Player::is_dead() const {
     return !has_hp();
 }
 
-void Player::take_damage(const Clock& clock, int damageAmount) {
-    if (damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(clock, 500)) {
+void Player::take_damage(int damageAmount) {
+    if (damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(500)) {
         _hitpoints.current_hp -= damageAmount;
-        _damage_cooldown.restart(clock);
+        _damage_cooldown.restart();
     }
 }
 
@@ -40,14 +40,14 @@ void Player::handle_logic(Engine& engine, std::vector<Bullet>& bullets) {
 
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
-    _speed.max_speed = _damage_cooldown.ticks_passed_since_start(engine.get_clock(), 500) ? 2.3f : 1.0f;
+    _speed.max_speed = _damage_cooldown.ticks_passed_since_start(500) ? 2.3f : 1.0f;
 
     update_speeds();
 
     default_move();
 
     // TODO don't try to reload on every frame
-    _weapons.try_reload_selected(engine.get_clock());
+    _weapons.try_reload_selected();
 
     if (_input.is_held(PlayerInput::HOLD_TRIGGER)) {
         _weapons.fire_from_selected(engine, *this, bullets);

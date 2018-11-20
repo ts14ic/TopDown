@@ -21,18 +21,18 @@ std::string Zombie::get_tex_name() const {
     return _animation.get_tex_name();
 }
 
-void Zombie::take_damage(const Clock& clock, int damage_dealt) {
+void Zombie::take_damage(int damage_dealt) {
     if (damage_dealt > 0) {
         _hitpoints.current_hp -= damage_dealt;
     }
 
     if (!has_hp() && !_ai.is_dying()) {
         _ai.set_state(ZombieAi::AI_DYING);
-        _animation.set_animation(ZombieAnimation::DYING, clock);
+        _animation.set_animation(ZombieAnimation::DYING);
     }
 }
 
-void Zombie::set_target(Point2<float> position, const Clock& clock) {
+void Zombie::set_target(Point2<float> position) {
     if (_ai.is_dying()) {
         return;
     }
@@ -43,11 +43,11 @@ void Zombie::set_target(Point2<float> position, const Clock& clock) {
     if (dist > get_circle().get_radius() * 1.7f) {
         if (!_ai.is_moving()) {
             _ai.set_state(ZombieAi::AI_MOVING);
-            _animation.set_animation(ZombieAnimation::MOVING, clock);
+            _animation.set_animation(ZombieAnimation::MOVING);
         }
     } else if (!_ai.is_attacking()) {
         _ai.set_state(ZombieAi::AI_ATTACKING);
-        _animation.set_animation(ZombieAnimation::ATTACKING, clock);
+        _animation.set_animation(ZombieAnimation::ATTACKING);
     }
 }
 
@@ -79,7 +79,7 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
         engine.get_audio().play_sound("zombie_attack");
     }
 
-    _animation.forward_time(engine.get_clock());
+    _animation.forward_time();
 }
 
 bool Zombie::is_dead() const {

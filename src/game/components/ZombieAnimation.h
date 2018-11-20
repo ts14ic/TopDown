@@ -24,10 +24,10 @@ public:
     static const Animation ATTACKING;
     static const Animation DYING;
 
-    void set_animation(Animation animation, const Clock& clock) {
+    void set_animation(Animation animation) {
         _current_animation = std::move(animation);
         _frame = 0;
-        _timer.restart(clock);
+        _timer.restart();
     }
 
     std::string get_tex_name() const {
@@ -54,13 +54,13 @@ public:
         }
     }
 
-    void forward_time(const Clock& clock) {
+    void forward_time() {
         if (_current_animation.type == AnimationType::STATIC) {
             return;
         }
-        if (_timer.ticks_passed_since_start(clock, _current_animation.frame_speeds[_frame])) {
+        if (_timer.ticks_passed_since_start(_current_animation.frame_speeds[_frame])) {
             next_frame();
-            _timer.restart(clock);
+            _timer.restart();
         }
     }
 

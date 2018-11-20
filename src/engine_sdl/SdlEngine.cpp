@@ -8,14 +8,12 @@ SdlEngine::SdlEngine(
         int screen_height
 ) : _sdl_guard{}, _graphic(screen_width, screen_height) {
     Log::install_logger(_sdl_logger);
+    Clock::install_clock_engine(std::make_unique<SdlClockEngine>());
 }
 
 SdlEngine::~SdlEngine() {
+    Clock::uninstall_clock_engine();
     Log::uninstall_logger(_sdl_logger);
-}
-
-const Clock& SdlEngine::get_clock() {
-    return _clock;
 }
 
 Graphic& SdlEngine::get_graphic() {
