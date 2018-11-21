@@ -35,15 +35,8 @@ bool animation::StaticAnimation::is_last_frame() const {
     return true;
 }
 
-bool animation::StaticAnimation::is_frame_ended() const {
-    return true;
-}
-
 bool animation::StaticAnimation::is_animation_ended() const {
     return true;
-}
-
-void animation::StaticAnimation::next_frame() {
 }
 
 void animation::StaticAnimation::forward_time() {

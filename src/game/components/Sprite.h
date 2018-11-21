@@ -17,11 +17,7 @@ namespace animation {
 
         virtual bool is_last_frame() const = 0;
 
-        virtual bool is_frame_ended() const = 0;
-
         virtual bool is_animation_ended() const = 0;
-
-        virtual void next_frame() = 0;
 
         virtual void forward_time() = 0;
     };
@@ -36,11 +32,7 @@ namespace animation {
 
         bool is_last_frame() const override;
 
-        bool is_frame_ended() const override;
-
         bool is_animation_ended() const override;
-
-        void next_frame() override;
 
         void forward_time() override;
 
@@ -60,18 +52,17 @@ namespace animation {
 
         bool is_last_frame() const override;
 
-        bool is_frame_ended() const override;
-
         bool is_animation_ended() const override;
-
-        void next_frame() override;
 
         void forward_time() override;
 
         std::unique_ptr<Animation> clone() const override;
 
-    public:
     private:
+        bool is_frame_ended() const;
+
+        void next_frame();
+
         std::string _name;
         std::size_t _frame;
         std::vector<std::size_t> _frame_durations;
@@ -88,18 +79,17 @@ namespace animation {
 
         bool is_last_frame() const override;
 
-        bool is_frame_ended() const override;
-
         bool is_animation_ended() const override;
-
-        void next_frame() override;
 
         void forward_time() override;
 
         std::unique_ptr<Animation> clone() const override;
 
-    public:
     private:
+        bool is_frame_ended() const;
+
+        void next_frame();
+
         std::string _name;
         std::size_t _frame;
         std::vector<std::size_t> _frame_durations;
