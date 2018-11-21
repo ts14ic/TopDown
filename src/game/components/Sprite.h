@@ -59,14 +59,13 @@ namespace animation {
         std::unique_ptr<Animation> clone() const override;
 
     private:
-        bool is_frame_ended() const;
-
-        void next_frame();
+        std::size_t get_frame() const;
 
         std::string _name;
-        std::size_t _frame;
         std::vector<std::size_t> _frame_durations;
         Timer _timer;
+        std::size_t _time = 0;
+        bool _started = 0;
     };
 
     class RepeatableAnimation : public Animation {

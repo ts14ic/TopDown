@@ -1,6 +1,6 @@
-#include <memory>
-
 #include "Sprite.h"
+#include <memory>
+#include <numeric>
 
 const animation::StaticAnimation animation::ZOMBIE_MOVING{
         "zombie"
@@ -53,35 +53,41 @@ std::unique_ptr<animation::Animation> animation::OneshotAnimation::clone() const
     return std::make_unique<OneshotAnimation>(*this);
 }
 
+std::size_t animation::OneshotAnimation::get_frame() const {
+    long time = static_cast<long>(_time);
+    std::size_t frame = 0;
+    // while animation time remains and frame is not last
+    while (time - static_cast<long>(_frame_durations[frame]) >= 0
+            && frame + 1 < _frame_durations.size()) {
+        // subtract frame duration and increment frame
+        time -= static_cast<long>(_frame_durations[frame]);
+        ++frame;
+    }
+    return frame;
+}
+
 std::string animation::OneshotAnimation::get_tex_name() const {
-    return _name + std::to_string(_frame);
+    auto frame = get_frame();
+    return _name + std::to_string(frame);
 }
 
 bool animation::OneshotAnimation::is_last_frame() const {
-    return _frame + 1 >= _frame_durations.size();
-}
-
-bool animation::OneshotAnimation::is_frame_ended() const {
-    return _timer.ticks_passed_since_start(_frame_durations[_frame]);
+    auto frame = get_frame();
+    return frame + 1 >= _frame_durations.size();
 }
 
 bool animation::OneshotAnimation::is_animation_ended() const {
-    return is_last_frame() && is_frame_ended();
-}
-
-void animation::OneshotAnimation::next_frame() {
-    if (!is_last_frame()) {
-        ++_frame;
-    }
+    auto total_length = std::accumulate(_frame_durations.cbegin(), _frame_durations.cend(), 0UL);
+    return _time >= total_length;
 }
 
 void animation::OneshotAnimation::forward_time() {
-    if (is_frame_ended()) {
-        next_frame();
-        if (not is_last_frame()) {
-            _timer.restart();
-        }
+    if (!_started) {
+        _started = true;
+        _timer.restart();
     }
+    _time += _timer.get_ticks_since_start();
+    _timer.restart();
 }
 
 
