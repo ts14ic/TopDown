@@ -1,5 +1,4 @@
 #include "StateMoon.h"
-#include <game/object/Zombie.h>
 #include <game/object/Werewolf.h>
 #include <game/object/Bullet.h>
 #include <engine/geometry/maths.h>
@@ -61,14 +60,39 @@ void StateMoon::restrict_pos(GameObject& object) {
     object.set_transform(transform);
 }
 
+Entity StateMoon::create_zombie(Point2<float> position) {
+    Entity entity = create_entity();
+
+    _zombie_ais[entity] = ZombieAi{};
+    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
+    _hitpoints[entity] = Hitpoints{50};
+    _speeds[entity] = Speed{1.7f};
+    _sprites[entity] = Sprite{animation::ZOMBIE_MOVING};
+    _melee_damages[entity] = 15;
+
+    Log::d("zombie %d created, %d total", entity, _zombie_ais.size());
+    return entity;
+}
+
+void StateMoon::remove_zombie(Entity entity) {
+    _zombie_ais.erase(entity);
+    _transforms.erase(entity);
+    _hitpoints.erase(entity);
+    _speeds.erase(entity);
+    _sprites.erase(entity);
+    _melee_damages.erase(entity);
+
+    Log::d("zombie %d removed, %d total", entity, _zombie_ais.size());
+}
+
 void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(50) &&
-        (_zombies.size() + _werewolves.size() < 1)) {
+        (_zombie_ais.size() + _werewolves.size() < 1)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
-            _zombies.emplace_back(position);
+            create_zombie(position);
 //        } else {
 //            _werewolves.emplace_back(position);
         }
@@ -108,15 +132,14 @@ void StateMoon::handle_bullet_logic() {
         };
 
         if (position_out_of_level_area(transform.position)) {
-            Log::d("bullet of level area, destroying");
             return true;
         }
 
-        for (auto& zombie : _zombies) {
-            if (circles_collide(transform.get_circle(), zombie.get_circle())
-                && zombie.get_hp() > 0) {
-                zombie.take_damage(bullet_damage);
-                Log::d("zombie takes %d damage, bullet destroyed", bullet_damage);
+        for (auto& zombie : _zombie_ais) {
+            auto entity = zombie.first;
+
+            if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) && _hitpoints[entity].current_hp > 0) {
+                zombie_take_damage(entity, bullet_damage);
                 return true;
             }
         }
@@ -139,17 +162,97 @@ void StateMoon::handle_bullet_logic() {
     _bullets.erase(remove_from, _bullets.end());
 }
 
-void StateMoon::handle_zombie_logic() {
-    _zombies.erase(std::remove_if(_zombies.begin(), _zombies.end(), [&, this](Zombie& zombie) {
-        zombie.set_target(_player.get_position());
-        zombie.handle_logic();
+void StateMoon::zombie_take_damage(Entity entity, int damage_dealt) {
+    if (damage_dealt > 0) {
+        auto previous_health = _hitpoints[entity].current_hp;
+        _hitpoints[entity].current_hp -= damage_dealt;
+        Log::d("zombie takes damage, health at: [%d/%d]", _hitpoints[entity].current_hp, previous_health);
+    }
 
-        if (objects_collide(zombie, _player)) {
-            _player.take_damage(zombie.get_melee_damage());
+    if (_hitpoints[entity].current_hp <= 0 && !_zombie_ais[entity].is_dying()) {
+        _zombie_ais[entity].set_state(ZombieAi::AI_DYING);
+        _sprites[entity].set_state(animation::ZOMBIE_DYING);
+    }
+}
+
+void StateMoon::handle_zombie_logic() {
+    std::vector<Entity> dead_entities;
+
+    for (auto& zombie : _zombie_ais) {
+        auto entity = zombie.first;
+        zombie_set_target(entity, _player.get_position());
+        zombie_handle_logic(entity);
+
+        if (circles_collide(_transforms[entity].get_circle(), _player.get_circle())) {
+            // TODO: Don't depend on animation
+            int damage;
+            if (_zombie_ais[entity].is_attacking() && _sprites[entity].is_last_frame()) {
+                damage = _melee_damages[entity];
+            } else {
+                damage = 0;
+            }
+            _player.take_damage(damage);
         }
 
-        return zombie.is_dead();
-    }), _zombies.end());
+        if (zombie_is_dead(entity)) {
+            dead_entities.push_back(entity);
+        }
+    }
+
+    for (auto dead_entity : dead_entities) {
+        remove_zombie(dead_entity);
+    }
+}
+
+void StateMoon::zombie_set_target(Entity entity, Point2<float> position) {
+    if (_zombie_ais[entity].is_dying()) {
+        return;
+    }
+
+    _transforms[entity].angle = math::get_cartesian_angle(_transforms[entity].position, position);
+
+    auto dist = math::get_distance(_transforms[entity].position, position);
+    if (dist > _transforms[entity].get_circle().get_radius() * 1.7f) {
+        if (!_zombie_ais[entity].is_moving()) {
+            _zombie_ais[entity].set_state(ZombieAi::AI_MOVING);
+            _sprites[entity].set_state(animation::ZOMBIE_MOVING);
+        }
+    } else if (!_zombie_ais[entity].is_attacking()) {
+        _zombie_ais[entity].set_state(ZombieAi::AI_ATTACKING);
+        _sprites[entity].set_state(animation::ZOMBIE_ATTACKING);
+    }
+}
+
+void StateMoon::zombie_handle_logic(Entity entity) {
+    if (_zombie_ais[entity].is_dying()) {
+        _speeds[entity].current_speed = {0.0f, 0.0f};
+        return;
+    }
+
+    if (_zombie_ais[entity].is_moving()) {
+        // TODO extract speed setting
+        auto movement_angle = _transforms[entity].angle;
+
+        _speeds[entity].current_speed = {
+                math::cartesian_cos(movement_angle) * _speeds[entity].max_speed,
+                math::cartesian_sin(movement_angle) * _speeds[entity].max_speed
+        };
+        gameobject_default_move(entity);
+    } else {
+        _speeds[entity].current_speed = {0.0f, 0.0f};
+    }
+}
+
+void StateMoon::gameobject_default_move(Entity entity) {
+    _transforms[entity].position = {
+            _transforms[entity].position.x + _speeds[entity].current_speed.x,
+            _transforms[entity].position.y + _speeds[entity].current_speed.y
+    };
+}
+
+bool StateMoon::zombie_is_dead(Entity entity) {
+    // TODO: Don't depend on animation
+    return _zombie_ais[entity].is_dying() && _sprites[entity].is_animation_ended();
 }
 
 void StateMoon::handle_werewolf_logic() {
@@ -198,8 +301,9 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
 
     _player.handle_render(graphic, frames_passed);
 
-    for (auto& zombie : _zombies) {
-        zombie.handle_render(engine, frames_passed);
+    for (auto& zombie : _zombie_ais) {
+        auto entity = zombie.first;
+        zombie_handle_render(entity, frames_passed);
     }
 
     for (auto& werewolf : _werewolves) {
@@ -213,6 +317,51 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
     render_crosshair(frames_passed);
 
     graphic.refresh_screen();
+}
+
+void StateMoon::zombie_handle_render(Entity entity, float frames_count) {
+    gameobject_handle_render(entity, frames_count);
+    gameobject_handle_render_health(entity, Color{0, 0x77, 0, 0xFF}, frames_count);
+
+    // TODO: Don't depend on animation
+    if (_zombie_ais[entity].is_attacking() && _sprites[entity].is_last_frame()) {
+        get_engine().get_audio().play_sound("zombie_attack");
+    }
+
+    _sprites[entity].update();
+}
+
+void StateMoon::gameobject_handle_render(Entity entity, float frames_count) {
+    auto texture = get_engine().get_graphic().get_texture(_sprites[entity].get_tex_name());
+
+    auto point = make_point(
+            _transforms[entity].position.x - texture.get_size().get_width() / 2.f,
+            _transforms[entity].position.y - texture.get_size().get_height() / 2.f
+    );
+    point.x += _speeds[entity].current_speed.x * frames_count;
+    point.y += _speeds[entity].current_speed.y * frames_count;
+
+    get_engine().get_graphic().render_texture(
+            texture.get_name(),
+            point_cast<int>(point),
+            _transforms[entity].angle
+    );
+}
+
+void StateMoon::gameobject_handle_render_health(Entity entity, Color color, float frames_count) {
+    if (_hitpoints[entity].current_hp > 0) {
+        Box health_box;
+
+        health_box.set_size(50.f * _hitpoints[entity].current_hp / _hitpoints[entity].default_hp, 5.f);
+        health_box.set_left_top(
+                _transforms[entity].position.x - health_box.get_width() / 2 +
+                _speeds[entity].current_speed.x * frames_count,
+                _transforms[entity].position.y - _transforms[entity].get_circle().get_radius() +
+                _speeds[entity].current_speed.y * frames_count
+        );
+
+        get_engine().get_graphic().render_box(health_box, color);
+    }
 }
 
 void StateMoon::render_crosshair(float frames_count) {

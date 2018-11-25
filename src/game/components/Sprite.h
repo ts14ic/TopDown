@@ -102,6 +102,12 @@ namespace animation {
 
 class Sprite {
 public:
+    Sprite() = default;
+
+    explicit Sprite(const animation::Animation& state)
+            : _animation{state.clone()} {
+    }
+
     void set_state(const animation::Animation& state) {
         _animation = state.clone();
     }

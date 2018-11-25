@@ -1,12 +1,16 @@
 #pragma once
 
 #include "GameState.h"
+#include <game/components/Sprite.h>
+#include <game/components/ZombieAi.h>
 #include <game/object/Player.h>
-#include <game/object/Zombie.h>
 #include <game/object/Werewolf.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
 #include <engine/geometry/Point2.h>
+#include <cassert>
+
+using Entity = std::size_t;
 
 class StateMoon : public GameState {
 public:
@@ -45,6 +49,34 @@ private:
     void render_crosshair(float frames_count);
 
 private:
+    Entity create_entity() {
+        // TODO: Make a proper entity id factory and class
+        auto entity = _entity_counter;
+        assert(_entity_counter < SIZE_MAX && "Entity pool exhausted");
+        ++_entity_counter;
+        return entity;
+    }
+
+    Entity create_zombie(Point2<float> position);
+
+    void remove_zombie(Entity entity);
+
+    void zombie_take_damage(Entity entity, int damage_dealt);
+
+    void zombie_handle_render(Entity entity, float frames_count);
+
+    void zombie_set_target(Entity entity, Point2<float> position);
+
+    void zombie_handle_logic(Entity entity);
+
+    bool zombie_is_dead(Entity entity);
+
+    void gameobject_handle_render(Entity entity, float frames_count);
+
+    void gameobject_handle_render_health(Entity entity, Color color, float frames_count);
+
+    void gameobject_default_move(Entity entity);
+
     Game& _game;
     std::string _background_tex;
     const int _level_width;
@@ -53,9 +85,16 @@ private:
 
     Player _player;
     std::vector<Bullet> _bullets;
-    std::vector<Zombie> _zombies;
     std::vector<Werewolf> _werewolves;
     float _crosshair_angle;
+
+    Entity _entity_counter = 1;
+    std::unordered_map<Entity, Transform> _transforms;
+    std::unordered_map<Entity, Speed> _speeds;
+    std::unordered_map<Entity, Hitpoints> _hitpoints;
+    std::unordered_map<Entity, Sprite> _sprites;
+    std::unordered_map<Entity, ZombieAi> _zombie_ais;
+    std::unordered_map<Entity, int> _melee_damages;
 
     Timer _enemy_spawn_cooldown;
 };
