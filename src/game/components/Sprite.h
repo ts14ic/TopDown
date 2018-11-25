@@ -118,7 +118,7 @@ public:
         return _animation->is_animation_ended();
     }
 
-    void forward_time() {
+    void update() {
         _animation->update();
     }
 

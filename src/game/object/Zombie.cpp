@@ -80,7 +80,7 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
         engine.get_audio().play_sound("zombie_attack");
     }
 
-    _sprite.forward_time();
+    _sprite.update();
 }
 
 bool Zombie::is_dead() const {
