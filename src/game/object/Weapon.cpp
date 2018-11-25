@@ -1,6 +1,6 @@
 #include "Weapon.h"
-
 #include "Bullet.h"
+#include <engine/log/Log.h>
 
 Weapon::Weapon(const WeaponBuilder& builder)
         : _name{builder.get_name()},
@@ -50,6 +50,7 @@ void Weapon::pull_trigger(Engine& engine, const GameObject& shooter, std::vector
         play_fire_sound(audio);
 
         --_current_ammo;
+        Log::d("shot from %s, ammo [%d/%d]", _name.c_str(), _current_ammo, _max_ammo);
         if (_current_ammo < 1) {
             start_reloading();
         }
