@@ -11,6 +11,7 @@ Zombie::Zombie(Point2<float> position)
 }
 
 int Zombie::get_melee_damage() const {
+    // FIXME: Don't depend on animation
     if (_ai.is_attacking() && _sprite.is_last_frame()) {
         return 15;
     } else {
@@ -84,5 +85,6 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
 }
 
 bool Zombie::is_dead() const {
+    // TODO: Don't depend on animation
     return _ai.is_dying() && _sprite.is_animation_ended();
 }
