@@ -65,12 +65,12 @@ void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(50) &&
-        (_zombies.size() + _werewolves.size() < 1)) {
+        (_zombies.size() + _werewolves.size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
             _zombies.emplace_back(position);
-//        } else {
-//            _werewolves.emplace_back(position);
+        } else {
+            _werewolves.emplace_back(position);
         }
 
         _enemy_spawn_cooldown.restart();
