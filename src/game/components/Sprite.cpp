@@ -14,6 +14,23 @@ const animation::OneshotAnimation animation::ZOMBIE_DYING{
         /*frame durations*/{75, 100, 130, 160, 190, 210, 240, 300}
 };
 
+const animation::RepeatableAnimation animation::WOLF_MOVING{
+        "wolf_move",
+        /*frame durations*/std::vector<std::size_t>(6, 100)
+};
+const animation::RepeatableAnimation animation::WOLF_TELEPORT{
+        "wolf_teleport",
+        /*frame durations*/std::vector<std::size_t>(3, 100)
+};
+const animation::RepeatableAnimation animation::WOLF_ATTACKING{
+        "wolf_attack",
+        /*frame durations*/std::vector<std::size_t>(8, 100)
+};
+const animation::OneshotAnimation animation::WOLF_DYING{
+        "wolf_teleport",
+        /*frame durations*/std::vector<std::size_t>(3, 500)
+};
+
 const animation::StaticAnimation animation::PLAYER_HANDS{"player_hands"};
 const animation::StaticAnimation animation::PLAYER_PISTOL{"player_pistol"};
 const animation::StaticAnimation animation::PLAYER_SHOTGUN{"player_shotgun"};
@@ -66,7 +83,7 @@ std::size_t animation::OneshotAnimation::get_frame() const {
     std::size_t frame = 0;
     // while animation time remains and frame is not last
     while (time - static_cast<long>(_frame_durations[frame]) >= 0
-            && frame + 1 < _frame_durations.size()) {
+           && frame + 1 < _frame_durations.size()) {
         // subtract frame duration and increment frame
         time -= static_cast<long>(_frame_durations[frame]);
         ++frame;

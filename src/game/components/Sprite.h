@@ -99,6 +99,11 @@ namespace animation {
     extern const RepeatableAnimation ZOMBIE_ATTACKING;
     extern const OneshotAnimation ZOMBIE_DYING;
 
+    extern const RepeatableAnimation WOLF_MOVING;
+    extern const RepeatableAnimation WOLF_TELEPORT;
+    extern const RepeatableAnimation WOLF_ATTACKING;
+    extern const OneshotAnimation WOLF_DYING;
+
     extern const StaticAnimation PLAYER_HANDS;
     extern const StaticAnimation PLAYER_PISTOL;
     extern const StaticAnimation PLAYER_SHOTGUN;

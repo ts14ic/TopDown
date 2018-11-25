@@ -3,6 +3,7 @@
 #include "Damageable.h"
 #include <game/timer/Timer.h>
 #include <game/mixins/HasMeleeDamage.h>
+#include <game/components/Sprite.h>
 #include <engine/random/Random.h>
 #include <engine/audio/Audio.h>
 #include <engine/Engine.h>
@@ -55,7 +56,7 @@ private:
     Transform _transform;
     Speed _speed = Speed{2.5f};
     Hitpoints _hitpoints;
-    int _animation_frame = 0;
+    Sprite _sprite;
     Timer _attack_cooldown;
     Timer _teleport_cooldown;
     int _ai_state = AI_IDLE;
