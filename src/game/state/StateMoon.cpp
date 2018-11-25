@@ -1,6 +1,5 @@
 #include "StateMoon.h"
 #include <game/object/Werewolf.h>
-#include <game/object/Bullet.h>
 #include <engine/geometry/maths.h>
 #include <engine/geometry/Point2.h>
 #include <engine/log/Log.h>
@@ -160,6 +159,8 @@ void StateMoon::remove_entity(Entity entity) {
     _weapons.erase(entity);
     _player_inputs.erase(entity);
     _damage_cooldowns.erase(entity);
+
+    _bullet_entities.erase(entity);
 }
 
 Entity StateMoon::create_player(Point2<float> position) {
@@ -172,6 +173,29 @@ Entity StateMoon::create_player(Point2<float> position) {
     _hitpoints[entity] = Hitpoints{100};
     _damage_cooldowns[entity] = Timer{};
     _sprites[entity] = Sprite{animation::PLAYER_HANDS};
+
+    return entity;
+}
+
+Entity StateMoon::create_bullet(const Transform& origin, const Weapons& weapons) {
+    Entity entity = create_entity();
+
+    const auto& weapon = weapons.get_selected();
+    auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
+    auto angle = origin.angle + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
+    _transforms[entity] = Transform{
+            make_point(
+                    origin.position.x + math::cartesian_cos(angle) * weapon.get_length(),
+                    origin.position.y + math::cartesian_sin(angle) * weapon.get_length()
+            ),
+            angle,
+            /*radius*/2.0f
+    };
+    _melee_damages[entity] = weapon.get_projectile_damage();
+    _speeds[entity] = Speed{weapon.get_projectile_speed()};
+    _sprites[entity] = Sprite{animation::BULLET};
+
+    _bullet_entities.insert(entity);
 
     return entity;
 }
@@ -251,12 +275,7 @@ void StateMoon::player_handle_logic(Entity entity) {
     if (_player_inputs[_player_entity].is_held(PlayerInput::HOLD_TRIGGER)) {
         auto projectiles_shot = _weapons[_player_entity].fire_from_selected(get_engine(), _transforms[_player_entity]);
         for (int i = 0; i < projectiles_shot; ++i) {
-            Bullet bullet(
-                    get_engine().get_random(),
-                    _transforms[_player_entity],
-                    _weapons[_player_entity].get_selected()
-            );
-            _bullets.push_back(bullet);
+            create_bullet(_transforms[_player_entity], _weapons[_player_entity]);
         }
     }
 }
@@ -322,10 +341,11 @@ void StateMoon::player_handle_weapon_selection(Entity entity) {
 void StateMoon::handle_bullet_logic() {
     auto& random = get_engine().get_random();
 
-    auto remove_from = std::remove_if(_bullets.begin(), _bullets.end(), [&, this](Bullet& bullet) {
-        Transform transform = bullet.get_transform();
-        Speed speed = bullet.get_speed();
-        auto bullet_damage = bullet.get_melee_damage();
+    std::vector<Entity> destroyed_bullets;
+    for (auto bullet_entity : _bullet_entities) {
+        Transform transform = _transforms[bullet_entity];
+        Speed speed = _speeds[bullet_entity];
+        auto bullet_damage = _melee_damages[bullet_entity];
 
         // TODO extract speed setting
         speed.current_speed = {
@@ -338,7 +358,8 @@ void StateMoon::handle_bullet_logic() {
         };
 
         if (position_out_of_level_area(transform.position)) {
-            return true;
+            destroyed_bullets.push_back(bullet_entity);
+            continue;
         }
 
         for (auto& zombie : _zombie_ais) {
@@ -347,7 +368,8 @@ void StateMoon::handle_bullet_logic() {
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) &&
                 _hitpoints[entity].current_hp > 0) {
                 zombie_take_damage(entity, bullet_damage);
-                return true;
+                destroyed_bullets.push_back(bullet_entity);
+                continue;
             }
         }
         for (auto& werewolf : _werewolves) {
@@ -355,18 +377,20 @@ void StateMoon::handle_bullet_logic() {
                 && werewolf.has_hp() > 0) {
                 werewolf.take_damage(bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
-                return true;
+                destroyed_bullets.push_back(bullet_entity);
+                continue;
             }
             if (math::get_distance(transform.position, werewolf.get_position()) < 50) {
                 werewolf.teleport(random);
             }
         }
 
-        bullet.set_current_speed(speed.current_speed);
-        bullet.set_position(transform.position);
-        return false;
-    });
-    _bullets.erase(remove_from, _bullets.end());
+        _speeds[bullet_entity].current_speed = speed.current_speed;
+        _transforms[bullet_entity].position = transform.position;
+    }
+    for (auto entity : destroyed_bullets) {
+        remove_entity(entity);
+    }
 }
 
 void StateMoon::zombie_take_damage(Entity entity, int damage_dealt) {
@@ -514,19 +538,26 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
 
     graphic.render_texture(_background_tex, make_point(0, 0));
 
-    player_handle_render(frames_passed);
+    for (auto& entry : _sprites) {
+        Entity entity = entry.first;
+        auto& sprite = entry.second;
 
-    for (auto& zombie : _zombie_ais) {
-        auto entity = zombie.first;
-        zombie_handle_render(entity, frames_passed);
+        gameobject_handle_render(/*entity*/entity, frames_passed);
+        sprite.update();
+    }
+    for (auto& vitality : _hitpoints) {
+        // TODO: check for sprite presence
+        // TODO: what color to draw health with?
+        gameobject_handle_render_health(/*entity*/vitality.first, Color{0x7f, 0, 0, 0xff}, frames_passed);
+    }
+
+    for (auto& entry : _zombie_ais) {
+        auto entity = entry.first;
+        zombie_handle_audio(entity);
     }
 
     for (auto& werewolf : _werewolves) {
         werewolf.handle_render(engine, graphic, audio, frames_passed);
-    }
-
-    for (auto& b : _bullets) {
-        b.handle_render(graphic, frames_passed);
     }
 
     render_crosshair(frames_passed);
@@ -534,21 +565,11 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
     graphic.refresh_screen();
 }
 
-void StateMoon::player_handle_render(float frames_passed) {
-    gameobject_handle_render(_player_entity, frames_passed);
-    gameobject_handle_render_health(_player_entity, Color{0, 0x77, 0, 0xFF}, frames_passed);
-}
-
-void StateMoon::zombie_handle_render(Entity entity, float frames_count) {
-    gameobject_handle_render(entity, frames_count);
-    gameobject_handle_render_health(entity, Color{0, 0x77, 0, 0xFF}, frames_count);
-
+void StateMoon::zombie_handle_audio(Entity entity) {
     // TODO: Don't depend on animation
     if (_zombie_ais[entity].is_attacking() && _sprites[entity].is_last_frame()) {
         get_engine().get_audio().play_sound("zombie_attack");
     }
-
-    _sprites[entity].update();
 }
 
 void StateMoon::gameobject_handle_render(Entity entity, float frames_count) {

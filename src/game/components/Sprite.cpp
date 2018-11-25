@@ -20,6 +20,8 @@ const animation::StaticAnimation animation::PLAYER_SHOTGUN{"player_shotgun"};
 const animation::StaticAnimation animation::PLAYER_UZI{"player_uzi"};
 const animation::StaticAnimation animation::PLAYER_AURA{"player_aura"};
 
+const animation::StaticAnimation animation::BULLET{"bullet"};
+
 animation::Animation::~Animation() = default;
 
 

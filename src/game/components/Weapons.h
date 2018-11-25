@@ -1,6 +1,5 @@
 #pragma once
 
-#include <game/object/Bullet.h>
 #include <game/object/Weapon.h>
 #include <vector>
 #include <string>

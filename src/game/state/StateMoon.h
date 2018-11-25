@@ -6,11 +6,11 @@
 #include <game/components/PlayerInput.h>
 #include <game/components/Weapons.h>
 #include <game/object/Werewolf.h>
-#include <game/object/Bullet.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
 #include <engine/geometry/Point2.h>
 #include <unordered_map>
+#include <unordered_set>
 #include <cassert>
 
 using Entity = std::size_t;
@@ -58,6 +58,8 @@ private:
 
     void remove_entity(Entity entity);
 
+    Entity create_bullet(const Transform& origin, const Weapons& weapons);
+
     Entity create_player(Point2<float> position);
 
     bool is_player_dead(Entity entity);
@@ -70,13 +72,11 @@ private:
 
     void player_update_speeds();
 
-    void player_handle_render(float frames_passed);
-
     Entity create_zombie(Point2<float> position);
 
     void zombie_take_damage(Entity entity, int damage_dealt);
 
-    void zombie_handle_render(Entity entity, float frames_count);
+    void zombie_handle_audio(Entity entity);
 
     void zombie_set_target(Entity entity, Point2<float> position);
 
@@ -103,11 +103,11 @@ private:
     const int _level_height;
     Point2<int> _mouse_pos;
 
-    std::vector<Bullet> _bullets;
     std::vector<Werewolf> _werewolves;
     float _crosshair_angle;
 
     Entity _player_entity;
+    std::unordered_set<Entity> _bullet_entities;
 
     Entity _entity_counter = 1;
     std::unordered_map<Entity, Transform> _transforms;

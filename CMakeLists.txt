@@ -64,7 +64,6 @@ set(SOURCE_FILES
         src/game/object/Werewolf.cpp src/game/object/Werewolf.h
         src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
         src/game/object/Weapon.h src/game/object/Weapon.cpp
-        src/game/object/Bullet.cpp src/game/object/Bullet.h
         src/game/StateId.h
         src/game/Game.cpp src/game/Game.h
         src/game/timer/Timer.cpp src/game/timer/Timer.h

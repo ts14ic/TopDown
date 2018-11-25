@@ -104,6 +104,8 @@ namespace animation {
     extern const StaticAnimation PLAYER_SHOTGUN;
     extern const StaticAnimation PLAYER_UZI;
     extern const StaticAnimation PLAYER_AURA;
+
+    extern const StaticAnimation BULLET;
 }
 
 class Sprite {

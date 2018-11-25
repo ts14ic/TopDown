@@ -1,5 +1,4 @@
 #include "Weapon.h"
-#include "Bullet.h"
 #include <engine/log/Log.h>
 
 Weapon::Weapon(const WeaponBuilder& builder)
