@@ -38,7 +38,7 @@ void StateIntro::handle_key_event(const KeyboardEvent &event) {
 
 void StateIntro::handle_logic() {}
 
-void StateIntro::handle_render(float frames_count) {
+void StateIntro::handle_render(float milliseconds_passed, float milliseconds_per_frame) {
     auto& graphic = _game.get_engine().get_graphic();
 
     graphic.render_texture(_background_tex_id, make_point(0, 0));

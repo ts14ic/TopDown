@@ -8,5 +8,5 @@ public:
 
     virtual void handle_logic()  = 0;
 
-    virtual void handle_render(float frames_count) = 0;
+    virtual void handle_render(float milliseconds_passed, float milliseconds_per_frame) = 0;
 };
