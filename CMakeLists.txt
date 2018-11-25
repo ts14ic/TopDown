@@ -61,7 +61,6 @@ set(SOURCE_FILES
         src/game/GameImpl.cpp src/game/GameImpl.h
         src/game/object/GameObject.cpp src/game/object/GameObject.h
         src/game/object/Damageable.h src/game/object/Damageable.cpp
-        src/game/object/Player.cpp src/game/object/Player.h
         src/game/object/Werewolf.cpp src/game/object/Werewolf.h
         src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
         src/game/object/Weapon.h src/game/object/Weapon.cpp

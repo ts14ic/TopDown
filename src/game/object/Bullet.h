@@ -8,7 +8,7 @@
 
 class Bullet : public virtual GameObject, public HasMeleeDamage {
 public:
-    Bullet(Random& random, const GameObject& origin, const Weapon& weapon);
+    Bullet(Random& random, const Transform& origin, const Weapon& weapon);
 
     Transform get_transform() const override { return _transform; }
 

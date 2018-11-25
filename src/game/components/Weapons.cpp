@@ -29,9 +29,9 @@ void Weapons::try_reload_selected() {
     }
 }
 
-void Weapons::fire_from_selected(Engine& engine, GameObject& shooter, std::vector<Bullet>& bullets) {
+void Weapons::fire_from_selected(Engine& engine, Transform& origin, std::vector<Bullet>& bullets) {
     if (!empty()) {
-        get_selected_mut().pull_trigger(engine, shooter, bullets);
+        get_selected_mut().pull_trigger(engine, origin, bullets);
     }
 }
 

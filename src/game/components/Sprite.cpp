@@ -14,6 +14,12 @@ const animation::OneshotAnimation animation::ZOMBIE_DYING{
         /*frame durations*/{75, 100, 130, 160, 190, 210, 240, 300}
 };
 
+const animation::StaticAnimation animation::PLAYER_HANDS{"player_hands"};
+const animation::StaticAnimation animation::PLAYER_PISTOL{"player_pistol"};
+const animation::StaticAnimation animation::PLAYER_SHOTGUN{"player_shotgun"};
+const animation::StaticAnimation animation::PLAYER_UZI{"player_uzi"};
+const animation::StaticAnimation animation::PLAYER_AURA{"player_aura"};
+
 animation::Animation::~Animation() = default;
 
 

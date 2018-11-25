@@ -3,11 +3,14 @@
 #include "GameState.h"
 #include <game/components/Sprite.h>
 #include <game/components/ZombieAi.h>
-#include <game/object/Player.h>
+#include <game/components/PlayerInput.h>
+#include <game/components/Weapons.h>
 #include <game/object/Werewolf.h>
+#include <game/object/Bullet.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
 #include <engine/geometry/Point2.h>
+#include <unordered_map>
 #include <cassert>
 
 using Entity = std::size_t;
@@ -26,7 +29,7 @@ public:
 
     void handle_logic() override;
 
-    void restrict_pos(GameObject&);
+    void restrict_pos(Entity entity);
 
     void handle_render(float milliseconds_passed, float milliseconds_per_frame) override;
 
@@ -55,6 +58,20 @@ private:
 
     void remove_entity(Entity entity);
 
+    Entity create_player(Point2<float> position);
+
+    bool is_player_dead(Entity entity);
+
+    void player_handle_logic(Entity entity);
+
+    void player_handle_weapon_selection(Entity entity);
+
+    void player_take_damage(Entity entity, int damage_dealt);
+
+    void player_update_speeds();
+
+    void player_handle_render(float frames_passed);
+
     Entity create_zombie(Point2<float> position);
 
     void zombie_take_damage(Entity entity, int damage_dealt);
@@ -73,6 +90,12 @@ private:
 
     void gameobject_default_move(Entity entity);
 
+    void load_control_scheme(const char* control_scheme_file_name = "data/config.json");
+
+    PlayerInput::HoldAction event_to_hold_action(const KeyboardEvent& event) const;
+
+    PlayerInput::QuickAction event_to_quick_action(const KeyboardEvent& event) const;
+
 private:
     Game& _game;
     std::string _background_tex;
@@ -80,18 +103,25 @@ private:
     const int _level_height;
     Point2<int> _mouse_pos;
 
-    Player _player;
     std::vector<Bullet> _bullets;
     std::vector<Werewolf> _werewolves;
     float _crosshair_angle;
 
+    Entity _player_entity;
+
     Entity _entity_counter = 1;
     std::unordered_map<Entity, Transform> _transforms;
     std::unordered_map<Entity, Speed> _speeds;
+    std::unordered_map<Entity, Weapons> _weapons;
+    std::unordered_map<Entity, PlayerInput> _player_inputs;
     std::unordered_map<Entity, Hitpoints> _hitpoints;
     std::unordered_map<Entity, Sprite> _sprites;
     std::unordered_map<Entity, ZombieAi> _zombie_ais;
     std::unordered_map<Entity, int> _melee_damages;
+    std::unordered_map<Entity, Timer> _damage_cooldowns;
+
+    std::unordered_map<int, PlayerInput::HoldAction> _key_to_hold_action;
+    std::unordered_map<int, PlayerInput::QuickAction> _key_to_quick_action;
 
     Timer _enemy_spawn_cooldown;
 };

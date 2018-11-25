@@ -25,7 +25,7 @@ public:
 
     void try_reload_selected();
 
-    void fire_from_selected(Engine& engine, GameObject& shooter, std::vector<Bullet>& bullets);
+    void fire_from_selected(Engine& engine, Transform& origin, std::vector<Bullet>& bullets);
 
 private:
     Weapon& get_selected_mut() { return _weapons[_selected_weapon_index]; }

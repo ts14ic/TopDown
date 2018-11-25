@@ -18,16 +18,71 @@ StateMoon::StateMoon(Game& game)
 
     _enemy_spawn_cooldown.restart();
 
-    _player.set_position(_level_width / 2.0f, _level_height / 2.0f);
+    _player_entity = create_player(/*position*/{_level_width / 2.0f, _level_height / 2.0f});
 
+    load_control_scheme();
     parse_level_data();
+}
+
+void StateMoon::load_control_scheme(const char* control_scheme_file_name) {
+    auto file = files::read_file_to_string(control_scheme_file_name);
+    auto document = json::parse_json(file);
+
+    auto read_hold_action = [&](const char* key, PlayerInput::HoldAction value) {
+        _key_to_hold_action[json::get_int(document, key)] = value;
+    };
+    read_hold_action("/controls/hold/up", PlayerInput::HOLD_UP);
+    read_hold_action("/controls/hold/left", PlayerInput::HOLD_LEFT);
+    read_hold_action("/controls/hold/down", PlayerInput::HOLD_DOWN);
+    read_hold_action("/controls/hold/right", PlayerInput::HOLD_RIGHT);
+    read_hold_action("/controls/hold/trigger", PlayerInput::HOLD_TRIGGER);
+
+    auto read_quick_action = [&](const char* key, PlayerInput::QuickAction value) {
+        _key_to_quick_action[json::get_int(document, key)] = value;
+    };
+    read_quick_action("/controls/quick/0", PlayerInput::QUICK_0);
+    read_quick_action("/controls/quick/1", PlayerInput::QUICK_1);
+    read_quick_action("/controls/quick/2", PlayerInput::QUICK_2);
+    read_quick_action("/controls/quick/3", PlayerInput::QUICK_3);
+    read_quick_action("/controls/quick/4", PlayerInput::QUICK_4);
+    read_quick_action("/controls/quick/5", PlayerInput::QUICK_5);
+    read_quick_action("/controls/quick/6", PlayerInput::QUICK_6);
+    read_quick_action("/controls/quick/7", PlayerInput::QUICK_7);
+    read_quick_action("/controls/quick/8", PlayerInput::QUICK_8);
+    read_quick_action("/controls/quick/9", PlayerInput::QUICK_9);
+    read_quick_action("/controls/quick/next_weapon", PlayerInput::QUICK_NEXT_WEAPON);
+    read_quick_action("/controls/quick/previous_weapon", PlayerInput::QUICK_PREVIOUS_WEAPON);
+}
+
+PlayerInput::HoldAction StateMoon::event_to_hold_action(const KeyboardEvent& event) const {
+    auto action = _key_to_hold_action.find(event.get_key());
+    return action != _key_to_hold_action.end()
+           ? action->second
+           : PlayerInput::HOLD_NONE;
+}
+
+PlayerInput::QuickAction StateMoon::event_to_quick_action(const KeyboardEvent& event) const {
+    auto action = _key_to_quick_action.find(event.get_key());
+    return action != _key_to_quick_action.end()
+           ? action->second
+           : PlayerInput::QUICK_NONE;
 }
 
 void StateMoon::handle_window_event(const WindowEvent& event) {
 }
 
 void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
-    _player.handle_mouse_event(event);
+    switch (event.get_type()) {
+        case MouseScrollEvent::Type::SCROLL_UP: {
+            _player_inputs[_player_entity].tap(PlayerInput::QUICK_PREVIOUS_WEAPON);
+            break;
+        }
+
+        case MouseScrollEvent::Type::SCROLL_DOWN: {
+            _player_inputs[_player_entity].tap(PlayerInput::QUICK_NEXT_WEAPON);
+            break;
+        }
+    }
 }
 
 void StateMoon::handle_mouse_event(const MousePointEvent& event) {
@@ -35,29 +90,56 @@ void StateMoon::handle_mouse_event(const MousePointEvent& event) {
         _mouse_pos = event.get_position();
     }
 
-    _player.handle_mouse_event(event);
+    switch (event.get_type()) {
+        case MousePointEvent::Type::BUTTON_DOWN: {
+            _player_inputs[_player_entity].press(PlayerInput::HOLD_TRIGGER);
+            break;
+        }
+
+        case MousePointEvent::Type::BUTTON_UP: {
+            _player_inputs[_player_entity].release(PlayerInput::HOLD_TRIGGER);
+            break;
+        }
+
+        case MousePointEvent::Type::MOTION: {
+            _player_inputs[_player_entity].move_mouse(event.get_position());
+            break;
+        }
+    }
 }
 
 void StateMoon::handle_key_event(const KeyboardEvent& event) {
-    _player.handle_key_event(event);
+    if (KeyboardEvent::is_key_down(event)) {
+        PlayerInput::HoldAction hold_action = event_to_hold_action(event);
+        _player_inputs[_player_entity].press(hold_action);
+
+    } else if (KeyboardEvent::is_key_up(event)) {
+        PlayerInput::HoldAction hold_action = event_to_hold_action(event);
+        _player_inputs[_player_entity].release(hold_action);
+
+        PlayerInput::QuickAction quick_action = event_to_quick_action(event);
+        _player_inputs[_player_entity].tap(quick_action);
+    }
 }
 
-void StateMoon::restrict_pos(GameObject& object) {
-    Transform transform = object.get_transform();
+void StateMoon::restrict_pos(Entity entity) {
+    auto& transform = _transforms[entity];
 
     if (transform.position.x < 0) {
         transform.position.x = 0;
+
     } else if (transform.position.x > _level_width) {
         transform.position.x = _level_width;
+
     }
 
     if (transform.position.y < 0) {
         transform.position.y = 0;
+
     } else if (transform.position.y > _level_height) {
         transform.position.y = _level_height;
-    }
 
-    object.set_transform(transform);
+    }
 }
 
 Entity StateMoon::create_entity() {
@@ -75,6 +157,23 @@ void StateMoon::remove_entity(Entity entity) {
     _speeds.erase(entity);
     _sprites.erase(entity);
     _melee_damages.erase(entity);
+    _weapons.erase(entity);
+    _player_inputs.erase(entity);
+    _damage_cooldowns.erase(entity);
+}
+
+Entity StateMoon::create_player(Point2<float> position) {
+    Entity entity = create_entity();
+
+    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
+    _speeds[entity] = Speed{};
+    _weapons[entity] = Weapons{};
+    _player_inputs[entity] = PlayerInput{};
+    _hitpoints[entity] = Hitpoints{100};
+    _damage_cooldowns[entity] = Timer{};
+    _sprites[entity] = Sprite{animation::PLAYER_HANDS};
+
+    return entity;
 }
 
 Entity StateMoon::create_zombie(Point2<float> position) {
@@ -112,12 +211,108 @@ void StateMoon::handle_logic() {
     handle_zombie_logic();
     handle_werewolf_logic();
 
-    restrict_pos(_player);
-    if (_player.is_dead()) _game.request_state_change(StateId::INTRO);
+    restrict_pos(_player_entity);
+
+    if (is_player_dead(_player_entity)) {
+        _game.request_state_change(StateId::INTRO);
+    }
+}
+
+bool StateMoon::is_player_dead(Entity entity) {
+    return _hitpoints[entity].current_hp <= 0;
 }
 
 void StateMoon::handle_player_logic() {
-    _player.handle_logic(get_engine(), _bullets);
+    player_handle_logic(_player_entity);
+}
+
+void StateMoon::player_handle_logic(Entity entity) {
+    if (_player_inputs[_player_entity].mouse_moved()) {
+        auto& player_position = _transforms[_player_entity].position;
+        const auto& mouse_position = _player_inputs[_player_entity].pop_mouse_position();
+        _transforms[_player_entity].angle = math::get_cartesian_angle(player_position, mouse_position);
+    }
+
+    player_handle_weapon_selection(entity);
+
+    // TODO Make the timer store a pointer to clock
+    // TODO AFTER Move the condition inside the getter
+    _speeds[_player_entity].max_speed = _damage_cooldowns[_player_entity].ticks_passed_since_start(500)
+                                        ? 2.3f
+                                        : 1.0f;
+
+    player_update_speeds();
+
+    gameobject_default_move(_player_entity);
+
+    // TODO don't try to reload on every frame
+    _weapons[_player_entity].try_reload_selected();
+
+    if (_player_inputs[_player_entity].is_held(PlayerInput::HOLD_TRIGGER)) {
+        _weapons[_player_entity].fire_from_selected(
+                get_engine(),
+                _transforms[_player_entity],
+                _bullets
+        );
+    }
+}
+
+void StateMoon::player_update_speeds() {
+    // TODO extract speed calculations to share between classes
+    int direction_x = _player_inputs[_player_entity].is_held(PlayerInput::HOLD_RIGHT)
+                      - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_LEFT);
+    int direction_y = _player_inputs[_player_entity].is_held(PlayerInput::HOLD_DOWN)
+                      - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_UP);
+
+    if (direction_x != 0 || direction_y != 0) {
+        auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));
+
+        _speeds[_player_entity].current_speed = {
+                math::radian_cos(movement_angle) * _speeds[_player_entity].max_speed,
+                math::radian_sin(movement_angle) * _speeds[_player_entity].max_speed
+        };
+    } else {
+        _speeds[_player_entity].current_speed = {0.0f, 0.0f};
+    }
+}
+
+void StateMoon::player_handle_weapon_selection(Entity entity) {
+    while (_player_inputs[_player_entity].has_quick_actions()) {
+        auto action = _player_inputs[_player_entity].pop_quick_action();
+        if (action == PlayerInput::QUICK_NEXT_WEAPON) {
+            _weapons[entity].select_next();
+
+        } else if (action == PlayerInput::QUICK_PREVIOUS_WEAPON) {
+            _weapons[entity].select_previous();
+
+        } else if (PlayerInput::is_digit(action)) {
+            _weapons[entity].select_by_index(PlayerInput::to_digit(action));
+
+        }
+    }
+
+    const auto& selected_weapon_name = _weapons[entity].get_selected_name();
+    const animation::Animation* animation = nullptr;
+    if (selected_weapon_name == "hands") {
+        animation = &animation::PLAYER_HANDS;
+
+    } else if (selected_weapon_name == "pistol") {
+        animation = &animation::PLAYER_PISTOL;
+
+    } else if (selected_weapon_name == "shotgun") {
+        animation = &animation::PLAYER_SHOTGUN;
+
+    } else if (selected_weapon_name == "uzi") {
+        animation = &animation::PLAYER_UZI;
+
+    } else if (selected_weapon_name == "aura") {
+        animation = &animation::PLAYER_AURA;
+
+    } else {
+        assert(animation != nullptr && "weapon has no sprite attached");
+        animation = &animation::PLAYER_HANDS;
+    }
+    _sprites[entity].set_state(*animation);
 }
 
 void StateMoon::handle_bullet_logic() {
@@ -145,7 +340,8 @@ void StateMoon::handle_bullet_logic() {
         for (auto& zombie : _zombie_ais) {
             auto entity = zombie.first;
 
-            if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) && _hitpoints[entity].current_hp > 0) {
+            if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) &&
+                _hitpoints[entity].current_hp > 0) {
                 zombie_take_damage(entity, bullet_damage);
                 return true;
             }
@@ -187,10 +383,10 @@ void StateMoon::handle_zombie_logic() {
 
     for (auto& zombie : _zombie_ais) {
         auto entity = zombie.first;
-        zombie_set_target(entity, _player.get_position());
+        zombie_set_target(entity, _transforms[_player_entity].position);
         zombie_handle_logic(entity);
 
-        if (circles_collide(_transforms[entity].get_circle(), _player.get_circle())) {
+        if (circles_collide(_transforms[entity].get_circle(), _transforms[_player_entity].get_circle())) {
             // TODO: Don't depend on animation
             int damage;
             if (_zombie_ais[entity].is_attacking() && _sprites[entity].is_last_frame()) {
@@ -198,7 +394,7 @@ void StateMoon::handle_zombie_logic() {
             } else {
                 damage = 0;
             }
-            _player.take_damage(damage);
+            player_take_damage(_player_entity, damage);
         }
 
         if (zombie_is_dead(entity)) {
@@ -209,6 +405,13 @@ void StateMoon::handle_zombie_logic() {
     for (auto dead_entity : dead_entities) {
         remove_entity(dead_entity);
         Log::d("zombie %d removed, %d total", dead_entity, _zombie_ais.size());
+    }
+}
+
+void StateMoon::player_take_damage(Entity entity, int damage_dealt) {
+    if (damage_dealt > 0 && _damage_cooldowns[_player_entity].ticks_passed_since_start(500)) {
+        _hitpoints[entity].current_hp -= damage_dealt;
+        _damage_cooldowns[entity].restart();
     }
 }
 
@@ -265,11 +468,11 @@ bool StateMoon::zombie_is_dead(Entity entity) {
 
 void StateMoon::handle_werewolf_logic() {
     _werewolves.erase(std::remove_if(_werewolves.begin(), _werewolves.end(), [&, this](Werewolf& werewolf) {
-        werewolf.set_target(_player.get_position());
+        werewolf.set_target(_transforms[_player_entity].position);
         werewolf.handle_logic();
 
-        if (objects_collide(werewolf, _player)) {
-            _player.take_damage(werewolf.get_melee_damage());
+        if (circles_collide(werewolf.get_circle(), _transforms[_player_entity].get_circle())) {
+            player_take_damage(_player_entity, werewolf.get_melee_damage());
         }
 
         return werewolf.is_dead();
@@ -307,7 +510,7 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
 
     graphic.render_texture(_background_tex, make_point(0, 0));
 
-    _player.handle_render(graphic, frames_passed);
+    player_handle_render(frames_passed);
 
     for (auto& zombie : _zombie_ais) {
         auto entity = zombie.first;
@@ -325,6 +528,11 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
     render_crosshair(frames_passed);
 
     graphic.refresh_screen();
+}
+
+void StateMoon::player_handle_render(float frames_passed) {
+    gameobject_handle_render(_player_entity, frames_passed);
+    gameobject_handle_render_health(_player_entity, Color{0, 0x77, 0, 0xFF}, frames_passed);
 }
 
 void StateMoon::zombie_handle_render(Entity entity, float frames_count) {
@@ -375,7 +583,7 @@ void StateMoon::gameobject_handle_render_health(Entity entity, Color color, floa
 void StateMoon::render_crosshair(float frames_count) {
     Graphic& graphic = get_engine().get_graphic();
 
-    auto texture = graphic.get_texture(_player.is_reloading()
+    auto texture = graphic.get_texture(_weapons[_player_entity].is_selected_reloading()
                                        ? "reload"
                                        : "crosshair");
     auto render_point = make_point(
@@ -409,6 +617,6 @@ void StateMoon::parse_level_data() {
                 .fire_cooldown(get_uint(weapon, "/fire_cooldown"))
                 .reload_cooldown(get_uint(weapon, "/reload_cooldown"));
 
-        _player.add_weapon(builder.build());
+        _weapons[_player_entity].add(builder.build());
     }
 }

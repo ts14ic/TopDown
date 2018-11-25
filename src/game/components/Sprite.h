@@ -98,6 +98,12 @@ namespace animation {
     extern const StaticAnimation ZOMBIE_MOVING;
     extern const RepeatableAnimation ZOMBIE_ATTACKING;
     extern const OneshotAnimation ZOMBIE_DYING;
+
+    extern const StaticAnimation PLAYER_HANDS;
+    extern const StaticAnimation PLAYER_PISTOL;
+    extern const StaticAnimation PLAYER_SHOTGUN;
+    extern const StaticAnimation PLAYER_UZI;
+    extern const StaticAnimation PLAYER_AURA;
 }
 
 class Sprite {
