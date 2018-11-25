@@ -39,7 +39,7 @@ bool animation::StaticAnimation::is_animation_ended() const {
     return true;
 }
 
-void animation::StaticAnimation::forward_time() {
+void animation::StaticAnimation::update() {
 }
 
 
@@ -81,7 +81,7 @@ bool animation::OneshotAnimation::is_animation_ended() const {
     return _time >= total_length;
 }
 
-void animation::OneshotAnimation::forward_time() {
+void animation::OneshotAnimation::update() {
     if (!_started) {
         _started = true;
         _timer.restart();
@@ -125,7 +125,7 @@ void animation::RepeatableAnimation::next_frame() {
     }
 }
 
-void animation::RepeatableAnimation::forward_time() {
+void animation::RepeatableAnimation::update() {
     if (is_frame_ended()) {
         next_frame();
         if (not is_last_frame()) {

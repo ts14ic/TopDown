@@ -19,7 +19,7 @@ namespace animation {
 
         virtual bool is_animation_ended() const = 0;
 
-        virtual void forward_time() = 0;
+        virtual void update() = 0;
     };
 
     class StaticAnimation : public Animation {
@@ -34,7 +34,7 @@ namespace animation {
 
         bool is_animation_ended() const override;
 
-        void forward_time() override;
+        void update() override;
 
         std::unique_ptr<Animation> clone() const override;
 
@@ -54,7 +54,7 @@ namespace animation {
 
         bool is_animation_ended() const override;
 
-        void forward_time() override;
+        void update() override;
 
         std::unique_ptr<Animation> clone() const override;
 
@@ -80,7 +80,7 @@ namespace animation {
 
         bool is_animation_ended() const override;
 
-        void forward_time() override;
+        void update() override;
 
         std::unique_ptr<Animation> clone() const override;
 
@@ -119,7 +119,7 @@ public:
     }
 
     void forward_time() {
-        _animation->forward_time();
+        _animation->update();
     }
 
 private:
