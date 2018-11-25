@@ -11,7 +11,7 @@ Zombie::Zombie(Point2<float> position)
 }
 
 int Zombie::get_melee_damage() const {
-    // FIXME: Don't depend on animation
+    // TODO: Don't depend on animation
     if (_ai.is_attacking() && _sprite.is_last_frame()) {
         return 15;
     } else {
@@ -77,6 +77,7 @@ void Zombie::handle_render(Engine& engine, float frames_count) {
     default_render(engine.get_graphic(), frames_count);
     default_render_health(engine.get_graphic(), Color{0, 0x77, 0, 0xFF}, 0);
 
+    // TODO: Don't depend on animation
     if (_ai.is_attacking() && _sprite.is_last_frame()) {
         engine.get_audio().play_sound("zombie_attack");
     }
