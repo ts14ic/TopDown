@@ -60,6 +60,23 @@ void StateMoon::restrict_pos(GameObject& object) {
     object.set_transform(transform);
 }
 
+Entity StateMoon::create_entity() {
+    // TODO: Make a proper entity id factory and class
+    auto entity = _entity_counter;
+    assert(_entity_counter < std::numeric_limits<std::size_t>::max() && "Entity pool exhausted");
+    ++_entity_counter;
+    return entity;
+}
+
+void StateMoon::remove_entity(Entity entity) {
+    _zombie_ais.erase(entity);
+    _transforms.erase(entity);
+    _hitpoints.erase(entity);
+    _speeds.erase(entity);
+    _sprites.erase(entity);
+    _melee_damages.erase(entity);
+}
+
 Entity StateMoon::create_zombie(Point2<float> position) {
     Entity entity = create_entity();
 
@@ -72,17 +89,6 @@ Entity StateMoon::create_zombie(Point2<float> position) {
 
     Log::d("zombie %d created, %d total", entity, _zombie_ais.size());
     return entity;
-}
-
-void StateMoon::remove_zombie(Entity entity) {
-    _zombie_ais.erase(entity);
-    _transforms.erase(entity);
-    _hitpoints.erase(entity);
-    _speeds.erase(entity);
-    _sprites.erase(entity);
-    _melee_damages.erase(entity);
-
-    Log::d("zombie %d removed, %d total", entity, _zombie_ais.size());
 }
 
 void StateMoon::handle_logic() {
@@ -201,7 +207,8 @@ void StateMoon::handle_zombie_logic() {
     }
 
     for (auto dead_entity : dead_entities) {
-        remove_zombie(dead_entity);
+        remove_entity(dead_entity);
+        Log::d("zombie %d removed, %d total", dead_entity, _zombie_ais.size());
     }
 }
 

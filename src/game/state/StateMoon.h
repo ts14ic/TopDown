@@ -51,17 +51,11 @@ private:
 
     void render_crosshair(float frames_count);
 
-    Entity create_entity() {
-        // TODO: Make a proper entity id factory and class
-        auto entity = _entity_counter;
-        assert(_entity_counter < SIZE_MAX && "Entity pool exhausted");
-        ++_entity_counter;
-        return entity;
-    }
+    Entity create_entity();
+
+    void remove_entity(Entity entity);
 
     Entity create_zombie(Point2<float> position);
-
-    void remove_zombie(Entity entity);
 
     void zombie_take_damage(Entity entity, int damage_dealt);
 
