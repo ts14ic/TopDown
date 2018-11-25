@@ -122,7 +122,8 @@ Point2<int> StateMoon::make_random_point() const {
     }
 }
 
-void StateMoon::handle_render(float frames_count) {
+void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_frame) {
+    float frames_passed = milliseconds_passed / milliseconds_per_frame;
     auto& engine = get_engine();
     auto& graphic = engine.get_graphic();
     graphic.clear_screen();
@@ -132,21 +133,21 @@ void StateMoon::handle_render(float frames_count) {
 
     graphic.render_texture(_background_tex, make_point(0, 0));
 
-    _player.handle_render(graphic, frames_count);
+    _player.handle_render(graphic, frames_passed);
 
     for (auto& zombie : _zombies) {
-        zombie.handle_render(engine, graphic, audio, frames_count);
+        zombie.handle_render(engine, graphic, audio, frames_passed);
     }
 
     for (auto& werewolf : _werewolves) {
-        werewolf.handle_render(engine, graphic, audio, frames_count);
+        werewolf.handle_render(engine, graphic, audio, frames_passed);
     }
 
     for (auto& b : _bullets) {
-        b.handle_render(engine, graphic, frames_count);
+        b.handle_render(engine, graphic, frames_passed);
     }
 
-    render_crosshair(frames_count);
+    render_crosshair(frames_passed);
 
     graphic.refresh_screen();
 }

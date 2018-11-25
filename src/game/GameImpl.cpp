@@ -10,7 +10,7 @@ constexpr unsigned DEFAULT_FRAMES_PER_SECOND = 30;
 GameImpl::GameImpl(
         std::unique_ptr<Engine> engine
 ) : _engine{std::move(engine)} {
-    _ms_per_frame = calculate_ms_per_frame(DEFAULT_FRAMES_PER_SECOND);
+    _milliseconds_per_frame = calculate_ms_per_frame(DEFAULT_FRAMES_PER_SECOND);
 
     load_config();
     load_resources();
@@ -25,23 +25,23 @@ void GameImpl::run_loop() {
     _engine->get_input().set_event_handler(*this);
 
     auto previous_time = Clock::get_current_time();
-    auto time_passed = 0UL;
+    auto milliseconds_passed = 0UL;
 
     while (_current_state_id != StateId::EXIT) {
         auto new_time = Clock::get_current_time();
-        time_passed += new_time - previous_time;
+        milliseconds_passed += new_time - previous_time;
         previous_time = new_time;
 
         _engine->get_input().poll_events();
 
-        while (time_passed >= _ms_per_frame) {
+        while (milliseconds_passed >= _milliseconds_per_frame) {
             _current_state->handle_logic();
-            time_passed -= _ms_per_frame;
+            milliseconds_passed -= _milliseconds_per_frame;
         }
 
         change_state();
 
-        _current_state->handle_render(static_cast<float>(time_passed) / _ms_per_frame);
+        _current_state->handle_render(milliseconds_passed, _milliseconds_per_frame);
     }
 }
 
@@ -102,7 +102,7 @@ void GameImpl::handle_mouse_event(const MousePointEvent& event) {
 void GameImpl::load_config() {
     auto document = json::parse_json(files::read_file_to_string("data/config.json"));
 
-    _ms_per_frame = calculate_ms_per_frame(json::get_uint(document, "/fps"));
+    _milliseconds_per_frame = calculate_ms_per_frame(json::get_uint(document, "/fps"));
 }
 
 void GameImpl::load_resources() {

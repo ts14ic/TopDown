@@ -22,9 +22,9 @@ public:
 
     void handle_logic() override;
 
-    void handle_render(float frames_count) override;
-
     void restrict_pos(GameObject&);
+
+    void handle_render(float milliseconds_passed, float milliseconds_per_frame) override;
 
 private:
     Engine& get_engine() const {

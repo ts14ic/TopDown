@@ -38,5 +38,5 @@ private:
     StateId _next_state_id = StateId::NONE;
     std::unique_ptr<GameState> _current_state;
     std::unique_ptr<Engine> _engine;
-    unsigned _ms_per_frame;
+    unsigned _milliseconds_per_frame;
 };

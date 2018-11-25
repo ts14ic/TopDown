@@ -18,7 +18,7 @@ public:
 
     void handle_logic() override;
 
-    void handle_render(float frames_count) override;
+    void handle_render(float milliseconds_passed, float milliseconds_per_frame) override;
 
 private:
     Game& _game;
