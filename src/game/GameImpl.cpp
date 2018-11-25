@@ -25,23 +25,23 @@ void GameImpl::run_loop() {
     _engine->get_input().set_event_handler(*this);
 
     auto previous_time = Clock::get_current_time();
-    auto lag_time = 0UL;
+    auto time_passed = 0UL;
 
     while (_current_state_id != StateId::EXIT) {
         auto new_time = Clock::get_current_time();
-        lag_time += new_time - previous_time;
+        time_passed += new_time - previous_time;
         previous_time = new_time;
 
         _engine->get_input().poll_events();
 
-        while (lag_time >= _ms_per_frame) {
+        while (time_passed >= _ms_per_frame) {
             _current_state->handle_logic();
-            lag_time -= _ms_per_frame;
+            time_passed -= _ms_per_frame;
         }
 
         change_state();
 
-        _current_state->handle_render(static_cast<float>(lag_time) / _ms_per_frame);
+        _current_state->handle_render(static_cast<float>(time_passed) / _ms_per_frame);
     }
 }
 
