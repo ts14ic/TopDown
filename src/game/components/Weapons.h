@@ -25,13 +25,13 @@ public:
 
     void try_reload_selected();
 
-    void fire_from_selected(Engine& engine, Transform& origin, std::vector<Bullet>& bullets);
+    int fire_from_selected(Engine& engine, Transform& origin);
 
-private:
     Weapon& get_selected_mut() { return _weapons[_selected_weapon_index]; }
 
     const Weapon& get_selected() const { return _weapons[_selected_weapon_index]; }
 
+private:
     std::vector<Weapon> _weapons;
     unsigned _selected_weapon_index = 0;
 };

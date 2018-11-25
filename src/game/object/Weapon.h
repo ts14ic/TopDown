@@ -15,7 +15,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    void pull_trigger(Engine& engine, const Transform& origin, std::vector<Bullet>& bullets);
+    int pull_trigger(Engine& engine);
 
     void try_reload();
 
@@ -35,8 +35,6 @@ private:
     void start_reloading();
 
     void play_fire_sound(Audio& audio);
-
-    void spawn_bullets(Random& random, const Transform& origin, std::vector<Bullet>& bullets);
 
 private:
     Timer _fire_cooldown_timer;

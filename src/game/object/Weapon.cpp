@@ -33,21 +33,12 @@ void Weapon::play_fire_sound(Audio& audio) {
     }
 }
 
-void Weapon::spawn_bullets(Random& random, const Transform& origin, std::vector<Bullet>& bullets) {
-    for (int i = 0; i < _projectiles_per_shot; ++i) {
-        Bullet bullet(random, origin, *this);
-        bullets.push_back(bullet);
-    }
-}
-
-void Weapon::pull_trigger(Engine& engine, const Transform& origin, std::vector<Bullet>& bullets) {
-    auto& random = engine.get_random();
-    auto& audio = engine.get_audio();
-
+int Weapon::pull_trigger(Engine& engine) {
+    auto projectiles_shot = 0;
     if (_fire_cooldown_timer.ticks_passed_since_start(_fire_cooldown) && _current_ammo > 0) {
-        spawn_bullets(random, origin, bullets);
+        projectiles_shot = _projectiles_per_shot;
 
-        play_fire_sound(audio);
+        play_fire_sound(engine.get_audio());
 
         --_current_ammo;
         Log::d("shot from %s, ammo [%d/%d]", _name.c_str(), _current_ammo, _max_ammo);
@@ -57,6 +48,7 @@ void Weapon::pull_trigger(Engine& engine, const Transform& origin, std::vector<B
 
         _fire_cooldown_timer.restart();
     }
+    return projectiles_shot;
 }
 
 int Weapon::get_length() const {

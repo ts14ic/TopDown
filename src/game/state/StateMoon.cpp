@@ -249,11 +249,15 @@ void StateMoon::player_handle_logic(Entity entity) {
     _weapons[_player_entity].try_reload_selected();
 
     if (_player_inputs[_player_entity].is_held(PlayerInput::HOLD_TRIGGER)) {
-        _weapons[_player_entity].fire_from_selected(
-                get_engine(),
-                _transforms[_player_entity],
-                _bullets
-        );
+        auto projectiles_shot = _weapons[_player_entity].fire_from_selected(get_engine(), _transforms[_player_entity]);
+        for (int i = 0; i < projectiles_shot; ++i) {
+            Bullet bullet(
+                    get_engine().get_random(),
+                    _transforms[_player_entity],
+                    _weapons[_player_entity].get_selected()
+            );
+            _bullets.push_back(bullet);
+        }
     }
 }
 
