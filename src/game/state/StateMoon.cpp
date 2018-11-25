@@ -95,6 +95,7 @@ void StateMoon::handle_logic() {
             create_zombie(position);
 //        } else {
 //            _werewolves.emplace_back(position);
+//        }
         }
 
         _enemy_spawn_cooldown.restart();
