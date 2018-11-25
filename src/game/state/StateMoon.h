@@ -36,8 +36,11 @@ private:
     }
 
     void handle_player_logic();
+
     void handle_bullet_logic();
+
     void handle_zombie_logic();
+
     void handle_werewolf_logic();
 
     void parse_level_data();
@@ -48,7 +51,6 @@ private:
 
     void render_crosshair(float frames_count);
 
-private:
     Entity create_entity() {
         // TODO: Make a proper entity id factory and class
         auto entity = _entity_counter;
@@ -77,6 +79,7 @@ private:
 
     void gameobject_default_move(Entity entity);
 
+private:
     Game& _game;
     std::string _background_tex;
     const int _level_width;
