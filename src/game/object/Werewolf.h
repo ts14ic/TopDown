@@ -4,6 +4,7 @@
 #include <game/timer/Timer.h>
 #include <game/mixins/HasMeleeDamage.h>
 #include <game/components/Sprite.h>
+#include <game/components/WolfAi.h>
 #include <engine/random/Random.h>
 #include <engine/audio/Audio.h>
 #include <engine/Engine.h>
@@ -45,19 +46,9 @@ public:
                        float frames_count);
 
 private:
-    enum AiState {
-        AI_IDLE = 0x0,
-        AI_MOVING = 0x1,
-        AI_ATTACKING = 0x2,
-        AI_TELEPORTING = 0x4,
-        AI_DYING = 0x8
-    };
-
     Transform _transform;
     Speed _speed = Speed{2.5f};
     Hitpoints _hitpoints;
     Sprite _sprite;
-    Timer _attack_cooldown;
-    Timer _teleport_cooldown;
-    int _ai_state = AI_IDLE;
+    WolfAi _ai;
 };

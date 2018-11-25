@@ -9,7 +9,7 @@ Werewolf::Werewolf(Point2<float> position)
 
 int Werewolf::get_melee_damage() const {
     // FIXME: animation has attack points on frames 3 and 7, so it's not only last frame
-    if (_ai_state == AI_ATTACKING && _sprite.is_last_frame()) {
+    if (_ai.is_attacking() && _sprite.is_last_frame()) {
         return 10;
 
     } else {
@@ -22,20 +22,23 @@ std::string Werewolf::get_tex_name() const {
 }
 
 void Werewolf::take_damage(int damage_dealt) {
-    if (_ai_state == AI_TELEPORTING) damage_dealt /= 2;
+    if (_ai.is_teleporting()) {
+        damage_dealt /= 2;
+    }
 
     if (damage_dealt > 0) _hitpoints.current_hp -= damage_dealt;
-    if (!has_hp() && _ai_state != AI_DYING) {
-        _ai_state = AI_DYING;
+    if (!has_hp() && !_ai.is_dying()) {
+        _ai.set_state(WolfAi::AI_DYING);
         _sprite.set_state(animation::WOLF_DYING);
     }
 }
 
 void Werewolf::set_target(Point2<float> position) {
-    if (_ai_state == AI_DYING) return;
+    if (_ai.is_dying()) {
+        return;
+    }
 
-    if (_ai_state == AI_TELEPORTING
-        && !_teleport_cooldown.ticks_passed_since_start(500)) {
+    if (_ai.is_teleporting() && !_ai.teleport_finished()) {
         return;
     }
 
@@ -43,23 +46,23 @@ void Werewolf::set_target(Point2<float> position) {
 
     auto dist = math::get_distance(_transform.position, position);
     if (dist > get_circle().get_radius() * 1.7f) {
-        if (_ai_state != AI_MOVING) {
-            _ai_state = AI_MOVING;
+        if (!_ai.is_moving()) {
+            _ai.set_state(WolfAi::AI_MOVING);
             _sprite.set_state(animation::WOLF_MOVING);
         }
-    } else if (_ai_state != AI_ATTACKING) {
-        _ai_state = AI_ATTACKING;
+    } else if (!_ai.is_attacking()) {
+        _ai.set_state(WolfAi::AI_ATTACKING);
         _sprite.set_state(animation::WOLF_ATTACKING);
     }
 }
 
 void Werewolf::handle_logic() {
-    if (_ai_state == AI_DYING) {
+    if (_ai.is_dying()) {
         set_current_speed(0.f, 0.f);
         return;
     }
 
-    if (_ai_state == AI_MOVING) {
+    if (_ai.is_moving()) {
         // TODO extract speed setting
         auto movement_angle = get_angle();
 
@@ -72,24 +75,26 @@ void Werewolf::handle_logic() {
         set_current_speed(0.f, 0.f);
     }
 
-    if (_ai_state == AI_ATTACKING && _attack_cooldown.ticks_passed_since_start(600)) {
-        _attack_cooldown.restart();
-        _ai_state = AI_MOVING;
+    if (_ai.is_attacking() && _ai.can_attack_600()) {
+        _ai.attack_restart();
+        _ai.set_state(WolfAi::AI_MOVING);
         _sprite.set_state(animation::WOLF_MOVING);
     }
 }
 
 void Werewolf::teleport(Random& random) {
-    if (_ai_state == AI_DYING) return;
+    if (_ai.is_dying()) {
+        return;
+    }
 
-    if (_ai_state != AI_TELEPORTING && _teleport_cooldown.ticks_passed_since_start(1000)) {
+    if (!_ai.is_teleporting() && _ai.can_teleport()) {
         _transform.position = make_point(
                 _transform.position.x + random.get_int(-150, 150),
                 _transform.position.y + random.get_int(-150, 150)
         );
-        _ai_state = AI_TELEPORTING;
+        _ai.set_state(WolfAi::AI_TELEPORTING);
+        _ai.teleport_restart();
         _sprite.set_state(animation::WOLF_TELEPORT);
-        _teleport_cooldown.restart();
     }
 }
 
@@ -107,17 +112,17 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
         graphic.render_box(health_box, Color{0x55, 0, 0x33});
     }
 
-    if (_ai_state == AI_ATTACKING) {
+    if (_ai.is_attacking()) {
         // FIXME: Animation has attack points in 3 and 7 frames, not only last
         if (_sprite.is_last_frame()) {
             audio.play_sound("wolf_attack");
         }
-        if (_attack_cooldown.ticks_passed_since_start(100)) {
-            _attack_cooldown.restart();
+        if (_ai.can_attack_100()) {
+            _ai.attack_restart();
         }
 
-    } else if (_ai_state == AI_TELEPORTING) {
-        if (_attack_cooldown.ticks_passed_since_start(100) && _sprite.is_last_frame()) {
+    } else if (_ai.is_teleporting()) {
+        if (_ai.can_attack_100() && _sprite.is_last_frame()) {
             audio.play_sound("wolf_teleport");
         }
 
@@ -127,6 +132,5 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
 }
 
 bool Werewolf::is_dead() const {
-    return _ai_state == AI_DYING && _sprite.is_animation_ended();
-//    return _ai_state == AI_DYING && _animation_frame == 2;
+    return _ai.is_dying() && _sprite.is_animation_ended();
 }
