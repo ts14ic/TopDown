@@ -247,17 +247,13 @@ bool StateMoon::is_player_dead(Entity entity) {
 }
 
 void StateMoon::handle_player_logic() {
-    player_handle_logic(_player_entity);
-}
-
-void StateMoon::player_handle_logic(Entity entity) {
     if (_player_inputs[_player_entity].mouse_moved()) {
         auto& player_position = _transforms[_player_entity].position;
         const auto& mouse_position = _player_inputs[_player_entity].pop_mouse_position();
         _transforms[_player_entity].angle = math::get_cartesian_angle(player_position, mouse_position);
     }
 
-    player_handle_weapon_selection(entity);
+    player_handle_weapon_selection(_player_entity);
 
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
@@ -408,9 +404,8 @@ void StateMoon::zombie_take_damage(Entity entity, int damage_dealt) {
 
 void StateMoon::handle_zombie_logic() {
     std::vector<Entity> dead_entities;
-
-    for (auto& zombie : _zombie_ais) {
-        auto entity = zombie.first;
+    for (auto& entry : _zombie_ais) {
+        auto entity = entry.first;
         zombie_set_target(entity, _transforms[_player_entity].position);
         zombie_handle_logic(entity);
 

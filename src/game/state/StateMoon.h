@@ -64,8 +64,6 @@ private:
 
     bool is_player_dead(Entity entity);
 
-    void player_handle_logic(Entity entity);
-
     void player_handle_weapon_selection(Entity entity);
 
     void player_take_damage(Entity entity, int damage_dealt);
