@@ -33,10 +33,7 @@ void Weapon::play_fire_sound(Audio& audio) {
 }
 
 int Weapon::pull_trigger(Engine& engine) {
-    auto projectiles_shot = 0;
     if (_fire_cooldown_timer.ticks_passed_since_start(_fire_cooldown) && _current_ammo > 0) {
-        projectiles_shot = _projectiles_per_shot;
-
         play_fire_sound(engine.get_audio());
 
         --_current_ammo;
@@ -46,8 +43,10 @@ int Weapon::pull_trigger(Engine& engine) {
         }
 
         _fire_cooldown_timer.restart();
+
+        return _projectiles_per_shot;
     }
-    return projectiles_shot;
+    return 0;
 }
 
 int Weapon::get_length() const {
