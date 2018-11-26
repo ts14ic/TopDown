@@ -431,7 +431,7 @@ void StateMoon::handle_zombie_logic() {
 }
 
 void StateMoon::player_take_damage(Entity entity, int damage_dealt) {
-    if (damage_dealt > 0 && _damage_cooldowns[_player_entity].ticks_passed_since_start(500)) {
+    if (damage_dealt > 0 && _damage_cooldowns[_player_entity].ticks_passed_since_start(200)) {
         _hitpoints[entity].current_hp -= damage_dealt;
         _damage_cooldowns[entity].restart();
     }

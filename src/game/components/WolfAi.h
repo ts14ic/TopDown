@@ -24,16 +24,17 @@ public:
         return is_state(AI_ATTACKING);
     }
 
-    bool can_attack_100() const {
-        return _attack_cooldown.ticks_passed_since_start(100);
-    }
-
-    bool can_attack_600() const {
-        return _attack_cooldown.ticks_passed_since_start(600);
-    }
-
-    void attack_restart() {
+    void restart_attack() {
         _attack_cooldown.restart();
+    }
+
+    bool can_deal_damage() const {
+        auto attack_time = _attack_cooldown.get_ticks_since_start();
+        return (attack_time >= 300 and attack_time < 400) or (attack_time >= 700 and attack_time < 800);
+    }
+
+    bool must_reset_attack() const {
+        return _attack_cooldown.get_ticks_since_start() >= 800;
     }
 
     bool is_teleporting() const {
@@ -58,6 +59,8 @@ public:
 
     void set_state(AiState state) {
         _ai_state = state;
+        _attack_cooldown.restart();
+        _teleport_cooldown.restart();
     }
 
 private:

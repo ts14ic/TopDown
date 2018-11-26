@@ -8,12 +8,12 @@ Werewolf::Werewolf(Point2<float> position)
           _hitpoints{Hitpoints{30}} {}
 
 int Werewolf::get_melee_damage() const {
-    // FIXME: animation has attack points on frames 3 and 7, so it's not only last frame
-    if (_ai.is_attacking() && _sprite.is_last_frame()) {
+    if (_ai.is_attacking() && _ai.can_deal_damage()) {
         return 10;
 
     } else {
         return 0;
+
     }
 }
 
@@ -75,10 +75,8 @@ void Werewolf::handle_logic() {
         set_current_speed(0.f, 0.f);
     }
 
-    if (_ai.is_attacking() && _ai.can_attack_600()) {
-        _ai.attack_restart();
-        _ai.set_state(WolfAi::AI_MOVING);
-        _sprite.set_state(animation::WOLF_MOVING);
+    if (_ai.is_attacking() && _ai.must_reset_attack()) {
+        _ai.restart_attack();
     }
 }
 
@@ -117,12 +115,9 @@ void Werewolf::handle_render(Engine& engine, Graphic& graphic, Audio& audio,
         if (_sprite.is_last_frame()) {
             audio.play_sound("wolf_attack");
         }
-        if (_ai.can_attack_100()) {
-            _ai.attack_restart();
-        }
 
     } else if (_ai.is_teleporting()) {
-        if (_ai.can_attack_100() && _sprite.is_last_frame()) {
+        if (_sprite.is_last_frame()) {
             audio.play_sound("wolf_teleport");
         }
 
