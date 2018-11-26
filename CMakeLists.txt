@@ -76,8 +76,8 @@ set(SOURCE_FILES
         src/game/components/Speed2.h
         src/game/components/Speed.h
         src/game/mixins/HasSpeed.h
-        src/game/components/Hitpoints.h
-        src/game/mixins/HasHitpoints.h
+        src/game/components/Vitality.h
+        src/game/mixins/HasVitality.h
         src/game/mixins/HasTexture.h
         src/game/components/WeaponInventory.h src/game/components/WeaponInventory.cpp
         src/game/mixins/HasWeaponInventory.h

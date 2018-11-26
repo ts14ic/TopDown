@@ -26,9 +26,9 @@ public:
 
     void set_speed(Speed speed) override { _speed = speed; }
 
-    Hitpoints get_hitpoints() const override { return _hitpoints; }
+    Vitality get_vitality() const override { return _vitality; }
 
-    void set_hitpoints(Hitpoints hitpoints) override { _hitpoints = hitpoints; }
+    void set_vitality(Vitality vitality) override { _vitality = vitality; }
 
     std::string get_tex_name() const override;
 
@@ -57,6 +57,6 @@ private:
     Speed _speed;
     WeaponInventory _inventory;
     PlayerInput _input;
-    Hitpoints _hitpoints;
+    Vitality _vitality;
     Timer _damage_cooldown;
 };

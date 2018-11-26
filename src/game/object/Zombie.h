@@ -26,9 +26,9 @@ public:
     std::string get_tex_name() const override;
 
     // Damageable legacy
-    Hitpoints get_hitpoints() const override { return _hitpoints; }
+    Vitality get_vitality() const override { return _vitality; }
 
-    void set_hitpoints(Hitpoints hitpoints) override { _hitpoints = hitpoints; }
+    void set_vitality(Vitality vitality) override { _vitality = vitality; }
 
     bool is_dead() const override;
 
@@ -46,7 +46,7 @@ public:
 private:
     Transform _transform;
     Speed _speed = Speed{1.7f};
-    Hitpoints _hitpoints;
+    Vitality _vitality;
     ZombieAi _ai;
     Sprite _sprite;
 };

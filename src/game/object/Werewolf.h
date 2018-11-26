@@ -23,9 +23,9 @@ public:
     std::string get_tex_name() const override;
 
     // Damageable legacy
-    Hitpoints get_hitpoints() const override { return _hitpoints; }
+    Vitality get_vitality() const override { return _vitality; }
 
-    void set_hitpoints(Hitpoints hitpoints) override { _hitpoints = hitpoints; }
+    void set_vitality(Vitality vitality) override { _vitality = vitality; }
 
     int get_melee_damage() const override;
 
@@ -54,7 +54,7 @@ private:
 
     Transform _transform;
     Speed _speed = Speed{2.5f};
-    Hitpoints _hitpoints;
+    Vitality _vitality;
     int _animation_frame = 0;
     Timer _attack_cooldown;
     Timer _teleport_cooldown;

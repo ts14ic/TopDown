@@ -6,7 +6,7 @@ using std::vector;
 
 Zombie::Zombie(Point2d<float> position)
         : _transform{Transform{position, 0.0f, 25.0f}},
-          _hitpoints{Hitpoints{50}} {
+          _vitality{Vitality{50}} {
     _sprite.set_state(animation::ZOMBIE_MOVING);
 }
 
@@ -25,7 +25,7 @@ std::string Zombie::get_tex_name() const {
 
 void Zombie::take_damage(int damage_dealt) {
     if (damage_dealt > 0) {
-        _hitpoints.current_hp -= damage_dealt;
+        _vitality.current_hp -= damage_dealt;
     }
 
     if (!has_hp() && !_ai.is_dying()) {

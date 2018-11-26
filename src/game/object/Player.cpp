@@ -8,7 +8,7 @@ Player::Player()
 
 Player::Player(Point2d<float> position)
         : _transform{Transform{position, 0.0f, 30.0f}},
-          _hitpoints{Hitpoints{100}} {}
+          _vitality{Vitality{100}} {}
 
 std::string Player::get_tex_name() const {
     if (_inventory.any_selected()) {
@@ -26,7 +26,7 @@ bool Player::is_dead() const {
 
 void Player::take_damage(int damageAmount) {
     if (damageAmount > 0 && _damage_cooldown.ticks_passed_since_start(500)) {
-        _hitpoints.current_hp -= damageAmount;
+        _vitality.current_hp -= damageAmount;
         _damage_cooldown.restart();
     }
 }

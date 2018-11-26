@@ -1,14 +1,14 @@
 #pragma once
 
-struct Hitpoints {
-    Hitpoints() {
+struct Vitality {
+    Vitality() {
         current_hp = 0;
         default_hp = 0;
     }
 
-    explicit Hitpoints(int default_hp): Hitpoints{default_hp, default_hp} {}
+    explicit Vitality(int default_hp): Vitality{default_hp, default_hp} {}
 
-    Hitpoints(int current_hp, int default_hp) {
+    Vitality(int current_hp, int default_hp) {
         this->current_hp = current_hp;
         this->default_hp = default_hp;
     }
