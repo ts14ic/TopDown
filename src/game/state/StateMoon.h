@@ -5,7 +5,8 @@
 #include <game/components/ZombieAi.h>
 #include <game/components/PlayerInput.h>
 #include <game/components/Weapons.h>
-#include <game/object/Werewolf.h>
+#include <game/components/WolfAi.h>
+#include <game/components/Hitpoints.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
 #include <engine/geometry/Point2.h>
@@ -60,6 +61,18 @@ private:
 
     Entity create_bullet(const Transform& origin, const Weapons& weapons);
 
+    Entity create_werewolf(const Point2<float>& position);
+
+    void werewolf_set_target(Entity entity, const Point2<float>& position);
+
+    void werewolf_handle_logic(Entity entity);
+
+    void werewolf_take_damage(Entity entity, int damage_dealt);
+
+    void werewolf_teleport(Entity entity, const Random& random);
+
+    void werewolf_handle_audio(Entity entity, Audio& audio);
+
     Entity create_player(Point2<float> position);
 
     bool is_player_dead(Entity entity);
@@ -101,7 +114,6 @@ private:
     const int _level_height;
     Point2<int> _mouse_pos;
 
-    std::vector<Werewolf> _werewolves;
     float _crosshair_angle;
 
     Entity _player_entity;
@@ -117,6 +129,7 @@ private:
     std::unordered_map<Entity, ZombieAi> _zombie_ais;
     std::unordered_map<Entity, int> _melee_damages;
     std::unordered_map<Entity, Timer> _damage_cooldowns;
+    std::unordered_map<Entity, WolfAi> _wolf_ais;
 
     std::unordered_map<int, PlayerInput::HoldAction> _key_to_hold_action;
     std::unordered_map<int, PlayerInput::QuickAction> _key_to_quick_action;

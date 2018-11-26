@@ -1,5 +1,4 @@
 #include "StateMoon.h"
-#include <game/object/Werewolf.h>
 #include <engine/geometry/maths.h>
 #include <engine/geometry/Point2.h>
 #include <engine/log/Log.h>
@@ -150,17 +149,30 @@ Entity StateMoon::create_entity() {
 }
 
 void StateMoon::remove_entity(Entity entity) {
-    _zombie_ais.erase(entity);
     _transforms.erase(entity);
-    _hitpoints.erase(entity);
     _speeds.erase(entity);
-    _sprites.erase(entity);
-    _melee_damages.erase(entity);
     _weapons.erase(entity);
     _player_inputs.erase(entity);
+    _hitpoints.erase(entity);
+    _sprites.erase(entity);
+    _zombie_ais.erase(entity);
+    _melee_damages.erase(entity);
     _damage_cooldowns.erase(entity);
+    _wolf_ais.erase(entity);
 
     _bullet_entities.erase(entity);
+}
+
+Entity StateMoon::create_werewolf(const Point2<float>& position) {
+    Entity entity = create_entity();
+
+    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
+    _speeds[entity] = Speed{2.5f};
+    _hitpoints[entity] = Hitpoints{30};
+    _sprites[entity] = Sprite{animation::WOLF_MOVING};
+    _wolf_ais[entity] = WolfAi{};
+
+    return entity;
 }
 
 Entity StateMoon::create_player(Point2<float> position) {
@@ -182,7 +194,8 @@ Entity StateMoon::create_bullet(const Transform& origin, const Weapons& weapons)
 
     const auto& weapon = weapons.get_selected();
     auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
-    auto angle = origin.angle + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
+    auto angle =
+            origin.angle + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
     _transforms[entity] = Transform{
             make_point(
                     origin.position.x + math::cartesian_cos(angle) * weapon.get_length(),
@@ -218,12 +231,12 @@ void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(50) &&
-        (_zombie_ais.size() + _werewolves.size() < 1)) {
+        (_zombie_ais.size() + _wolf_ais.size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
-//            create_zombie(position);
+            create_zombie(position);
         } else {
-            _werewolves.emplace_back(position);
+            create_werewolf(position);
         }
 
         _enemy_spawn_cooldown.restart();
@@ -367,16 +380,18 @@ void StateMoon::handle_bullet_logic() {
                 continue;
             }
         }
-        for (auto& werewolf : _werewolves) {
-            if (circles_collide(transform.get_circle(), werewolf.get_circle())
-                && werewolf.has_hp() > 0) {
-                werewolf.take_damage(bullet_damage);
+        for (auto& werewolf : _wolf_ais) {
+            auto entity = werewolf.first;
+
+            if (circles_collide(transform.get_circle(), _transforms[entity].get_circle())
+                && _hitpoints[entity].current_hp > 0) {
+                werewolf_take_damage(entity, bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
                 continue;
             }
-            if (math::get_distance(transform.position, werewolf.get_position()) < 50) {
-                werewolf.teleport(random);
+            if (math::get_distance(transform.position, _transforms[entity].position) < 50) {
+                werewolf_teleport(entity, random);
             }
         }
 
@@ -385,6 +400,34 @@ void StateMoon::handle_bullet_logic() {
     }
     for (auto entity : destroyed_bullets) {
         remove_entity(entity);
+    }
+}
+
+void StateMoon::werewolf_take_damage(Entity entity, int damage_dealt) {
+    if (_wolf_ais[entity].is_teleporting()) {
+        damage_dealt /= 2;
+    }
+
+    if (damage_dealt > 0) _hitpoints[entity].current_hp -= damage_dealt;
+    if (_hitpoints[entity].current_hp <= 0 && !_wolf_ais[entity].is_dying()) {
+        _wolf_ais[entity].set_state(WolfAi::AI_DYING);
+        _sprites[entity].set_state(animation::WOLF_DYING);
+    }
+}
+
+void StateMoon::werewolf_teleport(Entity entity, const Random& random) {
+    if (_wolf_ais[entity].is_dying()) {
+        return;
+    }
+
+    if (!_wolf_ais[entity].is_teleporting() && _wolf_ais[entity].can_teleport()) {
+        _transforms[entity].position = make_point(
+                _transforms[entity].position.x + random.get_int(-150, 150),
+                _transforms[entity].position.y + random.get_int(-150, 150)
+        );
+        _wolf_ais[entity].set_state(WolfAi::AI_TELEPORTING);
+        _wolf_ais[entity].teleport_restart();
+        _sprites[entity].set_state(animation::WOLF_TELEPORT);
     }
 }
 
@@ -489,16 +532,79 @@ bool StateMoon::zombie_is_dead(Entity entity) {
 }
 
 void StateMoon::handle_werewolf_logic() {
-    _werewolves.erase(std::remove_if(_werewolves.begin(), _werewolves.end(), [&, this](Werewolf& werewolf) {
-        werewolf.set_target(_transforms[_player_entity].position);
-        werewolf.handle_logic();
+    std::vector<Entity> dead_entities;
+    for (auto& entry : _wolf_ais) {
+        auto entity = entry.first;
 
-        if (circles_collide(werewolf.get_circle(), _transforms[_player_entity].get_circle())) {
-            player_take_damage(_player_entity, werewolf.get_melee_damage());
+        werewolf_set_target(entity, _transforms[_player_entity].position);
+        werewolf_handle_logic(entity);
+
+        if (circles_collide(_transforms[entity].get_circle(), _transforms[_player_entity].get_circle())) {
+            int damage;
+            if (_wolf_ais[entity].is_attacking() && _wolf_ais[entity].can_deal_damage()) {
+                damage = 10;
+
+            } else {
+                damage = 0;
+
+            }
+            player_take_damage(_player_entity, damage);
         }
 
-        return werewolf.is_dead();
-    }), _werewolves.end());
+        if (_hitpoints[entity].current_hp <= 0 && _sprites[entity].is_animation_ended()) {
+            dead_entities.push_back(entity);
+        }
+    }
+    for (auto entity : dead_entities) {
+        remove_entity(entity);
+    }
+}
+
+void StateMoon::werewolf_set_target(Entity entity, const Point2<float>& position) {
+    if (_wolf_ais[entity].is_dying()) {
+        return;
+    }
+
+    if (_wolf_ais[entity].is_teleporting() && !_wolf_ais[entity].teleport_finished()) {
+        return;
+    }
+
+    _transforms[entity].angle = math::get_cartesian_angle(_transforms[entity].position, position);
+
+    auto dist = math::get_distance(_transforms[entity].position, position);
+    if (dist > _transforms[entity].get_circle().get_radius() * 1.7f) {
+        if (!_wolf_ais[entity].is_moving()) {
+            _wolf_ais[entity].set_state(WolfAi::AI_MOVING);
+            _sprites[entity].set_state(animation::WOLF_MOVING);
+        }
+    } else if (!_wolf_ais[entity].is_attacking()) {
+        _wolf_ais[entity].set_state(WolfAi::AI_ATTACKING);
+        _sprites[entity].set_state(animation::WOLF_ATTACKING);
+    }
+}
+
+void StateMoon::werewolf_handle_logic(Entity entity) {
+    if (_wolf_ais[entity].is_dying()) {
+        _speeds[entity].current_speed = {0.0f, 0.0f};
+        return;
+    }
+
+    if (_wolf_ais[entity].is_moving()) {
+        // TODO extract speed setting
+        auto movement_angle = _transforms[entity].angle;
+
+        _speeds[entity].current_speed = {
+                math::cartesian_cos(movement_angle) * _speeds[entity].max_speed,
+                math::cartesian_sin(movement_angle) * _speeds[entity].max_speed
+        };
+        gameobject_default_move(entity);
+    } else {
+        _speeds[entity].current_speed = {0.0f, 0.0f};
+    }
+
+    if (_wolf_ais[entity].is_attacking() && _wolf_ais[entity].must_reset_attack()) {
+        _wolf_ais[entity].restart_attack();
+    }
 }
 
 bool StateMoon::position_out_of_level_area(Point2<float> position) const {
@@ -550,13 +656,29 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
         zombie_handle_audio(entity);
     }
 
-    for (auto& werewolf : _werewolves) {
-        werewolf.handle_render(engine, graphic, audio, frames_passed);
+    for (auto& entry : _wolf_ais) {
+        auto entity = entry.first;
+        werewolf_handle_audio(entity, audio);
     }
 
     render_crosshair(frames_passed);
 
     graphic.refresh_screen();
+}
+
+void StateMoon::werewolf_handle_audio(Entity entity, Audio& audio) {
+    if (_wolf_ais[entity].is_attacking()) {
+        // FIXME: Animation has attack points in 3 and 7 frames, not only last
+        if (_sprites[entity].is_last_frame()) {
+            audio.play_sound("wolf_attack");
+        }
+
+    } else if (_wolf_ais[entity].is_teleporting()) {
+        if (_sprites[entity].is_last_frame()) {
+            audio.play_sound("wolf_teleport");
+        }
+
+    }
 }
 
 void StateMoon::zombie_handle_audio(Entity entity) {
