@@ -165,7 +165,7 @@ Entity StateMoon::create_entity() {
 void StateMoon::remove_entity(Entity entity) {
     _transforms.erase(entity);
     _speeds.erase(entity);
-    _weapons.erase(entity);
+    _weapon_inventories.erase(entity);
     _player_inputs.erase(entity);
     _hitpoints.erase(entity);
     _sprites.erase(entity);
@@ -194,7 +194,7 @@ Entity StateMoon::create_player(Point2<float> position) {
 
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
     _speeds[entity] = Speed{};
-    _weapons[entity] = Weapons{};
+    _weapon_inventories[entity] = WeaponInventory{};
     _player_inputs[entity] = PlayerInput{};
     _hitpoints[entity] = Hitpoints{100};
     _damage_cooldowns[entity] = Timer{};
@@ -203,10 +203,10 @@ Entity StateMoon::create_player(Point2<float> position) {
     return entity;
 }
 
-Entity StateMoon::create_bullet(const Transform& origin, const Weapons& weapons) {
+Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& inventory) {
     Entity entity = create_entity();
 
-    const auto& weapon = weapons.get_selected();
+    const auto& weapon = inventory.get_selected();
     auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
     auto angle =
             origin.angle + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
@@ -292,12 +292,12 @@ void StateMoon::handle_player_logic() {
     gameobject_default_move(_player_entity);
 
     // TODO don't try to reload on every frame
-    _weapons[_player_entity].try_reload_selected();
+    _weapon_inventories[_player_entity].try_reload_selected();
 
     if (_player_inputs[_player_entity].is_held(PlayerInput::HOLD_TRIGGER)) {
-        auto projectiles_shot = _weapons[_player_entity].fire_from_selected(get_engine(), _transforms[_player_entity]);
+        auto projectiles_shot = _weapon_inventories[_player_entity].fire_from_selected(get_engine(), _transforms[_player_entity]);
         for (int i = 0; i < projectiles_shot; ++i) {
-            create_bullet(_transforms[_player_entity], _weapons[_player_entity]);
+            create_bullet(_transforms[_player_entity], _weapon_inventories[_player_entity]);
         }
     }
 }
@@ -325,18 +325,18 @@ void StateMoon::player_handle_weapon_selection(Entity entity) {
     while (_player_inputs[_player_entity].has_quick_actions()) {
         auto action = _player_inputs[_player_entity].pop_quick_action();
         if (action == PlayerInput::QUICK_NEXT_WEAPON) {
-            _weapons[entity].select_next();
+            _weapon_inventories[entity].select_next();
 
         } else if (action == PlayerInput::QUICK_PREVIOUS_WEAPON) {
-            _weapons[entity].select_previous();
+            _weapon_inventories[entity].select_previous();
 
         } else if (PlayerInput::is_digit(action)) {
-            _weapons[entity].select_by_index(PlayerInput::to_digit(action));
+            _weapon_inventories[entity].select_by_index(PlayerInput::to_digit(action));
 
         }
     }
 
-    const auto& selected_weapon_name = _weapons[entity].get_selected_name();
+    const auto& selected_weapon_name = _weapon_inventories[entity].get_selected_name();
     const animation::Animation* animation = nullptr;
     if (selected_weapon_name == "hands") {
         animation = &animation::PLAYER_HANDS;
@@ -738,7 +738,7 @@ void StateMoon::gameobject_handle_render_health(Entity entity, Color color, floa
 void StateMoon::render_crosshair(float frames_count) {
     Graphic& graphic = get_engine().get_graphic();
 
-    auto texture = graphic.get_texture(_weapons[_player_entity].is_selected_reloading()
+    auto texture = graphic.get_texture(_weapon_inventories[_player_entity].is_selected_reloading()
                                        ? "reload"
                                        : "crosshair");
     auto render_point = make_point(
@@ -772,6 +772,6 @@ void StateMoon::parse_level_data() {
                 .fire_cooldown(get_uint(weapon, "/fire_cooldown"))
                 .reload_cooldown(get_uint(weapon, "/reload_cooldown"));
 
-        _weapons[_player_entity].add(builder.build());
+        _weapon_inventories[_player_entity].add(builder.build());
     }
 }

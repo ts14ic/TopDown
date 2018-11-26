@@ -69,7 +69,7 @@ set(SOURCE_FILES
         src/game/components/Speed2.h
         src/game/components/Speed.h
         src/game/components/Hitpoints.h
-        src/game/components/Weapons.h src/game/components/Weapons.cpp
+        src/game/components/WeaponInventory.h src/game/components/WeaponInventory.cpp
         src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
         src/engine/log/Log.cpp src/engine/log/Log.h
         src/engine/log/Logger.h

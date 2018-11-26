@@ -5,7 +5,7 @@
 #include <game/components/ZombieAi.h>
 #include <game/components/PlayerInput.h>
 #include <game/components/Speed.h>
-#include <game/components/Weapons.h>
+#include <game/components/WeaponInventory.h>
 #include <game/components/WolfAi.h>
 #include <game/components/Hitpoints.h>
 #include <game/Game.h>
@@ -60,7 +60,7 @@ private:
 
     void remove_entity(Entity entity);
 
-    Entity create_bullet(const Transform& origin, const Weapons& weapons);
+    Entity create_bullet(const Transform& origin, const WeaponInventory& inventory);
 
     Entity create_werewolf(const Point2<float>& position);
 
@@ -123,7 +123,7 @@ private:
     Entity _entity_counter = 1;
     std::unordered_map<Entity, Transform> _transforms;
     std::unordered_map<Entity, Speed> _speeds;
-    std::unordered_map<Entity, Weapons> _weapons;
+    std::unordered_map<Entity, WeaponInventory> _weapon_inventories;
     std::unordered_map<Entity, PlayerInput> _player_inputs;
     std::unordered_map<Entity, Hitpoints> _hitpoints;
     std::unordered_map<Entity, Sprite> _sprites;

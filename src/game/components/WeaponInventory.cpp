@@ -1,6 +1,6 @@
-#include "Weapons.h"
+#include "WeaponInventory.h"
 
-void Weapons::select_next() {
+void WeaponInventory::select_next() {
     auto last = _weapons.size() - 1;
     if (_selected_weapon_index < last) {
         _selected_weapon_index++;
@@ -9,27 +9,27 @@ void Weapons::select_next() {
     }
 }
 
-void Weapons::select_previous() {
+void WeaponInventory::select_previous() {
     auto first = 0u;
     if (_selected_weapon_index > first) {
         _selected_weapon_index--;
     }
 }
 
-void Weapons::select_by_index(unsigned index) {
+void WeaponInventory::select_by_index(unsigned index) {
     auto last = _weapons.size() - 1;
     if (index <= last) {
         _selected_weapon_index = index;
     }
 }
 
-void Weapons::try_reload_selected() {
+void WeaponInventory::try_reload_selected() {
     if (!empty()) {
         _weapons[_selected_weapon_index].try_reload();
     }
 }
 
-int Weapons::fire_from_selected(Engine& engine, Transform& origin) {
+int WeaponInventory::fire_from_selected(Engine& engine, Transform& origin) {
     if (!empty()) {
         return get_selected_mut().pull_trigger(engine);
     } else {
@@ -37,10 +37,10 @@ int Weapons::fire_from_selected(Engine& engine, Transform& origin) {
     }
 }
 
-bool Weapons::any_selected() const {
+bool WeaponInventory::any_selected() const {
     return !empty() && _selected_weapon_index < _weapons.size();
 }
 
-bool Weapons::is_selected_reloading() const {
+bool WeaponInventory::is_selected_reloading() const {
     return !empty() && _weapons[_selected_weapon_index].is_reloading();
 }
