@@ -16,7 +16,7 @@ class Player : public virtual GameObject,
 public:
     Player();
 
-    explicit Player(Point2<float> position);
+    explicit Player(Point2d<float> position);
 
     Transform get_transform() const override { return _transform; }
 

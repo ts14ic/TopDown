@@ -10,7 +10,7 @@
 
 class Werewolf : public Damageable, public HasMeleeDamage {
 public:
-    explicit Werewolf(Point2<float> position);
+    explicit Werewolf(Point2d<float> position);
 
     Transform get_transform() const override { return _transform; }
 
@@ -34,7 +34,7 @@ public:
     bool is_dead() const override;
 
     // StateMoon interface
-    void set_target(Point2<float> position);
+    void set_target(Point2d<float> position);
 
     void teleport(Random& random);
 

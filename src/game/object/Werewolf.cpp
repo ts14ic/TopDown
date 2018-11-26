@@ -3,7 +3,7 @@
 
 using std::vector;
 
-Werewolf::Werewolf(Point2<float> position)
+Werewolf::Werewolf(Point2d<float> position)
         : _transform{Transform{position, 0.0f, 25.0f}},
           _hitpoints{Hitpoints{30}} {}
 
@@ -43,7 +43,7 @@ void Werewolf::take_damage(int damage_dealt) {
     }
 }
 
-void Werewolf::set_target(Point2<float> position) {
+void Werewolf::set_target(Point2d<float> position) {
     if (_ai_state == AI_DYING) return;
 
     if (_ai_state == AI_TELEPORTING

@@ -12,7 +12,7 @@
 
 class Zombie : public Damageable, public HasMeleeDamage {
 public:
-    explicit Zombie(Point2<float> position);
+    explicit Zombie(Point2d<float> position);
 
     // GameObject legacy
     Transform get_transform() const override { return _transform; }
@@ -37,7 +37,7 @@ public:
     void take_damage(int damage_dealt) override;
 
     // StateMoon interface
-    void set_target(Point2<float> position);
+    void set_target(Point2d<float> position);
 
     void handle_logic();
 

@@ -3,7 +3,7 @@
 #include <game/object/Werewolf.h>
 #include <game/object/Bullet.h>
 #include <engine/geometry/maths.h>
-#include <engine/geometry/Point2.h>
+#include <engine/geometry/Point2d.h>
 #include <engine/log/Log.h>
 #include <io/json/json.h>
 #include <io/files/files.h>
@@ -165,12 +165,12 @@ void StateMoon::handle_werewolf_logic() {
     }), _werewolves.end());
 }
 
-bool StateMoon::position_out_of_level_area(Point2<float> position) const {
+bool StateMoon::position_out_of_level_area(Point2d<float> position) const {
     return (position.x > _level_width) || (position.x < 0) ||
            (position.y > _level_height) || (position.y < 0);
 }
 
-Point2<int> StateMoon::make_random_point() const {
+Point2d<int> StateMoon::make_random_point() const {
     Random& random = get_engine().get_random();
     if (!random.get_bool()) {
         return make_point(

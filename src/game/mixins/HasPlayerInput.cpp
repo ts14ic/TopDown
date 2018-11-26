@@ -114,7 +114,7 @@ void HasPlayerInput::tap(PlayerInput::QuickAction action) {
     });
 }
 
-void HasPlayerInput::move_mouse(Point2<int> mouse_position) {
+void HasPlayerInput::move_mouse(Point2d<int> mouse_position) {
     mutate_input(this, [=](PlayerInput& input) {
         input.move_mouse(mouse_position);
     });

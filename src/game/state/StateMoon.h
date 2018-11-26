@@ -6,7 +6,7 @@
 #include <game/object/Werewolf.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
-#include <engine/geometry/Point2.h>
+#include <engine/geometry/Point2d.h>
 
 class StateMoon : public GameState {
 public:
@@ -38,9 +38,9 @@ private:
 
     void parse_level_data();
 
-    Point2<int> make_random_point() const;
+    Point2d<int> make_random_point() const;
 
-    bool position_out_of_level_area(Point2<float> position) const;
+    bool position_out_of_level_area(Point2d<float> position) const;
 
     void render_crosshair(float frames_count);
 
@@ -49,7 +49,7 @@ private:
     std::string _background_tex;
     const int _level_width;
     const int _level_height;
-    Point2<int> _mouse_pos;
+    Point2d<int> _mouse_pos;
 
     Player _player;
     std::vector<Bullet> _bullets;

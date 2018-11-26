@@ -23,10 +23,10 @@ double detail::radian_sin(double radian_angle) {
     return std::sin(radian_angle);
 }
 
-double detail::get_distance(Point2<double> lhs, Point2<double> rhs) {
+double detail::get_distance(Point2d<double> lhs, Point2d<double> rhs) {
     return std::hypot(rhs.x - lhs.x, rhs.y - lhs.y);
 }
 
-double detail::get_radian_angle(Point2<double> lhs, Point2<double> rhs) {
+double detail::get_radian_angle(Point2d<double> lhs, Point2d<double> rhs) {
     return std::atan2(rhs.y - lhs.y, rhs.x - lhs.x);
 }

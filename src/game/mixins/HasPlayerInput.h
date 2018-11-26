@@ -31,7 +31,7 @@ private:
 
     void tap(PlayerInput::QuickAction action);
 
-    void move_mouse(Point2<int> mouse_position);
+    void move_mouse(Point2d<int> mouse_position);
 
     std::unordered_map<int, PlayerInput::HoldAction> _key_to_hold_action;
     std::unordered_map<int, PlayerInput::QuickAction> _key_to_quick_action;

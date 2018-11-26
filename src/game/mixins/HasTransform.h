@@ -9,11 +9,11 @@ public:
 
     virtual void set_transform(Transform transform) = 0;
 
-    Point2<float> get_position() const {
+    Point2d<float> get_position() const {
         return get_transform().position;
     }
 
-    void set_position(Point2<float> position) {
+    void set_position(Point2d<float> position) {
         Transform transform = get_transform();
         transform.position = position;
         set_transform(transform);

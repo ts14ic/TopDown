@@ -6,7 +6,7 @@
 Player::Player()
         : Player{make_point<float>(0, 0)} {}
 
-Player::Player(Point2<float> position)
+Player::Player(Point2d<float> position)
         : _transform{Transform{position, 0.0f, 30.0f}},
           _hitpoints{Hitpoints{100}} {}
 

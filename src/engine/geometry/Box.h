@@ -1,20 +1,20 @@
 #pragma once
 
-#include "Point2.h"
+#include "Point2d.h"
 #include "Size2.h"
 
 class Box {
 public:
     Box() = default;
 
-    Box(Point2<float> left_top, Size2<float> size) {
+    Box(Point2d<float> left_top, Size2<float> size) {
         _left_top = left_top;
         _size = size;
     }
 
-    Point2<float> get_left_top() const { return _left_top; }
+    Point2d<float> get_left_top() const { return _left_top; }
 
-    void set_left_top(Point2<float> left_top) { _left_top = left_top; }
+    void set_left_top(Point2d<float> left_top) { _left_top = left_top; }
 
     void set_left_top(float x, float y) {
         set_left_top(make_point(x, y));
@@ -47,6 +47,6 @@ public:
     }
 
 private:
-    Point2<float> _left_top;
+    Point2d<float> _left_top;
     Size2<float> _size;
 };

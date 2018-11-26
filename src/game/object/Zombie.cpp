@@ -4,7 +4,7 @@
 
 using std::vector;
 
-Zombie::Zombie(Point2<float> position)
+Zombie::Zombie(Point2d<float> position)
         : _transform{Transform{position, 0.0f, 25.0f}},
           _hitpoints{Hitpoints{50}} {
     _sprite.set_state(animation::ZOMBIE_MOVING);
@@ -34,7 +34,7 @@ void Zombie::take_damage(int damage_dealt) {
     }
 }
 
-void Zombie::set_target(Point2<float> position) {
+void Zombie::set_target(Point2d<float> position) {
     if (_ai.is_dying()) {
         return;
     }

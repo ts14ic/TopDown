@@ -1,19 +1,19 @@
 #pragma once
 
-#include "Point2.h"
+#include "Point2d.h"
 
 class Circle {
 public:
     Circle() = default;
 
-    Circle(Point2<float> position, float radius) {
+    Circle(Point2d<float> position, float radius) {
         _center_pos = position;
         _radius = radius;
     }
 
-    Point2<float> get_center() const { return _center_pos; }
+    Point2d<float> get_center() const { return _center_pos; }
 
-    void set_center(Point2<float> position) { _center_pos = position; }
+    void set_center(Point2d<float> position) { _center_pos = position; }
 
     void set_center(float x, float y) {
         _center_pos = make_point(x, y);
@@ -32,7 +32,7 @@ public:
     void set_radius(float radius) { _radius = radius; }
 
 private:
-    Point2<float> _center_pos;
+    Point2d<float> _center_pos;
     float _radius = 0;
 };
 
