@@ -59,8 +59,6 @@ set(SOURCE_FILES
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h
         src/game/state/GameState.h
         src/game/GameImpl.cpp src/game/GameImpl.h
-        src/game/object/GameObject.cpp src/game/object/GameObject.h
-        src/game/object/Damageable.h src/game/object/Damageable.cpp
         src/game/object/WeaponBuilder.cpp src/game/object/WeaponBuilder.h
         src/game/object/Weapon.h src/game/object/Weapon.cpp
         src/game/StateId.h
@@ -68,18 +66,11 @@ set(SOURCE_FILES
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
         src/game/components/Transform.h
-        src/game/mixins/HasTransform.h
         src/game/components/Speed2.h
         src/game/components/Speed.h
-        src/game/mixins/HasSpeed.h
         src/game/components/Hitpoints.h
-        src/game/mixins/HasHitpoints.h
-        src/game/mixins/HasTexture.h
         src/game/components/Weapons.h src/game/components/Weapons.cpp
-        src/game/mixins/HasWeapons.h
         src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
-        src/game/mixins/HasPlayerInput.h src/game/mixins/HasPlayerInput.cpp
-        src/game/mixins/HasMeleeDamage.h
         src/engine/log/Log.cpp src/engine/log/Log.h
         src/engine/log/Logger.h
         src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h

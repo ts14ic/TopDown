@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameObject.h"
 #include "WeaponBuilder.h"
 #include <game/timer/Timer.h>
 #include <engine/audio/Audio.h>

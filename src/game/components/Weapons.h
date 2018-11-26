@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Transform.h"
 #include <game/object/Weapon.h>
 #include <vector>
 #include <string>

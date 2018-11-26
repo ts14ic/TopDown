@@ -4,6 +4,7 @@
 #include <game/components/Sprite.h>
 #include <game/components/ZombieAi.h>
 #include <game/components/PlayerInput.h>
+#include <game/components/Speed.h>
 #include <game/components/Weapons.h>
 #include <game/components/WolfAi.h>
 #include <game/components/Hitpoints.h>
