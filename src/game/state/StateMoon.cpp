@@ -70,12 +70,16 @@ void StateMoon::handle_window_event(const WindowEvent& event) {
 void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
     switch (event.get_type()) {
         case MouseScrollEvent::Type::SCROLL_UP: {
-            _player_inputs[_player_entity].tap(PlayerInput::QUICK_PREVIOUS_WEAPON);
+            for (auto& input : _player_inputs) {
+                input.second.tap(PlayerInput::QUICK_PREVIOUS_WEAPON);
+            }
             break;
         }
 
         case MouseScrollEvent::Type::SCROLL_DOWN: {
-            _player_inputs[_player_entity].tap(PlayerInput::QUICK_NEXT_WEAPON);
+            for (auto& input : _player_inputs) {
+                input.second.tap(PlayerInput::QUICK_NEXT_WEAPON);
+            }
             break;
         }
     }
@@ -88,17 +92,23 @@ void StateMoon::handle_mouse_event(const MousePointEvent& event) {
 
     switch (event.get_type()) {
         case MousePointEvent::Type::BUTTON_DOWN: {
-            _player_inputs[_player_entity].press(PlayerInput::HOLD_TRIGGER);
+            for (auto& input : _player_inputs) {
+                input.second.press(PlayerInput::HOLD_TRIGGER);
+            }
             break;
         }
 
         case MousePointEvent::Type::BUTTON_UP: {
-            _player_inputs[_player_entity].release(PlayerInput::HOLD_TRIGGER);
+            for (auto& input : _player_inputs) {
+                input.second.release(PlayerInput::HOLD_TRIGGER);
+            }
             break;
         }
 
         case MousePointEvent::Type::MOTION: {
-            _player_inputs[_player_entity].move_mouse(event.get_position());
+            for (auto& input : _player_inputs) {
+                input.second.move_mouse(event.get_position());
+            }
             break;
         }
     }
@@ -107,14 +117,20 @@ void StateMoon::handle_mouse_event(const MousePointEvent& event) {
 void StateMoon::handle_key_event(const KeyboardEvent& event) {
     if (KeyboardEvent::is_key_down(event)) {
         PlayerInput::HoldAction hold_action = event_to_hold_action(event);
-        _player_inputs[_player_entity].press(hold_action);
+        for (auto& input : _player_inputs) {
+            input.second.press(hold_action);
+        }
 
     } else if (KeyboardEvent::is_key_up(event)) {
         PlayerInput::HoldAction hold_action = event_to_hold_action(event);
-        _player_inputs[_player_entity].release(hold_action);
+        for (auto& input : _player_inputs) {
+            input.second.release(hold_action);
+        }
 
         PlayerInput::QuickAction quick_action = event_to_quick_action(event);
-        _player_inputs[_player_entity].tap(quick_action);
+        for (auto& input : _player_inputs) {
+            input.second.tap(quick_action);
+        }
     }
 }
 
