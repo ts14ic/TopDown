@@ -7,7 +7,7 @@
 #include <game/components/Speed.h>
 #include <game/components/WeaponInventory.h>
 #include <game/components/WolfAi.h>
-#include <game/components/Hitpoints.h>
+#include <game/components/Vitality.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
 #include <engine/geometry/Point2d.h>
@@ -125,7 +125,7 @@ private:
     std::unordered_map<Entity, Speed> _speeds;
     std::unordered_map<Entity, WeaponInventory> _weapon_inventories;
     std::unordered_map<Entity, PlayerInput> _player_inputs;
-    std::unordered_map<Entity, Hitpoints> _hitpoints;
+    std::unordered_map<Entity, Vitality> _vitality;
     std::unordered_map<Entity, Sprite> _sprites;
     std::unordered_map<Entity, ZombieAi> _zombie_ais;
     std::unordered_map<Entity, int> _melee_damages;

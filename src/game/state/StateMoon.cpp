@@ -167,7 +167,7 @@ void StateMoon::remove_entity(Entity entity) {
     _speeds.erase(entity);
     _weapon_inventories.erase(entity);
     _player_inputs.erase(entity);
-    _hitpoints.erase(entity);
+    _vitality.erase(entity);
     _sprites.erase(entity);
     _zombie_ais.erase(entity);
     _melee_damages.erase(entity);
@@ -182,7 +182,7 @@ Entity StateMoon::create_werewolf(const Point2d<float>& position) {
 
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
     _speeds[entity] = Speed{2.5f};
-    _hitpoints[entity] = Hitpoints{30};
+    _vitality[entity] = Vitality{30};
     _sprites[entity] = Sprite{animation::WOLF_MOVING};
     _wolf_ais[entity] = WolfAi{};
 
@@ -196,7 +196,7 @@ Entity StateMoon::create_player(Point2d<float> position) {
     _speeds[entity] = Speed{};
     _weapon_inventories[entity] = WeaponInventory{};
     _player_inputs[entity] = PlayerInput{};
-    _hitpoints[entity] = Hitpoints{100};
+    _vitality[entity] = Vitality{100};
     _damage_cooldowns[entity] = Timer{};
     _sprites[entity] = Sprite{animation::PLAYER_HANDS};
 
@@ -232,7 +232,7 @@ Entity StateMoon::create_zombie(Point2d<float> position) {
 
     _zombie_ais[entity] = ZombieAi{};
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
-    _hitpoints[entity] = Hitpoints{50};
+    _vitality[entity] = Vitality{50};
     _speeds[entity] = Speed{1.7f};
     _sprites[entity] = Sprite{animation::ZOMBIE_MOVING};
     _melee_damages[entity] = 15;
@@ -269,7 +269,7 @@ void StateMoon::handle_logic() {
 }
 
 bool StateMoon::is_player_dead(Entity entity) {
-    return _hitpoints[entity].current_hp <= 0;
+    return _vitality[entity].current_hp <= 0;
 }
 
 void StateMoon::handle_player_logic() {
@@ -388,7 +388,7 @@ void StateMoon::handle_bullet_logic() {
             auto entity = zombie.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) &&
-                _hitpoints[entity].current_hp > 0) {
+                _vitality[entity].current_hp > 0) {
                 zombie_take_damage(entity, bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
                 continue;
@@ -398,7 +398,7 @@ void StateMoon::handle_bullet_logic() {
             auto entity = werewolf.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle())
-                && _hitpoints[entity].current_hp > 0) {
+                && _vitality[entity].current_hp > 0) {
                 werewolf_take_damage(entity, bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
@@ -422,8 +422,8 @@ void StateMoon::werewolf_take_damage(Entity entity, int damage_dealt) {
         damage_dealt /= 2;
     }
 
-    if (damage_dealt > 0) _hitpoints[entity].current_hp -= damage_dealt;
-    if (_hitpoints[entity].current_hp <= 0 && !_wolf_ais[entity].is_dying()) {
+    if (damage_dealt > 0) _vitality[entity].current_hp -= damage_dealt;
+    if (_vitality[entity].current_hp <= 0 && !_wolf_ais[entity].is_dying()) {
         _wolf_ais[entity].set_state(WolfAi::AI_DYING);
         _sprites[entity].set_state(animation::WOLF_DYING);
     }
@@ -447,12 +447,12 @@ void StateMoon::werewolf_teleport(Entity entity, const Random& random) {
 
 void StateMoon::zombie_take_damage(Entity entity, int damage_dealt) {
     if (damage_dealt > 0) {
-        auto previous_health = _hitpoints[entity].current_hp;
-        _hitpoints[entity].current_hp -= damage_dealt;
-        Log::d("zombie takes damage, health at: [%d/%d]", _hitpoints[entity].current_hp, previous_health);
+        auto previous_health = _vitality[entity].current_hp;
+        _vitality[entity].current_hp -= damage_dealt;
+        Log::d("zombie takes damage, health at: [%d/%d]", _vitality[entity].current_hp, previous_health);
     }
 
-    if (_hitpoints[entity].current_hp <= 0 && !_zombie_ais[entity].is_dying()) {
+    if (_vitality[entity].current_hp <= 0 && !_zombie_ais[entity].is_dying()) {
         _zombie_ais[entity].set_state(ZombieAi::AI_DYING);
         _sprites[entity].set_state(animation::ZOMBIE_DYING);
     }
@@ -489,7 +489,7 @@ void StateMoon::handle_zombie_logic() {
 
 void StateMoon::player_take_damage(Entity entity, int damage_dealt) {
     if (damage_dealt > 0 && _damage_cooldowns[_player_entity].ticks_passed_since_start(200)) {
-        _hitpoints[entity].current_hp -= damage_dealt;
+        _vitality[entity].current_hp -= damage_dealt;
         _damage_cooldowns[entity].restart();
     }
 }
@@ -565,7 +565,7 @@ void StateMoon::handle_werewolf_logic() {
             player_take_damage(_player_entity, damage);
         }
 
-        if (_hitpoints[entity].current_hp <= 0 && _sprites[entity].is_animation_ended()) {
+        if (_vitality[entity].current_hp <= 0 && _sprites[entity].is_animation_ended()) {
             dead_entities.push_back(entity);
         }
     }
@@ -659,7 +659,7 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
         gameobject_handle_render(/*entity*/entity, frames_passed);
         sprite.update();
     }
-    for (auto& vitality : _hitpoints) {
+    for (auto& vitality : _vitality) {
         // TODO: check for sprite presence
         // TODO: what color to draw health with?
         gameobject_handle_render_health(/*entity*/vitality.first, Color{0x7f, 0, 0, 0xff}, frames_passed);
@@ -720,10 +720,10 @@ void StateMoon::gameobject_handle_render(Entity entity, float frames_count) {
 }
 
 void StateMoon::gameobject_handle_render_health(Entity entity, Color color, float frames_count) {
-    if (_hitpoints[entity].current_hp > 0) {
+    if (_vitality[entity].current_hp > 0) {
         Box health_box;
 
-        health_box.set_size(50.f * _hitpoints[entity].current_hp / _hitpoints[entity].default_hp, 5.f);
+        health_box.set_size(50.f * _vitality[entity].current_hp / _vitality[entity].default_hp, 5.f);
         health_box.set_left_top(
                 _transforms[entity].position.x - health_box.get_width() / 2 +
                 _speeds[entity].current_speed.x * frames_count,
