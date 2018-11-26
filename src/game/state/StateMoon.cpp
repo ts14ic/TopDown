@@ -1,10 +1,8 @@
 #include "StateMoon.h"
 #include <engine/geometry/maths.h>
-#include <engine/geometry/Point2.h>
 #include <engine/log/Log.h>
 #include <io/json/json.h>
 #include <io/files/files.h>
-#include <algorithm>
 
 StateMoon::StateMoon(Game& game)
         : _game{game},
