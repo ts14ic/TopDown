@@ -1,11 +1,11 @@
 #include "PlayerInput.h"
 
-void PlayerInput::move_mouse(Point2<int> position) {
+void PlayerInput::move_mouse(Point2d<int> position) {
     _mouse_position = position;
     _mouse_moved = true;
 }
 
-Point2<int> PlayerInput::pop_mouse_position() {
+Point2d<int> PlayerInput::pop_mouse_position() {
     auto position = get_mouse_position();
     _mouse_moved = false;
     return position;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <engine/geometry/Point2.h>
+#include <engine/geometry/Point2d.h>
 #include <engine/geometry/Circle.h>
 
 struct Transform {
@@ -9,7 +9,7 @@ struct Transform {
         radius = 0;
     }
 
-    Transform(Point2<float> position, float rotation, float radius) {
+    Transform(Point2d<float> position, float rotation, float radius) {
         this->position = position;
         this->angle = rotation;
         this->radius = radius;
@@ -19,7 +19,7 @@ struct Transform {
         return Circle{position, radius};
     }
 
-    Point2<float> position;
+    Point2d<float> position;
     float angle;
     float radius;
 };

@@ -1,17 +1,17 @@
 #pragma once
 
-#include <engine/geometry/Point2.h>
+#include <engine/geometry/Point2d.h>
 #include <bitset>
 
 class PlayerInput {
 public:
-    void move_mouse(Point2<int> position);
+    void move_mouse(Point2d<int> position);
 
     bool mouse_moved() const { return _mouse_moved; }
 
-    Point2<int> get_mouse_position() const { return _mouse_position; }
+    Point2d<int> get_mouse_position() const { return _mouse_position; }
 
-    Point2<int> pop_mouse_position();
+    Point2d<int> pop_mouse_position();
 
     enum HoldAction : int {
         HOLD_NONE = -1,
@@ -62,7 +62,7 @@ public:
 
 private:
     bool _mouse_moved = false;
-    Point2<int> _mouse_position;
+    Point2d<int> _mouse_position;
     std::bitset<HOLD_ACTIONS_COUNT> _hold_actions;
     std::bitset<QUICK_ACTIONS_COUNT> _quick_actions;
 };

@@ -10,7 +10,7 @@
 #include <game/components/Hitpoints.h>
 #include <game/Game.h>
 #include <game/timer/Timer.h>
-#include <engine/geometry/Point2.h>
+#include <engine/geometry/Point2d.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <cassert>
@@ -50,9 +50,9 @@ private:
 
     void parse_level_data();
 
-    Point2<int> make_random_point() const;
+    Point2d<int> make_random_point() const;
 
-    bool position_out_of_level_area(Point2<float> position) const;
+    bool position_out_of_level_area(Point2d<float> position) const;
 
     void render_crosshair(float frames_count);
 
@@ -62,9 +62,9 @@ private:
 
     Entity create_bullet(const Transform& origin, const WeaponInventory& inventory);
 
-    Entity create_werewolf(const Point2<float>& position);
+    Entity create_werewolf(const Point2d<float>& position);
 
-    void werewolf_set_target(Entity entity, const Point2<float>& position);
+    void werewolf_set_target(Entity entity, const Point2d<float>& position);
 
     void werewolf_handle_logic(Entity entity);
 
@@ -74,7 +74,7 @@ private:
 
     void werewolf_handle_audio(Entity entity, Audio& audio);
 
-    Entity create_player(Point2<float> position);
+    Entity create_player(Point2d<float> position);
 
     bool is_player_dead(Entity entity);
 
@@ -84,13 +84,13 @@ private:
 
     void player_update_speeds();
 
-    Entity create_zombie(Point2<float> position);
+    Entity create_zombie(Point2d<float> position);
 
     void zombie_take_damage(Entity entity, int damage_dealt);
 
     void zombie_handle_audio(Entity entity);
 
-    void zombie_set_target(Entity entity, Point2<float> position);
+    void zombie_set_target(Entity entity, Point2d<float> position);
 
     void zombie_handle_logic(Entity entity);
 
@@ -113,7 +113,7 @@ private:
     std::string _background_tex;
     const int _level_width;
     const int _level_height;
-    Point2<int> _mouse_pos;
+    Point2d<int> _mouse_pos;
 
     float _crosshair_angle;
 

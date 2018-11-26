@@ -177,7 +177,7 @@ void StateMoon::remove_entity(Entity entity) {
     _bullet_entities.erase(entity);
 }
 
-Entity StateMoon::create_werewolf(const Point2<float>& position) {
+Entity StateMoon::create_werewolf(const Point2d<float>& position) {
     Entity entity = create_entity();
 
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
@@ -189,7 +189,7 @@ Entity StateMoon::create_werewolf(const Point2<float>& position) {
     return entity;
 }
 
-Entity StateMoon::create_player(Point2<float> position) {
+Entity StateMoon::create_player(Point2d<float> position) {
     Entity entity = create_entity();
 
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
@@ -227,7 +227,7 @@ Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& 
     return entity;
 }
 
-Entity StateMoon::create_zombie(Point2<float> position) {
+Entity StateMoon::create_zombie(Point2d<float> position) {
     Entity entity = create_entity();
 
     _zombie_ais[entity] = ZombieAi{};
@@ -494,7 +494,7 @@ void StateMoon::player_take_damage(Entity entity, int damage_dealt) {
     }
 }
 
-void StateMoon::zombie_set_target(Entity entity, Point2<float> position) {
+void StateMoon::zombie_set_target(Entity entity, Point2d<float> position) {
     if (_zombie_ais[entity].is_dying()) {
         return;
     }
@@ -574,7 +574,7 @@ void StateMoon::handle_werewolf_logic() {
     }
 }
 
-void StateMoon::werewolf_set_target(Entity entity, const Point2<float>& position) {
+void StateMoon::werewolf_set_target(Entity entity, const Point2d<float>& position) {
     if (_wolf_ais[entity].is_dying()) {
         return;
     }
@@ -621,12 +621,12 @@ void StateMoon::werewolf_handle_logic(Entity entity) {
     }
 }
 
-bool StateMoon::position_out_of_level_area(Point2<float> position) const {
+bool StateMoon::position_out_of_level_area(Point2d<float> position) const {
     return (position.x > _level_width) || (position.x < 0) ||
            (position.y > _level_height) || (position.y < 0);
 }
 
-Point2<int> StateMoon::make_random_point() const {
+Point2d<int> StateMoon::make_random_point() const {
     Random& random = get_engine().get_random();
     if (!random.get_bool()) {
         return make_point(

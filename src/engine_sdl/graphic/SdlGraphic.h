@@ -25,9 +25,9 @@ public:
 
     void render_box(const Box& box, const Color& color) override;
 
-    void render_texture(const std::string& texture_name, Point2<int> position) override;
+    void render_texture(const std::string& texture_name, Point2d<int> position) override;
 
-    void render_texture(const std::string& texture_name, Point2<int> position, float angle) override;
+    void render_texture(const std::string& texture_name, Point2d<int> position, float angle) override;
 
     int get_screen_width() override;
 
@@ -38,9 +38,9 @@ public:
     void load_texture(const std::string& name, const char* path) override;
 
 private:
-    void render(const SdlTexture& texture, Point2<int> position);
+    void render(const SdlTexture& texture, Point2d<int> position);
 
-    void render(const SdlTexture& texture, Point2<int> position, float angle);
+    void render(const SdlTexture& texture, Point2d<int> position, float angle);
 
     SdlTexture load_texture(const char* path);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Point2.h"
+#include "Point2d.h"
 
 namespace math {
     // trigonometry
@@ -17,9 +17,9 @@ namespace math {
 
         double radian_sin(double radian_angle);
 
-        double get_distance(Point2<double> lhs, Point2<double> rhs);
+        double get_distance(Point2d<double> lhs, Point2d<double> rhs);
 
-        double get_radian_angle(Point2<double> lhs, Point2<double> rhs);
+        double get_radian_angle(Point2d<double> lhs, Point2d<double> rhs);
     }
 
     /**
@@ -104,7 +104,7 @@ namespace math {
      * @return Distance between two points
      */
     template <class R = float, class A, class B>
-    R get_distance(Point2<A> lhs, Point2<B> rhs) {
+    R get_distance(Point2d<A> lhs, Point2d<B> rhs) {
         return static_cast<R>(detail::get_distance(
                 point_cast<double>(lhs),
                 point_cast<double>(rhs)
@@ -121,7 +121,7 @@ namespace math {
      * @return Radian angle between two points
      */
     template <class R = float, class A, class B>
-    R get_radian_angle(Point2<A> lhs, Point2<B> rhs) {
+    R get_radian_angle(Point2d<A> lhs, Point2d<B> rhs) {
         return static_cast<R>(detail::get_radian_angle(
                 point_cast<double>(lhs),
                 point_cast<double>(rhs)
@@ -138,7 +138,7 @@ namespace math {
      * @return Cartesian angle between two points
      */
     template <class R = float, class A, class B>
-    R get_cartesian_angle(Point2<A> lhs, Point2<B> rhs) {
+    R get_cartesian_angle(Point2d<A> lhs, Point2d<B> rhs) {
         return to_cartesian(get_radian_angle(lhs, rhs));
     }
 }
