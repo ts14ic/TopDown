@@ -134,7 +134,7 @@ void StateMoon::handle_key_event(const KeyboardEvent& event) {
     }
 }
 
-void StateMoon::restrict_pos(Entity entity) {
+void StateMoon::restrict_position_to_level_area(Entity entity) {
     auto& transform = _transforms[entity];
 
     if (transform.position.x < 0) {
@@ -261,7 +261,7 @@ void StateMoon::handle_logic() {
     handle_zombie_logic();
     handle_werewolf_logic();
 
-    restrict_pos(_player_entity);
+    restrict_position_to_level_area(_player_entity);
 
     if (is_player_dead(_player_entity)) {
         _game.request_state_change(StateId::INTRO);

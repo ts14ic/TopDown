@@ -30,7 +30,7 @@ public:
 
     void handle_logic() override;
 
-    void restrict_pos(Entity entity);
+    void restrict_position_to_level_area(Entity entity);
 
     void handle_render(float milliseconds_passed, float milliseconds_per_frame) override;
 
