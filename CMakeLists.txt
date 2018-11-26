@@ -79,8 +79,8 @@ set(SOURCE_FILES
         src/game/components/Hitpoints.h
         src/game/mixins/HasHitpoints.h
         src/game/mixins/HasTexture.h
-        src/game/components/Weapons.h src/game/components/Weapons.cpp
-        src/game/mixins/HasWeapons.h
+        src/game/components/WeaponInventory.h src/game/components/WeaponInventory.cpp
+        src/game/mixins/HasWeaponInventory.h
         src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
         src/game/mixins/HasPlayerInput.h src/game/mixins/HasPlayerInput.cpp
         src/game/mixins/HasMeleeDamage.h

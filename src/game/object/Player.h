@@ -4,7 +4,7 @@
 #include "Weapon.h"
 #include "Bullet.h"
 #include <game/mixins/HasPlayerInput.h>
-#include <game/mixins/HasWeapons.h>
+#include <game/mixins/HasWeaponInventory.h>
 #include <game/timer/Timer.h>
 #include <memory>
 #include <bitset>
@@ -12,7 +12,7 @@
 class Player : public virtual GameObject,
                public Damageable,
                public HasPlayerInput,
-               public HasWeapons {
+               public HasWeaponInventory {
 public:
     Player();
 
@@ -32,9 +32,9 @@ public:
 
     std::string get_tex_name() const override;
 
-    Weapons get_weapons() const override { return _weapons; }
+    WeaponInventory get_inventory() const override { return _inventory; }
 
-    void set_weapons(Weapons weapons) override { _weapons = weapons; }
+    void set_weapons(WeaponInventory inventory) override { _inventory = inventory; }
 
     PlayerInput get_player_input() const override { return _input; }
 
@@ -55,7 +55,7 @@ private:
 
     Transform _transform;
     Speed _speed;
-    Weapons _weapons;
+    WeaponInventory _inventory;
     PlayerInput _input;
     Hitpoints _hitpoints;
     Timer _damage_cooldown;

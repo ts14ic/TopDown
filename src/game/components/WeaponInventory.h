@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-class Weapons {
+class WeaponInventory {
 public:
     void add(const Weapon& weapon) { _weapons.push_back(weapon); }
 

@@ -11,9 +11,9 @@ Player::Player(Point2<float> position)
           _hitpoints{Hitpoints{100}} {}
 
 std::string Player::get_tex_name() const {
-    if (_weapons.any_selected()) {
+    if (_inventory.any_selected()) {
         std::ostringstream stream;
-        stream << "player_" << _weapons.get_selected_name();
+        stream << "player_" << _inventory.get_selected_name();
         return stream.str();
     } else {
         return "player";
@@ -47,10 +47,10 @@ void Player::handle_logic(Engine& engine, std::vector<Bullet>& bullets) {
     default_move();
 
     // TODO don't try to reload on every frame
-    _weapons.try_reload_selected();
+    _inventory.try_reload_selected();
 
     if (_input.is_held(PlayerInput::HOLD_TRIGGER)) {
-        _weapons.fire_from_selected(engine, *this, bullets);
+        _inventory.fire_from_selected(engine, *this, bullets);
     }
 }
 
@@ -58,11 +58,11 @@ void Player::handle_weapon_selection() {
     while (_input.has_quick_actions()) {
         auto action = _input.pop_quick_action();
         if (action == PlayerInput::QUICK_NEXT_WEAPON) {
-            _weapons.select_next();
+            _inventory.select_next();
         } else if (action == PlayerInput::QUICK_PREVIOUS_WEAPON) {
-            _weapons.select_previous();
+            _inventory.select_previous();
         } else if (PlayerInput::is_digit(action)) {
-            _weapons.select_by_index(PlayerInput::to_digit(action));
+            _inventory.select_by_index(PlayerInput::to_digit(action));
         }
     }
 }
