@@ -208,8 +208,8 @@ Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& 
 
     const auto& weapon = inventory.get_selected();
     auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
-    auto angle =
-            origin.angle + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
+    auto angle = origin.angle
+                 + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
     _transforms[entity] = Transform{
             make_point(
                     origin.position.x + math::cartesian_cos(angle) * weapon.get_length(),
@@ -295,7 +295,10 @@ void StateMoon::handle_player_logic() {
     _weapon_inventories[_player_entity].try_reload_selected();
 
     if (_player_inputs[_player_entity].is_held(PlayerInput::HOLD_TRIGGER)) {
-        auto projectiles_shot = _weapon_inventories[_player_entity].fire_from_selected(get_engine(), _transforms[_player_entity]);
+        auto projectiles_shot = _weapon_inventories[_player_entity].fire_from_selected(
+                get_engine(),
+                _transforms[_player_entity]
+        );
         for (int i = 0; i < projectiles_shot; ++i) {
             create_bullet(_transforms[_player_entity], _weapon_inventories[_player_entity]);
         }
