@@ -53,15 +53,15 @@ void StateMoon::load_control_scheme(const char* control_scheme_file_name) {
 PlayerInput::HoldAction StateMoon::event_to_hold_action(const KeyboardEvent& event) const {
     auto action = _key_to_hold_action.find(event.get_key());
     return action != _key_to_hold_action.end()
-           ? action->second
-           : PlayerInput::HOLD_NONE;
+            ? action->second
+            : PlayerInput::HOLD_NONE;
 }
 
 PlayerInput::QuickAction StateMoon::event_to_quick_action(const KeyboardEvent& event) const {
     auto action = _key_to_quick_action.find(event.get_key());
     return action != _key_to_quick_action.end()
-           ? action->second
-           : PlayerInput::QUICK_NONE;
+            ? action->second
+            : PlayerInput::QUICK_NONE;
 }
 
 void StateMoon::handle_window_event(const WindowEvent& event) {
@@ -284,8 +284,8 @@ void StateMoon::handle_player_logic() {
     // TODO Make the timer store a pointer to clock
     // TODO AFTER Move the condition inside the getter
     _speeds[_player_entity].max_speed = _damage_cooldowns[_player_entity].ticks_passed_since_start(500)
-                                        ? 2.3f
-                                        : 1.0f;
+            ? 2.3f
+            : 1.0f;
 
     player_update_speeds();
 
@@ -742,8 +742,8 @@ void StateMoon::render_crosshair(float frames_count) {
     Graphic& graphic = get_engine().get_graphic();
 
     auto texture = graphic.get_texture(_weapon_inventories[_player_entity].is_selected_reloading()
-                                       ? "reload"
-                                       : "crosshair");
+            ? "reload"
+            : "crosshair");
     auto render_point = make_point(
             _mouse_pos.x - texture.get_size().get_width() / 2,
             _mouse_pos.y - texture.get_size().get_height() / 2
