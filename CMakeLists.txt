@@ -78,6 +78,7 @@ set(SOURCE_FILES
         src/game/components/ZombieAi.cpp src/game/components/ZombieAi.h
         src/game/components/Sprite.cpp src/game/components/Sprite.h
         src/game/components/WolfAi.cpp src/game/components/WolfAi.h
+        src/game/components/EntityFactory.cpp src/game/components/EntityFactory.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

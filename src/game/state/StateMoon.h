@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameState.h"
+#include <game/components/EntityFactory.h>
 #include <game/components/Sprite.h>
 #include <game/components/ZombieAi.h>
 #include <game/components/PlayerInput.h>
@@ -14,8 +15,6 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <cassert>
-
-using Entity = std::size_t;
 
 class StateMoon : public GameState {
 public:
@@ -55,8 +54,6 @@ private:
     bool position_out_of_level_area(Point2d<float> position) const;
 
     void render_crosshair(float frames_count);
-
-    Entity create_entity();
 
     void remove_entity(Entity entity);
 
@@ -117,10 +114,11 @@ private:
 
     float _crosshair_angle;
 
+    EntityFactory _entity_factory;
+
     Entity _player_entity;
     std::unordered_set<Entity> _bullet_entities;
 
-    Entity _entity_counter = 1;
     std::unordered_map<Entity, Transform> _transforms;
     std::unordered_map<Entity, Speed> _speeds;
     std::unordered_map<Entity, WeaponInventory> _weapon_inventories;

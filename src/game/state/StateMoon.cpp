@@ -154,14 +154,6 @@ void StateMoon::restrict_position_to_level_area(Entity entity) {
     }
 }
 
-Entity StateMoon::create_entity() {
-    // TODO: Make a proper entity id factory and class
-    auto entity = _entity_counter;
-    assert(_entity_counter < std::numeric_limits<std::size_t>::max() && "Entity pool exhausted");
-    ++_entity_counter;
-    return entity;
-}
-
 void StateMoon::remove_entity(Entity entity) {
     _transforms.erase(entity);
     _speeds.erase(entity);
@@ -178,7 +170,7 @@ void StateMoon::remove_entity(Entity entity) {
 }
 
 Entity StateMoon::create_werewolf(const Point2d<float>& position) {
-    Entity entity = create_entity();
+    Entity entity = _entity_factory.create_entity();
 
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
     _speeds[entity] = Speed{2.5f};
@@ -190,7 +182,7 @@ Entity StateMoon::create_werewolf(const Point2d<float>& position) {
 }
 
 Entity StateMoon::create_player(Point2d<float> position) {
-    Entity entity = create_entity();
+    Entity entity = _entity_factory.create_entity();
 
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
     _speeds[entity] = Speed{};
@@ -204,7 +196,7 @@ Entity StateMoon::create_player(Point2d<float> position) {
 }
 
 Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& inventory) {
-    Entity entity = create_entity();
+    Entity entity = _entity_factory.create_entity();
 
     const auto& weapon = inventory.get_selected();
     auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
@@ -228,7 +220,7 @@ Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& 
 }
 
 Entity StateMoon::create_zombie(Point2d<float> position) {
-    Entity entity = create_entity();
+    Entity entity = _entity_factory.create_entity();
 
     _zombie_ais[entity] = ZombieAi{};
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
