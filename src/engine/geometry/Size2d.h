@@ -1,6 +1,7 @@
 #pragma once
 
 #include <type_traits>
+#include <cassert>
 
 template<typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
 class Size2d {
@@ -20,7 +21,10 @@ public:
     }
 
     void set_width(SizeT width) {
-        if (width >= 0) this->width = width;
+        assert(width >= 0);
+        if (width >= 0) {
+            this->width = width;
+        }
     }
 
     SizeT get_height() const {
@@ -28,7 +32,10 @@ public:
     }
 
     void set_height(SizeT height) {
-        if (height >= 0) { this->height = height; }
+        assert(height >= 0);
+        if (height >= 0) {
+            this->height = height;
+        }
     }
 
 private:
