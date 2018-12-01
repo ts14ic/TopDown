@@ -18,11 +18,11 @@ public:
         set_speed(speed);
     }
 
-    Speed2<float> get_current_speed() const {
+    Speed2d<float> get_current_speed() const {
         return get_speed().current_speed;
     }
 
-    void set_current_speed(Speed2<float> current_speed) {
+    void set_current_speed(Speed2d<float> current_speed) {
         Speed speed = get_speed();
         speed.current_speed = current_speed;
         set_speed(speed);

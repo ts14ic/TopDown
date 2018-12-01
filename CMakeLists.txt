@@ -73,7 +73,7 @@ set(SOURCE_FILES
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
         src/game/components/Transform.h
         src/game/mixins/HasTransform.h
-        src/game/components/Speed2.h
+        src/game/components/Speed2d.h
         src/game/components/Speed.h
         src/game/mixins/HasSpeed.h
         src/game/components/Vitality.h
