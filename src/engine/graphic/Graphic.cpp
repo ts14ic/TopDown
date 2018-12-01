@@ -2,6 +2,6 @@
 
 Graphic::~Graphic() = default;
 
-Graphic::FailedToLoadTextureException::FailedToLoadTextureException(const char* message)
+Graphic::FailedToLoadTextureException::FailedToLoadTextureException(cstring message)
         : runtime_error(message) {
 }

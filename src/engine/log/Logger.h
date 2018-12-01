@@ -1,14 +1,15 @@
 #pragma once
 
-#include <stdarg.h>
+#include <utils/typedefs.h>
+#include <cstdarg>
 
 class Logger {
 public:
-    virtual void i(const char* fmt, va_list args) = 0;
+    virtual void i(cstring fmt, va_list args) = 0;
 
-    virtual void d(const char* fmt, va_list args) = 0;
+    virtual void d(cstring fmt, va_list args) = 0;
 
-    virtual void w(const char* fmt, va_list args) = 0;
+    virtual void w(cstring fmt, va_list args) = 0;
 
-    virtual void e(const char* fmt, va_list args) = 0;
+    virtual void e(cstring fmt, va_list args) = 0;
 };

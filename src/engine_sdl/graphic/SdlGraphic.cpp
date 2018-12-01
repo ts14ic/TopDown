@@ -115,7 +115,7 @@ struct SurfaceDeleter {
 
 using SurfaceHandle = std::unique_ptr<SDL_Surface, SurfaceDeleter>;
 
-SdlTexture SdlGraphic::load_texture(const char* path) {
+SdlTexture SdlGraphic::load_texture(cstring path) {
     SurfaceHandle surface_handle{IMG_Load(path)};
     if (surface_handle == nullptr) {
         throw FailedToLoadTextureException{IMG_GetError()};
@@ -136,7 +136,7 @@ Texture SdlGraphic::get_texture(const std::string& name) {
     return Texture{name, sdl_texture.get_size()};
 }
 
-void SdlGraphic::load_texture(const std::string& name, const char* path) {
+void SdlGraphic::load_texture(const std::string& name, cstring path) {
     _name_to_texture.insert(std::make_pair(name, load_texture(path)));
 }
 

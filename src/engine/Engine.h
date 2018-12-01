@@ -24,6 +24,6 @@ public:
     virtual Random& get_random() = 0;
 
     struct FailedEngineInitException : public std::runtime_error {
-        explicit FailedEngineInitException(const char* message);
+        explicit FailedEngineInitException(cstring message);
     };
 };

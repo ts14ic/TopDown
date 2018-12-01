@@ -2,5 +2,5 @@
 
 Engine::~Engine() = default;
 
-Engine::FailedEngineInitException::FailedEngineInitException(const char* message)
+Engine::FailedEngineInitException::FailedEngineInitException(cstring message)
         : runtime_error(message) {}

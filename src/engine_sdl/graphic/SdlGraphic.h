@@ -39,14 +39,14 @@ public:
 
     Texture get_texture(const std::string& name) override;
 
-    void load_texture(const std::string& name, const char* path) override;
+    void load_texture(const std::string& name, cstring path) override;
 
 private:
     void render(const SdlTexture& texture, Point2d<int> position);
 
     void render(const SdlTexture& texture, Point2d<int> position, float angle);
 
-    SdlTexture load_texture(const char* path);
+    SdlTexture load_texture(cstring path);
 
     std::unordered_map<std::string, SdlTexture> _name_to_texture;
     WindowHandle _window;

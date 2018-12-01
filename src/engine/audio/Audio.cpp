@@ -2,11 +2,11 @@
 
 Audio::~Audio() = default;
 
-Audio::FailedAudioInitException::FailedAudioInitException(const char* message)
+Audio::FailedAudioInitException::FailedAudioInitException(cstring message)
         : runtime_error(message) {}
 
-Audio::FailedToLoadSoundException::FailedToLoadSoundException(const char* message)
+Audio::FailedToLoadSoundException::FailedToLoadSoundException(cstring message)
         : runtime_error(message) {}
 
-Audio::FailedToLoadMusicException::FailedToLoadMusicException(const char* message)
+Audio::FailedToLoadMusicException::FailedToLoadMusicException(cstring message)
         : runtime_error(message) {}

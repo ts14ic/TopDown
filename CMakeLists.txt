@@ -22,6 +22,7 @@ set(SOURCE_FILES
         src/main.cpp
         src/io/json/json.h src/io/json/json.cpp src/io/json/json.tcc
         src/io/files/files.cpp src/io/files/files.h
+        src/utils/typedefs.h
         src/utils/sys/demangle_type_name.cpp src/utils/sys/demangle_type_name.h
         src/utils/sys/abort_handlers.cpp src/utils/sys/abort_handlers.h
         src/engine_std/Mt19937Random.h src/engine_std/Mt19937Random.cpp

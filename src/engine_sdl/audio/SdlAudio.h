@@ -18,18 +18,18 @@ public:
 
     void play_sound(const std::string& name) override;
 
-    void load_sound(const std::string& name, const char* path) override;
+    void load_sound(const std::string& name, cstring path) override;
 
     void play_music(const std::string& name) override;
 
-    void load_music(const std::string& name, const char* path) override;
+    void load_music(const std::string& name, cstring path) override;
 
 private:
-    SdlSound load_sound(const char* path);
+    SdlSound load_sound(cstring path);
 
     void play_sound(const SdlSound& sound);
 
-    SdlMusic load_music(const char* path);
+    SdlMusic load_music(cstring path);
 
     void play_music(const SdlMusic& music);
 

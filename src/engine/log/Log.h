@@ -8,11 +8,11 @@ public:
 
     static void uninstall_logger(Logger& logger);
 
-    static void i(const char* fmt, ...);
+    static void i(cstring fmt, ...);
 
-    static void d(const char* fmt, ...);
+    static void d(cstring fmt, ...);
 
-    static void w(const char* fmt, ...);
+    static void w(cstring fmt, ...);
 
-    static void e(const char* fmt, ...);
+    static void e(cstring fmt, ...);
 };

@@ -7,7 +7,7 @@
 
 #endif // __GNUG__
 
-std::string utils::demangle_type_name(const char* type_name) {
+std::string utils::demangle_type_name(cstring type_name) {
 #ifdef __GNUG__
     int status{};
     std::unique_ptr<char, decltype(&std::free)> res{
