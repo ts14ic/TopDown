@@ -14,7 +14,7 @@ class SdlTexture {
 public:
     SdlTexture() = default;
 
-    SdlTexture(TextureHandle texture, Size2<int> size) : _texture{std::move(texture)} {
+    SdlTexture(TextureHandle texture, Size2d<int> size) : _texture{std::move(texture)} {
         _size = size;
     }
 
@@ -24,11 +24,11 @@ public:
 
     bool is_loaded() const { return _texture != nullptr; }
 
-    Size2<int> get_size() const { return _size; }
+    Size2d<int> get_size() const { return _size; }
 
     SDL_Texture* get_wrapped_texture() const { return _texture.get(); }
 
 private:
     TextureHandle _texture;
-    Size2<int> _size;
+    Size2d<int> _size;
 };

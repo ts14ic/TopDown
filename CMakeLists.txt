@@ -34,7 +34,7 @@ set(SOURCE_FILES
         src/engine/geometry/Box.cpp src/engine/geometry/Box.h
         src/engine/geometry/Color.cpp src/engine/geometry/Color.h
         src/engine/geometry/Point2d.h
-        src/engine/geometry/Size2.h
+        src/engine/geometry/Size2d.h
         src/engine/audio/Audio.cpp src/engine/audio/Audio.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h
         src/engine/input/Input.cpp src/engine/input/Input.h
