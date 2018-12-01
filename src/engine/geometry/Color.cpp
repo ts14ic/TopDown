@@ -6,11 +6,7 @@ inline void set_component(int& component, int value) {
     component = value;
 }
 
-Color::Color() {
-    _red = 0;
-    _green = 0;
-    _blue = 0;
-    _alpha = 255;
+Color::Color() : Color(0, 0, 0, 255) {
 }
 
 Color::Color(int red, int green, int blue, int alpha) {
