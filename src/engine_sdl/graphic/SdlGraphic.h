@@ -15,9 +15,13 @@ using RendererHandle = std::unique_ptr<SDL_Renderer, SdlDeleter>;
 
 class SdlGraphic : public Graphic {
 public:
-    SdlGraphic(int screen_width, int screen_height);
+    SdlGraphic();
 
     ~SdlGraphic() override;
+
+    void init(int screen_width, int screen_height);
+
+    void deinit();
 
     void refresh_screen() override;
 

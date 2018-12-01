@@ -3,17 +3,34 @@
 #include <SDL.h>
 #include <engine/log/Log.h>
 
-SdlEngine::SdlEngine(
-        int screen_width,
-        int screen_height
-) : _sdl_guard{}, _graphic(screen_width, screen_height) {
-    Log::install_logger(_sdl_logger);
+SdlEngine::SdlEngine() = default;
+
+SdlEngine::~SdlEngine() = default;
+
+void SdlEngine::init(int screen_width, int screen_height) {
+    Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_TIMER;
+    if (SDL_Init(initFlags) != 0) {
+        throw Engine::FailedEngineInitException{SDL_GetError()};
+    }
+
     Clock::install_clock_engine(std::make_unique<SdlClockEngine>());
+
+    _logger.init();
+    Log::install_logger(_logger);
+
+    _audio.init();
+    _graphic.init(screen_width, screen_height);
 }
 
-SdlEngine::~SdlEngine() {
+void SdlEngine::deinit() {
+    _graphic.deinit();
+    _audio.deinit();
+
+    Log::uninstall_logger(_logger);
+
     Clock::uninstall_clock_engine();
-    Log::uninstall_logger(_sdl_logger);
+
+    SDL_Quit();
 }
 
 Graphic& SdlEngine::get_graphic() {

@@ -12,6 +12,10 @@ public:
 
     ~SdlAudio() override;
 
+    void init();
+
+    void deinit();
+
     void play_sound(const std::string& name) override;
 
     void load_sound(const std::string& name, const char* path) override;

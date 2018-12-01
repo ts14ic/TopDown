@@ -54,7 +54,6 @@ set(SOURCE_FILES
         src/engine_sdl/audio/SdlSound.cpp src/engine_sdl/audio/SdlSound.h
         src/engine_sdl/audio/SdlMusic.cpp src/engine_sdl/audio/SdlMusic.h
         src/engine_sdl/clock/SdlClockEngine.cpp src/engine_sdl/clock/SdlClockEngine.h
-        src/engine_sdl/SdlGuard.cpp src/engine_sdl/SdlGuard.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h
         src/game/state/GameState.h

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SdlGuard.h"
 #include "audio/SdlAudio.h"
 #include "engine_sdl/clock/SdlClockEngine.h"
 #include "graphic/SdlGraphic.h"
@@ -12,7 +11,13 @@
 
 class SdlEngine : public Engine {
 public:
-    SdlEngine(int screen_width, int screen_height);
+    SdlEngine();
+
+    ~SdlEngine() override;
+
+    void init(int screen_width, int screen_height) override;
+
+    void deinit() override;
 
     Graphic& get_graphic() override;
 
@@ -22,13 +27,10 @@ public:
 
     Random& get_random() override;
 
-    ~SdlEngine() override;
-
 private:
     Mt19937Random _random;
 
-    SdlGuard _sdl_guard; /* Must be higher than all other sdl systems */
-    SdlLogger _sdl_logger;
+    SdlLogger _logger;
     SdlGraphic _graphic;
     SdlAudio _audio;
     SdlInput _input;

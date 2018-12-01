@@ -11,7 +11,11 @@ void SdlDeleter::operator()(SDL_Renderer* p) {
     SDL_DestroyRenderer(p);
 }
 
-SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
+SdlGraphic::SdlGraphic() = default;
+
+SdlGraphic::~SdlGraphic() = default;
+
+void SdlGraphic::init(int screen_width, int screen_height) {
     _window = WindowHandle{SDL_CreateWindow(
             "TopDown - Reborn",
             SDL_WINDOWPOS_CENTERED,
@@ -26,7 +30,7 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
     _renderer = RendererHandle{SDL_CreateRenderer(
             _window.get(), -1,
             SDL_RENDERER_ACCELERATED |
-                    SDL_RENDERER_PRESENTVSYNC
+            SDL_RENDERER_PRESENTVSYNC
     )};
     if (_renderer == nullptr) {
         throw Engine::FailedEngineInitException{SDL_GetError()};
@@ -44,7 +48,7 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
     SDL_RenderPresent(_renderer.get());
 }
 
-SdlGraphic::~SdlGraphic() {
+void SdlGraphic::deinit() {
     _name_to_texture.clear();
     IMG_Quit();
 }
