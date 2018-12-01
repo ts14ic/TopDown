@@ -12,6 +12,7 @@ public:
     }
 
     Size2d(SizeT width, SizeT height) {
+        assert(width >= 0 && height >= 0);
         this->width = width;
         this->height = height;
     }
