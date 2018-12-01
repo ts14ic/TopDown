@@ -7,41 +7,41 @@ template<typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<Si
 class Size2d {
 public:
     Size2d() {
-        width = 0;
-        height = 0;
+        _width = 0;
+        _height = 0;
     }
 
     Size2d(SizeT width, SizeT height) {
         assert(width >= 0 && height >= 0);
-        this->width = width;
-        this->height = height;
+        _width = width;
+        _height = height;
     }
 
     SizeT get_width() const {
-        return width;
+        return _width;
     }
 
     void set_width(SizeT width) {
         assert(width >= 0);
         if (width >= 0) {
-            this->width = width;
+            _width = width;
         }
     }
 
     SizeT get_height() const {
-        return height;
+        return _height;
     }
 
     void set_height(SizeT height) {
         assert(height >= 0);
         if (height >= 0) {
-            this->height = height;
+            _height = height;
         }
     }
 
 private:
-    SizeT width;
-    SizeT height;
+    SizeT _width;
+    SizeT _height;
 };
 
 template<typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
@@ -51,5 +51,5 @@ Size2d<SizeT> make_size(SizeT width, SizeT height) {
 
 template<typename ToType, typename FromType>
 Size2d<ToType> size_cast(Size2d<FromType> from) {
-    return make_size(static_cast<ToType>(from.width), static_cast<ToType>(from.height));
+    return make_size(static_cast<ToType>(from._width), static_cast<ToType>(from._height));
 }
