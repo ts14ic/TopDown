@@ -51,5 +51,5 @@ Size2d<SizeT> make_size(SizeT width, SizeT height) {
 
 template<typename ToType, typename FromType>
 Size2d<ToType> size_cast(Size2d<FromType> from) {
-    return make_size(static_cast<ToType>(from._width), static_cast<ToType>(from._height));
+    return make_size(static_cast<ToType>(from.get_width()), static_cast<ToType>(from.get_height()));
 }
