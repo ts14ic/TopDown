@@ -1,7 +1,9 @@
 #include "SdlLogger.h"
 #include <SDL_log.h>
 
-SdlLogger::SdlLogger() {
+SdlLogger::SdlLogger() = default;
+
+void SdlLogger::init() {
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_DEBUG);
 }
 

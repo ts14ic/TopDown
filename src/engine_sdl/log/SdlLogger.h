@@ -6,6 +6,8 @@ class SdlLogger : public Logger {
 public:
     SdlLogger();
 
+    void init();
+
     void i(const char* fmt, va_list args) override;
 
     void d(const char* fmt, va_list args) override;

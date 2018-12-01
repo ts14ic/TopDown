@@ -25,7 +25,7 @@ public:
 
     WeaponBuilder& projectile_spread(float spread);
 
-    WeaponBuilder& fire_sounds(const std::vector<std::string> &fireSounds);
+    WeaponBuilder& fire_sounds(const std::vector<std::string>& fireSounds);
 
     Weapon build();
 

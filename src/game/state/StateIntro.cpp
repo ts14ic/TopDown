@@ -6,18 +6,18 @@ StateIntro::StateIntro(Game& game)
     _game.get_engine().get_graphic().load_texture(_background_tex_id, "assets/gfx/intro_bg.png");
 }
 
-void StateIntro::handle_window_event(const WindowEvent &event) {
+void StateIntro::handle_window_event(const WindowEvent& event) {
 }
 
-void StateIntro::handle_mouse_event(const MouseScrollEvent &event) {
+void StateIntro::handle_mouse_event(const MouseScrollEvent& event) {
 }
 
 void StateIntro::handle_mouse_event(const MousePointEvent& event) {
 }
 
-void StateIntro::handle_key_event(const KeyboardEvent &event) {
-    if(event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
-        switch(event.get_key()) {
+void StateIntro::handle_key_event(const KeyboardEvent& event) {
+    if (event.get_type() == KeyboardEvent::Type::KEY_DOWN) {
+        switch (event.get_key()) {
             case 'q': {
                 _game.request_state_change(StateId::EXIT);
                 break;

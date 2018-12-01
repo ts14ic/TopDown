@@ -34,7 +34,7 @@ set(SOURCE_FILES
         src/engine/geometry/Box.cpp src/engine/geometry/Box.h
         src/engine/geometry/Color.cpp src/engine/geometry/Color.h
         src/engine/geometry/Point2d.h
-        src/engine/geometry/Size2.h
+        src/engine/geometry/Size2d.h
         src/engine/audio/Audio.cpp src/engine/audio/Audio.h
         src/engine/clock/Clock.cpp src/engine/clock/Clock.h
         src/engine/input/Input.cpp src/engine/input/Input.h
@@ -54,7 +54,6 @@ set(SOURCE_FILES
         src/engine_sdl/audio/SdlSound.cpp src/engine_sdl/audio/SdlSound.h
         src/engine_sdl/audio/SdlMusic.cpp src/engine_sdl/audio/SdlMusic.h
         src/engine_sdl/clock/SdlClockEngine.cpp src/engine_sdl/clock/SdlClockEngine.h
-        src/engine_sdl/SdlGuard.cpp src/engine_sdl/SdlGuard.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h
         src/game/state/GameState.h

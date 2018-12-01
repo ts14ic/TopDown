@@ -6,14 +6,11 @@
 #include "engine_sdl/audio/SdlAudio.h"
 #include "utils/sys/abort_handlers.h"
 
-constexpr int WINDOW_WIDTH = 800;
-constexpr int WINDOW_HEIGHT = 600;
-
 int main(int, char* []) {
     install_abort_handlers();
 
     auto game = GameImpl{
-            std::make_unique<SdlEngine>(WINDOW_WIDTH, WINDOW_HEIGHT)
+            std::make_unique<SdlEngine>()
     };
     game.run_loop();
 }

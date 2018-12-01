@@ -11,6 +11,10 @@ class Engine {
 public:
     virtual ~Engine() = 0;
 
+    virtual void init(int screen_width, int screen_height) = 0;
+
+    virtual void deinit() = 0;
+
     virtual Graphic& get_graphic() = 0;
 
     virtual Audio& get_audio() = 0;

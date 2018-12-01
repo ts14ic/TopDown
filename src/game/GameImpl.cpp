@@ -4,6 +4,9 @@
 #include <io/files/files.h>
 #include <io/json/json.h>
 
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 600;
+
 constexpr unsigned MS_ONE_SECOND = 1000;
 constexpr unsigned DEFAULT_FRAMES_PER_SECOND = 30;
 
@@ -11,6 +14,8 @@ GameImpl::GameImpl(
         std::unique_ptr<Engine> engine
 ) : _engine{std::move(engine)} {
     _milliseconds_per_frame = calculate_ms_per_frame(DEFAULT_FRAMES_PER_SECOND);
+
+    _engine->init(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     load_config();
     load_resources();

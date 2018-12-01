@@ -3,13 +3,17 @@
 #include "SdlMusic.h"
 #include <SDL_log.h>
 
-SdlAudio::SdlAudio() {
+SdlAudio::SdlAudio() = default;
+
+SdlAudio::~SdlAudio() = default;
+
+void SdlAudio::init() {
     if (0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
         throw FailedAudioInitException{Mix_GetError()};
     }
 }
 
-SdlAudio::~SdlAudio() {
+void SdlAudio::deinit() {
     _name_to_music.clear();
     _name_to_sound.clear();
     Mix_Quit();

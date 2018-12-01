@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Point2d.h"
-#include "Size2.h"
+#include "Size2d.h"
 
 class Box {
 public:
     Box() = default;
 
-    Box(Point2d<float> left_top, Size2<float> size) {
+    Box(Point2d<float> left_top, Size2d<float> size) {
         _left_top = left_top;
         _size = size;
     }
@@ -28,7 +28,7 @@ public:
         _left_top.y = y;
     }
 
-    Size2<float> get_size() const { return _size; }
+    Size2d<float> get_size() const { return _size; }
 
     float get_width() const { return _size.get_width(); }
 
@@ -38,7 +38,7 @@ public:
 
     void set_height(float height) { _size.set_height(height); }
 
-    void set_size(Size2<float> size) {
+    void set_size(Size2d<float> size) {
         _size = size;
     }
 
@@ -48,5 +48,5 @@ public:
 
 private:
     Point2d<float> _left_top;
-    Size2<float> _size;
+    Size2d<float> _size;
 };
