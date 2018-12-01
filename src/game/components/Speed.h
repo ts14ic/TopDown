@@ -1,6 +1,6 @@
 #pragma once
 
-#include <game/components/Speed2.h>
+#include <game/components/Speed2d.h>
 
 struct Speed {
     Speed() {
@@ -11,11 +11,11 @@ struct Speed {
         this->max_speed = max_speed;
     }
 
-    Speed(Speed2<float> current_speed, float max_speed) {
+    Speed(Speed2d<float> current_speed, float max_speed) {
         this->current_speed = current_speed;
         this->max_speed = max_speed;
     }
 
-    Speed2<float> current_speed;
+    Speed2d<float> current_speed;
     float max_speed;
 };

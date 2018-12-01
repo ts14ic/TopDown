@@ -3,7 +3,7 @@ project(TopDown)
 
 set(CMAKE_CXX_STANDARD 14)
 # GCC specific
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -rdynamic -Wall -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -pedantic")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(SDL2 REQUIRED)
@@ -66,7 +66,7 @@ set(SOURCE_FILES
         src/game/timer/Timer.cpp src/game/timer/Timer.h
         src/game/state/GameState.cpp src/engine/input/MouseScrollEvent.cpp
         src/game/components/Transform.h
-        src/game/components/Speed2.h
+        src/game/components/Speed2d.h
         src/game/components/Speed.h
         src/game/components/Vitality.h
         src/game/components/WeaponInventory.h src/game/components/WeaponInventory.cpp
