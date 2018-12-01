@@ -32,8 +32,11 @@ private:
     }
 
     void handle_player_logic();
+
     void handle_bullet_logic();
+
     void handle_zombie_logic();
+
     void handle_werewolf_logic();
 
     void parse_level_data();

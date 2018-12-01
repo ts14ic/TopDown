@@ -33,13 +33,13 @@ namespace json {
     namespace detail {
         const RjValue* get_value(const RjValue& root, const char* source);
 
-        template <class T>
+        template<class T>
         T get_value_casted(const RjValue& root, const char* source);
     }
 
     const auto SOURCE_SELF = "";
 
-    template <typename T>
+    template<typename T>
     T get_value(const RjValue& root, const char* source = SOURCE_SELF);
 
     RjObject get_object(const RjValue& root, const char* path = SOURCE_SELF);
@@ -52,7 +52,7 @@ namespace json {
 
     unsigned get_uint(const RjValue& root, const char* source = SOURCE_SELF);
 
-    template <typename T>
+    template<typename T>
     std::vector<T> get_values(const RjValue& root, const char* source = SOURCE_SELF);
 }
 

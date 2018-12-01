@@ -47,7 +47,7 @@ void Werewolf::set_target(Point2d<float> position) {
     if (_ai_state == AI_DYING) return;
 
     if (_ai_state == AI_TELEPORTING
-        && !_teleport_cooldown.ticks_passed_since_start(500)) {
+            && !_teleport_cooldown.ticks_passed_since_start(500)) {
         return;
     }
 

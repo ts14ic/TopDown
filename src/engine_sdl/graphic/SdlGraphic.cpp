@@ -26,7 +26,7 @@ SdlGraphic::SdlGraphic(int screen_width, int screen_height) {
     _renderer = RendererHandle{SDL_CreateRenderer(
             _window.get(), -1,
             SDL_RENDERER_ACCELERATED |
-            SDL_RENDERER_PRESENTVSYNC
+                    SDL_RENDERER_PRESENTVSYNC
     )};
     if (_renderer == nullptr) {
         throw Engine::FailedEngineInitException{SDL_GetError()};

@@ -44,7 +44,7 @@ WeaponBuilder& WeaponBuilder::projectile_spread(float spread) {
     return *this;
 }
 
-WeaponBuilder& WeaponBuilder::fire_sounds(const std::vector<std::string> &fireSounds) {
+WeaponBuilder& WeaponBuilder::fire_sounds(const std::vector<std::string>& fireSounds) {
     _fire_sounds = fireSounds;
     return *this;
 }

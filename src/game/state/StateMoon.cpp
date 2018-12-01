@@ -65,7 +65,7 @@ void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(50) &&
-        (_zombies.size() + _werewolves.size() < 7)) {
+            (_zombies.size() + _werewolves.size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
             _zombies.emplace_back(position);
@@ -114,7 +114,7 @@ void StateMoon::handle_bullet_logic() {
 
         for (auto& zombie : _zombies) {
             if (circles_collide(transform.get_circle(), zombie.get_circle())
-                && zombie.get_hp() > 0) {
+                    && zombie.get_hp() > 0) {
                 zombie.take_damage(bullet_damage);
                 Log::d("zombie takes %d damage, bullet destroyed", bullet_damage);
                 return true;
@@ -122,7 +122,7 @@ void StateMoon::handle_bullet_logic() {
         }
         for (auto& werewolf : _werewolves) {
             if (circles_collide(transform.get_circle(), werewolf.get_circle())
-                && werewolf.has_hp() > 0) {
+                    && werewolf.has_hp() > 0) {
                 werewolf.take_damage(bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 return true;
@@ -167,7 +167,7 @@ void StateMoon::handle_werewolf_logic() {
 
 bool StateMoon::position_out_of_level_area(Point2d<float> position) const {
     return (position.x > _level_width) || (position.x < 0) ||
-           (position.y > _level_height) || (position.y < 0);
+            (position.y > _level_height) || (position.y < 0);
 }
 
 Point2d<int> StateMoon::make_random_point() const {
@@ -219,8 +219,8 @@ void StateMoon::render_crosshair(float frames_count) {
     Graphic& graphic = get_engine().get_graphic();
 
     auto texture = graphic.get_texture(_player.is_reloading()
-                                       ? "reload"
-                                       : "crosshair");
+                                               ? "reload"
+                                               : "crosshair");
     auto render_point = make_point(
             _mouse_pos.x - texture.get_size().get_width() / 2,
             _mouse_pos.y - texture.get_size().get_height() / 2

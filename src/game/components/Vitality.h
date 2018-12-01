@@ -6,7 +6,7 @@ struct Vitality {
         default_hp = 0;
     }
 
-    explicit Vitality(int default_hp): Vitality{default_hp, default_hp} {}
+    explicit Vitality(int default_hp) : Vitality{default_hp, default_hp} {}
 
     Vitality(int current_hp, int default_hp) {
         this->current_hp = current_hp;

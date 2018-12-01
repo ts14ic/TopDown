@@ -1,4 +1,4 @@
-template <class T>
+template<class T>
 T json::detail::get_value_casted(const rapidjson::Value& root, const char* source) {
     auto value = get_value(root, source);
 
@@ -13,12 +13,12 @@ T json::detail::get_value_casted(const rapidjson::Value& root, const char* sourc
     return value->Get<T>();
 }
 
-template <typename T>
+template<typename T>
 T json::get_value(const rapidjson::Value& root, const char* source) {
     return detail::get_value_casted<T>(root, source);
 }
 
-template <typename T>
+template<typename T>
 std::vector<T> json::get_values(const rapidjson::Value& root, const char* source) {
     auto array = detail::get_value_casted<rapidjson::Value::ConstArray>(root, source);
 

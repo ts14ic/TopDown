@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-template <typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
+template<typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
 class Size2 {
 public:
     Size2() {
@@ -28,7 +28,7 @@ public:
     }
 
     void set_height(SizeT height) {
-        if (height >= 0) { this->height = height;}
+        if (height >= 0) { this->height = height; }
     }
 
 private:
@@ -36,12 +36,12 @@ private:
     SizeT height;
 };
 
-template <typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
+template<typename SizeT = int, typename = std::enable_if_t<std::is_arithmetic<SizeT>{}>>
 Size2<SizeT> make_size(SizeT width, SizeT height) {
     return Size2<SizeT>{width, height};
 }
 
-template <typename ToType, typename FromType>
+template<typename ToType, typename FromType>
 Size2<ToType> size_cast(Size2<FromType> from) {
     return make_size(static_cast<ToType>(from.width), static_cast<ToType>(from.height));
 }

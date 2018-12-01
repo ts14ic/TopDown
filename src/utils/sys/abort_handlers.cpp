@@ -1,7 +1,7 @@
 #include "abort_handlers.h"
 #include "demangle_type_name.h"
 
-#ifdef __GNUG__
+#ifdef __GNUG__NOT
 
 #include <csignal>
 #include <cstring>
@@ -84,7 +84,7 @@ void terminate_handler() {
 #endif // __GNUG__
 
 void install_abort_handlers() {
-#ifdef __GNUG__
+#ifdef __GNUG__NOT
     std::signal(SIGSEGV, sigsegv_handler);
     std::set_terminate(terminate_handler);
 #endif // __GNUG__

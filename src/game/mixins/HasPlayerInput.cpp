@@ -15,7 +15,7 @@ HasPlayerInput::HasPlayerInput(const char* control_scheme_file_name) {
     read_hold_action("/controls/hold/down", PlayerInput::HOLD_DOWN);
     read_hold_action("/controls/hold/right", PlayerInput::HOLD_RIGHT);
     read_hold_action("/controls/hold/trigger", PlayerInput::HOLD_TRIGGER);
-    
+
     auto read_quick_action = [&](const char* key, PlayerInput::QuickAction value) {
         _key_to_quick_action[json::get_int(document, key)] = value;
     };
@@ -36,15 +36,15 @@ HasPlayerInput::HasPlayerInput(const char* control_scheme_file_name) {
 PlayerInput::HoldAction HasPlayerInput::event_to_hold_action(const KeyboardEvent& event) const {
     auto action = _key_to_hold_action.find(event.get_key());
     return action != _key_to_hold_action.end()
-           ? action->second
-           : PlayerInput::HOLD_NONE;
+            ? action->second
+            : PlayerInput::HOLD_NONE;
 }
 
 PlayerInput::QuickAction HasPlayerInput::event_to_quick_action(const KeyboardEvent& event) const {
     auto action = _key_to_quick_action.find(event.get_key());
     return action != _key_to_quick_action.end()
-           ? action->second
-           : PlayerInput::QUICK_NONE;
+            ? action->second
+            : PlayerInput::QUICK_NONE;
 }
 
 void HasPlayerInput::handle_key_event(const KeyboardEvent& event) {
@@ -89,7 +89,7 @@ void HasPlayerInput::handle_mouse_event(const MousePointEvent& event) {
     }
 }
 
-template <typename Mutator>
+template<typename Mutator>
 void mutate_input(HasPlayerInput* self, Mutator&& mutator) {
     auto input = self->get_player_input();
     mutator(input);
