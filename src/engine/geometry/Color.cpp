@@ -1,13 +1,23 @@
 #include "Color.h"
+#include <cassert>
 
-Color::Color()
-        : Color{0, 0, 0, 255} {
-
+inline void set_component(int& component, int value) {
+    assert(value >= 0 && value <= 255);
+    component = value;
 }
 
-Color::Color(int red, int green, int blue, int alpha)
-        : _red{red}, _green{green}, _blue{blue}, _alpha{alpha} {
+Color::Color() {
+    _red = 0;
+    _green = 0;
+    _blue = 0;
+    _alpha = 255;
+}
 
+Color::Color(int red, int green, int blue, int alpha) {
+    set_component(_red, red);
+    set_component(_green, green);
+    set_component(_blue, blue);
+    set_component(_alpha, alpha);
 }
 
 int Color::get_red() const {
@@ -15,7 +25,7 @@ int Color::get_red() const {
 }
 
 void Color::set_red(int red) {
-    _red = red;
+    set_component(_red, red);
 }
 
 int Color::get_green() const {
@@ -23,7 +33,7 @@ int Color::get_green() const {
 }
 
 void Color::set_green(int green) {
-    _green = green;
+    set_component(_green, green);
 }
 
 int Color::get_blue() const {
@@ -31,7 +41,7 @@ int Color::get_blue() const {
 }
 
 void Color::set_blue(int blue) {
-    _blue = blue;
+    set_component(_blue, blue);
 }
 
 int Color::get_alpha() const {
@@ -39,5 +49,5 @@ int Color::get_alpha() const {
 }
 
 void Color::set_alpha(int alpha) {
-    _alpha = alpha;
+    set_component(_alpha, alpha);
 }
