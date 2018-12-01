@@ -3,11 +3,11 @@
 #include <io/json/json.h>
 #include <iostream>
 
-HasPlayerInput::HasPlayerInput(const char* control_scheme_file_name) {
+HasPlayerInput::HasPlayerInput(cstring control_scheme_file_name) {
     auto file = files::read_file_to_string(control_scheme_file_name);
     auto document = json::parse_json(file);
 
-    auto read_hold_action = [&](const char* key, PlayerInput::HoldAction value) {
+    auto read_hold_action = [&](cstring key, PlayerInput::HoldAction value) {
         _key_to_hold_action[json::get_int(document, key)] = value;
     };
     read_hold_action("/controls/hold/up", PlayerInput::HOLD_UP);
@@ -16,7 +16,7 @@ HasPlayerInput::HasPlayerInput(const char* control_scheme_file_name) {
     read_hold_action("/controls/hold/right", PlayerInput::HOLD_RIGHT);
     read_hold_action("/controls/hold/trigger", PlayerInput::HOLD_TRIGGER);
 
-    auto read_quick_action = [&](const char* key, PlayerInput::QuickAction value) {
+    auto read_quick_action = [&](cstring key, PlayerInput::QuickAction value) {
         _key_to_quick_action[json::get_int(document, key)] = value;
     };
     read_quick_action("/controls/quick/0", PlayerInput::QUICK_0);

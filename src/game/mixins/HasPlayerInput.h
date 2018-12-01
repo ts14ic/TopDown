@@ -3,12 +3,13 @@
 #include <game/components/PlayerInput.h>
 #include <engine/input/MouseEventHandler.h>
 #include <engine/input/KeyboardEventHandler.h>
+#include <utils/typedefs.h>
 #include <unordered_map>
 
 class HasPlayerInput : public KeyboardEventHandler,
                        public MouseEventHandler {
 public:
-    explicit HasPlayerInput(const char* control_scheme_file_name = "data/config.json");
+    explicit HasPlayerInput(cstring control_scheme_file_name = "data/config.json");
 
     virtual PlayerInput get_player_input() const = 0;
 

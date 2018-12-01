@@ -89,7 +89,7 @@ set(SOURCE_FILES
         src/engine/clock/ClockEngine.cpp src/engine/clock/ClockEngine.h
         src/game/components/ZombieAi.cpp src/game/components/ZombieAi.h
         src/game/components/Sprite.cpp src/game/components/Sprite.h
-        )
+        src/utils/typedefs.h)
 
 add_executable(TopDown ${SOURCE_FILES})
 target_link_libraries(TopDown

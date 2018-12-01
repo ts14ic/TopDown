@@ -1,5 +1,5 @@
 template<class T>
-T json::detail::get_value_casted(const rapidjson::Value& root, const char* source) {
+T json::detail::get_value_casted(const rapidjson::Value& root, cstring source) {
     auto value = get_value(root, source);
 
     // Despite the docs saying Is<> and Get<> work only on scalars,
@@ -14,12 +14,12 @@ T json::detail::get_value_casted(const rapidjson::Value& root, const char* sourc
 }
 
 template<typename T>
-T json::get_value(const rapidjson::Value& root, const char* source) {
+T json::get_value(const rapidjson::Value& root, cstring source) {
     return detail::get_value_casted<T>(root, source);
 }
 
 template<typename T>
-std::vector<T> json::get_values(const rapidjson::Value& root, const char* source) {
+std::vector<T> json::get_values(const rapidjson::Value& root, cstring source) {
     auto array = detail::get_value_casted<rapidjson::Value::ConstArray>(root, source);
 
     std::vector<T> vector;

@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include <engine/geometry/Box.h>
 #include <engine/geometry/Color.h>
+#include <utils/typedefs.h>
 #include <stdexcept>
 #include <iosfwd>
 
@@ -20,10 +21,10 @@ public:
 
     virtual void render_texture(const std::string& texture_name, Point2d<int> position, float angle) = 0;
 
-    virtual void load_texture(const std::string& name, const char* path) = 0;
+    virtual void load_texture(const std::string& name, cstring path) = 0;
 
     struct FailedToLoadTextureException : public std::runtime_error {
-        explicit FailedToLoadTextureException(const char* message);
+        explicit FailedToLoadTextureException(cstring message);
     };
 
     virtual Texture get_texture(const std::string& name) = 0;

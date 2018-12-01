@@ -8,11 +8,11 @@ public:
 
     void init();
 
-    void i(const char* fmt, va_list args) override;
+    void i(cstring fmt, va_list args) override;
 
-    void d(const char* fmt, va_list args) override;
+    void d(cstring fmt, va_list args) override;
 
-    void w(const char* fmt, va_list args) override;
+    void w(cstring fmt, va_list args) override;
 
-    void e(const char* fmt, va_list args) override;
+    void e(cstring fmt, va_list args) override;
 };

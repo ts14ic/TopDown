@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utils/typedefs.h>
 #include <iosfwd>
 
 namespace files {
@@ -9,6 +10,6 @@ namespace files {
      * @return File content
      * @throws runtime_error if failed to read the file
      */
-    std::string read_file_to_string(const char* file_path);
+    std::string read_file_to_string(cstring file_path);
 }
 

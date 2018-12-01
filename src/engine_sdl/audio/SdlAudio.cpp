@@ -29,11 +29,11 @@ void SdlAudio::play_sound(const std::string& name) {
     play_sound(_name_to_sound[name]);
 }
 
-void SdlAudio::load_sound(const std::string& name, const char* path) {
+void SdlAudio::load_sound(const std::string& name, cstring path) {
     _name_to_sound.insert(std::make_pair(name, load_sound(path)));
 }
 
-SdlSound SdlAudio::load_sound(const char* path) {
+SdlSound SdlAudio::load_sound(cstring path) {
     ChunkHandle chunk_handle{Mix_LoadWAV(path)};
     if (chunk_handle == nullptr) {
         throw FailedToLoadSoundException{Mix_GetError()};
@@ -54,11 +54,11 @@ void SdlAudio::play_music(const SdlMusic& music) {
     }
 }
 
-void SdlAudio::load_music(const std::string& name, const char* path) {
+void SdlAudio::load_music(const std::string& name, cstring path) {
     _name_to_music.insert(std::make_pair(name, load_music(path)));
 }
 
-SdlMusic SdlAudio::load_music(const char* path) {
+SdlMusic SdlAudio::load_music(cstring path) {
     MusicHandle music_handle{Mix_LoadMUS(path)};
     if (music_handle == nullptr) {
         throw FailedToLoadMusicException{Mix_GetError()};

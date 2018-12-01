@@ -15,7 +15,7 @@ void Log::uninstall_logger(Logger& logger) {
     }
 }
 
-void Log::i(const char* fmt, ...) {
+void Log::i(cstring fmt, ...) {
     if (LOGGER != nullptr) {
         va_list args;
         va_start(args, fmt);
@@ -24,7 +24,7 @@ void Log::i(const char* fmt, ...) {
     }
 }
 
-void Log::d(const char* fmt, ...) {
+void Log::d(cstring fmt, ...) {
     if (LOGGER != nullptr) {
         va_list args;
         va_start(args, fmt);
@@ -33,7 +33,7 @@ void Log::d(const char* fmt, ...) {
     }
 }
 
-void Log::w(const char* fmt, ...) {
+void Log::w(cstring fmt, ...) {
     if (LOGGER != nullptr) {
         va_list args;
         va_start(args, fmt);
@@ -42,7 +42,7 @@ void Log::w(const char* fmt, ...) {
     }
 }
 
-void Log::e(const char* fmt, ...) {
+void Log::e(cstring fmt, ...) {
     if (LOGGER != nullptr) {
         va_list args;
         va_start(args, fmt);

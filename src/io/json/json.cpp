@@ -1,4 +1,5 @@
 #include "json.h"
+#include <utils/typedefs.h>
 #include <rapidjson/error/en.h>
 
 using namespace std::string_literals;
@@ -17,7 +18,7 @@ json::ParseException::ParseException(const std::string& message)
 
 using RjPointer = rapidjson::Pointer;
 
-RjPointer get_pointer(const char* source) {
+RjPointer get_pointer(cstring source) {
     RjPointer pointer{source};
     if (!pointer.IsValid()) {
         throw json::ParseException("Invalid pointer: "s + source);
@@ -27,7 +28,7 @@ RjPointer get_pointer(const char* source) {
 
 const RjValue* json::detail::get_value(
         const RjValue& root,
-        const char* source
+        cstring source
 ) {
     auto pointer = get_pointer(source);
     auto value = pointer.Get(root);
@@ -37,22 +38,22 @@ const RjValue* json::detail::get_value(
     return value;
 }
 
-RjObject json::get_object(const RjValue& root, const char* path) {
+RjObject json::get_object(const RjValue& root, cstring path) {
     return get_value<RjObject>(root, path);
 }
 
-RjArray json::get_array(const RjValue& root, const char* path) {
+RjArray json::get_array(const RjValue& root, cstring path) {
     return get_value<RjArray>(root, path);
 }
 
-const char* json::get_czstring(const RjValue& root, const char* source) {
-    return get_value<const char*>(root, source);
+cstring json::get_czstring(const RjValue& root, cstring source) {
+    return get_value<cstring>(root, source);
 }
 
-int json::get_int(const RjValue& root, const char* source) {
+int json::get_int(const RjValue& root, cstring source) {
     return get_value<int>(root, source);
 }
 
-unsigned json::get_uint(const RjValue& root, const char* source) {
+unsigned json::get_uint(const RjValue& root, cstring source) {
     return get_value<unsigned>(root, source);
 }
