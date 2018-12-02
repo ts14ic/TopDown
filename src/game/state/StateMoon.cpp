@@ -270,11 +270,10 @@ void StateMoon::handle_player_logic() {
         _transforms[_player_entity].angle = math::get_cartesian_angle(player_position, mouse_position);
     }
 
-    player_handle_weapon_selection(_player_entity);
-
     player_update_speeds();
     gameobject_default_move(_player_entity);
 
+    player_handle_weapon_selection(_player_entity);
     // TODO don't try to reload on every frame
     _weapon_inventories[_player_entity].try_reload_selected();
 
