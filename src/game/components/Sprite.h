@@ -65,7 +65,7 @@ namespace animation {
         std::vector<std::size_t> _frame_durations;
         Timer _timer;
         std::size_t _time = 0;
-        bool _started = 0;
+        bool _started = false;
     };
 
     class RepeatableAnimation : public Animation {
