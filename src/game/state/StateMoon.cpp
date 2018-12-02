@@ -515,23 +515,28 @@ void StateMoon::zombie_handle_logic(Entity entity) {
     }
 
     if (_zombie_ais[entity].is_moving()) {
-        // TODO extract speed setting
-        auto movement_angle = _transforms[entity].angle;
-
-        _speeds[entity].current_speed = {
-                math::cartesian_cos(movement_angle) * _speeds[entity].max_speed,
-                math::cartesian_sin(movement_angle) * _speeds[entity].max_speed
-        };
+        gameobject_update_speeds(entity);
         gameobject_default_move(entity);
     } else {
         _speeds[entity].current_speed = {0.0f, 0.0f};
     }
 }
 
+void StateMoon::gameobject_update_speeds(Entity entity) {
+    auto movement_angle = _transforms[entity].angle;
+    auto& speed = _speeds[entity];
+    speed.current_speed = {
+            math::cartesian_cos(movement_angle) * speed.max_speed,
+            math::cartesian_sin(movement_angle) * speed.max_speed
+    };
+}
+
 void StateMoon::gameobject_default_move(Entity entity) {
-    _transforms[entity].position = {
-            _transforms[entity].position.x + _speeds[entity].current_speed.x,
-            _transforms[entity].position.y + _speeds[entity].current_speed.y
+    auto& transform = _transforms[entity];
+    auto& speed = _speeds[entity];
+    transform.position = {
+            transform.position.x + speed.current_speed.x,
+            transform.position.y + speed.current_speed.y
     };
 }
 
@@ -599,13 +604,7 @@ void StateMoon::werewolf_handle_logic(Entity entity) {
     }
 
     if (_wolf_ais[entity].is_moving()) {
-        // TODO extract speed setting
-        auto movement_angle = _transforms[entity].angle;
-
-        _speeds[entity].current_speed = {
-                math::cartesian_cos(movement_angle) * _speeds[entity].max_speed,
-                math::cartesian_sin(movement_angle) * _speeds[entity].max_speed
-        };
+        gameobject_update_speeds(entity);
         gameobject_default_move(entity);
     } else {
         _speeds[entity].current_speed = {0.0f, 0.0f};

@@ -97,6 +97,8 @@ private:
 
     void gameobject_handle_render_health(Entity entity, Color color, float frames_count);
 
+    void gameobject_update_speeds(Entity entity);
+
     void gameobject_default_move(Entity entity);
 
     void load_control_scheme(const char* control_scheme_file_name = "data/config.json");
