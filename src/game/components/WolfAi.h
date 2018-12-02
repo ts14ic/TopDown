@@ -5,11 +5,11 @@
 class WolfAi {
 public:
     enum AiState {
-        AI_IDLE = 0x0,
-        AI_MOVING = 0x1,
-        AI_ATTACKING = 0x2,
-        AI_TELEPORTING = 0x4,
-        AI_DYING = 0x8
+        AI_IDLE = 0,
+        AI_MOVING = 1u,
+        AI_ATTACKING = 1u << 1u,
+        AI_TELEPORTING = 1u << 2u,
+        AI_DYING = 1u << 3u
     };
 
     bool is_state(AiState ai_state) const {
@@ -66,5 +66,5 @@ public:
 private:
     Timer _attack_cooldown;
     Timer _teleport_cooldown;
-    int _ai_state = AI_IDLE;
+    AiState _ai_state = AI_IDLE;
 };

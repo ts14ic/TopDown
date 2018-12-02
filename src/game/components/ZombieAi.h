@@ -3,10 +3,10 @@
 class ZombieAi {
 public:
     enum AiState {
-        AI_IDLE = 0,
-        AI_MOVING = 1 << 0,
-        AI_ATTACKING = 1 << 1,
-        AI_DYING = 1 << 2
+        AI_IDLE = 0u,
+        AI_MOVING = 1u,
+        AI_ATTACKING = 1u << 1u,
+        AI_DYING = 1u << 2u
     };
 
     bool is_state(AiState ai_state) const {
