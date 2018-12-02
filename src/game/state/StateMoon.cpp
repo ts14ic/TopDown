@@ -258,13 +258,9 @@ void StateMoon::handle_logic() {
     handle_zombie_logic();
     handle_werewolf_logic();
 
-    if (is_player_dead(_player_entity)) {
+    if (_vitality[_player_entity].current_hp <= 0) {
         _game.request_state_change(StateId::INTRO);
     }
-}
-
-bool StateMoon::is_player_dead(Entity entity) {
-    return _vitality[entity].current_hp <= 0;
 }
 
 void StateMoon::handle_player_logic() {
