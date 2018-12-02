@@ -237,7 +237,7 @@ void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(50) &&
-            (_zombie_ais.size() + _wolf_ais.size() < 7)) {
+        (_zombie_ais.size() + _wolf_ais.size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
             create_zombie(position);
@@ -266,8 +266,8 @@ bool StateMoon::is_player_dead(Entity entity) {
 
 void StateMoon::handle_player_logic() {
     if (_player_inputs[_player_entity].mouse_moved()) {
-        auto& player_position = _transforms[_player_entity].position;
-        const auto& mouse_position = _player_inputs[_player_entity].pop_mouse_position();
+        auto player_position = _transforms[_player_entity].position;
+        auto mouse_position = _player_inputs[_player_entity].pop_mouse_position();
         _transforms[_player_entity].angle = math::get_cartesian_angle(player_position, mouse_position);
     }
 
@@ -383,7 +383,7 @@ void StateMoon::handle_bullet_logic() {
             auto entity = zombie.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) &&
-                    _vitality[entity].current_hp > 0) {
+                _vitality[entity].current_hp > 0) {
                 zombie_take_damage(entity, bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
                 continue;
@@ -393,7 +393,7 @@ void StateMoon::handle_bullet_logic() {
             auto entity = werewolf.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle())
-                    && _vitality[entity].current_hp > 0) {
+                && _vitality[entity].current_hp > 0) {
                 werewolf_take_damage(entity, bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
@@ -617,7 +617,7 @@ void StateMoon::werewolf_handle_logic(Entity entity) {
 
 bool StateMoon::position_out_of_level_area(Point2d<float> position) const {
     return (position.x > _level_width) || (position.x < 0) ||
-            (position.y > _level_height) || (position.y < 0);
+           (position.y > _level_height) || (position.y < 0);
 }
 
 Point2d<int> StateMoon::make_random_point() const {
