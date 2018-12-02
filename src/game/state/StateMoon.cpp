@@ -50,6 +50,90 @@ void StateMoon::load_control_scheme(const char* control_scheme_file_name) {
     read_quick_action("/controls/quick/previous_weapon", PlayerInput::QUICK_PREVIOUS_WEAPON);
 }
 
+Entity StateMoon::create_player(Point2d<float> position) {
+    Entity entity = _entity_factory.create_entity();
+
+    _debug_infos[entity] = DebugInfo{"player"};
+    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
+    _speeds[entity] = Speed{};
+    _weapon_inventories[entity] = WeaponInventory{};
+    _player_inputs[entity] = PlayerInput{};
+    _vitality[entity] = Vitality{100};
+    _damage_cooldowns[entity] = Timer{};
+    _sprites[entity] = Sprite{animation::PLAYER_HANDS};
+
+    return entity;
+}
+
+Entity StateMoon::create_werewolf(const Point2d<float>& position) {
+    Entity entity = _entity_factory.create_entity();
+
+    _wolf_ais[entity] = WolfAi{};
+    _debug_infos[entity] = DebugInfo{"werewolf"};
+    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
+    _speeds[entity] = Speed{2.5f};
+    _vitality[entity] = Vitality{30};
+    _sprites[entity] = Sprite{animation::WOLF_MOVING};
+
+    return entity;
+}
+
+Entity StateMoon::create_zombie(Point2d<float> position) {
+    Entity entity = _entity_factory.create_entity();
+
+    _zombie_ais[entity] = ZombieAi{};
+    _debug_infos[entity] = DebugInfo{"zombie"};
+    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
+    _vitality[entity] = Vitality{50};
+    _speeds[entity] = Speed{1.7f};
+    _sprites[entity] = Sprite{animation::ZOMBIE_MOVING};
+    _melee_damages[entity] = 15;
+
+    Log::d("zombie %d created, %d total", entity, _zombie_ais.size());
+    return entity;
+}
+
+Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& inventory) {
+    Entity entity = _entity_factory.create_entity();
+
+    _debug_infos[entity] = DebugInfo{"bullet"};
+    const auto& weapon = inventory.get_selected();
+    auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
+    auto angle = origin.angle
+            + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
+    _transforms[entity] = Transform{
+            make_point(
+                    origin.position.x + math::cartesian_cos(angle) * weapon.get_length(),
+                    origin.position.y + math::cartesian_sin(angle) * weapon.get_length()
+            ),
+            angle,
+            /*radius*/2.0f
+    };
+    _melee_damages[entity] = weapon.get_projectile_damage();
+    _speeds[entity] = Speed{weapon.get_projectile_speed()};
+    _sprites[entity] = Sprite{animation::BULLET};
+
+    _bullet_entities.insert(entity);
+
+    return entity;
+}
+
+void StateMoon::remove_entity(Entity entity) {
+    _debug_infos.erase(entity);
+    _transforms.erase(entity);
+    _speeds.erase(entity);
+    _weapon_inventories.erase(entity);
+    _player_inputs.erase(entity);
+    _vitality.erase(entity);
+    _sprites.erase(entity);
+    _zombie_ais.erase(entity);
+    _melee_damages.erase(entity);
+    _damage_cooldowns.erase(entity);
+    _wolf_ais.erase(entity);
+
+    _bullet_entities.erase(entity);
+}
+
 PlayerInput::HoldAction StateMoon::event_to_hold_action(const KeyboardEvent& event) const {
     auto action = _key_to_hold_action.find(event.get_key());
     return action != _key_to_hold_action.end()
@@ -154,90 +238,6 @@ void StateMoon::restrict_position_to_level_area(Entity entity) {
     }
 }
 
-void StateMoon::remove_entity(Entity entity) {
-    _debug_infos.erase(entity);
-    _transforms.erase(entity);
-    _speeds.erase(entity);
-    _weapon_inventories.erase(entity);
-    _player_inputs.erase(entity);
-    _vitality.erase(entity);
-    _sprites.erase(entity);
-    _zombie_ais.erase(entity);
-    _melee_damages.erase(entity);
-    _damage_cooldowns.erase(entity);
-    _wolf_ais.erase(entity);
-
-    _bullet_entities.erase(entity);
-}
-
-Entity StateMoon::create_werewolf(const Point2d<float>& position) {
-    Entity entity = _entity_factory.create_entity();
-
-    _wolf_ais[entity] = WolfAi{};
-    _debug_infos[entity] = DebugInfo{"werewolf"};
-    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
-    _speeds[entity] = Speed{2.5f};
-    _vitality[entity] = Vitality{30};
-    _sprites[entity] = Sprite{animation::WOLF_MOVING};
-
-    return entity;
-}
-
-Entity StateMoon::create_player(Point2d<float> position) {
-    Entity entity = _entity_factory.create_entity();
-
-    _debug_infos[entity] = DebugInfo{"player"};
-    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
-    _speeds[entity] = Speed{};
-    _weapon_inventories[entity] = WeaponInventory{};
-    _player_inputs[entity] = PlayerInput{};
-    _vitality[entity] = Vitality{100};
-    _damage_cooldowns[entity] = Timer{};
-    _sprites[entity] = Sprite{animation::PLAYER_HANDS};
-
-    return entity;
-}
-
-Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& inventory) {
-    Entity entity = _entity_factory.create_entity();
-
-    _debug_infos[entity] = DebugInfo{"bullet"};
-    const auto& weapon = inventory.get_selected();
-    auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
-    auto angle = origin.angle
-            + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
-    _transforms[entity] = Transform{
-            make_point(
-                    origin.position.x + math::cartesian_cos(angle) * weapon.get_length(),
-                    origin.position.y + math::cartesian_sin(angle) * weapon.get_length()
-            ),
-            angle,
-            /*radius*/2.0f
-    };
-    _melee_damages[entity] = weapon.get_projectile_damage();
-    _speeds[entity] = Speed{weapon.get_projectile_speed()};
-    _sprites[entity] = Sprite{animation::BULLET};
-
-    _bullet_entities.insert(entity);
-
-    return entity;
-}
-
-Entity StateMoon::create_zombie(Point2d<float> position) {
-    Entity entity = _entity_factory.create_entity();
-
-    _zombie_ais[entity] = ZombieAi{};
-    _debug_infos[entity] = DebugInfo{"zombie"};
-    _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
-    _vitality[entity] = Vitality{50};
-    _speeds[entity] = Speed{1.7f};
-    _sprites[entity] = Sprite{animation::ZOMBIE_MOVING};
-    _melee_damages[entity] = 15;
-
-    Log::d("zombie %d created, %d total", entity, _zombie_ais.size());
-    return entity;
-}
-
 void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
@@ -257,8 +257,6 @@ void StateMoon::handle_logic() {
     handle_bullet_logic();
     handle_zombie_logic();
     handle_werewolf_logic();
-
-    restrict_position_to_level_area(_player_entity);
 
     if (is_player_dead(_player_entity)) {
         _game.request_state_change(StateId::INTRO);
@@ -294,6 +292,8 @@ void StateMoon::handle_player_logic() {
             create_bullet(_transforms[_player_entity], _weapon_inventories[_player_entity]);
         }
     }
+
+    restrict_position_to_level_area(_player_entity);
 }
 
 void StateMoon::player_update_speeds() {
