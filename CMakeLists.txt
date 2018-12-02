@@ -55,6 +55,10 @@ set(SOURCE_FILES
         src/engine_sdl/audio/SdlSound.cpp src/engine_sdl/audio/SdlSound.h
         src/engine_sdl/audio/SdlMusic.cpp src/engine_sdl/audio/SdlMusic.h
         src/engine_sdl/clock/SdlClockEngine.cpp src/engine_sdl/clock/SdlClockEngine.h
+        src/engine/log/Log.cpp src/engine/log/Log.h
+        src/engine/log/Logger.h
+        src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h
+        src/engine/clock/ClockEngine.cpp src/engine/clock/ClockEngine.h
         src/game/state/StateIntro.cpp src/game/state/StateIntro.h
         src/game/state/StateMoon.cpp src/game/state/StateMoon.h
         src/game/state/GameState.h
@@ -71,14 +75,11 @@ set(SOURCE_FILES
         src/game/components/Vitality.h
         src/game/components/WeaponInventory.h src/game/components/WeaponInventory.cpp
         src/game/components/PlayerInput.h src/game/components/PlayerInput.cpp
-        src/engine/log/Log.cpp src/engine/log/Log.h
-        src/engine/log/Logger.h
-        src/engine_sdl/log/SdlLogger.cpp src/engine_sdl/log/SdlLogger.h
-        src/engine/clock/ClockEngine.cpp src/engine/clock/ClockEngine.h
         src/game/components/ZombieAi.cpp src/game/components/ZombieAi.h
         src/game/components/Sprite.cpp src/game/components/Sprite.h
         src/game/components/WolfAi.cpp src/game/components/WolfAi.h
         src/game/components/EntityFactory.cpp src/game/components/EntityFactory.h
+        src/game/components/DebugInfo.cpp src/game/components/DebugInfo.h
         )
 
 add_executable(TopDown ${SOURCE_FILES})

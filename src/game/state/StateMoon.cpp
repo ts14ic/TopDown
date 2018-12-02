@@ -155,6 +155,7 @@ void StateMoon::restrict_position_to_level_area(Entity entity) {
 }
 
 void StateMoon::remove_entity(Entity entity) {
+    _debug_infos.erase(entity);
     _transforms.erase(entity);
     _speeds.erase(entity);
     _weapon_inventories.erase(entity);
@@ -172,11 +173,12 @@ void StateMoon::remove_entity(Entity entity) {
 Entity StateMoon::create_werewolf(const Point2d<float>& position) {
     Entity entity = _entity_factory.create_entity();
 
+    _wolf_ais[entity] = WolfAi{};
+    _debug_infos[entity] = DebugInfo{"werewolf"};
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
     _speeds[entity] = Speed{2.5f};
     _vitality[entity] = Vitality{30};
     _sprites[entity] = Sprite{animation::WOLF_MOVING};
-    _wolf_ais[entity] = WolfAi{};
 
     return entity;
 }
@@ -184,6 +186,7 @@ Entity StateMoon::create_werewolf(const Point2d<float>& position) {
 Entity StateMoon::create_player(Point2d<float> position) {
     Entity entity = _entity_factory.create_entity();
 
+    _debug_infos[entity] = DebugInfo{"player"};
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/30.0f};
     _speeds[entity] = Speed{};
     _weapon_inventories[entity] = WeaponInventory{};
@@ -198,6 +201,7 @@ Entity StateMoon::create_player(Point2d<float> position) {
 Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& inventory) {
     Entity entity = _entity_factory.create_entity();
 
+    _debug_infos[entity] = DebugInfo{"bullet"};
     const auto& weapon = inventory.get_selected();
     auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
     auto angle = origin.angle
@@ -223,6 +227,7 @@ Entity StateMoon::create_zombie(Point2d<float> position) {
     Entity entity = _entity_factory.create_entity();
 
     _zombie_ais[entity] = ZombieAi{};
+    _debug_infos[entity] = DebugInfo{"zombie"};
     _transforms[entity] = Transform{position, /*rotation*/0.0f, /*radius*/25.0f};
     _vitality[entity] = Vitality{50};
     _speeds[entity] = Speed{1.7f};
@@ -408,7 +413,8 @@ void StateMoon::werewolf_take_damage(Entity entity, int damage_dealt) {
     if (damage_dealt > 0) {
         auto previous_health = _vitality[entity].current_hp;
         _vitality[entity].current_hp -= damage_dealt;
-        Log::d("werewolf takes %d damage, health at: [%d/%d]", damage_dealt, _vitality[entity].current_hp, previous_health);
+        Log::d("%s takes %d damage, health at: [%d/%d]",
+                _debug_infos[entity].get_name(), damage_dealt, _vitality[entity].current_hp, previous_health);
     }
     if (_vitality[entity].current_hp <= 0 && !_wolf_ais[entity].is_dying()) {
         _wolf_ais[entity].set_state(WolfAi::AI_DYING);
@@ -436,7 +442,8 @@ void StateMoon::zombie_take_damage(Entity entity, int damage_dealt) {
     if (damage_dealt > 0) {
         auto previous_health = _vitality[entity].current_hp;
         _vitality[entity].current_hp -= damage_dealt;
-        Log::d("zombie takes %d damage, health at: [%d/%d]", damage_dealt, _vitality[entity].current_hp, previous_health);
+        Log::d("%s takes %d damage, health at: [%d/%d]",
+                _debug_infos[entity].get_name(), damage_dealt, _vitality[entity].current_hp, previous_health);
     }
 
     if (_vitality[entity].current_hp <= 0 && !_zombie_ais[entity].is_dying()) {

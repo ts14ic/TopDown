@@ -2,6 +2,7 @@
 
 #include "GameState.h"
 #include <game/components/EntityFactory.h>
+#include <game/components/DebugInfo.h>
 #include <game/components/Sprite.h>
 #include <game/components/ZombieAi.h>
 #include <game/components/PlayerInput.h>
@@ -123,6 +124,7 @@ private:
     Entity _player_entity;
     std::unordered_set<Entity> _bullet_entities;
 
+    std::unordered_map<Entity, DebugInfo> _debug_infos;
     std::unordered_map<Entity, Transform> _transforms;
     std::unordered_map<Entity, Speed> _speeds;
     std::unordered_map<Entity, WeaponInventory> _weapon_inventories;
