@@ -405,7 +405,11 @@ void StateMoon::werewolf_take_damage(Entity entity, int damage_dealt) {
         damage_dealt /= 2;
     }
 
-    if (damage_dealt > 0) _vitality[entity].current_hp -= damage_dealt;
+    if (damage_dealt > 0) {
+        auto previous_health = _vitality[entity].current_hp;
+        _vitality[entity].current_hp -= damage_dealt;
+        Log::d("werewolf takes %d damage, health at: [%d/%d]", damage_dealt, _vitality[entity].current_hp, previous_health);
+    }
     if (_vitality[entity].current_hp <= 0 && !_wolf_ais[entity].is_dying()) {
         _wolf_ais[entity].set_state(WolfAi::AI_DYING);
         _sprites[entity].set_state(animation::WOLF_DYING);
@@ -432,7 +436,7 @@ void StateMoon::zombie_take_damage(Entity entity, int damage_dealt) {
     if (damage_dealt > 0) {
         auto previous_health = _vitality[entity].current_hp;
         _vitality[entity].current_hp -= damage_dealt;
-        Log::d("zombie takes damage, health at: [%d/%d]", _vitality[entity].current_hp, previous_health);
+        Log::d("zombie takes %d damage, health at: [%d/%d]", damage_dealt, _vitality[entity].current_hp, previous_health);
     }
 
     if (_vitality[entity].current_hp <= 0 && !_zombie_ais[entity].is_dying()) {
