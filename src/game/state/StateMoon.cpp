@@ -364,30 +364,36 @@ void StateMoon::handle_bullet_logic() {
         }
 
         auto bullet_damage = _melee_damages[bullet_entity];
-        for (auto& zombie : _zombie_ais) {
-            auto entity = zombie.first;
+        for (auto& entry : _zombie_ais) {
+            auto entity = entry.first;
 
-            if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) &&
-                    _vitality[entity].current_hp > 0) {
+            if (circles_collide(transform.get_circle(), _transforms[entity].get_circle())
+                    && _vitality[entity].current_hp > 0) {
                 zombie_take_damage(entity, bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
-                continue;
+                goto next_iteration;
             }
         }
-        for (auto& werewolf : _wolf_ais) {
-            auto entity = werewolf.first;
+        for (auto& entry : _wolf_ais) {
+            auto entity = entry.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle())
                     && _vitality[entity].current_hp > 0) {
                 werewolf_take_damage(entity, bullet_damage);
-                Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
-                continue;
+                goto next_iteration;
             }
+        }
+
+        for (auto& entry : _wolf_ais) {
+            auto entity = entry.first;
             if (math::get_distance(transform.position, _transforms[entity].position) < 50) {
                 werewolf_teleport(entity, random);
             }
         }
+
+        next_iteration:
+        continue;
     }
     for (auto entity : destroyed_bullets) {
         remove_entity(entity);
