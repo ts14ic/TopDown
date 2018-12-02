@@ -272,10 +272,6 @@ void StateMoon::handle_player_logic() {
 
     player_handle_weapon_selection(_player_entity);
 
-    _speeds[_player_entity].max_speed = _damage_cooldowns[_player_entity].ticks_passed_since_start(500)
-            ? 2.3f
-            : 1.0f;
-
     player_update_speeds();
     gameobject_default_move(_player_entity);
 
@@ -293,11 +289,15 @@ void StateMoon::handle_player_logic() {
 }
 
 void StateMoon::player_update_speeds() {
-    // TODO extract speed calculations to share between classes
-    int direction_x = _player_inputs[_player_entity].is_held(PlayerInput::HOLD_RIGHT)
-            - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_LEFT);
-    int direction_y = _player_inputs[_player_entity].is_held(PlayerInput::HOLD_DOWN)
-            - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_UP);
+    _speeds[_player_entity].max_speed = _damage_cooldowns[_player_entity].ticks_passed_since_start(500)
+            ? 2.3f
+            : 1.0f;
+
+    auto& input = _player_inputs[_player_entity];
+    int direction_x = (input.is_held(PlayerInput::HOLD_RIGHT) ? 1 : 0)
+            - (input.is_held(PlayerInput::HOLD_LEFT) ? 1 : 0);
+    int direction_y = (input.is_held(PlayerInput::HOLD_DOWN) ? 1 : 0)
+            - (input.is_held(PlayerInput::HOLD_UP) ? 1 : 0);
 
     if (direction_x != 0 || direction_y != 0) {
         auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));

@@ -23,7 +23,7 @@ void PlayerInput::release(PlayerInput::HoldAction action) {
     }
 }
 
-bool PlayerInput::is_held(PlayerInput::HoldAction action) {
+bool PlayerInput::is_held(PlayerInput::HoldAction action) const {
     return action != HOLD_NONE && _hold_actions.test(action);
 }
 

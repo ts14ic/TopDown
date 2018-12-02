@@ -28,7 +28,7 @@ public:
 
     void release(HoldAction action);
 
-    bool is_held(HoldAction action);
+    bool is_held(HoldAction action) const;
 
     enum QuickAction : int {
         QUICK_NONE = -1,
