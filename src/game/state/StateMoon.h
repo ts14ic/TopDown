@@ -101,6 +101,8 @@ private:
 
     void gameobject_default_move(Entity entity);
 
+    void gameobject_reset_speed(Entity entity);
+
     void load_control_scheme(const char* control_scheme_file_name = "data/config.json");
 
     PlayerInput::HoldAction event_to_hold_action(const KeyboardEvent& event) const;

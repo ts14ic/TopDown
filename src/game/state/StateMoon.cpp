@@ -201,7 +201,7 @@ Entity StateMoon::create_bullet(const Transform& origin, const WeaponInventory& 
     const auto& weapon = inventory.get_selected();
     auto half_of_projectile_spread = weapon.get_projectile_spread() / 2;
     auto angle = origin.angle
-                 + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
+            + get_engine().get_random().get_float(-half_of_projectile_spread, half_of_projectile_spread);
     _transforms[entity] = Transform{
             make_point(
                     origin.position.x + math::cartesian_cos(angle) * weapon.get_length(),
@@ -237,7 +237,7 @@ void StateMoon::handle_logic() {
     Random& random = get_engine().get_random();
 
     if (_enemy_spawn_cooldown.ticks_passed_since_start(50) &&
-        (_zombie_ais.size() + _wolf_ais.size() < 7)) {
+            (_zombie_ais.size() + _wolf_ais.size() < 7)) {
         auto position = point_cast<float>(make_random_point());
         if (!random.get_bool()) {
             create_zombie(position);
@@ -294,9 +294,9 @@ void StateMoon::handle_player_logic() {
 void StateMoon::player_update_speeds() {
     // TODO extract speed calculations to share between classes
     int direction_x = _player_inputs[_player_entity].is_held(PlayerInput::HOLD_RIGHT)
-                      - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_LEFT);
+            - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_LEFT);
     int direction_y = _player_inputs[_player_entity].is_held(PlayerInput::HOLD_DOWN)
-                      - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_UP);
+            - _player_inputs[_player_entity].is_held(PlayerInput::HOLD_UP);
 
     if (direction_x != 0 || direction_y != 0) {
         auto movement_angle = math::get_radian_angle(make_point(0, 0), make_point(direction_x, direction_y));
@@ -306,7 +306,7 @@ void StateMoon::player_update_speeds() {
                 math::radian_sin(movement_angle) * _speeds[_player_entity].max_speed
         };
     } else {
-        _speeds[_player_entity].current_speed = {0.0f, 0.0f};
+        gameobject_reset_speed(_player_entity);
     }
 }
 
@@ -354,30 +354,21 @@ void StateMoon::handle_bullet_logic() {
 
     std::vector<Entity> destroyed_bullets;
     for (auto bullet_entity : _bullet_entities) {
-        Transform transform = _transforms[bullet_entity];
-        Speed speed = _speeds[bullet_entity];
-        auto bullet_damage = _melee_damages[bullet_entity];
+        gameobject_update_speeds(bullet_entity);
+        gameobject_default_move(bullet_entity);
 
-        // TODO extract speed setting
-        speed.current_speed = {
-                math::cartesian_cos(transform.angle) * speed.max_speed,
-                math::cartesian_sin(transform.angle) * speed.max_speed
-        };
-        transform.position = {
-                transform.position.x + speed.current_speed.x,
-                transform.position.y + speed.current_speed.y
-        };
-
+        auto& transform = _transforms[bullet_entity];
         if (position_out_of_level_area(transform.position)) {
             destroyed_bullets.push_back(bullet_entity);
             continue;
         }
 
+        auto bullet_damage = _melee_damages[bullet_entity];
         for (auto& zombie : _zombie_ais) {
             auto entity = zombie.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle()) &&
-                _vitality[entity].current_hp > 0) {
+                    _vitality[entity].current_hp > 0) {
                 zombie_take_damage(entity, bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
                 continue;
@@ -387,7 +378,7 @@ void StateMoon::handle_bullet_logic() {
             auto entity = werewolf.first;
 
             if (circles_collide(transform.get_circle(), _transforms[entity].get_circle())
-                && _vitality[entity].current_hp > 0) {
+                    && _vitality[entity].current_hp > 0) {
                 werewolf_take_damage(entity, bullet_damage);
                 Log::d("werewolf takes %d damage, bullet destroyed", bullet_damage);
                 destroyed_bullets.push_back(bullet_entity);
@@ -397,9 +388,6 @@ void StateMoon::handle_bullet_logic() {
                 werewolf_teleport(entity, random);
             }
         }
-
-        _speeds[bullet_entity].current_speed = speed.current_speed;
-        _transforms[bullet_entity].position = transform.position;
     }
     for (auto entity : destroyed_bullets) {
         remove_entity(entity);
@@ -504,7 +492,7 @@ void StateMoon::zombie_set_target(Entity entity, Point2d<float> position) {
 
 void StateMoon::zombie_handle_logic(Entity entity) {
     if (_zombie_ais[entity].is_dying()) {
-        _speeds[entity].current_speed = {0.0f, 0.0f};
+        gameobject_reset_speed(entity);
         return;
     }
 
@@ -512,7 +500,7 @@ void StateMoon::zombie_handle_logic(Entity entity) {
         gameobject_update_speeds(entity);
         gameobject_default_move(entity);
     } else {
-        _speeds[entity].current_speed = {0.0f, 0.0f};
+        gameobject_reset_speed(entity);
     }
 }
 
@@ -532,6 +520,10 @@ void StateMoon::gameobject_default_move(Entity entity) {
             transform.position.x + speed.current_speed.x,
             transform.position.y + speed.current_speed.y
     };
+}
+
+void StateMoon::gameobject_reset_speed(Entity entity) {
+    _speeds[entity].current_speed = {0.0f, 0.0f};
 }
 
 bool StateMoon::zombie_is_dead(Entity entity) {
@@ -593,7 +585,7 @@ void StateMoon::werewolf_set_target(Entity entity, const Point2d<float>& positio
 
 void StateMoon::werewolf_handle_logic(Entity entity) {
     if (_wolf_ais[entity].is_dying()) {
-        _speeds[entity].current_speed = {0.0f, 0.0f};
+        gameobject_reset_speed(entity);
         return;
     }
 
@@ -601,7 +593,7 @@ void StateMoon::werewolf_handle_logic(Entity entity) {
         gameobject_update_speeds(entity);
         gameobject_default_move(entity);
     } else {
-        _speeds[entity].current_speed = {0.0f, 0.0f};
+        gameobject_reset_speed(entity);
     }
 
     if (_wolf_ais[entity].is_attacking() && _wolf_ais[entity].must_reset_attack()) {
@@ -611,7 +603,7 @@ void StateMoon::werewolf_handle_logic(Entity entity) {
 
 bool StateMoon::position_out_of_level_area(Point2d<float> position) const {
     return (position.x > _level_width) || (position.x < 0) ||
-           (position.y > _level_height) || (position.y < 0);
+            (position.y > _level_height) || (position.y < 0);
 }
 
 Point2d<int> StateMoon::make_random_point() const {
@@ -714,9 +706,9 @@ void StateMoon::gameobject_handle_render_health(Entity entity, Color color, floa
         health_box.set_size(50.f * _vitality[entity].current_hp / _vitality[entity].default_hp, 5.f);
         health_box.set_left_top(
                 _transforms[entity].position.x - health_box.get_width() / 2 +
-                _speeds[entity].current_speed.x * frames_count,
+                        _speeds[entity].current_speed.x * frames_count,
                 _transforms[entity].position.y - _transforms[entity].get_circle().get_radius() +
-                _speeds[entity].current_speed.y * frames_count
+                        _speeds[entity].current_speed.y * frames_count
         );
 
         get_engine().get_graphic().render_box(health_box, color);
