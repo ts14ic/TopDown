@@ -455,14 +455,11 @@ void StateMoon::handle_zombie_logic() {
         zombie_handle_logic(entity);
 
         if (circles_collide(_transforms[entity].get_circle(), _transforms[_player_entity].get_circle())) {
-            // TODO: Don't depend on animation
-            int damage;
-            if (_zombie_ais[entity].is_attacking() && _sprites[entity].is_last_frame()) {
-                damage = _melee_damages[entity];
-            } else {
-                damage = 0;
+            if (_zombie_ais[entity].is_attacking() && _zombie_ais[entity].can_deal_damage()) {
+                int damage = _melee_damages[entity];
+                player_take_damage(_player_entity, damage);
+
             }
-            player_take_damage(_player_entity, damage);
         }
 
         if (zombie_is_dead(entity)) {
@@ -503,16 +500,22 @@ void StateMoon::zombie_set_target(Entity entity, Point2d<float> position) {
 }
 
 void StateMoon::zombie_handle_logic(Entity entity) {
-    if (_zombie_ais[entity].is_dying()) {
+    auto& ai = _zombie_ais[entity];
+
+    if (ai.is_dying()) {
         gameobject_reset_speed(entity);
         return;
     }
 
-    if (_zombie_ais[entity].is_moving()) {
+    if (ai.is_moving()) {
         gameobject_update_speeds(entity);
         gameobject_default_move(entity);
     } else {
         gameobject_reset_speed(entity);
+    }
+    
+    if (ai.is_attacking() && ai.must_reset_attack()) {
+        ai.reset_attack();
     }
 }
 
@@ -552,15 +555,11 @@ void StateMoon::handle_werewolf_logic() {
         werewolf_handle_logic(entity);
 
         if (circles_collide(_transforms[entity].get_circle(), _transforms[_player_entity].get_circle())) {
-            int damage;
             if (_wolf_ais[entity].is_attacking() && _wolf_ais[entity].can_deal_damage()) {
-                damage = 10;
-
-            } else {
-                damage = 0;
+                int damage = 10;
+                player_take_damage(_player_entity, damage);
 
             }
-            player_take_damage(_player_entity, damage);
         }
 
         if (_vitality[entity].current_hp <= 0 && _sprites[entity].is_animation_ended()) {

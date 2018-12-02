@@ -34,7 +34,7 @@ public:
     }
 
     bool must_reset_attack() const {
-        return _attack_cooldown.get_ticks_since_start() >= 800;
+        return _attack_cooldown.ticks_passed_since_start(800);
     }
 
     bool is_teleporting() const {
