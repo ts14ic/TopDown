@@ -648,7 +648,7 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
         auto& sprite = entry.second;
 
         gameobject_handle_render(/*entity*/entity, frames_passed);
-        sprite.update();
+        sprite.update(milliseconds_passed);
     }
     for (auto& vitality : _vitality) {
         // TODO: check for sprite presence

@@ -19,7 +19,7 @@ namespace animation {
 
         virtual bool is_animation_ended() const = 0;
 
-        virtual void update() = 0;
+        virtual void update(float milliseconds_passed) = 0;
     };
 
     class StaticAnimation : public Animation {
@@ -34,7 +34,7 @@ namespace animation {
 
         bool is_animation_ended() const override;
 
-        void update() override;
+        void update(float milliseconds_passed) override;
 
         std::unique_ptr<Animation> clone() const override;
 
@@ -54,7 +54,7 @@ namespace animation {
 
         bool is_animation_ended() const override;
 
-        void update() override;
+        void update(float milliseconds_passed) override;
 
         std::unique_ptr<Animation> clone() const override;
 
@@ -80,7 +80,7 @@ namespace animation {
 
         bool is_animation_ended() const override;
 
-        void update() override;
+        void update(float milliseconds_passed) override;
 
         std::unique_ptr<Animation> clone() const override;
 
@@ -137,8 +137,8 @@ public:
         return _animation->is_animation_ended();
     }
 
-    void update() {
-        _animation->update();
+    void update(float milliseconds_passed) {
+        _animation->update(milliseconds_passed);
     }
 
 private:
