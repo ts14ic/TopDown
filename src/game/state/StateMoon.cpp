@@ -273,14 +273,11 @@ void StateMoon::handle_player_logic() {
 
     player_handle_weapon_selection(_player_entity);
 
-    // TODO Make the timer store a pointer to clock
-    // TODO AFTER Move the condition inside the getter
     _speeds[_player_entity].max_speed = _damage_cooldowns[_player_entity].ticks_passed_since_start(500)
             ? 2.3f
             : 1.0f;
 
     player_update_speeds();
-
     gameobject_default_move(_player_entity);
 
     // TODO don't try to reload on every frame
