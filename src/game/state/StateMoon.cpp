@@ -284,10 +284,7 @@ void StateMoon::handle_player_logic() {
     _weapon_inventories[_player_entity].try_reload_selected();
 
     if (_player_inputs[_player_entity].is_held(PlayerInput::HOLD_TRIGGER)) {
-        auto projectiles_shot = _weapon_inventories[_player_entity].fire_from_selected(
-                get_engine(),
-                _transforms[_player_entity]
-        );
+        auto projectiles_shot = _weapon_inventories[_player_entity].fire_from_selected(get_engine().get_audio());
         for (int i = 0; i < projectiles_shot; ++i) {
             create_bullet(_transforms[_player_entity], _weapon_inventories[_player_entity]);
         }

@@ -14,7 +14,7 @@ class Weapon {
 public:
     explicit Weapon(const WeaponBuilder& builder);
 
-    int pull_trigger(Engine& engine);
+    int pull_trigger(Audio& audio);
 
     void try_reload();
 

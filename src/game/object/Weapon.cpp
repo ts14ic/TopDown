@@ -32,9 +32,9 @@ void Weapon::play_fire_sound(Audio& audio) {
     }
 }
 
-int Weapon::pull_trigger(Engine& engine) {
+int Weapon::pull_trigger(Audio& audio) {
     if (_fire_cooldown_timer.ticks_passed_since_start(_fire_cooldown) && _current_ammo > 0) {
-        play_fire_sound(engine.get_audio());
+        play_fire_sound(audio);
 
         --_current_ammo;
         Log::d("shot from %s, ammo [%d/%d]", _name.c_str(), _current_ammo, _max_ammo);

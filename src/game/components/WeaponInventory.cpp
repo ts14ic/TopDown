@@ -29,9 +29,9 @@ void WeaponInventory::try_reload_selected() {
     }
 }
 
-int WeaponInventory::fire_from_selected(Engine& engine, Transform& origin) {
+int WeaponInventory::fire_from_selected(Audio& audio) {
     if (!empty()) {
-        return get_selected_mut().pull_trigger(engine);
+        return get_selected_mut().pull_trigger(audio);
     } else {
         return 0;
     }

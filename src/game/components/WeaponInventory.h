@@ -25,7 +25,7 @@ public:
 
     void try_reload_selected();
 
-    int fire_from_selected(Engine& engine, Transform& origin);
+    int fire_from_selected(Audio& audio);
 
     Weapon& get_selected_mut() { return _weapons[_selected_weapon_index]; }
 
