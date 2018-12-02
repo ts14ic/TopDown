@@ -24,10 +24,6 @@ public:
         return is_state(AI_ATTACKING);
     }
 
-    void restart_attack() {
-        _attack_cooldown.restart();
-    }
-
     bool can_deal_damage() const {
         auto attack_time = _attack_cooldown.get_ticks_since_start();
         return (attack_time >= 300 and attack_time < 400) or (attack_time >= 700 and attack_time < 800);
@@ -35,6 +31,10 @@ public:
 
     bool must_reset_attack() const {
         return _attack_cooldown.ticks_passed_since_start(800);
+    }
+
+    void restart_attack() {
+        _attack_cooldown.restart();
     }
 
     bool is_teleporting() const {
@@ -49,7 +49,7 @@ public:
         return _teleport_cooldown.ticks_passed_since_start(1000);
     }
 
-    void teleport_restart() {
+    void restart_teleport() {
         _teleport_cooldown.restart();
     }
 

@@ -428,7 +428,7 @@ void StateMoon::werewolf_teleport(Entity entity, const Random& random) {
                 _transforms[entity].position.y + random.get_int(-150, 150)
         );
         _wolf_ais[entity].set_state(WolfAi::AI_TELEPORTING);
-        _wolf_ais[entity].teleport_restart();
+        _wolf_ais[entity].restart_teleport();
         _sprites[entity].set_state(animation::WOLF_TELEPORT);
     }
 }
