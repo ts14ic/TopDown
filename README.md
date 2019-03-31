@@ -7,4 +7,4 @@ Use vcpkg to install following packages:
 * libjpeg-turbo
 * rapidjson
 
-To compile mpg123, yasm install is needed.  
+To compile mpg123, system-wide yasm compiler installation is needed.
