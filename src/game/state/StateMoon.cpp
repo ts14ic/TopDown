@@ -32,10 +32,6 @@ void StateMoon::handle_mouse_event(const MouseScrollEvent& event) {
 }
 
 void StateMoon::handle_mouse_event(const MousePointEvent& event) {
-    if (event.get_type() == MousePointEvent::Type::MOTION) {
-        _mouse_pos = event.get_position();
-    }
-
     _player.handle_mouse_event(event);
 }
 
@@ -217,13 +213,15 @@ void StateMoon::handle_render(float milliseconds_passed, float milliseconds_per_
 
 void StateMoon::render_crosshair(float frames_count) {
     Graphic& graphic = get_engine().get_graphic();
+    Input& input = get_engine().get_input();
 
     auto texture = graphic.get_texture(_player.is_reloading()
-                                               ? "reload"
-                                               : "crosshair");
+            ? "reload"
+            : "crosshair");
+    auto mouse_position = input.get_mouse_pos();
     auto render_point = make_point(
-            _mouse_pos.x - texture.get_size().get_width() / 2,
-            _mouse_pos.y - texture.get_size().get_height() / 2
+            mouse_position.x - texture.get_size().get_width() / 2,
+            mouse_position.y - texture.get_size().get_height() / 2
     );
 
     _crosshair_angle += 5.f * frames_count;

@@ -8,6 +8,10 @@ void SdlInput::remove_event_handler() {
     _event_handler = nullptr;
 }
 
+Point2d<int> SdlInput::get_mouse_pos() const {
+    return Point2d<int>();
+}
+
 void SdlInput::poll_events() {
     SDL_Event event{};
     while (SDL_PollEvent(&event)) {
@@ -28,9 +32,10 @@ void SdlInput::poll_events() {
             }
 
             case SDL_MOUSEMOTION: {
+                _mouse_position = make_point(event.motion.x, event.motion.y);
                 forward_mouse_event(MousePointEvent{
                         MousePointEvent::Type::MOTION,
-                        make_point(event.motion.x, event.motion.y)
+                        _mouse_position
                 });
                 break;
             }

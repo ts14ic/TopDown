@@ -11,4 +11,6 @@ public:
     virtual void remove_event_handler() = 0;
 
     virtual void poll_events() = 0;
+
+    virtual Point2d<int> get_mouse_pos() const = 0;
 };

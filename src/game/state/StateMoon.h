@@ -22,8 +22,6 @@ public:
 
     void handle_logic() override;
 
-    void restrict_pos(GameObject&);
-
     void handle_render(float milliseconds_passed, float milliseconds_per_frame) override;
 
 private:
@@ -39,6 +37,8 @@ private:
 
     void handle_werewolf_logic();
 
+    void restrict_pos(GameObject&);
+
     void parse_level_data();
 
     Point2d<int> make_random_point() const;
@@ -52,13 +52,12 @@ private:
     std::string _background_tex;
     const int _level_width;
     const int _level_height;
-    Point2d<int> _mouse_pos;
 
     Player _player;
     std::vector<Bullet> _bullets;
     std::vector<Zombie> _zombies;
     std::vector<Werewolf> _werewolves;
-    float _crosshair_angle;
+    float _crosshair_angle = 0;
 
     Timer _enemy_spawn_cooldown;
 };
