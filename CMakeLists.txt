@@ -4,14 +4,6 @@ project(TopDown)
 set(CMAKE_CXX_STANDARD 17)
 # GCC specific
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -pedantic")
-
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-include(FindPackageHandleStandardArgs)
-find_package(SDL2 CONFIG REQUIRED)
-find_package(SDL2-image CONFIG REQUIRED)
-find_package(SDL2-mixer CONFIG REQUIRED)
-find_package(RapidJSON CONFIG REQUIRED)
-
 set(SOURCE_FILES
         src/main.cpp
         src/io/json/json.h src/io/json/json.cpp src/io/json/json.tcc
@@ -86,10 +78,18 @@ set(SOURCE_FILES
         src/utils/typedefs.h)
 
 add_executable(TopDown ${SOURCE_FILES})
+
+include(FindPackageHandleStandardArgs)
+find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2-image CONFIG REQUIRED)
+find_package(SDL2-mixer CONFIG REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
+
 target_include_directories(TopDown
         PRIVATE
         ${PROJECT_SOURCE_DIR}/src
         ${RAPIDJSON_INCLUDE_DIRS})
+
 target_link_libraries(TopDown
         PRIVATE
         mpg123
