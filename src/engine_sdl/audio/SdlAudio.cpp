@@ -8,6 +8,9 @@ SdlAudio::SdlAudio() = default;
 SdlAudio::~SdlAudio() = default;
 
 void SdlAudio::init() {
+    if (!Mix_Init(MIX_INIT_MP3)) {
+        throw FailedAudioInitException{Mix_GetError()};
+    }
     if (0 != Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)) {
         throw FailedAudioInitException{Mix_GetError()};
     }

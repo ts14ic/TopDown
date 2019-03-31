@@ -6,17 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -pedantic")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_mixer REQUIRED)
-find_package(RapidJSON REQUIRED)
-include_directories(
-        ${PROJECT_SOURCE_DIR}/src
-        ${SDL2_INCLUDE_DIR}
-        ${SDL2_IMAGE_INCLUDE_DIRS}
-        ${SDL2_MIXER_INCLUDE_DIRS}
-        ${RapidJSON_INCLUDE_DIRS}
-)
+include(FindPackageHandleStandardArgs)
+find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2-image CONFIG REQUIRED)
+find_package(SDL2-mixer CONFIG REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
 
 set(SOURCE_FILES
         src/main.cpp
@@ -92,7 +86,14 @@ set(SOURCE_FILES
         src/utils/typedefs.h)
 
 add_executable(TopDown ${SOURCE_FILES})
+target_include_directories(TopDown
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/src
+        ${RAPIDJSON_INCLUDE_DIRS})
 target_link_libraries(TopDown
-        ${SDL2_LIBRARY}
-        ${SDL2_IMAGE_LIBRARIES}
-        ${SDL2_MIXER_LIBRARIES})
+        PRIVATE
+        mpg123
+        SDL2::SDL2main
+        SDL2::SDL2-static
+        SDL2::SDL2_mixer
+        SDL2::SDL2_image)
